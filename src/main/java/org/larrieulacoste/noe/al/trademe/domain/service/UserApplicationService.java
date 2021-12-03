@@ -29,7 +29,7 @@ public final class UserApplicationService {
 
         if (Boolean.TRUE.equals(userValidationService.isUserValid(user))) {
             userRepository.save(user);
-            eventBus.send(UserApplicationEvent.withUserAndAmount(user, amount));
+            eventBus.publish(UserApplicationEvent.withUserAndAmount(user, amount));
         } else {
             throw new UserInvalidException("Invalid user : " + user);
         }

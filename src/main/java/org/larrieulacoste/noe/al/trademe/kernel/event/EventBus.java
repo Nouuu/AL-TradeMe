@@ -1,7 +1,13 @@
 package org.larrieulacoste.noe.al.trademe.kernel.event;
 
-public interface EventBus<E extends Event<?>> {
-    void send(E event);
+import java.util.List;
 
-    void registerSubscriber(EventSubscriber<E> eventSubscriber);
+public interface EventBus<E extends Event<?>> {
+    void publish(E event);
+
+//    void registerSubscriber(EventSubscriber<E> eventSubscriber);
+
+    void register(Class<? extends E> eventClass, EventSubscriber<? extends E> eventSubscriber);
+
+    void registerMultipleSubscribers(Class<? extends E> eventClass, List<EventSubscriber<? extends E>> eventSubscribers);
 }
