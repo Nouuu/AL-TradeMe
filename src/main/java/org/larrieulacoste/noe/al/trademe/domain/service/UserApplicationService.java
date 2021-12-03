@@ -1,8 +1,8 @@
 package org.larrieulacoste.noe.al.trademe.domain.service;
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.domain.event.EventBus;
-import org.larrieulacoste.noe.al.trademe.domain.event.UserApplicationEvent;
+import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
+import org.larrieulacoste.noe.al.trademe.application.UserApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.domain.exception.UserInvalidException;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;

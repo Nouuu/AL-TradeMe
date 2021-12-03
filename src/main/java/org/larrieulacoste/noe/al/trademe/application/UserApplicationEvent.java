@@ -1,6 +1,7 @@
-package org.larrieulacoste.noe.al.trademe.domain.event;
+package org.larrieulacoste.noe.al.trademe.application;
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
+import org.larrieulacoste.noe.al.trademe.kernel.event.Event;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;

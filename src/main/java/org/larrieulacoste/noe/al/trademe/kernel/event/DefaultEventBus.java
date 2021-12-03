@@ -1,8 +1,5 @@
-package org.larrieulacoste.noe.al.trademe.infrastructure.event;
+package org.larrieulacoste.noe.al.trademe.kernel.event;
 
-import org.larrieulacoste.noe.al.trademe.domain.event.Event;
-import org.larrieulacoste.noe.al.trademe.domain.event.EventBus;
-import org.larrieulacoste.noe.al.trademe.domain.event.Subscriber;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 
@@ -12,11 +9,11 @@ import java.util.Objects;
 
 public class DefaultEventBus<E extends Event<?>> implements EventBus<E> {
 
-    private final List<Subscriber<E>> subscribers;
+    private final List<EventSubscriber<E>> eventSubscribers;
     private final Logger logger;
 
     public DefaultEventBus(LoggerFactory loggerFactory) {
-        this.subscribers = new ArrayList<>();
+        this.eventSubscribers = new ArrayList<>();
         this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
     }
 
@@ -27,17 +24,17 @@ public class DefaultEventBus<E extends Event<?>> implements EventBus<E> {
         if (event == null) {
             throw new NullPointerException("Event is null !");
         }
-        if (subscribers.isEmpty()) {
+        if (eventSubscribers.isEmpty()) {
             throw new IllegalStateException("No subscriber for " + event.getClass().getSimpleName());
         }
 
-        subscribers.forEach(subscriber -> subscriber.accept(event));
+        eventSubscribers.forEach(eventSubscriber -> eventSubscriber.accept(event));
     }
 
     @Override
-    public void registerSubscriber(Subscriber<E> givenSubscriber) {
-        if (givenSubscriber != null && !subscribers.contains(givenSubscriber)) {
-            subscribers.add(givenSubscriber);
+    public void registerSubscriber(EventSubscriber<E> givenEventSubscriber) {
+        if (givenEventSubscriber != null && !eventSubscribers.contains(givenEventSubscriber)) {
+            eventSubscribers.add(givenEventSubscriber);
         }
     }
 }

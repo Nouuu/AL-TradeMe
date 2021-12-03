@@ -2,12 +2,12 @@ package org.larrieulacoste.noe.al.trademe;
 
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.domain.event.UserApplicationEvent;
+import org.larrieulacoste.noe.al.trademe.application.UserApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.domain.service.PaymentService;
 import org.larrieulacoste.noe.al.trademe.domain.service.UserApplicationService;
 import org.larrieulacoste.noe.al.trademe.domain.service.UserValidationService;
 import org.larrieulacoste.noe.al.trademe.infrastructure.api.StubPaymentApi;
-import org.larrieulacoste.noe.al.trademe.infrastructure.event.DefaultEventBus;
+import org.larrieulacoste.noe.al.trademe.kernel.event.DefaultEventBus;
 import org.larrieulacoste.noe.al.trademe.infrastructure.logger.DefaultLoggerFactory;
 import org.larrieulacoste.noe.al.trademe.infrastructure.repository.InMemoryUserRepository;
 

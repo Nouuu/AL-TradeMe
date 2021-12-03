@@ -2,15 +2,15 @@ package org.larrieulacoste.noe.al.trademe.domain.service;
 
 import org.larrieulacoste.noe.al.trademe.domain.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.domain.event.Subscriber;
-import org.larrieulacoste.noe.al.trademe.domain.event.UserApplicationEvent;
+import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
+import org.larrieulacoste.noe.al.trademe.application.UserApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.domain.exception.PaymentException;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 
 import java.util.Objects;
 
-public class PaymentService implements Subscriber<UserApplicationEvent> {
+public class PaymentService implements EventSubscriber<UserApplicationEvent> {
     private final Logger logger;
     private final PaymentAPI paymentAPI;
 
