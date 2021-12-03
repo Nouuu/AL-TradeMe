@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.larrieulacoste.noe.al</groupId>
-    <artifactId>CC1</artifactId>
-    <version>0.1</version>
+    <artifactId>TradeMe</artifactId>
+    <version>0.2</version>
 
-    <name>CC1</name>
+    <name>TradeMe</name>
 
 
     <properties>
