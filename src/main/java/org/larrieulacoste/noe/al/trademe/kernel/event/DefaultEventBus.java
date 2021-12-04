@@ -3,16 +3,11 @@ package org.larrieulacoste.noe.al.trademe.kernel.event;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
-public class DefaultEventBus<E extends Event<?>> implements EventBus<E> {
+public class DefaultEventBus<E extends Event> implements EventBus<E> {
 
-    //    private final List<EventSubscriber<E>> eventSubscribers;
     private final Map<Class<? extends E>, List<EventSubscriber<? extends E>>> associatedSubscribers = new HashMap<>();
-
     private final Logger logger;
 
     public DefaultEventBus(LoggerFactory loggerFactory) {
@@ -39,22 +34,31 @@ public class DefaultEventBus<E extends Event<?>> implements EventBus<E> {
         eventSubscribers.forEach(eventSubscriber -> ((EventSubscriber) eventSubscriber).accept(event));
     }
 
-/*
-    @Override
-    public void registerSubscriber(EventSubscriber<E> givenEventSubscriber) {
-        if (givenEventSubscriber != null && !eventSubscribers.contains(givenEventSubscriber)) {
-            eventSubscribers.add(givenEventSubscriber);
-        }
-    }
-*/
-
     @Override
     public void register(Class<? extends E> eventClass, EventSubscriber<? extends E> eventSubscriber) {
+        List<EventSubscriber<? extends E>> subscribers =
+                associatedSubscribers.computeIfAbsent(Objects.requireNonNull(eventClass), k -> new ArrayList<>());
 
+        if (!subscribers.contains(Objects.requireNonNull(eventSubscriber))) {
+            subscribers.add(eventSubscriber);
+        }
+    }
+
+    @Override
+    public void unregister(Class<? extends E> eventClass, EventSubscriber<? extends E> eventSubscriber) {
+        List<EventSubscriber<? extends E>> subscribers = associatedSubscribers.get(Objects.requireNonNull(eventClass));
+        if (subscribers != null) {
+            subscribers.remove(Objects.requireNonNull(eventSubscriber));
+        }
     }
 
     @Override
     public void registerMultipleSubscribers(Class<? extends E> eventClass, List<EventSubscriber<? extends E>> eventSubscribers) {
+        Objects.requireNonNull(eventSubscribers).forEach(eventSubscriber -> register(eventClass, eventSubscriber));
+    }
 
+    @Override
+    public void unregisterMultipleSubscribers(Class<? extends E> eventClass, List<EventSubscriber<? extends E>> eventSubscribers) {
+        Objects.requireNonNull(eventSubscribers).forEach(eventSubscriber -> unregister(eventClass, eventSubscriber));
     }
 }

@@ -4,11 +4,10 @@ import org.larrieulacoste.noe.al.trademe.application.EventId;
 
 import java.time.ZonedDateTime;
 
-public interface Event<T> {
+public interface Event {
 
     EventId getId();
 
     ZonedDateTime getOccurredDate();
 
-    T getItem();
 }
