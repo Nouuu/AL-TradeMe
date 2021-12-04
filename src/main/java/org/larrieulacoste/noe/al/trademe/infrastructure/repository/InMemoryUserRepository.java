@@ -2,7 +2,7 @@ package org.larrieulacoste.noe.al.trademe.infrastructure.repository;
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.domain.model.UserId;
-import org.larrieulacoste.noe.al.trademe.domain.exception.UserNotFoundException;
+import org.larrieulacoste.noe.al.trademe.application.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.domain.repository.UserRepository;
@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class InMemoryUserRepository implements UserRepository {
+public final class InMemoryUserRepository implements UserRepository {
     private final AtomicInteger counter = new AtomicInteger(0);
     private final Map<UserId, User> data = new ConcurrentHashMap<>();
     private final Logger logger;

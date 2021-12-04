@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public class NewTradesmanApplicative implements ApplicationEvent {
+public final class NewTradesmanApplicative implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
@@ -49,5 +49,27 @@ public class NewTradesmanApplicative implements ApplicationEvent {
                 ", occurredDate=" + occurredDate +
                 ", user=" + user +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NewTradesmanApplicative)) return false;
+
+        NewTradesmanApplicative that = (NewTradesmanApplicative) o;
+
+        if (!eventId.equals(that.eventId)) return false;
+        if (!occurredDate.equals(that.occurredDate)) return false;
+        if (!user.equals(that.user)) return false;
+        return amount.equals(that.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = eventId.hashCode();
+        result = 31 * result + occurredDate.hashCode();
+        result = 31 * result + user.hashCode();
+        result = 31 * result + amount.hashCode();
+        return result;
     }
 }

@@ -21,4 +21,19 @@ public final class EventId {
                 "value='" + value + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EventId)) return false;
+
+        EventId eventId = (EventId) o;
+
+        return value.equals(eventId.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }

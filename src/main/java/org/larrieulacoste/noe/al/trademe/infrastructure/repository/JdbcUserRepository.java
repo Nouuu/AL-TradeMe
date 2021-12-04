@@ -1,14 +1,14 @@
 package org.larrieulacoste.noe.al.trademe.infrastructure.repository;
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.domain.model.UserId;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
+import org.larrieulacoste.noe.al.trademe.domain.model.UserId;
 import org.larrieulacoste.noe.al.trademe.domain.repository.UserRepository;
 
 import java.util.Objects;
 
-public class JdbcUserRepository implements UserRepository {
+public final class JdbcUserRepository implements UserRepository {
     private static final String NOT_YET_IMPLEMENTED_MESSAGE = "Not yet implemented";
     private final Logger logger;
 

@@ -1,15 +1,15 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
-import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidEmailException;
+import org.larrieulacoste.noe.al.trademe.application.exception.InvalidEmailException;
 
 import java.util.Objects;
 
-public class EmailAddress {
+public final class EmailAddress {
     private final String emailAddressString;
-    private static final String emailRegex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
     private EmailAddress(String emailAddressString) {
-        if (!Objects.requireNonNull(emailAddressString).matches(emailRegex)) {
+        if (!Objects.requireNonNull(emailAddressString).matches(EMAIL_REGEX)) {
             throw new InvalidEmailException("Invalid email : " + emailAddressString);
         }
         this.emailAddressString = emailAddressString;

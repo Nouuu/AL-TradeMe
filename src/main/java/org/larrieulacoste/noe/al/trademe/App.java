@@ -7,7 +7,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.domain.model.Password;
 import org.larrieulacoste.noe.al.trademe.domain.service.PaymentService;
-import org.larrieulacoste.noe.al.trademe.domain.service.UserApplicationService;
+import org.larrieulacoste.noe.al.trademe.features.tradesman_application.service.UserApplicationService;
 import org.larrieulacoste.noe.al.trademe.domain.service.UserValidationService;
 import org.larrieulacoste.noe.al.trademe.infrastructure.api.StubPaymentApi;
 import org.larrieulacoste.noe.al.trademe.infrastructure.logger.DefaultLoggerFactory;

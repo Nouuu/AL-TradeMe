@@ -1,9 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
 import org.apache.commons.lang3.StringUtils;
-import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidPasswordException;
+import org.larrieulacoste.noe.al.trademe.application.exception.InvalidPasswordException;
 
-public class Password {
+public final class Password {
     private final String passwordString;
 
     private Password(String passwordString) {

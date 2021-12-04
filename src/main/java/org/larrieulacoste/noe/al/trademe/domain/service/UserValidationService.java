@@ -7,7 +7,7 @@ import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 
 import java.util.Objects;
 
-public class UserValidationService {
+public final class UserValidationService {
     private final Logger logger;
 
     public UserValidationService(LoggerFactory loggerFactory) {

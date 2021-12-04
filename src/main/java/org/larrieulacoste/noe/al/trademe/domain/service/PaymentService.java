@@ -3,14 +3,14 @@ package org.larrieulacoste.noe.al.trademe.domain.service;
 import org.larrieulacoste.noe.al.trademe.application.NewTradesmanApplicative;
 import org.larrieulacoste.noe.al.trademe.domain.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.domain.exception.PaymentException;
+import org.larrieulacoste.noe.al.trademe.application.exception.PaymentException;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 import java.util.Objects;
 
-public class PaymentService implements EventSubscriber<NewTradesmanApplicative> {
+public final class PaymentService implements EventSubscriber<NewTradesmanApplicative> {
     private final Logger logger;
     private final PaymentAPI paymentAPI;
 
