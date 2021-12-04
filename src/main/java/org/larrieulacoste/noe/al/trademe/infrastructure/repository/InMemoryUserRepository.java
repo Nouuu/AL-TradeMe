@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.infrastructure.repository;
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.domain.entity.UserId;
+import org.larrieulacoste.noe.al.trademe.domain.model.UserId;
 import org.larrieulacoste.noe.al.trademe.domain.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
