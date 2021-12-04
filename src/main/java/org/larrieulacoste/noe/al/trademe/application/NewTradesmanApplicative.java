@@ -6,22 +6,22 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public class NewTradesmanApplicated implements ApplicationEvent {
+public class NewTradesmanApplicative implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     private final User user;
     private final Double amount;
 
-    private NewTradesmanApplicated(EventId eventId, ZonedDateTime occurredDate, User user, Double amount) {
+    private NewTradesmanApplicative(EventId eventId, ZonedDateTime occurredDate, User user, Double amount) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.user = Objects.requireNonNull(user);
         this.amount = amount;
     }
 
-    public static NewTradesmanApplicated withUserAndAmount(User user, Double amount) {
-        return new NewTradesmanApplicated(EventId.create(), ZonedDateTime.now(), user, amount);
+    public static NewTradesmanApplicative withUserAndAmount(User user, Double amount) {
+        return new NewTradesmanApplicative(EventId.create(), ZonedDateTime.now(), user, amount);
     }
 
     @Override
