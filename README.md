@@ -1,4 +1,4 @@
-| [![github](https://img.shields.io/badge/repository-github-blue)](https://github.com/Nouuu/AL-CC1) | [![wakatime](https://wakatime.com/badge/user/3106fbc8-c1fe-4d47-b9ce-b0514ce3fb3d/project/19997bda-72d3-4311-b5b1-f9552652206a.svg)](https://wakatime.com/@Nou/projects/wfgcsnffzh?start=2021-11-14&end=2021-11-20) |
+| [![github](https://img.shields.io/badge/repository-github-blue)](https://github.com/Nouuu/AL-TradeMe) | [![wakatime](https://wakatime.com/badge/user/3106fbc8-c1fe-4d47-b9ce-b0514ce3fb3d/project/945bfe6c-4742-4cbe-896d-b9b5692afeca.svg)](https://wakatime.com/@Nou/projects/aqygjxcins) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 # Architecture choisie
