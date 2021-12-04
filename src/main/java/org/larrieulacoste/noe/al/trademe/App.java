@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe;
 
 
-import org.larrieulacoste.noe.al.trademe.application.UserApplicationEvent;
+import org.larrieulacoste.noe.al.trademe.application.NewTradesmanApplicative;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.domain.service.PaymentService;
 import org.larrieulacoste.noe.al.trademe.domain.service.UserApplicationService;
@@ -24,7 +24,7 @@ public class App {
         var userApplicationService = new UserApplicationService(applicationEventBus, loggerFactory, userRepository, userValidationService);
         var paymentService = new PaymentService(loggerFactory, paymentAPI);
 
-        applicationEventBus.register(UserApplicationEvent.class, paymentService);
+        applicationEventBus.register(NewTradesmanApplicative.class, paymentService);
 
         var user = User.of(userRepository.nextId(), "larrieu", "noé", "noe@mail.com", "changeme123", "1111-3323-5555");
         userApplicationService.applyForMembership(user, -1.);
