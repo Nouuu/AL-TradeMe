@@ -1,12 +1,12 @@
 package org.larrieulacoste.noe.al.trademe.application;
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.kernel.event.Event;
+import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public class UserApplicationEvent implements Event<User> {
+public class UserApplicationEvent implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
@@ -34,8 +34,7 @@ public class UserApplicationEvent implements Event<User> {
         return occurredDate;
     }
 
-    @Override
-    public User getItem() {
+    public User getUser() {
         return user;
     }
 
