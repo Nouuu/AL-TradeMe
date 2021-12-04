@@ -1,13 +1,14 @@
 package org.larrieulacoste.noe.al.trademe.application;
 
+import java.util.Objects;
 import java.util.UUID;
 
-public class EventId {
+public final class EventId {
 
     private final String value;
 
     private EventId(String value) {
-        this.value = value;
+        this.value = Objects.requireNonNull(value);
     }
 
     public static EventId create() {
