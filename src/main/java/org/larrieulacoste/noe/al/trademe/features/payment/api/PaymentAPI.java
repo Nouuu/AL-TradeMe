@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.domain.api;
+package org.larrieulacoste.noe.al.trademe.features.payment.api;
 
 public interface PaymentAPI {
     Boolean pay(String bankAccount, Double amount);

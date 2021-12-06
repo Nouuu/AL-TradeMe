@@ -1,11 +1,11 @@
-package org.larrieulacoste.noe.al.trademe.infrastructure.repository;
+package org.larrieulacoste.noe.al.trademe.features.member_storage.infrastructure;
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.domain.model.UserId;
 import org.larrieulacoste.noe.al.trademe.application.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
-import org.larrieulacoste.noe.al.trademe.domain.repository.UserRepository;
+import org.larrieulacoste.noe.al.trademe.features.member_storage.domain.UserRepository;
 
 import java.util.Map;
 import java.util.Objects;

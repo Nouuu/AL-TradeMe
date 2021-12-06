@@ -1,12 +1,12 @@
-package org.larrieulacoste.noe.al.trademe.features.tradesman_application.service;
+package org.larrieulacoste.noe.al.trademe.features.membership_application.service;
 
-import org.larrieulacoste.noe.al.trademe.application.NewTradesmanApplicative;
+import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewTradesmanApplicative;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.application.exception.UserInvalidException;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
-import org.larrieulacoste.noe.al.trademe.domain.repository.UserRepository;
-import org.larrieulacoste.noe.al.trademe.domain.service.UserValidationService;
+import org.larrieulacoste.noe.al.trademe.features.member_storage.domain.UserRepository;
+import org.larrieulacoste.noe.al.trademe.features.membership_validation.UserValidationService;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 

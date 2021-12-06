@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.domain.service;
+package org.larrieulacoste.noe.al.trademe.features.membership_validation;
 
 import org.apache.commons.lang3.StringUtils;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
@@ -22,7 +22,6 @@ public final class UserValidationService {
                 StringUtils.isNotBlank(user.getLastname().getField()) &&
                 StringUtils.isNotBlank(user.getPassword().getPasswordString()) &&
                 user.getPassword().getPasswordString().length() > 8 &&
-                StringUtils.isNotBlank(user.getEmail().getEmailAddressString()) &&
-                user.getBankAccount().matches("^\\d{4}-\\d{4}-\\d{4}$");
+                StringUtils.isNotBlank(user.getEmail().getEmailAddressString());
     }
 }

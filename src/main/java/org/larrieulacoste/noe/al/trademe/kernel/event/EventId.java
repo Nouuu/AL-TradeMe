@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.application;
+package org.larrieulacoste.noe.al.trademe.kernel.event;
 
 import java.util.Objects;
 import java.util.UUID;

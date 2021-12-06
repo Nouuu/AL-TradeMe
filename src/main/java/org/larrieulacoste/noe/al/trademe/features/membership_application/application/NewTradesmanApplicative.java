@@ -1,5 +1,6 @@
-package org.larrieulacoste.noe.al.trademe.application;
+package org.larrieulacoste.noe.al.trademe.features.membership_application.application;
 
+import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 

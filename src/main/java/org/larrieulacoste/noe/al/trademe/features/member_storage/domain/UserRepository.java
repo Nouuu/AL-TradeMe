@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.domain.repository;
+package org.larrieulacoste.noe.al.trademe.features.member_storage.domain;
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.domain.model.UserId;

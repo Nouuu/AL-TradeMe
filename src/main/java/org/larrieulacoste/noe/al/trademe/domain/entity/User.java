@@ -7,27 +7,24 @@ import org.larrieulacoste.noe.al.trademe.domain.model.UserId;
 
 import java.util.Objects;
 
-public final class User {
+public class User {
 
     private final UserId userId;
     private NotEmptyString lastname;
     private NotEmptyString firstname;
     private EmailAddress email;
     private Password password;
-    private String bankAccount;
 
-    private User(UserId userId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password,
-                 String bankAccount) {
+    private User(UserId userId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
         this.userId = Objects.requireNonNull(userId);
         this.lastname = Objects.requireNonNull(lastname);
         this.firstname = Objects.requireNonNull(firstname);
         this.email = Objects.requireNonNull(email);
         this.password = Objects.requireNonNull(password);
-        this.bankAccount = Objects.requireNonNull(bankAccount);
     }
 
-    public static User of(UserId userId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password, String bankAccount) {
-        return new User(userId, lastname, firstname, email, password, bankAccount);
+    public static User of(UserId userId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
+        return new User(userId, lastname, firstname, email, password);
     }
 
     public void updateLastname(NotEmptyString lastname) {
@@ -44,14 +41,6 @@ public final class User {
 
     public void updatePassword(Password password) {
         this.password = password;
-    }
-
-    public void updateBankAccount(String bankAccount) {
-        this.bankAccount = bankAccount;
-    }
-
-    public String getBankAccount() {
-        return bankAccount;
     }
 
     public UserId getUserId() {
@@ -82,7 +71,6 @@ public final class User {
                 ", firstname='" + firstname + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", bankAccount='" + bankAccount + '\'' +
                 '}';
     }
 
@@ -97,8 +85,7 @@ public final class User {
         if (!lastname.equals(user.lastname)) return false;
         if (!firstname.equals(user.firstname)) return false;
         if (!email.equals(user.email)) return false;
-        if (!password.equals(user.password)) return false;
-        return bankAccount.equals(user.bankAccount);
+        return password.equals(user.password);
     }
 
     @Override
@@ -108,7 +95,6 @@ public final class User {
         result = 31 * result + firstname.hashCode();
         result = 31 * result + email.hashCode();
         result = 31 * result + password.hashCode();
-        result = 31 * result + bankAccount.hashCode();
         return result;
     }
 }
