@@ -1,8 +1,8 @@
 package org.larrieulacoste.noe.al.trademe.domain.repository;
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.domain.entity.UserId;
-import org.larrieulacoste.noe.al.trademe.domain.exception.UserNotFoundException;
+import org.larrieulacoste.noe.al.trademe.domain.model.UserId;
+import org.larrieulacoste.noe.al.trademe.application.exception.UserNotFoundException;
 
 import java.util.UUID;
 

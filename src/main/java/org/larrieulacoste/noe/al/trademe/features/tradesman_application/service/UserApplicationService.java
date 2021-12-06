@@ -1,11 +1,12 @@
-package org.larrieulacoste.noe.al.trademe.domain.service;
+package org.larrieulacoste.noe.al.trademe.features.tradesman_application.service;
 
-import org.larrieulacoste.noe.al.trademe.application.UserApplicationEvent;
+import org.larrieulacoste.noe.al.trademe.application.NewTradesmanApplicative;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.domain.exception.UserInvalidException;
+import org.larrieulacoste.noe.al.trademe.application.exception.UserInvalidException;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.domain.repository.UserRepository;
+import org.larrieulacoste.noe.al.trademe.domain.service.UserValidationService;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 
@@ -30,7 +31,7 @@ public final class UserApplicationService {
 
         if (Boolean.TRUE.equals(userValidationService.isUserValid(user))) {
             userRepository.save(user);
-            eventBus.publish(UserApplicationEvent.withUserAndAmount(user, amount));
+            eventBus.publish(NewTradesmanApplicative.withUserAndAmount(user, amount));
         } else {
             throw new UserInvalidException("Invalid user : " + user);
         }

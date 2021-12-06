@@ -1,10 +1,13 @@
 package org.larrieulacoste.noe.al.trademe;
 
 
-import org.larrieulacoste.noe.al.trademe.application.UserApplicationEvent;
+import org.larrieulacoste.noe.al.trademe.application.NewTradesmanApplicative;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
+import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
+import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
+import org.larrieulacoste.noe.al.trademe.domain.model.Password;
 import org.larrieulacoste.noe.al.trademe.domain.service.PaymentService;
-import org.larrieulacoste.noe.al.trademe.domain.service.UserApplicationService;
+import org.larrieulacoste.noe.al.trademe.features.tradesman_application.service.UserApplicationService;
 import org.larrieulacoste.noe.al.trademe.domain.service.UserValidationService;
 import org.larrieulacoste.noe.al.trademe.infrastructure.api.StubPaymentApi;
 import org.larrieulacoste.noe.al.trademe.infrastructure.logger.DefaultLoggerFactory;
@@ -24,12 +27,13 @@ public class App {
         var userApplicationService = new UserApplicationService(applicationEventBus, loggerFactory, userRepository, userValidationService);
         var paymentService = new PaymentService(loggerFactory, paymentAPI);
 
-        applicationEventBus.register(UserApplicationEvent.class, paymentService);
+        applicationEventBus.register(NewTradesmanApplicative.class, paymentService);
 
-        var user = User.of(userRepository.nextId(), "larrieu", "noé", "noe@mail.com", "changeme123", "1111-3323-5555");
+        var user = User.of(userRepository.nextId(), NotEmptyString.of("larrieu"), NotEmptyString.of("noé"),
+                EmailAddress.of("noe@mail.com"), Password.of("changeme123"), "1111-3323-5555");
         userApplicationService.applyForMembership(user, -1.);
 
-        System.out.println(userRepository.byId(user.getUserId()));
+        // System.out.println(userRepository.byId(user.getUserId()));
         // userRepository.byId(UserId.of("unknown id")); // Throws user not found exception
     }
 }
