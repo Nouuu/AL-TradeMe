@@ -15,7 +15,7 @@ public class User {
     private EmailAddress email;
     private Password password;
 
-    private User(UserId userId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
+    protected User(UserId userId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
         this.userId = Objects.requireNonNull(userId);
         this.lastname = Objects.requireNonNull(lastname);
         this.firstname = Objects.requireNonNull(firstname);
