@@ -5,7 +5,7 @@ import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import java.util.Objects;
 import java.util.logging.Level;
 
-public final class DefaultLogger implements Logger {
+final class DefaultLogger implements Logger {
     private final java.util.logging.Logger logger;
 
     public DefaultLogger(String name) {
