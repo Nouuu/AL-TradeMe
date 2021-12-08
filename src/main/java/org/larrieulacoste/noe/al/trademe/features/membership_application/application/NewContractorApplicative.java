@@ -1,28 +1,28 @@
 package org.larrieulacoste.noe.al.trademe.features.membership_application.application;
 
-import org.larrieulacoste.noe.al.trademe.domain.entity.Tradesman;
+import org.larrieulacoste.noe.al.trademe.domain.entity.Contractor;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewTradesmanApplicative implements ApplicationEvent {
+public final class NewContractorApplicative implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final Tradesman tradesman;
+    private final Contractor contractor;
     private final Double amount;
 
-    private NewTradesmanApplicative(EventId eventId, ZonedDateTime occurredDate, Tradesman tradesman, Double amount) {
+    private NewContractorApplicative(EventId eventId, ZonedDateTime occurredDate, Contractor contractor, Double amount) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.tradesman = Objects.requireNonNull(tradesman);
+        this.contractor = Objects.requireNonNull(contractor);
         this.amount = amount;
     }
 
-    public static NewTradesmanApplicative withTradesmanAndAmount(Tradesman tradesman, Double amount) {
-        return new NewTradesmanApplicative(EventId.create(), ZonedDateTime.now(), tradesman, amount);
+    public static NewContractorApplicative withContractorAndAmount(Contractor tradesman, Double amount) {
+        return new NewContractorApplicative(EventId.create(), ZonedDateTime.now(), tradesman, amount);
     }
 
     @Override
@@ -35,8 +35,8 @@ public final class NewTradesmanApplicative implements ApplicationEvent {
         return occurredDate;
     }
 
-    public Tradesman getTradesman() {
-        return tradesman;
+    public Contractor getContractor() {
+        return contractor;
     }
 
     public Double getAmount() {
@@ -45,10 +45,10 @@ public final class NewTradesmanApplicative implements ApplicationEvent {
 
     @Override
     public String toString() {
-        return "NewTradesmanApplicative{" +
+        return "NewContractorApplicative{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", tradesman=" + tradesman +
+                ", contractor=" + contractor +
                 ", amount=" + amount +
                 '}';
     }
@@ -56,13 +56,13 @@ public final class NewTradesmanApplicative implements ApplicationEvent {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof NewTradesmanApplicative)) return false;
+        if (!(o instanceof NewContractorApplicative)) return false;
 
-        NewTradesmanApplicative that = (NewTradesmanApplicative) o;
+        NewContractorApplicative that = (NewContractorApplicative) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        if (!tradesman.equals(that.tradesman)) return false;
+        if (!contractor.equals(that.contractor)) return false;
         return amount.equals(that.amount);
     }
 
@@ -70,7 +70,7 @@ public final class NewTradesmanApplicative implements ApplicationEvent {
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + tradesman.hashCode();
+        result = 31 * result + contractor.hashCode();
         result = 31 * result + amount.hashCode();
         return result;
     }

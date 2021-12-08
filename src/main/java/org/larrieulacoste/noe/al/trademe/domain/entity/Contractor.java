@@ -14,4 +14,8 @@ public final class Contractor extends User {
     public static Contractor of(UserId userId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
         return new Contractor(userId, lastname, firstname, email, password);
     }
+
+    public static Contractor withUser(User user) {
+        return new Contractor(user.getUserId(), user.getLastname(), user.getFirstname(), user.getEmail(), user.getPassword());
+    }
 }

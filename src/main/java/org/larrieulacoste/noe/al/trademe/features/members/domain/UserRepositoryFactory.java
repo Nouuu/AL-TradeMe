@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.features.member_storage.domain;
+package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
 public interface UserRepositoryFactory {
     UserRepository getRepository();
