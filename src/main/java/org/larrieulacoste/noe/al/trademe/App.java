@@ -7,6 +7,9 @@ import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.domain.model.Password;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryUserRepository;
+import org.larrieulacoste.noe.al.trademe.features.members.service.ContractorsService;
+import org.larrieulacoste.noe.al.trademe.features.members.service.TradesmenService;
+import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewContractorApplicative;
 import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewTradesmanApplicative;
 import org.larrieulacoste.noe.al.trademe.features.membership_application.service.UserApplicationService;
 import org.larrieulacoste.noe.al.trademe.features.membership_validation.UserValidationService;
@@ -25,10 +28,15 @@ public class App {
         var paymentAPI = new StubPaymentApi();
 
         var userValidationService = new UserValidationService(loggerFactory);
-        var userApplicationService = new UserApplicationService(applicationEventBus, loggerFactory, userRepository, userValidationService);
+        var userApplicationService = new UserApplicationService(applicationEventBus, loggerFactory, userValidationService);
+        var contractorsService = new ContractorsService(userRepository);
+        var tradesmenService = new TradesmenService(userRepository);
         var paymentService = new PaymentService(loggerFactory, paymentAPI);
 
         applicationEventBus.register(NewTradesmanApplicative.class, paymentService);
+        applicationEventBus.register(NewContractorApplicative.class, paymentService);
+        applicationEventBus.register(NewTradesmanApplicative.class, tradesmenService);
+        applicationEventBus.register(NewContractorApplicative.class, contractorsService);
 
         var user = User.of(userRepository.nextId(), NotEmptyString.of("larrieu"), NotEmptyString.of("noé"),
                 EmailAddress.of("noe@mail.com"), Password.of("changeme123"));

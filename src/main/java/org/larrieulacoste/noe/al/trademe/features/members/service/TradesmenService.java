@@ -5,10 +5,10 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.UserRepository;
 import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewTradesmanApplicative;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class TradesmansService implements EventSubscriber<NewTradesmanApplicative> {
+public class TradesmenService implements EventSubscriber<NewTradesmanApplicative> {
     private final UserRepository userRepository;
 
-    public TradesmansService(UserRepository userRepository) {
+    public TradesmenService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
