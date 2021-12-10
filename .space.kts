@@ -3,6 +3,7 @@ job("Run tests") {
         gitPush {
             branchFilter {
                 +"refs/heads/main"
+                +"refs/heads/dev"
                 +Regex("feature")
             }
         }
