@@ -33,10 +33,10 @@ public class App {
         var tradesmenService = new TradesmenService(userRepository);
         var paymentService = new PaymentService(loggerFactory, paymentAPI);
 
-        applicationEventBus.register(NewTradesmanApplicative.class, paymentService);
+        // applicationEventBus.register(NewTradesmanApplicative.class, paymentService);
         applicationEventBus.register(NewContractorApplicative.class, paymentService);
-        applicationEventBus.register(NewTradesmanApplicative.class, tradesmenService);
-        applicationEventBus.register(NewContractorApplicative.class, contractorsService);
+        applicationEventBus.register(NewTradesmanApplicative.class, tradesmenService.getNewContractorApplicativeListener());
+        applicationEventBus.register(NewContractorApplicative.class, contractorsService.getNewContractorApplicativeListener());
 
         var user = User.of(userRepository.nextId(), NotEmptyString.of("larrieu"), NotEmptyString.of("noé"),
                 EmailAddress.of("noe@mail.com"), Password.of("changeme123"));

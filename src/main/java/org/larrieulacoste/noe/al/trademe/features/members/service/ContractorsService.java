@@ -7,21 +7,32 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 import java.util.Objects;
 
-public class ContractorsService implements EventSubscriber<NewContractorApplicative> {
+public class ContractorsService {
 
     private final UserRepository userRepository;
+    private final NewContractorApplicativeListener newContractorApplicativeListener;
 
     public ContractorsService(UserRepository userRepository) {
         this.userRepository = Objects.requireNonNull(userRepository);
+        this.newContractorApplicativeListener = new NewContractorApplicativeListener();
     }
 
     public void save(Contractor contractor) {
         userRepository.save(contractor);
     }
 
+    public NewContractorApplicativeListener getNewContractorApplicativeListener() {
+        return newContractorApplicativeListener;
+    }
 
-    @Override
-    public void accept(NewContractorApplicative event) {
-        this.save(event.getContractor());
+    private class NewContractorApplicativeListener implements EventSubscriber<NewContractorApplicative> {
+
+        private NewContractorApplicativeListener() {
+        }
+
+        @Override
+        public void accept(NewContractorApplicative event) {
+            save(event.getContractor());
+        }
     }
 }

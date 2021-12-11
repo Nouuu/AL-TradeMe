@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.service;
 
+import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewContractorApplicative;
 import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewTradesmanApplicative;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
@@ -10,7 +11,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 import java.util.Objects;
 
-public final class PaymentService implements EventSubscriber<NewTradesmanApplicative> {
+public final class PaymentService implements EventSubscriber<NewContractorApplicative> {
     private final Logger logger;
     private final PaymentAPI paymentAPI;
 
@@ -23,7 +24,7 @@ public final class PaymentService implements EventSubscriber<NewTradesmanApplica
         logger.log(String.format("Process user payment of : %s with amount %.2f", user, amount));
 
         Boolean paymentSuccess = paymentAPI.pay(
-                Objects.requireNonNull(user).getBankAccount(),
+                "TODO",
                 Double.max(Objects.requireNonNull(amount), 0)
         );
 
@@ -35,10 +36,10 @@ public final class PaymentService implements EventSubscriber<NewTradesmanApplica
     }
 
     @Override
-    public void accept(NewTradesmanApplicative newTradesmanApplicative) {
+    public void accept(NewContractorApplicative newContractorApplicative) {
         this.processPayment(
-                newTradesmanApplicative.getTradesman(),
-                newTradesmanApplicative.getAmount()
+                newContractorApplicative.getContractor(),
+                newContractorApplicative.getAmount()
         );
     }
 
