@@ -3,19 +3,19 @@ package org.larrieulacoste.noe.al.trademe.domain.model;
 import java.util.Objects;
 import java.util.UUID;
 
-public final class UserId {
+public final class EntityId {
     private final String value;
 
-    private UserId(String value) {
+    private EntityId(String value) {
         this.value = Objects.requireNonNull(value);
     }
 
-    public static UserId fromUUID(UUID uuid) {
-        return new UserId(Objects.requireNonNull(uuid).toString());
+    public static EntityId fromUUID(UUID uuid) {
+        return new EntityId(Objects.requireNonNull(uuid).toString());
     }
 
-    public static UserId of(String value) {
-        return new UserId(value);
+    public static EntityId of(String value) {
+        return new EntityId(value);
     }
 
     public String getValue() {
@@ -24,7 +24,7 @@ public final class UserId {
 
     @Override
     public String toString() {
-        return "UserId{" +
+        return "EntityId{" +
                 "value='" + value + '\'' +
                 '}';
     }
@@ -32,11 +32,11 @@ public final class UserId {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserId)) return false;
+        if (!(o instanceof EntityId)) return false;
 
-        UserId userId = (UserId) o;
+        EntityId entityId = (EntityId) o;
 
-        return value.equals(userId.value);
+        return value.equals(entityId.value);
     }
 
     @Override

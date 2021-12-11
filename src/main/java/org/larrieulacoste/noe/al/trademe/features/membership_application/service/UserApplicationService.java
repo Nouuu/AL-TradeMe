@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.membership_application.service;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.UserInvalidException;
+import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
 import org.larrieulacoste.noe.al.trademe.domain.entity.Contractor;
 import org.larrieulacoste.noe.al.trademe.domain.entity.Tradesman;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
@@ -25,23 +25,23 @@ public final class UserApplicationService {
         this.userValidationService = Objects.requireNonNull(userValidationService);
     }
 
-    public void applyForMembership(Tradesman tradesman, Double amount) throws UserInvalidException {
+    public void applyForMembership(Tradesman tradesman, Double amount) throws InvalidUserException {
         logger.log("Apply for tradesman membership : " + tradesman);
 
         if (Boolean.TRUE.equals(userValidationService.isUserValid(tradesman))) {
             eventBus.publish(NewTradesmanApplicative.withTradesmanAndAmount(tradesman, amount));
         } else {
-            throw new UserInvalidException("Invalid user : " + tradesman);
+            throw new InvalidUserException("Invalid user : " + tradesman);
         }
     }
 
-    public void applyForMembership(Contractor contractor, Double amount) throws UserInvalidException {
+    public void applyForMembership(Contractor contractor, Double amount) throws InvalidUserException {
         logger.log("Apply for contractor membership : " + contractor);
 
         if (Boolean.TRUE.equals(userValidationService.isUserValid(contractor))) {
             eventBus.publish(NewContractorApplicative.withContractorAndAmount(contractor, amount));
         } else {
-            throw new UserInvalidException("Invalid user : " + contractor);
+            throw new InvalidUserException("Invalid user : " + contractor);
         }
     }
 }

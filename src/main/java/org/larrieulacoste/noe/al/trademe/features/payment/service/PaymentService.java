@@ -1,12 +1,11 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.service;
 
-import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewContractorApplicative;
-import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewTradesmanApplicative;
-import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
-import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.application.exception.PaymentException;
+import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
+import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewContractorApplicative;
+import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 import java.util.Objects;

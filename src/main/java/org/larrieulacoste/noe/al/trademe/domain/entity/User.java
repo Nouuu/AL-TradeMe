@@ -3,28 +3,28 @@ package org.larrieulacoste.noe.al.trademe.domain.entity;
 import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.domain.model.Password;
-import org.larrieulacoste.noe.al.trademe.domain.model.UserId;
+import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 
 import java.util.Objects;
 
 public class User {
 
-    private final UserId userId;
+    private final EntityId entityId;
     private NotEmptyString lastname;
     private NotEmptyString firstname;
     private EmailAddress email;
     private Password password;
 
-    protected User(UserId userId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
-        this.userId = Objects.requireNonNull(userId);
+    protected User(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
+        this.entityId = Objects.requireNonNull(entityId);
         this.lastname = Objects.requireNonNull(lastname);
         this.firstname = Objects.requireNonNull(firstname);
         this.email = Objects.requireNonNull(email);
         this.password = Objects.requireNonNull(password);
     }
 
-    public static User of(UserId userId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
-        return new User(userId, lastname, firstname, email, password);
+    public static User of(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
+        return new User(entityId, lastname, firstname, email, password);
     }
 
     public void updateLastname(NotEmptyString lastname) {
@@ -43,8 +43,8 @@ public class User {
         this.password = password;
     }
 
-    public UserId getUserId() {
-        return userId;
+    public EntityId getUserId() {
+        return entityId;
     }
 
     public NotEmptyString getLastname() {
@@ -66,7 +66,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
+                "userId=" + entityId +
                 ", lastname='" + lastname + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", email='" + email + '\'' +
@@ -81,7 +81,7 @@ public class User {
 
         User user = (User) o;
 
-        if (!userId.equals(user.userId)) return false;
+        if (!entityId.equals(user.entityId)) return false;
         if (!lastname.equals(user.lastname)) return false;
         if (!firstname.equals(user.firstname)) return false;
         if (!email.equals(user.email)) return false;
@@ -90,7 +90,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = userId.hashCode();
+        int result = entityId.hashCode();
         result = 31 * result + lastname.hashCode();
         result = 31 * result + firstname.hashCode();
         result = 31 * result + email.hashCode();

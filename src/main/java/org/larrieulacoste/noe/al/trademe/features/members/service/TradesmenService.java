@@ -1,15 +1,16 @@
 package org.larrieulacoste.noe.al.trademe.features.members.service;
 
+import org.larrieulacoste.noe.al.trademe.domain.Repository;
 import org.larrieulacoste.noe.al.trademe.domain.entity.Tradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.UserRepository;
+import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewTradesmanApplicative;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 public class TradesmenService {
-    private final UserRepository userRepository;
+    private final Repository<User> userRepository;
     private final NewTradesmanApplicativeListener newContractorApplicativeListener;
 
-    public TradesmenService(UserRepository userRepository) {
+    public TradesmenService(Repository<User> userRepository) {
         this.userRepository = userRepository;
         this.newContractorApplicativeListener = new NewTradesmanApplicativeListener();
     }

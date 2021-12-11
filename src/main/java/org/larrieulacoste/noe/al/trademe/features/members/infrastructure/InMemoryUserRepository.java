@@ -1,20 +1,20 @@
 package org.larrieulacoste.noe.al.trademe.features.members.infrastructure;
 
+import org.larrieulacoste.noe.al.trademe.domain.Repository;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.domain.model.UserId;
+import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.application.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.UserRepository;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public final class InMemoryUserRepository implements UserRepository {
+public final class InMemoryUserRepository implements Repository<User> {
     private final AtomicInteger counter = new AtomicInteger(0);
-    private final Map<UserId, User> data = new ConcurrentHashMap<>();
+    private final Map<EntityId, User> data = new ConcurrentHashMap<>();
     private final Logger logger;
 
     public InMemoryUserRepository(LoggerFactory loggerFactory) {
@@ -29,18 +29,18 @@ public final class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public User byId(UserId userId) throws UserNotFoundException {
-        logger.log("Retrieving user by ID from memory repository : " + userId);
+    public User byId(EntityId entityId) throws UserNotFoundException {
+        logger.log("Retrieving user by ID from memory repository : " + entityId);
 
-        final User user = data.get(Objects.requireNonNull(userId));
+        final User user = data.get(Objects.requireNonNull(entityId));
         if (user == null) {
-            throw new UserNotFoundException("No user for " + userId.getValue());
+            throw new UserNotFoundException("No user for " + entityId.getValue());
         }
         return user;
     }
 
     @Override
-    public UserId nextId() {
-        return UserId.of(String.valueOf(counter.incrementAndGet()));
+    public EntityId nextId() {
+        return EntityId.of(String.valueOf(counter.incrementAndGet()));
     }
 }
