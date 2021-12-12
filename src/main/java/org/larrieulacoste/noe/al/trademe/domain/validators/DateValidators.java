@@ -2,8 +2,6 @@ package org.larrieulacoste.noe.al.trademe.domain.validators;
 
 import java.time.LocalDate;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-
 public class DateValidators {
 
     private DateValidators() {

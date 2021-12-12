@@ -1,9 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.domain.entity;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
+import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.domain.model.Password;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 
 public final class Tradesman extends User {
 
