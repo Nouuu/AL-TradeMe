@@ -2,7 +2,7 @@ package org.larrieulacoste.noe.al.trademe.domain.model;
 
 import java.util.Objects;
 
-public class Coordinate {
+public final class Coordinate {
     private final Double longitude; // Y
     private final Double latitude; // X
 
