@@ -4,9 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
+import org.larrieulacoste.noe.al.trademe.domain.model.ContractorRegistration;
+import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanRegistration;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
-import org.larrieulacoste.noe.al.trademe.features.member_registration.domain.ContractorRegistration;
-import org.larrieulacoste.noe.al.trademe.features.member_registration.domain.TradesmanRegistration;
 
 import java.util.ArrayList;
 import java.util.List;

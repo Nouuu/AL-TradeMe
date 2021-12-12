@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.features.membership_application.application;
+package org.larrieulacoste.noe.al.trademe.application.event;
 
 import org.larrieulacoste.noe.al.trademe.domain.entity.Tradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
@@ -26,7 +26,7 @@ public final class NewTradesmanApplicative implements ApplicationEvent {
     }
 
     @Override
-    public EventId getId() {
+    public EventId getEventId() {
         return eventId;
     }
 

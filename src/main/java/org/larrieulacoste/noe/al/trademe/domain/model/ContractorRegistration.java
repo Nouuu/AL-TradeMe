@@ -1,22 +1,22 @@
-package org.larrieulacoste.noe.al.trademe.features.member_registration.domain;
+package org.larrieulacoste.noe.al.trademe.domain.model;
 
 import java.util.Objects;
 
-public final class TradesmanRegistration {
+public final class ContractorRegistration {
     private final String firstname;
     private final String lastname;
     private final String email;
     private final String password;
 
-    private TradesmanRegistration(String firstname, String lastname, String email, String password) {
+    private ContractorRegistration(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
     }
 
-    public static TradesmanRegistration with(String firstname, String lastname, String email, String password) {
-        return new TradesmanRegistration(firstname, lastname, email, password);
+    public static ContractorRegistration with(String firstname, String lastname, String email, String password) {
+        return new ContractorRegistration(firstname, lastname, email, password);
     }
 
     public String getFirstname() {
@@ -40,7 +40,7 @@ public final class TradesmanRegistration {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TradesmanRegistration that = (TradesmanRegistration) o;
+        ContractorRegistration that = (ContractorRegistration) o;
 
         if (!Objects.equals(firstname, that.firstname)) return false;
         if (!Objects.equals(lastname, that.lastname)) return false;
@@ -59,7 +59,7 @@ public final class TradesmanRegistration {
 
     @Override
     public String toString() {
-        return "TradesmanRegistration{" +
+        return "ContractorRegistration{" +
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +

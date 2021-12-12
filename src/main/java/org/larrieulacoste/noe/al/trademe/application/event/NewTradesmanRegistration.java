@@ -1,20 +1,20 @@
-package org.larrieulacoste.noe.al.trademe.features.member_registration.application;
+package org.larrieulacoste.noe.al.trademe.application.event;
 
-import org.larrieulacoste.noe.al.trademe.features.member_registration.domain.TradesmanRegistration;
+import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanRegistration;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
 import java.time.ZonedDateTime;
 
-public class NewTradesmanRegistration implements ApplicationEvent {
+public final class NewTradesmanRegistration implements ApplicationEvent {
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final TradesmanRegistration tradesman;
+    private final TradesmanRegistration tradesmanRegistration;
 
-    private NewTradesmanRegistration(EventId eventId, ZonedDateTime occurredDate, TradesmanRegistration tradesman) {
+    private NewTradesmanRegistration(EventId eventId, ZonedDateTime occurredDate, TradesmanRegistration tradesmanRegistration) {
         this.eventId = eventId;
         this.occurredDate = occurredDate;
-        this.tradesman = tradesman;
+        this.tradesmanRegistration = tradesmanRegistration;
     }
 
     public static NewTradesmanRegistration of(TradesmanRegistration tradesman) {
@@ -31,8 +31,8 @@ public class NewTradesmanRegistration implements ApplicationEvent {
         return occurredDate;
     }
 
-    public TradesmanRegistration getTradesman() {
-        return tradesman;
+    public TradesmanRegistration getTradesmanRegistration() {
+        return tradesmanRegistration;
     }
 
     @Override
@@ -44,14 +44,14 @@ public class NewTradesmanRegistration implements ApplicationEvent {
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        return tradesman.equals(that.tradesman);
+        return tradesmanRegistration.equals(that.tradesmanRegistration);
     }
 
     @Override
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + tradesman.hashCode();
+        result = 31 * result + tradesmanRegistration.hashCode();
         return result;
     }
 
@@ -60,7 +60,7 @@ public class NewTradesmanRegistration implements ApplicationEvent {
         return "NewTradesmanRegistration{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", tradesman=" + tradesman +
+                ", tradesman=" + tradesmanRegistration +
                 '}';
     }
 }

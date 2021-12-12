@@ -1,35 +1,49 @@
 package org.larrieulacoste.noe.al.trademe.features.members.service;
 
+import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistration;
 import org.larrieulacoste.noe.al.trademe.domain.Repository;
 import org.larrieulacoste.noe.al.trademe.domain.entity.Tradesman;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;
-import org.larrieulacoste.noe.al.trademe.features.membership_application.application.NewTradesmanApplicative;
+import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
+import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
+import org.larrieulacoste.noe.al.trademe.domain.model.Password;
+import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanRegistration;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 public class TradesmenService {
     private final Repository<User> userRepository;
-    private final NewTradesmanApplicativeListener newContractorApplicativeListener;
+    private final NewTradesmanRegistrationListener newTradesmanRegistrationListener;
 
     public TradesmenService(Repository<User> userRepository) {
         this.userRepository = userRepository;
-        this.newContractorApplicativeListener = new NewTradesmanApplicativeListener();
+        this.newTradesmanRegistrationListener = new NewTradesmanRegistrationListener();
     }
 
     public void save(Tradesman tradesman) {
         userRepository.save(tradesman);
     }
 
-    public NewTradesmanApplicativeListener getNewContractorApplicativeListener() {
-        return newContractorApplicativeListener;
+    public void newTradesman(TradesmanRegistration tradesmanRegistration) {
+        save(Tradesman.of(
+                userRepository.nextId(),
+                NotEmptyString.of(tradesmanRegistration.getLastname()),
+                NotEmptyString.of(tradesmanRegistration.getFirstname()),
+                EmailAddress.of(tradesmanRegistration.getEmail()),
+                Password.of(tradesmanRegistration.getPassword())
+        ));
     }
 
-    private class NewTradesmanApplicativeListener implements EventSubscriber<NewTradesmanApplicative> {
-        private NewTradesmanApplicativeListener() {
+    public NewTradesmanRegistrationListener getNewTradesmanRegistrationListener() {
+        return newTradesmanRegistrationListener;
+    }
+
+    private class NewTradesmanRegistrationListener implements EventSubscriber<NewTradesmanRegistration> {
+        private NewTradesmanRegistrationListener() {
         }
 
         @Override
-        public void accept(NewTradesmanApplicative event) {
-            save(event.getTradesman());
+        public void accept(NewTradesmanRegistration event) {
+            newTradesman(event.getTradesmanRegistration());
         }
     }
 }
