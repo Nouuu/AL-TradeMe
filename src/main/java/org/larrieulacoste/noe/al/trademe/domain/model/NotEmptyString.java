@@ -1,13 +1,12 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
-import org.apache.commons.lang3.StringUtils;
-import org.larrieulacoste.noe.al.trademe.domain.validators.RequiredValidator;
+import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
 
 public final class NotEmptyString {
     private final String field;
 
     private NotEmptyString(String field) {
-        if (!RequiredValidator.isValid(field)) {
+        if (!StringValidators.isNotEmptyOrOnlyWhitespaces(field)) {
             throw new IllegalArgumentException("Field must not be empty");
         }
         this.field = field;

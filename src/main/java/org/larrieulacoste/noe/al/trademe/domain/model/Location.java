@@ -2,7 +2,7 @@ package org.larrieulacoste.noe.al.trademe.domain.model;
 
 import java.util.Objects;
 
-public class Location {
+public final class Location {
     private final Coordinate coordinate;
     private final NotEmptyString locationName;
 

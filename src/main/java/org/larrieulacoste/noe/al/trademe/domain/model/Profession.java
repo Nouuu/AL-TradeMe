@@ -2,7 +2,7 @@ package org.larrieulacoste.noe.al.trademe.domain.model;
 
 import java.util.Objects;
 
-public class Profession {
+public final class Profession {
     private final NotEmptyString professionName;
 
     private Profession(NotEmptyString professionName) {

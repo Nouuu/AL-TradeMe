@@ -1,16 +1,16 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidPeriodException;
+import org.larrieulacoste.noe.al.trademe.domain.validators.DateValidators;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
-public class Period {
+public final class Period {
     private final LocalDate startDate;
     private final LocalDate endDate;
 
     public Period(LocalDate startDate, LocalDate endDate) {
-        if (Objects.requireNonNull(startDate).isAfter(Objects.requireNonNull(endDate))) {
+        if (!DateValidators.isValidPeriod(startDate, endDate)) {
             throw new InvalidPeriodException("Invalid period " + startDate + " - " + endDate);
         }
         this.startDate = startDate;
