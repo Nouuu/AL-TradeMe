@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.features.member_validation.service;
+package org.larrieulacoste.noe.al.trademe.features.member_validation.application;
 
 import org.apache.commons.lang3.StringUtils;
 import org.larrieulacoste.noe.al.trademe.domain.entity.User;

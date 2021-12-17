@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.features.members.service;
+package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistration;
 import org.larrieulacoste.noe.al.trademe.domain.Repository;

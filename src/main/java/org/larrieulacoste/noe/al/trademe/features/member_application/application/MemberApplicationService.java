@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.features.member_application.service;
+package org.larrieulacoste.noe.al.trademe.features.member_application.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorApplicative;
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanApplicative;
@@ -7,7 +7,7 @@ import org.larrieulacoste.noe.al.trademe.domain.entity.Contractor;
 import org.larrieulacoste.noe.al.trademe.domain.entity.Tradesman;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
-import org.larrieulacoste.noe.al.trademe.features.member_validation.service.MemberValidationService;
+import org.larrieulacoste.noe.al.trademe.features.member_validation.application.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 

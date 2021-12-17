@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.features.payment.service;
+package org.larrieulacoste.noe.al.trademe.features.payment.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorApplicative;
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanApplicative;
