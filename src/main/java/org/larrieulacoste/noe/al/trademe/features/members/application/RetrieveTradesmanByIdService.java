@@ -4,6 +4,9 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryHandler;
 
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class RetrieveTradesmanByIdService implements QueryHandler<RetrieveTradesmanById, Tradesman> {
     private final Tradesmen tradesmen;
 

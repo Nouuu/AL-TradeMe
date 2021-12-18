@@ -8,8 +8,10 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.Objects;
 
+@ApplicationScoped
 public class CreateContractorService implements CommandHandler<CreateContractor, EntityId> {
     private final Contractors contractors;
 

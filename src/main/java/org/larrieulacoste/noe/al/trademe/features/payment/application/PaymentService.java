@@ -7,9 +7,12 @@ import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.Objects;
 
-public final class PaymentService {
+@ApplicationScoped
+public class PaymentService {
     private final Logger logger;
     private final PaymentAPI paymentAPI;
 
@@ -17,6 +20,7 @@ public final class PaymentService {
         this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
     }
+
 
     public void processPayment(ContractorEventEntity user, Double amount) throws PaymentException {
         logger.log(String.format("Process user payment of : %s with amount %.2f", user, amount));

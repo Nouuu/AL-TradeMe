@@ -1,17 +1,17 @@
 package org.larrieulacoste.noe.al.trademe.features.member_validation.application;
 
-import org.apache.commons.lang3.StringUtils;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.User;
-import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
+import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@ApplicationScoped
 public final class MemberValidationService {
     private final Logger logger;
 
