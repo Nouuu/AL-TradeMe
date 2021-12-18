@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.domain.model.Password;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
-import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.command.CommandHandler;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 
 import java.util.Objects;
 

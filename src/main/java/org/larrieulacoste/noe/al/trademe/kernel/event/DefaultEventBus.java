@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.event;
+package org.larrieulacoste.noe.al.trademe.kernel.event;
 
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;

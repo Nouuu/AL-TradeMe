@@ -2,7 +2,7 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
-import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.query.QueryHandler;
+import org.larrieulacoste.noe.al.trademe.kernel.query.QueryHandler;
 
 import java.util.List;
 import java.util.Objects;

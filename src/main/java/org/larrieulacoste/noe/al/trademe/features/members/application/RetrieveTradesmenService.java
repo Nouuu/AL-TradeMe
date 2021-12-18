@@ -2,7 +2,7 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
-import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.query.QueryHandler;
+import org.larrieulacoste.noe.al.trademe.kernel.query.QueryHandler;
 
 import java.util.List;
 

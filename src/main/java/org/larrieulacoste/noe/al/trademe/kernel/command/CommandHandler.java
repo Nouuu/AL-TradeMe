@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.command;
+package org.larrieulacoste.noe.al.trademe.kernel.command;
 
 @FunctionalInterface
 public interface CommandHandler<C extends Command, R> {
