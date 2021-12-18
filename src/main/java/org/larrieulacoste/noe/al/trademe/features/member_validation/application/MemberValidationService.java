@@ -19,6 +19,7 @@ public final class MemberValidationService {
         this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
     }
 
+/*
     public Boolean isUserValid(User user) {
         logger.log("Triggered validation with user : " + user);
 
@@ -29,6 +30,7 @@ public final class MemberValidationService {
                 user.getPassword().getPasswordString().length() > 8 &&
                 StringUtils.isNotBlank(user.getEmail().getEmailAddressString());
     }
+*/
 
     public List<String> getMemberInvalidFields(TradesmanEventEntity tradesmanEventEntity) {
         List<String> errors = new ArrayList<>();

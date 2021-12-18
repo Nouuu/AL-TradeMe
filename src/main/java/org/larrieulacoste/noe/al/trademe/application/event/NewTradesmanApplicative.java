@@ -11,17 +11,17 @@ public final class NewTradesmanApplicative implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final Tradesman tradesman;
+    private final TradesmanEventEntity tradesman;
     private final Double amount;
 
-    private NewTradesmanApplicative(EventId eventId, ZonedDateTime occurredDate, Tradesman tradesman, Double amount) {
+    private NewTradesmanApplicative(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman, Double amount) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.tradesman = Objects.requireNonNull(tradesman);
         this.amount = amount;
     }
 
-    public static NewTradesmanApplicative withTradesmanAndAmount(Tradesman tradesman, Double amount) {
+    public static NewTradesmanApplicative withTradesmanAndAmount(TradesmanEventEntity tradesman, Double amount) {
         return new NewTradesmanApplicative(EventId.create(), ZonedDateTime.now(), tradesman, amount);
     }
 
@@ -35,7 +35,7 @@ public final class NewTradesmanApplicative implements ApplicationEvent {
         return occurredDate;
     }
 
-    public Tradesman getTradesman() {
+    public TradesmanEventEntity getTradesman() {
         return tradesman;
     }
 
