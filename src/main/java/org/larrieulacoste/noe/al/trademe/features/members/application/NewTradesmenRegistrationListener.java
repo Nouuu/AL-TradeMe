@@ -5,7 +5,7 @@ import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-class NewTradesmenRegistrationListener implements EventSubscriber<NewTradesmanRegistration> {
+public class NewTradesmenRegistrationListener implements EventSubscriber<NewTradesmanRegistration> {
 
     private final CommandBus commandBus;
 
