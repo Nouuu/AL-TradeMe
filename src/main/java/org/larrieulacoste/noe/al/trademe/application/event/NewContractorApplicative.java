@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
-import org.larrieulacoste.noe.al.trademe.domain.entity.Contractor;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -11,17 +10,17 @@ public final class NewContractorApplicative implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final Contractor contractor;
+    private final ContractorEventEntity contractorEventEntity;
     private final Double amount;
 
-    private NewContractorApplicative(EventId eventId, ZonedDateTime occurredDate, Contractor contractor, Double amount) {
+    private NewContractorApplicative(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity, Double amount) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.contractor = Objects.requireNonNull(contractor);
+        this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
         this.amount = amount;
     }
 
-    public static NewContractorApplicative withContractorAndAmount(Contractor tradesman, Double amount) {
+    public static NewContractorApplicative withContractorAndAmount(ContractorEventEntity tradesman, Double amount) {
         return new NewContractorApplicative(EventId.create(), ZonedDateTime.now(), tradesman, amount);
     }
 
@@ -35,8 +34,8 @@ public final class NewContractorApplicative implements ApplicationEvent {
         return occurredDate;
     }
 
-    public Contractor getContractor() {
-        return contractor;
+    public ContractorEventEntity getContractor() {
+        return contractorEventEntity;
     }
 
     public Double getAmount() {
@@ -48,7 +47,7 @@ public final class NewContractorApplicative implements ApplicationEvent {
         return "NewContractorApplicative{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", contractor=" + contractor +
+                ", contractor=" + contractorEventEntity +
                 ", amount=" + amount +
                 '}';
     }
@@ -62,7 +61,7 @@ public final class NewContractorApplicative implements ApplicationEvent {
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        if (!contractor.equals(that.contractor)) return false;
+        if (!contractorEventEntity.equals(that.contractorEventEntity)) return false;
         return amount.equals(that.amount);
     }
 
@@ -70,7 +69,7 @@ public final class NewContractorApplicative implements ApplicationEvent {
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + contractor.hashCode();
+        result = 31 * result + contractorEventEntity.hashCode();
         result = 31 * result + amount.hashCode();
         return result;
     }

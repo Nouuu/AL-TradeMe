@@ -1,13 +1,13 @@
-package org.larrieulacoste.noe.al.trademe.features.member_registration.service;
+package org.larrieulacoste.noe.al.trademe.features.member_registration.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistration;
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistration;
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
-import org.larrieulacoste.noe.al.trademe.domain.model.ContractorRegistration;
-import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanRegistration;
-import org.larrieulacoste.noe.al.trademe.features.member_validation.service.MemberValidationService;
+import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
+import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
+import org.larrieulacoste.noe.al.trademe.features.member_validation.application.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 
@@ -25,23 +25,23 @@ public final class MemberRegistrationService {
         this.memberValidationService = Objects.requireNonNull(memberValidationService);
     }
 
-    public void registerNewMember(TradesmanRegistration tradesmanRegistration) {
-        logger.log("New member registration : " + tradesmanRegistration);
-        List<String> fieldErrors = memberValidationService.getMemberInvalidFields(tradesmanRegistration);
+    public void registerNewMember(TradesmanEventEntity tradesmanEventEntity) {
+        logger.log("New member registration : " + tradesmanEventEntity);
+        List<String> fieldErrors = memberValidationService.getMemberInvalidFields(tradesmanEventEntity);
         if (!fieldErrors.isEmpty()) {
             throw new InvalidUserException("Invalid tradesman registration on : " +
                     String.join(", ", fieldErrors));
         }
-        eventBus.publish(NewTradesmanRegistration.of(tradesmanRegistration));
+        eventBus.publish(NewTradesmanRegistration.of(tradesmanEventEntity));
     }
 
-    public void registerNewMember(ContractorRegistration contractorRegistration) {
-        logger.log("New member registration : " + contractorRegistration);
-        List<String> fieldErrors = memberValidationService.getMemberInvalidFields(contractorRegistration);
+    public void registerNewMember(ContractorEventEntity contractorEventEntity) {
+        logger.log("New member registration : " + contractorEventEntity);
+        List<String> fieldErrors = memberValidationService.getMemberInvalidFields(contractorEventEntity);
         if (!fieldErrors.isEmpty()) {
             throw new InvalidUserException("Invalid contractor registration on : " +
                     String.join(", ", fieldErrors));
         }
-        eventBus.publish(NewContractorRegistration.of(contractorRegistration));
+        eventBus.publish(NewContractorRegistration.of(contractorEventEntity));
     }
 }
