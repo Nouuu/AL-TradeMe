@@ -4,11 +4,11 @@ import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorApplicative;
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanApplicative;
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.features.member_validation.application.MemberValidationService;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 
@@ -40,7 +40,12 @@ public final class MemberApplicationService {
         logger.log("Apply for contractor membership : " + contractor);
 
         if (Boolean.TRUE.equals(memberValidationService.isUserValid(contractor))) {
-            eventBus.publish(NewContractorApplicative.withContractorAndAmount(new ContractorEventEntity(contractor), amount));
+            eventBus.publish(NewContractorApplicative.withContractorAndAmount(
+                    new ContractorEventEntity(contractor.getUserId(), contractor.getFirstname().getField(),
+                            contractor.getLastname().getField(), contractor.getEmail().getEmailAddressString(),
+                            contractor.getPassword().getPasswordString()),
+                    amount)
+            );
         } else {
             throw new InvalidUserException("Invalid user : " + contractor);
         }

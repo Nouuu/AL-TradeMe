@@ -1,16 +1,19 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
+import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 
 import java.util.Objects;
 
 public final class ContractorEventEntity implements Command {
+    public final EntityId entityId;
     public final String firstname;
     public final String lastname;
     public final String email;
     public final String password;
 
-    public ContractorEventEntity(String firstname, String lastname, String email, String password) {
+    public ContractorEventEntity(EntityId entityId, String firstname, String lastname, String email, String password) {
+        this.entityId = entityId;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -24,6 +27,7 @@ public final class ContractorEventEntity implements Command {
 
         ContractorEventEntity that = (ContractorEventEntity) o;
 
+        if (!Objects.equals(entityId, that.entityId)) return false;
         if (!Objects.equals(firstname, that.firstname)) return false;
         if (!Objects.equals(lastname, that.lastname)) return false;
         if (!Objects.equals(email, that.email)) return false;
@@ -34,6 +38,7 @@ public final class ContractorEventEntity implements Command {
     public int hashCode() {
         int result = firstname != null ? firstname.hashCode() : 0;
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        result = 31 * result + (entityId != null ? entityId.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
@@ -41,8 +46,9 @@ public final class ContractorEventEntity implements Command {
 
     @Override
     public String toString() {
-        return "ContractorRegistration{" +
-                "firstname='" + firstname + '\'' +
+        return "ContractorEventEntity{" +
+                "entityId=" + entityId +
+                ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

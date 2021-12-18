@@ -1,14 +1,18 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
+import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+
 import java.util.Objects;
 
 public final class TradesmanEventEntity {
+    public final EntityId entityId;
     public final String firstname;
     public final String lastname;
     public final String email;
     public final String password;
 
-    public TradesmanEventEntity(String firstname, String lastname, String email, String password) {
+    public TradesmanEventEntity(EntityId entityId, String firstname, String lastname, String email, String password) {
+        this.entityId = entityId;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -22,6 +26,7 @@ public final class TradesmanEventEntity {
 
         TradesmanEventEntity that = (TradesmanEventEntity) o;
 
+        if (!Objects.equals(entityId, that.entityId)) return false;
         if (!Objects.equals(firstname, that.firstname)) return false;
         if (!Objects.equals(lastname, that.lastname)) return false;
         if (!Objects.equals(email, that.email)) return false;
@@ -30,7 +35,8 @@ public final class TradesmanEventEntity {
 
     @Override
     public int hashCode() {
-        int result = firstname != null ? firstname.hashCode() : 0;
+        int result = entityId != null ? entityId.hashCode() : 0;
+        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
@@ -39,8 +45,9 @@ public final class TradesmanEventEntity {
 
     @Override
     public String toString() {
-        return "TradesmanRegistration{" +
-                "firstname='" + firstname + '\'' +
+        return "TradesmanEventEntity{" +
+                "entityId=" + entityId +
+                ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
