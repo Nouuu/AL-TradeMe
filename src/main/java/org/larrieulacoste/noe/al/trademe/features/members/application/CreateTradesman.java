@@ -1,38 +1,18 @@
-package org.larrieulacoste.noe.al.trademe.domain.model;
+package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import java.util.Objects;
 
-public final class ContractorRegistration {
-    private final String firstname;
-    private final String lastname;
-    private final String email;
-    private final String password;
+public final class CreateTradesman {
+    public final String firstname;
+    public final String lastname;
+    public final String email;
+    public final String password;
 
-    private ContractorRegistration(String firstname, String lastname, String email, String password) {
+    public CreateTradesman(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
-    }
-
-    public static ContractorRegistration with(String firstname, String lastname, String email, String password) {
-        return new ContractorRegistration(firstname, lastname, email, password);
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override
@@ -40,7 +20,7 @@ public final class ContractorRegistration {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ContractorRegistration that = (ContractorRegistration) o;
+        CreateTradesman that = (CreateTradesman) o;
 
         if (!Objects.equals(firstname, that.firstname)) return false;
         if (!Objects.equals(lastname, that.lastname)) return false;
@@ -59,7 +39,7 @@ public final class ContractorRegistration {
 
     @Override
     public String toString() {
-        return "ContractorRegistration{" +
+        return "TradesmanRegistration{" +
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +

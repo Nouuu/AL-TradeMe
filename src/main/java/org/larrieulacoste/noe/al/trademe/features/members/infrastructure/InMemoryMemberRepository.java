@@ -2,7 +2,8 @@ package org.larrieulacoste.noe.al.trademe.features.members.infrastructure;
 
 import org.larrieulacoste.noe.al.trademe.application.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.Repository;
-import org.larrieulacoste.noe.al.trademe.domain.entity.User;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.MemberRepository;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.User;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
@@ -12,12 +13,12 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public final class InMemoryUserRepository implements Repository<User> {
+public final class InMemoryMemberRepository implements MemberRepository {
     private final AtomicInteger counter = new AtomicInteger(0);
     private final Map<EntityId, User> data = new ConcurrentHashMap<>();
     private final Logger logger;
 
-    public InMemoryUserRepository(LoggerFactory loggerFactory) {
+    public InMemoryMemberRepository(LoggerFactory loggerFactory) {
         this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
     }
 

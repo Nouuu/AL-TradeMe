@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.ContractorRegistration;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -11,16 +10,16 @@ public final class NewContractorRegistration implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final ContractorRegistration contractorRegistration;
+    private final ContractorEventEntity contractorEventEntity;
 
-    private NewContractorRegistration(EventId eventId, ZonedDateTime occurredDate, ContractorRegistration contractorRegistration) {
+    private NewContractorRegistration(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.contractorRegistration = Objects.requireNonNull(contractorRegistration);
+        this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
     }
 
-    public static NewContractorRegistration of(ContractorRegistration contractor) {
-        return new NewContractorRegistration(EventId.create(), ZonedDateTime.now(), contractor);
+    public static NewContractorRegistration of(ContractorEventEntity contractorEventEntity) {
+        return new NewContractorRegistration(EventId.create(), ZonedDateTime.now(), contractorEventEntity);
     }
 
     @Override
@@ -33,8 +32,8 @@ public final class NewContractorRegistration implements ApplicationEvent {
         return occurredDate;
     }
 
-    public ContractorRegistration getContractorRegistration() {
-        return contractorRegistration;
+    public ContractorEventEntity getContractorRegistration() {
+        return contractorEventEntity;
     }
 
     @Override
@@ -46,14 +45,14 @@ public final class NewContractorRegistration implements ApplicationEvent {
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        return contractorRegistration.equals(that.contractorRegistration);
+        return contractorEventEntity.equals(that.contractorEventEntity);
     }
 
     @Override
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + contractorRegistration.hashCode();
+        result = 31 * result + contractorEventEntity.hashCode();
         return result;
     }
 
@@ -62,7 +61,7 @@ public final class NewContractorRegistration implements ApplicationEvent {
         return "NewContractorRegistration{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", contractor=" + contractorRegistration +
+                ", contractor=" + contractorEventEntity +
                 '}';
     }
 }

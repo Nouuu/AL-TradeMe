@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.domain.entity;
+package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;

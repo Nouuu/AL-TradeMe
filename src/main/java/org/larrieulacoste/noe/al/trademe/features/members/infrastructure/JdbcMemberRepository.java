@@ -1,18 +1,18 @@
 package org.larrieulacoste.noe.al.trademe.features.members.infrastructure;
 
-import org.larrieulacoste.noe.al.trademe.domain.Repository;
-import org.larrieulacoste.noe.al.trademe.domain.entity.User;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.MemberRepository;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.User;
 
 import java.util.Objects;
 
-public final class JdbcUserRepository implements Repository<User> {
+public final class JdbcMemberRepository implements MemberRepository {
     private static final String NOT_YET_IMPLEMENTED_MESSAGE = "Not yet implemented";
     private final Logger logger;
 
-    public JdbcUserRepository(LoggerFactory loggerFactory) {
+    public JdbcMemberRepository(LoggerFactory loggerFactory) {
         this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
         this.logger.error("Warning !!! Your are instancing a not yet implemented repository");
     }

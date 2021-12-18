@@ -1,19 +1,15 @@
 package org.larrieulacoste.noe.al.trademe;
 
 
-import org.larrieulacoste.noe.al.trademe.application.event.NewContractorApplicative;
-import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistration;
-import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanApplicative;
-import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistration;
-import org.larrieulacoste.noe.al.trademe.domain.entity.Contractor;
-import org.larrieulacoste.noe.al.trademe.domain.entity.User;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.User;
 import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.domain.model.Password;
 import org.larrieulacoste.noe.al.trademe.features.member_application.application.MemberApplicationService;
 import org.larrieulacoste.noe.al.trademe.features.member_registration.application.MemberRegistrationService;
 import org.larrieulacoste.noe.al.trademe.features.member_validation.application.MemberValidationService;
-import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryUserRepository;
+import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryMemberRepository;
 import org.larrieulacoste.noe.al.trademe.features.members.application.ContractorsService;
 import org.larrieulacoste.noe.al.trademe.features.members.application.TradesmenService;
 import org.larrieulacoste.noe.al.trademe.features.payment.infrastructure.StubPaymentApi;
@@ -26,7 +22,7 @@ public class App {
     public static void main(String[] args) {
         var loggerFactory = new DefaultLoggerFactory();
 
-        var userRepository = new InMemoryUserRepository(loggerFactory);
+        var userRepository = new InMemoryMemberRepository(loggerFactory);
         var applicationEventBus = new DefaultEventBus<ApplicationEvent>(loggerFactory);
         var paymentAPI = new StubPaymentApi();
 
@@ -37,11 +33,13 @@ public class App {
         var contractorsService = new ContractorsService(userRepository);
         var tradesmenService = new TradesmenService(userRepository);
 
+/*
         applicationEventBus.register(NewContractorApplicative.class, paymentService.getNewContractorApplicativeListener());
         applicationEventBus.register(NewTradesmanApplicative.class, paymentService.getNewTradesmanApplicativeListener());
 
         applicationEventBus.register(NewContractorRegistration.class, contractorsService.getNewContractorRegistrationListener());
         applicationEventBus.register(NewTradesmanRegistration.class, tradesmenService.getNewTradesmanRegistrationListener());
+*/
 
         var user = User.of(userRepository.nextId(), NotEmptyString.of("larrieu"), NotEmptyString.of("noé"),
                 EmailAddress.of("noe@mail.com"), Password.of("changeme123"));

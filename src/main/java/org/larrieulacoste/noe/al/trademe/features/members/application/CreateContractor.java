@@ -1,38 +1,20 @@
-package org.larrieulacoste.noe.al.trademe.domain.model;
+package org.larrieulacoste.noe.al.trademe.features.members.application;
+
+import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 
 import java.util.Objects;
 
-public final class TradesmanRegistration {
-    private final String firstname;
-    private final String lastname;
-    private final String email;
-    private final String password;
+public final class CreateContractor implements Command {
+    public final String firstname;
+    public final String lastname;
+    public final String email;
+    public final String password;
 
-    private TradesmanRegistration(String firstname, String lastname, String email, String password) {
+    public CreateContractor(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
-    }
-
-    public static TradesmanRegistration with(String firstname, String lastname, String email, String password) {
-        return new TradesmanRegistration(firstname, lastname, email, password);
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override
@@ -40,7 +22,7 @@ public final class TradesmanRegistration {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TradesmanRegistration that = (TradesmanRegistration) o;
+        CreateContractor that = (CreateContractor) o;
 
         if (!Objects.equals(firstname, that.firstname)) return false;
         if (!Objects.equals(lastname, that.lastname)) return false;
@@ -59,7 +41,7 @@ public final class TradesmanRegistration {
 
     @Override
     public String toString() {
-        return "TradesmanRegistration{" +
+        return "ContractorRegistration{" +
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
