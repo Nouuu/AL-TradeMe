@@ -8,8 +8,8 @@ import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemor
 import org.larrieulacoste.noe.al.trademe.features.payment.application.PaymentService;
 import org.larrieulacoste.noe.al.trademe.features.payment.infrastructure.StubPaymentApi;
 import org.larrieulacoste.noe.al.trademe.infrastructure.logger.DefaultLoggerFactory;
-import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
-import org.larrieulacoste.noe.al.trademe.kernel.event.DefaultEventBus;
+import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.event.ApplicationEvent;
+import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.event.DefaultEventBus;
 
 public class App {
     public static void main(String[] args) {

@@ -8,8 +8,8 @@ import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.features.member_validation.application.MemberValidationService;
-import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
-import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
+import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.event.ApplicationEvent;
+import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.event.EventBus;
 
 import java.util.List;
 import java.util.Objects;

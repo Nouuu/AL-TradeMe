@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.kernel.event;
+package org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.event;
 
 import java.time.ZonedDateTime;
 

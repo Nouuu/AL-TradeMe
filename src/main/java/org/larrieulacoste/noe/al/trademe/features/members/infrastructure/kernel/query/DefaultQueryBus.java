@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.kernel.query;
+package org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.query;
 
 import java.util.Map;
 import java.util.Objects;
