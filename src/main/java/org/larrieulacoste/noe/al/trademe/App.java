@@ -1,19 +1,18 @@
 package org.larrieulacoste.noe.al.trademe;
 
 
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.User;
 import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.domain.model.Password;
 import org.larrieulacoste.noe.al.trademe.features.member_application.application.MemberApplicationService;
 import org.larrieulacoste.noe.al.trademe.features.member_registration.application.MemberRegistrationService;
 import org.larrieulacoste.noe.al.trademe.features.member_validation.application.MemberValidationService;
+import org.larrieulacoste.noe.al.trademe.features.members.application.CreateMemberService;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.User;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryMemberRepository;
-import org.larrieulacoste.noe.al.trademe.features.members.application.ContractorsService;
-import org.larrieulacoste.noe.al.trademe.features.members.application.TradesmenService;
-import org.larrieulacoste.noe.al.trademe.features.payment.infrastructure.StubPaymentApi;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.PaymentService;
+import org.larrieulacoste.noe.al.trademe.features.payment.infrastructure.StubPaymentApi;
 import org.larrieulacoste.noe.al.trademe.infrastructure.logger.DefaultLoggerFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.DefaultEventBus;
@@ -30,8 +29,8 @@ public class App {
         var memberApplicationService = new MemberApplicationService(applicationEventBus, loggerFactory, memberValidationService);
         var memberRegistrationService = new MemberRegistrationService(applicationEventBus, loggerFactory, memberValidationService);
         var paymentService = new PaymentService(loggerFactory, paymentAPI);
-        var contractorsService = new ContractorsService(userRepository);
-        var tradesmenService = new TradesmenService(userRepository);
+//        var contractorsService = new ContractorsService(userRepository);
+        var newMemberService = new CreateMemberService(userRepository);
 
 /*
         applicationEventBus.register(NewContractorApplicative.class, paymentService.getNewContractorApplicativeListener());

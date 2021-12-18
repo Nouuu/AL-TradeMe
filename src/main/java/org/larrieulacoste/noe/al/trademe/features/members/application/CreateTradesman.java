@@ -1,8 +1,10 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
+import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
+
 import java.util.Objects;
 
-public final class CreateTradesman {
+public final class CreateTradesman implements Command {
     public final String firstname;
     public final String lastname;
     public final String email;
