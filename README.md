@@ -1,5 +1,5 @@
-| [![github](https://img.shields.io/badge/repository-github-blue)](https://github.com/Nouuu/AL-TradeMe) | [![wakatime](https://wakatime.com/badge/user/3106fbc8-c1fe-4d47-b9ce-b0514ce3fb3d/project/945bfe6c-4742-4cbe-896d-b9b5692afeca.svg)](https://wakatime.com/@Nou/projects/aqygjxcins) |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [![github](https://img.shields.io/badge/repository-github-blue)](https://github.com/Nouuu/AL-TradeMe) | [![wakatime](https://wakatime.com/badge/user/3106fbc8-c1fe-4d47-b9ce-b0514ce3fb3d/project/945bfe6c-4742-4cbe-896d-b9b5692afeca.svg)](https://wakatime.com/@Nou/projects/aqygjxcins) | dev :  [![Run mvn test](https://github.com/Nouuu/AL-TradeMe/actions/workflows/maven_test.yml/badge.svg?branch=dev)](https://github.com/Nouuu/AL-TradeMe/actions/workflows/maven_test.yml) [![codecov](https://codecov.io/gh/Nouuu/AL-TradeMe/branch/dev/graph/badge.svg?token=07VGBLNOBQ)](https://codecov.io/gh/Nouuu/AL-TradeMe) |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 # Architecture choisie
 
