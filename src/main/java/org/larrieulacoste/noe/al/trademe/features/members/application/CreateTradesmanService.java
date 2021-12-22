@@ -6,8 +6,11 @@ import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.domain.model.Password;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
-import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.command.CommandHandler;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class CreateTradesmanService implements CommandHandler<CreateTradesman, EntityId> {
     private final Tradesmen tradesmen;
 

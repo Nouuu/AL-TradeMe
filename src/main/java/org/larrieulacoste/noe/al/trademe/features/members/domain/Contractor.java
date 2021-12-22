@@ -10,10 +10,10 @@ import java.util.Objects;
 public final class Contractor {
 
     private final EntityId entityId;
-    private NotEmptyString lastname;
-    private NotEmptyString firstname;
-    private EmailAddress email;
-    private Password password;
+    private final NotEmptyString lastname;
+    private final NotEmptyString firstname;
+    private final EmailAddress email;
+    private final Password password;
 
     private Contractor(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
         this.entityId = Objects.requireNonNull(entityId);
