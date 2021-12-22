@@ -2,10 +2,10 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistration;
-import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.command.CommandBus;
-import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.event.EventSubscriber;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
+import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-class NewContractorRegistrationListener implements EventSubscriber<NewContractorRegistration> {
+public class NewContractorRegistrationListener implements EventSubscriber<NewContractorRegistration> {
 
     private final CommandBus commandBus;
 

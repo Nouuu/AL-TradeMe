@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
-import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.event.ApplicationEvent;
-import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.kernel.event.EventId;
+import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
+import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
