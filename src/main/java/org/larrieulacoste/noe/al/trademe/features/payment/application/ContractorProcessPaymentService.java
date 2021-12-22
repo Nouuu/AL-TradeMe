@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanPayment;
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
+import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
+import org.larrieulacoste.noe.al.trademe.application.event.NewContractorPayment;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
@@ -13,12 +13,12 @@ import javax.enterprise.context.ApplicationScoped;
 import java.util.Objects;
 
 @ApplicationScoped
-public class TradesmanProcessPaymentService implements CommandHandler<TradesmanPayment, Void> {
+public class ContractorProcessPaymentService implements CommandHandler<ContractorPayment, Void> {
     private final Logger logger;
     private final PaymentAPI paymentAPI;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public TradesmanProcessPaymentService(LoggerFactory loggerFactory, PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus) {
+    public ContractorProcessPaymentService(LoggerFactory loggerFactory, PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus) {
         this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
@@ -26,8 +26,8 @@ public class TradesmanProcessPaymentService implements CommandHandler<TradesmanP
 
 
     @Override
-    public Void handle(TradesmanPayment tradesmanPayment) {
-        logger.log(String.format("Process tradesman payment of : %s with %sf", tradesmanPayment.tradesmanId, tradesmanPayment.paymentMethod));
+    public Void handle(ContractorPayment contractorPayment) {
+        logger.log(String.format("Process user tradesman of : %s with %sf", contractorPayment.contractorId, contractorPayment.paymentMethod));
 
         /* Boolean paymentSuccess = paymentAPI.pay(
                 "TODO",
@@ -39,7 +39,7 @@ public class TradesmanProcessPaymentService implements CommandHandler<TradesmanP
         } else {
             throw new PaymentException("Payment error for user : " + user);
         } */
-        eventBus.publish(NewTradesmanPayment.withTradesman(new TradesmanEventEntity(tradesmanPayment.tradesmanId)));
+        eventBus.publish(NewContractorPayment.withContractor(new ContractorEventEntity(contractorPayment.contractorId)));
         return null;
     }
 }

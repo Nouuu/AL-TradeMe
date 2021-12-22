@@ -20,6 +20,22 @@ public final class ContractorEventEntity implements Command {
         this.password = password;
     }
 
+    public ContractorEventEntity(EntityId entityId, String firstname, String lastname, String email) {
+        this.entityId = entityId;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = null;
+    }
+
+    public ContractorEventEntity(EntityId entityId) {
+        this.entityId = entityId;
+        this.firstname = null;
+        this.lastname = null;
+        this.email = null;
+        this.password = null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

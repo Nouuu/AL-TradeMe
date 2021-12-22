@@ -1,17 +1,20 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistered;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class NewTradesmanApplicationListener implements EventSubscriber<NewTradesmanRegistered> {
-    private final PaymentService paymentService;
+public class NewTradesmanRegisteredListener implements EventSubscriber<NewTradesmanRegistered> {
 
-    public NewTradesmanApplicationListener(PaymentService paymentService) {
-        this.paymentService = paymentService;
+    private final CommandBus commandBus;
+
+    public NewTradesmanRegisteredListener(CommandBus commandBus) {
+        this.commandBus = commandBus;
     }
 
     @Override
     public void accept(NewTradesmanRegistered event) {
-        paymentService.processPayment(event.getTradesman(), event.getAmount());
+        TradesmanPayment tradesman = new TradesmanPayment(event.getTradesman().entityId, "TODO");
+        commandBus.send(tradesman);
     }
 }
