@@ -1,7 +1,5 @@
-package org.larrieulacoste.noe.al.trademe.features.member_validation.application;
+package org.larrieulacoste.noe.al.trademe.features.members.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
@@ -13,37 +11,45 @@ import java.util.List;
 import java.util.Objects;
 
 @ApplicationScoped
-public final class MemberValidationService {
+public class MemberValidationService {
     private final Logger logger;
-    private final StringValidators stringValidators = ValidatorsFactory.getStringValidatorsInstance();
+    private final StringValidators stringValidators;
 
     public MemberValidationService(LoggerFactory loggerFactory) {
         this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
+        this.stringValidators = ValidatorsFactory.getStringValidatorsInstance();
     }
 
-/*
-    public Boolean isUserValid(User user) {
-        logger.log("Triggered validation with user : " + user);
-
-        return user != null &&
-                StringUtils.isNotBlank(user.getFirstname().getField()) &&
-                StringUtils.isNotBlank(user.getLastname().getField()) &&
-                StringUtils.isNotBlank(user.getPassword().getPasswordString()) &&
-                user.getPassword().getPasswordString().length() > 8 &&
-                StringUtils.isNotBlank(user.getEmail().getEmailAddressString());
+    public boolean isTradesmanValid(CreateTradesman tradesman) {
+        logger.log("Triggered validation with tradesman : " + tradesman);
+        List<String> errors = getTradesmanInvalidFields(tradesman);
+        if (!errors.isEmpty()) {
+            logger.error("Errors with tradesman :\n - " + String.join("\n - ", errors));
+            return false;
+        }
+        return true;
     }
-*/
 
-    public List<String> getMemberInvalidFields(TradesmanEventEntity tradesmanEventEntity) {
+    public boolean isContractorValid(CreateContractor contractor) {
+        logger.log("Triggered validation with contractor : " + contractor);
+        List<String> errors = getContractorInvalidFields(contractor);
+        if (!errors.isEmpty()) {
+            logger.error("Errors with contractor :\n - " + String.join("\n - ", errors));
+            return false;
+        }
+        return true;
+    }
+
+    private List<String> getTradesmanInvalidFields(CreateTradesman tradesman) {
         List<String> errors = new ArrayList<>();
-        required(tradesmanEventEntity.firstname, "firstname", errors);
-        required(tradesmanEventEntity.lastname, "lastname", errors);
-        password(tradesmanEventEntity.password, errors);
-        email(tradesmanEventEntity.email, errors);
+        required(tradesman.firstname, "firstname", errors);
+        required(tradesman.lastname, "lastname", errors);
+        password(tradesman.password, errors);
+        email(tradesman.email, errors);
         return errors;
     }
 
-    public List<String> getMemberInvalidFields(ContractorEventEntity contractorEventEntity) {
+    private List<String> getContractorInvalidFields(CreateContractor contractorEventEntity) {
         List<String> errors = new ArrayList<>();
         required(contractorEventEntity.firstname, "firstname", errors);
         required(contractorEventEntity.lastname, "lastname", errors);
@@ -51,6 +57,7 @@ public final class MemberValidationService {
         email(contractorEventEntity.email, errors);
         return errors;
     }
+
 
     private void required(String field, String fieldName, List<String> errors) {
         if (!stringValidators.isNotEmptyOrOnlyWhitespaces(field)) {
