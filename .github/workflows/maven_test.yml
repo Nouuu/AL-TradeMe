@@ -27,3 +27,9 @@ jobs:
 
       - name: Run mvn test
         run: mvn --batch-mode --update-snapshots test
+
+      - name: Upload test coverage report on Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: target/site/jacoco/jacoco.xml
