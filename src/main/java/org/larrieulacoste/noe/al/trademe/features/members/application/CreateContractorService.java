@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
+import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
@@ -14,13 +15,18 @@ import java.util.Objects;
 @ApplicationScoped
 public class CreateContractorService implements CommandHandler<CreateContractor, EntityId> {
     private final Contractors contractors;
+    private final MemberValidationService memberValidationService;
 
-    public CreateContractorService(Contractors contractors) {
+    public CreateContractorService(Contractors contractors, MemberValidationService memberValidationService) {
         this.contractors = Objects.requireNonNull(contractors);
+        this.memberValidationService = memberValidationService;
     }
 
     @Override
     public EntityId handle(CreateContractor createContractor) {
+        if (!memberValidationService.isContractorValid(createContractor)) {
+            throw new InvalidUserException("Invalid contractor creation");
+        }
         final EntityId userId = contractors.nextId();
         Contractor contractor = Contractor.of(
                 userId,
