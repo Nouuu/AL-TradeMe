@@ -5,6 +5,7 @@ import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Objects;
 @ApplicationScoped
 public final class MemberValidationService {
     private final Logger logger;
+    private final StringValidators stringValidators = ValidatorsFactory.getStringValidatorsInstance();
 
     public MemberValidationService(LoggerFactory loggerFactory) {
         this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
@@ -51,19 +53,19 @@ public final class MemberValidationService {
     }
 
     private void required(String field, String fieldName, List<String> errors) {
-        if (!StringValidators.isNotEmptyOrOnlyWhitespaces(field)) {
+        if (!stringValidators.isNotEmptyOrOnlyWhitespaces(field)) {
             errors.add(fieldName);
         }
     }
 
     private void password(String field, List<String> errors) {
-        if (!StringValidators.isValidPassword(field)) {
+        if (!stringValidators.isValidPassword(field)) {
             errors.add("password");
         }
     }
 
     private void email(String field, List<String> errors) {
-        if (!StringValidators.isEmail(field)) {
+        if (!stringValidators.isEmail(field)) {
             errors.add("email");
         }
     }

@@ -1,13 +1,13 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidPasswordException;
-import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 
 public final class Password {
     private final String passwordString;
 
     private Password(String passwordString) {
-        if (!StringValidators.isValidPassword(passwordString)) {
+        if (!ValidatorsFactory.getStringValidatorsInstance().isValidPassword(passwordString)) {
             throw new InvalidPasswordException("Invalid password : " + passwordString);
         }
         this.passwordString = passwordString;
