@@ -48,14 +48,14 @@ public class ContractorController {
                         contractor.getFirstname().getField(),
                         contractor.getLastname().getField(),
                         contractor.getEmail().getEmailAddressString()
-                )).collect(Collectors.toList())
-        );
+                )).collect(Collectors.toList()),
+                contractors.size());
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public ContractorResponse create(ContractorRequest contractor) {
+    public ContractorResponse register(ContractorRequest contractor) {
         EntityId userId = commandBus.send(new CreateContractor(
                 contractor.firstname,
                 contractor.lastname,
