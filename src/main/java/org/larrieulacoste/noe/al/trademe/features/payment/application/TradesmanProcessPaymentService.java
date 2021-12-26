@@ -28,17 +28,7 @@ public class TradesmanProcessPaymentService implements CommandHandler<TradesmanP
     @Override
     public Void handle(TradesmanPayment tradesmanPayment) {
         logger.log(String.format("Process tradesman payment of : %s with %sf", tradesmanPayment.tradesmanId, tradesmanPayment.paymentMethod));
-
-        /* Boolean paymentSuccess = paymentAPI.pay(
-                "TODO",
-                Double.max(Objects.requireNonNull(amount), 0)
-        );
-
-        if (Boolean.TRUE.equals(paymentSuccess)) {
-            logger.log("Payment success !");
-        } else {
-            throw new PaymentException("Payment error for user : " + user);
-        } */
+        paymentAPI.pay(null, 0);
         eventBus.publish(NewTradesmanPayment.withTradesman(new TradesmanEventEntity(tradesmanPayment.tradesmanId)));
         return null;
     }

@@ -28,17 +28,7 @@ public class ContractorProcessPaymentService implements CommandHandler<Contracto
     @Override
     public Void handle(ContractorPayment contractorPayment) {
         logger.log(String.format("Process user tradesman of : %s with %sf", contractorPayment.contractorId, contractorPayment.paymentMethod));
-
-        /* Boolean paymentSuccess = paymentAPI.pay(
-                "TODO",
-                Double.max(Objects.requireNonNull(amount), 0)
-        );
-
-        if (Boolean.TRUE.equals(paymentSuccess)) {
-            logger.log("Payment success !");
-        } else {
-            throw new PaymentException("Payment error for user : " + user);
-        } */
+        paymentAPI.pay(null, 0);
         eventBus.publish(NewContractorPayment.withContractor(new ContractorEventEntity(contractorPayment.contractorId)));
         return null;
     }
