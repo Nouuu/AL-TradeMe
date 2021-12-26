@@ -6,22 +6,20 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewContractorApplicative implements ApplicationEvent {
+public final class NewContractorPayment implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     private final ContractorEventEntity contractorEventEntity;
-    private final Double amount;
 
-    private NewContractorApplicative(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity, Double amount) {
+    private NewContractorPayment(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
-        this.amount = amount;
     }
 
-    public static NewContractorApplicative withContractorAndAmount(ContractorEventEntity tradesman, Double amount) {
-        return new NewContractorApplicative(EventId.create(), ZonedDateTime.now(), tradesman, amount);
+    public static NewContractorPayment withContractor(ContractorEventEntity tradesman) {
+        return new NewContractorPayment(EventId.create(), ZonedDateTime.now(), tradesman);
     }
 
     @Override
@@ -38,31 +36,26 @@ public final class NewContractorApplicative implements ApplicationEvent {
         return contractorEventEntity;
     }
 
-    public Double getAmount() {
-        return amount;
-    }
 
     @Override
     public String toString() {
-        return "NewContractorApplicative{" +
+        return "NewContractorRegistered{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
                 ", contractor=" + contractorEventEntity +
-                ", amount=" + amount +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof NewContractorApplicative)) return false;
+        if (!(o instanceof NewContractorPayment)) return false;
 
-        NewContractorApplicative that = (NewContractorApplicative) o;
+        NewContractorPayment that = (NewContractorPayment) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        if (!contractorEventEntity.equals(that.contractorEventEntity)) return false;
-        return amount.equals(that.amount);
+        return contractorEventEntity.equals(that.contractorEventEntity);
     }
 
     @Override
@@ -70,7 +63,6 @@ public final class NewContractorApplicative implements ApplicationEvent {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
         result = 31 * result + contractorEventEntity.hashCode();
-        result = 31 * result + amount.hashCode();
         return result;
     }
 }
