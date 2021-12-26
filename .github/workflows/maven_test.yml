@@ -33,7 +33,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: target/site/jacoco/jacoco.xml
-  analyser:
+  analyzer:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
