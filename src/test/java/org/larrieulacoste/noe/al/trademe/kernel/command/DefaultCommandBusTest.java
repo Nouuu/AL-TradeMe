@@ -8,13 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 class DefaultCommandBusTest {
-    private TestCommandHandler testCommandHandler;
     private Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap;
     private DefaultCommandBus defaultCommandBus;
 
     @BeforeEach
     void setUp() {
-        testCommandHandler = new TestCommandHandler();
+        TestCommandHandler testCommandHandler = new TestCommandHandler();
         commandMap = new HashMap<>();
         commandMap.put(TestCommand.class, testCommandHandler);
         defaultCommandBus = new DefaultCommandBus(commandMap);
