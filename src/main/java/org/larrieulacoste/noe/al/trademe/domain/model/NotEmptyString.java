@@ -1,12 +1,12 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
-import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 
 public final class NotEmptyString {
     private final String field;
 
     private NotEmptyString(String field) {
-        if (!StringValidators.isNotEmptyOrOnlyWhitespaces(field)) {
+        if (!ValidatorsFactory.getStringValidatorsInstance().isNotEmptyOrOnlyWhitespaces(field)) {
             throw new IllegalArgumentException("Field must not be empty");
         }
         this.field = field;

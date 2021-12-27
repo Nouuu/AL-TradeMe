@@ -1,13 +1,13 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidEmailException;
-import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 
 public final class EmailAddress {
     private final String emailAddressString;
 
     private EmailAddress(String emailAddressString) {
-        if (!StringValidators.isEmail(emailAddressString)) {
+        if (!ValidatorsFactory.getStringValidatorsInstance().isEmail(emailAddressString)) {
             throw new InvalidEmailException("Invalid email : " + emailAddressString);
         }
         this.emailAddressString = emailAddressString;

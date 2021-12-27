@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.CreateContractor;
 import org.larrieulacoste.noe.al.trademe.features.members.application.RetrieveContractorById;
@@ -26,6 +27,7 @@ public class ContractorController {
 
     @GET
     @Path("{userId}")
+    @Operation(summary = "Retrieve contractor by ID",description = "Retrieve contractor giving contractor's ID")
     @Produces(MediaType.APPLICATION_JSON)
     public ContractorResponse getById(@PathParam("userId") String userId) {
         Contractor contractor = queryBus.send(new RetrieveContractorById(EntityId.of(userId)));
@@ -38,6 +40,7 @@ public class ContractorController {
     }
 
     @GET
+    @Operation(summary = "Retrieve contractors",description = "Retrieve all contractors")
     @Produces(MediaType.APPLICATION_JSON)
     public ContractorsResponse getAll() {
         List<Contractor> contractors = queryBus.send(new RetrieveContractors());
@@ -53,6 +56,7 @@ public class ContractorController {
     }
 
     @POST
+    @Operation(summary = "Create contractor",description = "Register a new contractor to TradeMe")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public ContractorResponse register(ContractorRequest contractor) {

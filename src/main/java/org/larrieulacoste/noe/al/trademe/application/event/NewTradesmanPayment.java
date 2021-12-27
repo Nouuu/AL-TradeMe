@@ -6,22 +6,20 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewTradesmanApplicative implements ApplicationEvent {
+public final class NewTradesmanPayment implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     private final TradesmanEventEntity tradesman;
-    private final Double amount;
 
-    private NewTradesmanApplicative(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman, Double amount) {
+    private NewTradesmanPayment(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.tradesman = Objects.requireNonNull(tradesman);
-        this.amount = amount;
     }
 
-    public static NewTradesmanApplicative withTradesmanAndAmount(TradesmanEventEntity tradesman, Double amount) {
-        return new NewTradesmanApplicative(EventId.create(), ZonedDateTime.now(), tradesman, amount);
+    public static NewTradesmanPayment withTradesman(TradesmanEventEntity tradesman) {
+        return new NewTradesmanPayment(EventId.create(), ZonedDateTime.now(), tradesman);
     }
 
     @Override
@@ -38,9 +36,6 @@ public final class NewTradesmanApplicative implements ApplicationEvent {
         return tradesman;
     }
 
-    public Double getAmount() {
-        return amount;
-    }
 
     @Override
     public String toString() {
@@ -48,21 +43,19 @@ public final class NewTradesmanApplicative implements ApplicationEvent {
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
                 ", tradesman=" + tradesman +
-                ", amount=" + amount +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof NewTradesmanApplicative)) return false;
+        if (!(o instanceof NewTradesmanPayment)) return false;
 
-        NewTradesmanApplicative that = (NewTradesmanApplicative) o;
+        NewTradesmanPayment that = (NewTradesmanPayment) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        if (!tradesman.equals(that.tradesman)) return false;
-        return amount.equals(that.amount);
+        return tradesman.equals(that.tradesman);
     }
 
     @Override
@@ -70,7 +63,6 @@ public final class NewTradesmanApplicative implements ApplicationEvent {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
         result = 31 * result + tradesman.hashCode();
-        result = 31 * result + amount.hashCode();
         return result;
     }
 }

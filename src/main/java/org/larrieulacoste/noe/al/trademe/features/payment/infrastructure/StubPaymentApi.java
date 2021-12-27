@@ -4,7 +4,7 @@ import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 
 public final class StubPaymentApi implements PaymentAPI {
     @Override
-    public Boolean pay(String bankAccount, Double amount) {
+    public Boolean pay(String bankAccount, double amount) {
         return true;
     }
 }

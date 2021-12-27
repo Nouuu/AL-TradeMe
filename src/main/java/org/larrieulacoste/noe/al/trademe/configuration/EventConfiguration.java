@@ -1,10 +1,13 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistration;
-import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistration;
+import org.larrieulacoste.noe.al.trademe.application.event.*;
 import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
+import org.larrieulacoste.noe.al.trademe.features.members.application.NewContractorPaymentListener;
 import org.larrieulacoste.noe.al.trademe.features.members.application.NewContractorRegistrationListener;
+import org.larrieulacoste.noe.al.trademe.features.members.application.NewTradesmanPaymentListener;
 import org.larrieulacoste.noe.al.trademe.features.members.application.NewTradesmenRegistrationListener;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.NewContractorRegisteredListener;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.NewTradesmanRegisteredListener;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.DefaultEventBus;
@@ -28,6 +31,13 @@ public class EventConfiguration {
         // Members feature
         eventBus.register(NewContractorRegistration.class, new NewContractorRegistrationListener(commandBus));
         eventBus.register(NewTradesmanRegistration.class, new NewTradesmenRegistrationListener(commandBus));
+        eventBus.register(NewContractorPayment.class, new NewContractorPaymentListener(commandBus));
+        eventBus.register(NewTradesmanPayment.class, new NewTradesmanPaymentListener(commandBus));
+
+        // Payment feature
+        eventBus.register(NewContractorRegistered.class, new NewContractorRegisteredListener(commandBus));
+        eventBus.register(NewTradesmanRegistered.class, new NewTradesmanRegisteredListener(commandBus));
+
         return eventBus;
     }
 }
