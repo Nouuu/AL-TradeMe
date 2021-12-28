@@ -19,12 +19,12 @@ jobs:
         with:
           java-version: 11
 
-#     - name: Cache SonarQube packages
-#       uses: actions/cache@v1
-#       with:
-#         path: ~/.sonar/cache
-#         key: ${{ runner.os }}-sonar
-#         restore-keys: ${{ runner.os }}-sonar
+     - name: Cache SonarQube packages
+       uses: actions/cache@v1
+       with:
+         path: ~/.sonar/cache
+         key: ${{ runner.os }}-sonar
+         restore-keys: ${{ runner.os }}-sonar
 
       - name: Cache Maven packages
         uses: actions/cache@v2
@@ -52,9 +52,9 @@ jobs:
         env:
           DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
 
-#      - name: Sonarqube build and analyze
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-#        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Nouuu_AL-TradeMe
+      - name: Sonarqube build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Nouuu_AL-TradeMe
