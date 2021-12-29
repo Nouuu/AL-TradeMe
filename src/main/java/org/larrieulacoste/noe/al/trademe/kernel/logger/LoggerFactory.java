@@ -1,6 +1,13 @@
 package org.larrieulacoste.noe.al.trademe.kernel.logger;
 
-public interface LoggerFactory {
+import java.util.Objects;
 
-    Logger getLogger(Object object);
+public final class LoggerFactory {
+
+    private LoggerFactory() {
+    }
+
+    public static Logger getLogger(Object object) {
+        return new DefaultLogger(Objects.requireNonNull(object).getClass().getSimpleName());
+    }
 }

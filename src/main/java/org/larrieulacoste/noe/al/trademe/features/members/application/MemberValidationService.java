@@ -1,22 +1,21 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
-import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @ApplicationScoped
 public class MemberValidationService {
     private final Logger logger;
     private final StringValidators stringValidators;
 
-    public MemberValidationService(LoggerFactory loggerFactory) {
-        this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
+    public MemberValidationService() {
+        this.logger = LoggerFactory.getLogger(this);
         this.stringValidators = ValidatorsFactory.getStringValidatorsInstance();
     }
 

@@ -1,7 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.larrieulacoste.noe.al.trademe.application.event.*;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.features.members.application.NewContractorPaymentListener;
 import org.larrieulacoste.noe.al.trademe.features.members.application.NewContractorRegistrationListener;
 import org.larrieulacoste.noe.al.trademe.features.members.application.NewTradesmanPaymentListener;
@@ -18,15 +17,14 @@ import javax.inject.Inject;
 
 @ApplicationScoped
 public class EventConfiguration {
-    @Inject
-    LoggerFactory loggerFactory;
+
     @Inject
     CommandBus commandBus;
 
 
     @ApplicationScoped
     EventBus<ApplicationEvent> applicationEventBus() {
-        final EventBus<ApplicationEvent> eventBus = new DefaultEventBus<>(loggerFactory);
+        final EventBus<ApplicationEvent> eventBus = new DefaultEventBus<>();
 
         // Members feature
         eventBus.register(NewContractorRegistration.class, new NewContractorRegistrationListener(commandBus));
