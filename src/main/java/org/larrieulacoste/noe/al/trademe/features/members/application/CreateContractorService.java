@@ -2,11 +2,10 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistered;
-import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
-import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
-import org.larrieulacoste.noe.al.trademe.domain.model.Password;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Password;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -30,9 +29,7 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
 
     @Override
     public EntityId handle(CreateContractor createContractor) {
-        if (!memberValidationService.isContractorValid(createContractor)) {
-            throw new InvalidUserException("Invalid contractor creation");
-        }
+        memberValidationService.validateContractor(createContractor);
 
         final EntityId userId = contractors.nextId();
         Contractor contractor = Contractor.of(
@@ -44,7 +41,7 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
         );
         contractors.save(contractor);
 
-        eventBus.publish(NewContractorRegistered.withContractor(new ContractorEventEntity(userId, createContractor.firstname,
+        eventBus.publish(NewContractorRegistered.withContractor(ContractorEventEntity.withoutPassword(userId, createContractor.firstname,
                 createContractor.lastname, createContractor.email)));
 
         return userId;

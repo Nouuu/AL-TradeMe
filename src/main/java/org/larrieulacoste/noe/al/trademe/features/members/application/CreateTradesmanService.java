@@ -3,10 +3,10 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistered;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
-import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
-import org.larrieulacoste.noe.al.trademe.domain.model.Password;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Password;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -43,7 +43,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
         );
         tradesmen.save(tradesman);
 
-        eventBus.publish(NewTradesmanRegistered.withTradesman(new TradesmanEventEntity(userId, createTradesman.firstname,
+        eventBus.publish(NewTradesmanRegistered.withTradesman(TradesmanEventEntity.of(userId, createTradesman.firstname,
                 createTradesman.lastname, createTradesman.email, createTradesman.password)));
 
         return userId;

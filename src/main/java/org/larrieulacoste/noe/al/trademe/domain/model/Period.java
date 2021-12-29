@@ -4,12 +4,13 @@ import org.larrieulacoste.noe.al.trademe.application.exception.InvalidPeriodExce
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 public final class Period {
-    private final LocalDate startDate;
-    private final LocalDate endDate;
+    private final ZonedDateTime startDate;
+    private final ZonedDateTime endDate;
 
-    public Period(LocalDate startDate, LocalDate endDate) {
+    private Period(ZonedDateTime startDate, ZonedDateTime endDate) {
         if (!ValidatorsFactory.getDateValidatorsInstance().isValidPeriod(startDate, endDate)) {
             throw new InvalidPeriodException("Invalid period " + startDate + " - " + endDate);
         }
@@ -17,11 +18,15 @@ public final class Period {
         this.endDate = endDate;
     }
 
-    public LocalDate getStartDate() {
+    public static Period of(ZonedDateTime startDate, ZonedDateTime endDate) {
+        return new Period(startDate, endDate);
+    }
+
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public ZonedDateTime getEndDate() {
         return endDate;
     }
 

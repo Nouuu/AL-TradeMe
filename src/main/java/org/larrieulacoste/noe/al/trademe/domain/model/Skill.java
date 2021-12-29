@@ -1,5 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
+import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
+
 import java.util.Objects;
 
 public final class Skill {

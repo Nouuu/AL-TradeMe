@@ -1,11 +1,11 @@
 package org.larrieulacoste.noe.al.trademe.features.members.infrastructure;
 
 import org.larrieulacoste.noe.al.trademe.application.exception.UserNotFoundException;
-import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -18,8 +18,8 @@ public final class InMemoryTradesmen implements Tradesmen {
     private final Map<EntityId, Tradesman> data = new ConcurrentHashMap<>();
     private final Logger logger;
 
-    public InMemoryTradesmen(LoggerFactory loggerFactory) {
-        this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
+    public InMemoryTradesmen() {
+        this.logger = LoggerFactory.getLogger(this);
     }
 
     @Override
