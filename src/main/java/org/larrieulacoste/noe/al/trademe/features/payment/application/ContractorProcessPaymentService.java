@@ -29,7 +29,7 @@ public class ContractorProcessPaymentService implements CommandHandler<Contracto
     public Void handle(ContractorPayment contractorPayment) {
         logger.log(String.format("Process user tradesman of : %s with %sf", contractorPayment.contractorId, contractorPayment.paymentMethod));
         paymentAPI.pay(null, 0);
-        eventBus.publish(NewContractorPayment.withContractor(new ContractorEventEntity(contractorPayment.contractorId)));
+        eventBus.publish(NewContractorPayment.withContractor(ContractorEventEntity.withEntityIdOnly(contractorPayment.contractorId)));
         return null;
     }
 }

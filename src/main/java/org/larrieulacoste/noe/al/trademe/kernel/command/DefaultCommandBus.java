@@ -12,11 +12,11 @@ public class DefaultCommandBus implements CommandBus {
 
     @SuppressWarnings("all")
     @Override
-    public <Q extends Command, R> R send(Q query) {
-        final CommandHandler<Q, R> queryHandler = (CommandHandler<Q, R>) commandMap.get(Objects.requireNonNull(query).getClass());
+    public <Q extends Command, R> R send(Q command) {
+        final CommandHandler<Q, R> queryHandler = (CommandHandler<Q, R>) commandMap.get(Objects.requireNonNull(command).getClass());
         if (queryHandler == null) {
-            throw new RuntimeException("No such command handler for " + query.getClass().getName());
+            throw new RuntimeException("No such command handler for " + command.getClass().getName());
         }
-        return queryHandler.handle(query);
+        return queryHandler.handle(command);
     }
 }

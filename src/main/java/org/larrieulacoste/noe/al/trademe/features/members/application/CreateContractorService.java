@@ -44,7 +44,7 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
         );
         contractors.save(contractor);
 
-        eventBus.publish(NewContractorRegistered.withContractor(new ContractorEventEntity(userId, createContractor.firstname,
+        eventBus.publish(NewContractorRegistered.withContractor(ContractorEventEntity.withoutPassword(userId, createContractor.firstname,
                 createContractor.lastname, createContractor.email)));
 
         return userId;
