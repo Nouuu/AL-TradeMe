@@ -2,10 +2,10 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistered;
-import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
-import org.larrieulacoste.noe.al.trademe.domain.model.Password;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Password;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
