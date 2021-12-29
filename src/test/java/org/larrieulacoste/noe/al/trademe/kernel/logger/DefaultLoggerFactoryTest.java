@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.infrastructure.logger;
+package org.larrieulacoste.noe.al.trademe.kernel.logger;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
