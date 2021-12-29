@@ -2,9 +2,9 @@ name: Run mvn test & Sonar analyzer
 
 on:
   push:
-    branches: [ dev, feature/* ]
+    branches: [main, dev, feature/* ]
   pull_request:
-    branches: [ dev, feature/* ]
+    branches: [main, dev, feature/* ]
 
 jobs:
   maven-test:
