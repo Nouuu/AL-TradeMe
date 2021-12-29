@@ -5,15 +5,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 class SimpleDateValidatorsTest {
     private final SimpleDateValidators simpleDateValidators = new SimpleDateValidators();
-    private LocalDate start;
-    private LocalDate end;
+    private ZonedDateTime start;
+    private ZonedDateTime end;
 
     @BeforeEach
     void setUp() {
-        start = LocalDate.now();
+        start = ZonedDateTime.now();
         end = start.plusDays(3);
     }
 

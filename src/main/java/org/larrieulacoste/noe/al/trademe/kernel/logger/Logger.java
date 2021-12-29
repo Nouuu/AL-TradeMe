@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.domain.logger;
+package org.larrieulacoste.noe.al.trademe.kernel.logger;
 
 public interface Logger {
 
