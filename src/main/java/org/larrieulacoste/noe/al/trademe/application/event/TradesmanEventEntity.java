@@ -11,28 +11,26 @@ public final class TradesmanEventEntity {
     public final String email;
     public final String password;
 
-    public TradesmanEventEntity(EntityId entityId, String firstname, String lastname, String email, String password) {
+    private TradesmanEventEntity(EntityId entityId, String firstname, String lastname, String email, String password) {
         this.entityId = entityId;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
     }
-    public TradesmanEventEntity(EntityId entityId, String firstname, String lastname, String email) {
-        this.entityId = entityId;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = null;
+
+    public static TradesmanEventEntity of(EntityId entityId, String firstname, String lastname, String email, String password) {
+        return new TradesmanEventEntity(entityId, firstname, lastname, email, password);
     }
 
-    public TradesmanEventEntity(EntityId entityId) {
-        this.entityId = entityId;
-        this.firstname = null;
-        this.lastname = null;
-        this.email = null;
-        this.password = null;
+    public static TradesmanEventEntity withoutPassword(EntityId entityId, String firstname, String lastname, String email) {
+        return new TradesmanEventEntity(entityId, firstname, lastname, email, null);
     }
+
+    public static TradesmanEventEntity withEntityIdOnly(EntityId entityId) {
+        return new TradesmanEventEntity(entityId, null, null, null, null);
+    }
+
 
     @Override
     public boolean equals(Object o) {

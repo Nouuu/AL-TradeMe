@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.larrieulacoste.noe.al.trademe.application.event.*;
-import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.features.members.application.NewContractorPaymentListener;
 import org.larrieulacoste.noe.al.trademe.features.members.application.NewContractorRegistrationListener;
 import org.larrieulacoste.noe.al.trademe.features.members.application.NewTradesmanPaymentListener;

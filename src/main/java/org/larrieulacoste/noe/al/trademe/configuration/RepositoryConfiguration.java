@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryContractors;

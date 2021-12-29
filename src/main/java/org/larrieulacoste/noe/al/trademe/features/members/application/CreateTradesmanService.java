@@ -43,7 +43,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
         );
         tradesmen.save(tradesman);
 
-        eventBus.publish(NewTradesmanRegistered.withTradesman(new TradesmanEventEntity(userId, createTradesman.firstname,
+        eventBus.publish(NewTradesmanRegistered.withTradesman(TradesmanEventEntity.of(userId, createTradesman.firstname,
                 createTradesman.lastname, createTradesman.email, createTradesman.password)));
 
         return userId;
