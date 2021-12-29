@@ -21,19 +21,23 @@ class SimpleDateValidatorsTest {
     void isValidPeriod() {
         Assertions.assertThat(simpleDateValidators.isValidPeriod(start, end)).isTrue();
     }
+
     @Test
     void isValidPeriodInvalidStart() {
         Assertions.assertThat(simpleDateValidators.isValidPeriod(null, end)).isFalse();
     }
+
     @Test
     void isValidPeriodInvalidEnd() {
         Assertions.assertThat(simpleDateValidators.isValidPeriod(start, null)).isFalse();
     }
+
     @Test
     void isValidPeriodInvalidRange() {
         end = start;
         Assertions.assertThat(simpleDateValidators.isValidPeriod(start, end)).isFalse();
     }
+
     @Test
     void isValidPeriodInvalidRange2() {
         end = start.minusDays(1);
