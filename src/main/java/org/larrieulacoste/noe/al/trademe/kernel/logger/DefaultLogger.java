@@ -1,6 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.infrastructure.logger;
-
-import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
+package org.larrieulacoste.noe.al.trademe.kernel.logger;
 
 import java.util.Objects;
 import java.util.logging.Level;

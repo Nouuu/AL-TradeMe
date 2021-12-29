@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.kernel.event;
 
-import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import java.util.*;
 
@@ -10,8 +10,8 @@ public class DefaultEventBus<E extends Event> implements EventBus<E> {
     private final Map<Class<? extends E>, List<EventSubscriber<? extends E>>> associatedSubscribers = new HashMap<>();
     private final Logger logger;
 
-    public DefaultEventBus(LoggerFactory loggerFactory) {
-        this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
+    public DefaultEventBus() {
+        this.logger = LoggerFactory.getLogger(this);
     }
 
     @SuppressWarnings("all")
@@ -36,8 +36,7 @@ public class DefaultEventBus<E extends Event> implements EventBus<E> {
 
     @Override
     public void register(Class<? extends E> eventClass, EventSubscriber<? extends E> eventSubscriber) {
-        List<EventSubscriber<? extends E>> subscribers =
-                associatedSubscribers.computeIfAbsent(Objects.requireNonNull(eventClass), k -> new ArrayList<>());
+        List<EventSubscriber<? extends E>> subscribers = associatedSubscribers.computeIfAbsent(Objects.requireNonNull(eventClass), k -> new ArrayList<>());
 
         if (!subscribers.contains(Objects.requireNonNull(eventSubscriber))) {
             subscribers.add(eventSubscriber);

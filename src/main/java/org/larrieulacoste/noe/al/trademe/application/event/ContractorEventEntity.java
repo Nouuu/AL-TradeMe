@@ -1,18 +1,17 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 
 import java.util.Objects;
 
-public final class ContractorEventEntity implements Command {
+public final class ContractorEventEntity {
     public final EntityId entityId;
     public final String firstname;
     public final String lastname;
     public final String email;
     public final String password;
 
-    public ContractorEventEntity(EntityId entityId, String firstname, String lastname, String email, String password) {
+    private ContractorEventEntity(EntityId entityId, String firstname, String lastname, String email, String password) {
         this.entityId = entityId;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -20,20 +19,16 @@ public final class ContractorEventEntity implements Command {
         this.password = password;
     }
 
-    public ContractorEventEntity(EntityId entityId, String firstname, String lastname, String email) {
-        this.entityId = entityId;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = null;
+    public static ContractorEventEntity of(EntityId entityId, String firstname, String lastname, String email, String password) {
+        return new ContractorEventEntity(entityId, firstname, lastname, email, password);
     }
 
-    public ContractorEventEntity(EntityId entityId) {
-        this.entityId = entityId;
-        this.firstname = null;
-        this.lastname = null;
-        this.email = null;
-        this.password = null;
+    public static ContractorEventEntity withoutPassword(EntityId entityId, String firstname, String lastname, String email) {
+        return new ContractorEventEntity(entityId, firstname, lastname, email, null);
+    }
+
+    public static ContractorEventEntity withEntityIdOnly(EntityId entityId) {
+        return new ContractorEventEntity(entityId, null, null, null, null);
     }
 
     @Override
