@@ -2,9 +2,9 @@ name: Run mvn test & Sonar analyzer
 
 on:
   push:
-    branches: [ dev, feature/* ]
+    branches: [main, dev, feature/* ]
   pull_request:
-    branches: [ dev, feature/* ]
+    branches: [main, dev, feature/* ]
 
 jobs:
   maven-test:
@@ -57,4 +57,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Nouuu_AL-TradeMe -Dsonar.branch.name=${GITHUB_REF##*/}
+        run: |
+          echo "Running sonar scan on ${GITHUB_REF##refs/heads/} repo branch"
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Nouuu_AL-TradeMe -Dsonar.branch.name=${GITHUB_REF##refs/heads/}
