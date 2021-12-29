@@ -2,7 +2,6 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistered;
-import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
@@ -30,9 +29,7 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
 
     @Override
     public EntityId handle(CreateContractor createContractor) {
-        if (!memberValidationService.isContractorValid(createContractor)) {
-            throw new InvalidUserException("Invalid contractor creation");
-        }
+        memberValidationService.validateContractor(createContractor);
 
         final EntityId userId = contractors.nextId();
         Contractor contractor = Contractor.of(

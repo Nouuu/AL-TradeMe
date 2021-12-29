@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
+import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
@@ -29,14 +30,14 @@ public class MemberValidationService {
         return true;
     }
 
-    public boolean isContractorValid(CreateContractor contractor) {
+    public void validateContractor(CreateContractor contractor) {
         logger.log("Triggered validation with contractor : " + contractor);
         List<String> errors = getContractorInvalidFields(contractor);
         if (!errors.isEmpty()) {
-            logger.error("Errors with contractor :\n - " + String.join("\n - ", errors));
-            return false;
+            throw new InvalidUserException(
+                    "Errors with contractor :\n - " + String.join("\n - ", errors)
+            );
         }
-        return true;
     }
 
     private List<String> getTradesmanInvalidFields(CreateTradesman tradesman) {
