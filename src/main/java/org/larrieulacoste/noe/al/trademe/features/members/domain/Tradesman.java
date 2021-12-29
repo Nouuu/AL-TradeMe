@@ -1,9 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.NotEmptyString;
-import org.larrieulacoste.noe.al.trademe.domain.model.Password;
 
 import java.util.Objects;
 

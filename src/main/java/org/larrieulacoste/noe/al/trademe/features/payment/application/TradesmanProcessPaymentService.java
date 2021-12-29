@@ -2,12 +2,12 @@ package org.larrieulacoste.noe.al.trademe.features.payment.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanPayment;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
-import org.larrieulacoste.noe.al.trademe.domain.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.domain.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Objects;
@@ -18,8 +18,8 @@ public class TradesmanProcessPaymentService implements CommandHandler<TradesmanP
     private final PaymentAPI paymentAPI;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public TradesmanProcessPaymentService(LoggerFactory loggerFactory, PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus) {
-        this.logger = Objects.requireNonNull(loggerFactory).getLogger(this);
+    public TradesmanProcessPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus) {
+        this.logger = LoggerFactory.getLogger(this);
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
     }
@@ -29,7 +29,7 @@ public class TradesmanProcessPaymentService implements CommandHandler<TradesmanP
     public Void handle(TradesmanPayment tradesmanPayment) {
         logger.log(String.format("Process tradesman payment of : %s with %sf", tradesmanPayment.tradesmanId, tradesmanPayment.paymentMethod));
         paymentAPI.pay(null, 0);
-        eventBus.publish(NewTradesmanPayment.withTradesman(new TradesmanEventEntity(tradesmanPayment.tradesmanId)));
+        eventBus.publish(NewTradesmanPayment.withTradesman(TradesmanEventEntity.withEntityIdOnly(tradesmanPayment.tradesmanId)));
         return null;
     }
 }

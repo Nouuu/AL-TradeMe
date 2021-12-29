@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.domain.model;
+package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidEmailException;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
