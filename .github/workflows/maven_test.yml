@@ -58,5 +58,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
-          echo "Running sonar scan on ${GITHUB_REF##refs/heads/} branch"
+          echo "Running sonar scan on ${GITHUB_REF##refs/heads/} repo branch"
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Nouuu_AL-TradeMe -Dsonar.branch.name=${GITHUB_REF##refs/heads/}
