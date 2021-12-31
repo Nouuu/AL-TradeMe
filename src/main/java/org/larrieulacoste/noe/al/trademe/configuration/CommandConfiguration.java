@@ -1,9 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
-import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractorService;
-import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesmanService;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.*;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPaymentService;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
@@ -28,6 +25,10 @@ public class CommandConfiguration {
     ContractorSubscriptionPaymentService contractorSubscriptionPaymentService;
     @Inject
     TradesmanSubscriptionPaymentService tradesmanSubscriptionPaymentService;
+    @Inject
+    PublishContractorsPendingSubscriptionPaymentService publishContractorsPendingSubscriptionPaymentService;
+    @Inject
+    PublishTradesmenPendingSubscriptionPaymentService publishTradesmenPendingSubscriptionPaymentService;
 
     @ApplicationScoped
     CommandBus commandBus() {
@@ -36,6 +37,8 @@ public class CommandConfiguration {
         // Members feature
         commandMap.put(CreateContractor.class, createContractorService);
         commandMap.put(CreateTradesman.class, createTradesmanService);
+        commandMap.put(PublishContractorsPendingSubscriptionPayment.class, publishContractorsPendingSubscriptionPaymentService);
+        commandMap.put(PublishTradesmenPendingSubscriptionPayment.class, publishTradesmenPendingSubscriptionPaymentService);
 
         // Payment feature
         commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);

@@ -4,11 +4,11 @@ import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanSubscript
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class NewTradesmanPaymentListener implements EventSubscriber<NewTradesmanSubscriptionPayment> {
+public class NewTradesmanSubscriptionPaymentListener implements EventSubscriber<NewTradesmanSubscriptionPayment> {
 
     private final CommandBus commandBus;
 
-    public NewTradesmanPaymentListener(CommandBus commandBus) {
+    public NewTradesmanSubscriptionPaymentListener(CommandBus commandBus) {
         this.commandBus = commandBus;
     }
 
