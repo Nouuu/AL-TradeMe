@@ -1,8 +1,9 @@
-package org.larrieulacoste.noe.al.trademe.features.members.application;
+package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistered;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
+import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;

@@ -1,16 +1,16 @@
-package org.larrieulacoste.noe.al.trademe.features.members.application;
+package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 
 import java.util.Objects;
 
-public final class CreateContractor implements Command {
+public final class CreateTradesman implements Command {
     public final String firstname;
     public final String lastname;
     public final String email;
     public final String password;
 
-    public CreateContractor(String firstname, String lastname, String email, String password) {
+    public CreateTradesman(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -22,7 +22,7 @@ public final class CreateContractor implements Command {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CreateContractor that = (CreateContractor) o;
+        CreateTradesman that = (CreateTradesman) o;
 
         if (!Objects.equals(firstname, that.firstname)) return false;
         if (!Objects.equals(lastname, that.lastname)) return false;
@@ -41,7 +41,7 @@ public final class CreateContractor implements Command {
 
     @Override
     public String toString() {
-        return "ContractorRegistration{" +
+        return "TradesmanRegistration{" +
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +

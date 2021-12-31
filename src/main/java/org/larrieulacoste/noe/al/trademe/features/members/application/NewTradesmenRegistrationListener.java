@@ -2,6 +2,7 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistration;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 

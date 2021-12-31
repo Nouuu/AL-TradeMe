@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import org.larrieulacoste.noe.al.trademe.features.members.application.*;
+import org.larrieulacoste.noe.al.trademe.features.members.application.query.*;
 import org.larrieulacoste.noe.al.trademe.kernel.query.DefaultQueryBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.Query;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;

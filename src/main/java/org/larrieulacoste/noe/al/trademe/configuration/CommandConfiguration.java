@@ -1,9 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateContractor;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateContractorService;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateTradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateTradesmanService;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractorService;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesmanService;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.ContractorPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.ContractorProcessPaymentService;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.TradesmanPayment;

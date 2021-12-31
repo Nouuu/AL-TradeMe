@@ -1,7 +1,8 @@
-package org.larrieulacoste.noe.al.trademe.features.members.application;
+package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistered;
+import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;

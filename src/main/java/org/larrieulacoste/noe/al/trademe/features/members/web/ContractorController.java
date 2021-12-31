@@ -3,9 +3,9 @@ package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateContractor;
-import org.larrieulacoste.noe.al.trademe.features.members.application.RetrieveContractorById;
-import org.larrieulacoste.noe.al.trademe.features.members.application.RetrieveContractors;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
+import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveContractorById;
+import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveContractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;

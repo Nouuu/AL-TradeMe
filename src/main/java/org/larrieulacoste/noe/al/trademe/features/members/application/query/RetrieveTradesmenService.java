@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.features.members.application;
+package org.larrieulacoste.noe.al.trademe.features.members.application.query;
 
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;

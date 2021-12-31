@@ -2,9 +2,9 @@ package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateTradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.application.RetrieveTradesmanById;
-import org.larrieulacoste.noe.al.trademe.features.members.application.RetrieveTradesmen;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanById;
+import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;

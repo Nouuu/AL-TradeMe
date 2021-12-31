@@ -3,6 +3,8 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
