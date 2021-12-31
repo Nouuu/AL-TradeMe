@@ -1,5 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
+import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoice;
+import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoiceService;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.*;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPaymentService;
@@ -29,6 +31,8 @@ public class CommandConfiguration {
     PublishContractorsPendingSubscriptionPaymentService publishContractorsPendingSubscriptionPaymentService;
     @Inject
     PublishTradesmenPendingSubscriptionPaymentService publishTradesmenPendingSubscriptionPaymentService;
+    @Inject
+    CreateInvoiceService createInvoiceService;
 
     @ApplicationScoped
     CommandBus commandBus() {
@@ -43,6 +47,9 @@ public class CommandConfiguration {
         // Payment feature
         commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
         commandMap.put(TradesmanSubscriptionPayment.class, tradesmanSubscriptionPaymentService);
+
+        // Invoices feature
+        commandMap.put(CreateInvoice.class, createInvoiceService);
 
         return new DefaultCommandBus(commandMap);
     }

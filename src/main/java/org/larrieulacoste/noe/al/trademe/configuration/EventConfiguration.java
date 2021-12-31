@@ -41,6 +41,12 @@ public class EventConfiguration {
         eventBus.register(ContractorsSubscriptionPendingPayment.class, new ContractorsSubscriptionPendingPaymentListener(commandBus));
         eventBus.register(TradesmenSubscriptionPendingPayment.class, new TradesmenSubscriptionPendingPaymentListener(commandBus));
 
+        // Invoices feature
+        eventBus.register(NewContractorSubscriptionPayment.class,
+                new org.larrieulacoste.noe.al.trademe.features.invoices.application.NewContractorSubscriptionPaymentListener(commandBus));
+        eventBus.register(NewTradesmanSubscriptionPayment.class,
+                new org.larrieulacoste.noe.al.trademe.features.invoices.application.NewTradesmanSubscriptionPaymentListener(commandBus));
+
         return eventBus;
     }
 }
