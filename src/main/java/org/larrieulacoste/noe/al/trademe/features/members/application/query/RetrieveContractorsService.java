@@ -17,7 +17,7 @@ public class RetrieveContractorsService implements QueryHandler<RetrieveContract
     }
 
     @Override
-    public List<Contractor> handle(RetrieveContractors command) {
+    public List<Contractor> handle(RetrieveContractors query) {
         return contractors.findAll();
     }
 }

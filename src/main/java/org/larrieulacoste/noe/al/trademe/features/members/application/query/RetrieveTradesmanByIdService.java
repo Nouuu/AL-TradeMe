@@ -15,7 +15,7 @@ public class RetrieveTradesmanByIdService implements QueryHandler<RetrieveTrades
     }
 
     @Override
-    public Tradesman handle(RetrieveTradesmanById command) {
-        return tradesmen.byId(command.tradesmanId);
+    public Tradesman handle(RetrieveTradesmanById query) {
+        return tradesmen.byId(query.tradesmanId);
     }
 }

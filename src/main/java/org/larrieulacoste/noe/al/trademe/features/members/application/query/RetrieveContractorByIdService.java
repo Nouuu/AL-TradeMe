@@ -16,7 +16,7 @@ public class RetrieveContractorByIdService implements QueryHandler<RetrieveContr
     }
 
     @Override
-    public Contractor handle(RetrieveContractorById command) {
-        return contractors.byId(command.contractorId);
+    public Contractor handle(RetrieveContractorById query) {
+        return contractors.byId(query.contractorId);
     }
 }

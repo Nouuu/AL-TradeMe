@@ -16,7 +16,7 @@ public class RetrieveTradesmenService implements QueryHandler<RetrieveTradesmen,
     }
 
     @Override
-    public List<Tradesman> handle(RetrieveTradesmen command) {
+    public List<Tradesman> handle(RetrieveTradesmen query) {
         return tradesmen.findAll();
     }
 }
