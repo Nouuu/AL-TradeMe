@@ -14,6 +14,6 @@ public class NewTradesmanPaymentListener implements EventSubscriber<NewTradesman
 
     @Override
     public void accept(NewTradesmanPayment event) {
-        System.out.println("New tradesman payment listener triggered ...");
+        System.out.println("New tradesman payment listener triggered ..."); // TODO
     }
 }

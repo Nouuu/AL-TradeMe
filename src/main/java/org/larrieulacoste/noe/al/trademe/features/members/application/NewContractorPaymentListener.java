@@ -14,6 +14,6 @@ public class NewContractorPaymentListener implements EventSubscriber<NewContract
 
     @Override
     public void accept(NewContractorPayment event) {
-        System.out.println("New contractor payment listener triggered ...");
+        System.out.println("New contractor payment listener triggered ..."); // TODO
     }
 }
