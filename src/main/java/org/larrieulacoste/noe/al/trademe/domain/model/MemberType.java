@@ -6,21 +6,23 @@ public enum MemberType {
     TRADESMAN("Tradesman"),
     CONTRACTOR("Contractor");
 
-    private final String name;
+    public final String value;
 
-    MemberType(String name) {
-        this.name = name;
+    MemberType(String value) {
+        this.value = value;
     }
 
 
     public static MemberType fromString(String name) {
         return Arrays.stream(MemberType.values())
-                .filter(memberType -> memberType.name.equals(name))
+                .filter(memberType -> memberType.value.equals(name))
                 .findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
-        return name;
+        return "MemberType{" +
+                "value='" + value + '\'' +
+                '}';
     }
 }

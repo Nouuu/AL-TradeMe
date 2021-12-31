@@ -39,7 +39,7 @@ public final class NewContractorSubscriptionPayment implements ApplicationEvent 
 
     @Override
     public String toString() {
-        return "NewContractorRegistered{" +
+        return "NewContractorSubscriptionPayment{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
                 ", contractor=" + contractorEventEntity +

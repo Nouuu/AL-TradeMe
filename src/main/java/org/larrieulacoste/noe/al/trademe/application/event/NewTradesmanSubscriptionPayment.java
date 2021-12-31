@@ -39,7 +39,7 @@ public final class NewTradesmanSubscriptionPayment implements ApplicationEvent {
 
     @Override
     public String toString() {
-        return "NewTradesmanApplicative{" +
+        return "NewTradesmanSubscriptionPayment{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
                 ", tradesman=" + tradesman +
