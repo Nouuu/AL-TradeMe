@@ -1,7 +1,7 @@
-package org.larrieulacoste.noe.al.trademe.features.payment.application;
+package org.larrieulacoste.noe.al.trademe.features.payment.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
-import org.larrieulacoste.noe.al.trademe.application.event.NewContractorPayment;
+import org.larrieulacoste.noe.al.trademe.application.event.NewContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -13,12 +13,12 @@ import javax.enterprise.context.ApplicationScoped;
 import java.util.Objects;
 
 @ApplicationScoped
-public class ContractorProcessPaymentService implements CommandHandler<ContractorPayment, Void> {
+public class ContractorSubscriptionPaymentService implements CommandHandler<ContractorSubscriptionPayment, Void> {
     private final Logger logger;
     private final PaymentAPI paymentAPI;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public ContractorProcessPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus) {
+    public ContractorSubscriptionPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus) {
         this.logger = LoggerFactory.getLogger(this);
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
@@ -26,10 +26,10 @@ public class ContractorProcessPaymentService implements CommandHandler<Contracto
 
 
     @Override
-    public Void handle(ContractorPayment contractorPayment) {
-        logger.log(String.format("Process user tradesman of : %s with %sf", contractorPayment.contractorId, contractorPayment.paymentMethod));
+    public Void handle(ContractorSubscriptionPayment contractorSubscriptionPayment) {
+        logger.log(String.format("Process contractor payment subscription of : %s with %sf", contractorSubscriptionPayment.contractorId, contractorSubscriptionPayment.paymentMethod));
         paymentAPI.pay(null, 0);
-        eventBus.publish(NewContractorPayment.withContractor(ContractorEventEntity.withEntityIdOnly(contractorPayment.contractorId)));
+        eventBus.publish(NewContractorSubscriptionPayment.withContractor(ContractorEventEntity.withEntityIdOnly(contractorSubscriptionPayment.contractorId)));
         return null;
     }
 }

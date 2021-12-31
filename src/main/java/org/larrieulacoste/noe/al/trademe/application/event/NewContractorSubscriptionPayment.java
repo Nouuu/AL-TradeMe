@@ -6,20 +6,20 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewContractorPayment implements ApplicationEvent {
+public final class NewContractorSubscriptionPayment implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     private final ContractorEventEntity contractorEventEntity;
 
-    private NewContractorPayment(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity) {
+    private NewContractorSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
     }
 
-    public static NewContractorPayment withContractor(ContractorEventEntity tradesman) {
-        return new NewContractorPayment(EventId.create(), ZonedDateTime.now(), tradesman);
+    public static NewContractorSubscriptionPayment withContractor(ContractorEventEntity tradesman) {
+        return new NewContractorSubscriptionPayment(EventId.create(), ZonedDateTime.now(), tradesman);
     }
 
     @Override
@@ -49,9 +49,9 @@ public final class NewContractorPayment implements ApplicationEvent {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof NewContractorPayment)) return false;
+        if (!(o instanceof NewContractorSubscriptionPayment)) return false;
 
-        NewContractorPayment that = (NewContractorPayment) o;
+        NewContractorSubscriptionPayment that = (NewContractorSubscriptionPayment) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;

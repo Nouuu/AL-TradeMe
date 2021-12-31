@@ -4,10 +4,10 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Cr
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractorService;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesmanService;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.ContractorPayment;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.ContractorProcessPaymentService;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.TradesmanPayment;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.TradesmanProcessPaymentService;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPaymentService;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPaymentService;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -25,9 +25,9 @@ public class CommandConfiguration {
     @Inject
     CreateTradesmanService createTradesmanService;
     @Inject
-    ContractorProcessPaymentService contractorProcessPaymentService;
+    ContractorSubscriptionPaymentService contractorSubscriptionPaymentService;
     @Inject
-    TradesmanProcessPaymentService tradesmanProcessPaymentService;
+    TradesmanSubscriptionPaymentService tradesmanSubscriptionPaymentService;
 
     @ApplicationScoped
     CommandBus commandBus() {
@@ -38,8 +38,8 @@ public class CommandConfiguration {
         commandMap.put(CreateTradesman.class, createTradesmanService);
 
         // Payment feature
-        commandMap.put(ContractorPayment.class, contractorProcessPaymentService);
-        commandMap.put(TradesmanPayment.class, tradesmanProcessPaymentService);
+        commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
+        commandMap.put(TradesmanSubscriptionPayment.class, tradesmanSubscriptionPaymentService);
 
         return new DefaultCommandBus(commandMap);
     }

@@ -29,8 +29,8 @@ public class EventConfiguration {
         // Members feature
         eventBus.register(NewContractorRegistration.class, new NewContractorRegistrationListener(commandBus));
         eventBus.register(NewTradesmanRegistration.class, new NewTradesmenRegistrationListener(commandBus));
-        eventBus.register(NewContractorPayment.class, new NewContractorPaymentListener(commandBus));
-        eventBus.register(NewTradesmanPayment.class, new NewTradesmanPaymentListener(commandBus));
+        eventBus.register(NewContractorSubscriptionPayment.class, new NewContractorPaymentListener(commandBus));
+        eventBus.register(NewTradesmanSubscriptionPayment.class, new NewTradesmanPaymentListener(commandBus));
 
         // Payment feature
         eventBus.register(NewContractorRegistered.class, new NewContractorRegisteredListener(commandBus));
