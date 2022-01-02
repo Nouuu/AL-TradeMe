@@ -4,6 +4,7 @@ import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
+import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
@@ -18,12 +19,13 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
     private final Logger logger;
     private final PaymentAPI paymentAPI;
     private final EventBus<ApplicationEvent> eventBus;
-    private final Amount subscriptionAmount = Amount.of(0.);
+    private final Amount subscriptionAmount;
 
-    public ContractorSubscriptionPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus) {
+    public ContractorSubscriptionPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus, MembersSubscriptionAmount membersSubscriptionAmount) {
         this.logger = LoggerFactory.getLogger(this);
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
+        this.subscriptionAmount = membersSubscriptionAmount.getContractorSubscriptionAmount();
     }
 
 

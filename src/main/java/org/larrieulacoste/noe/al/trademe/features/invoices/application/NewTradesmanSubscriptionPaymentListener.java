@@ -16,6 +16,6 @@ public class NewTradesmanSubscriptionPaymentListener implements EventSubscriber<
 
     @Override
     public void accept(NewTradesmanSubscriptionPayment event) {
-        commandBus.send(new CreateInvoice(MemberType.TRADESMAN, event.getTradesman().entityId, 0)); // TODO
+        commandBus.send(new CreateInvoice(MemberType.TRADESMAN, event.getTradesman().entityId, event.getAmount()));
     }
 }

@@ -16,6 +16,6 @@ public class NewContractorSubscriptionPaymentListener implements EventSubscriber
 
     @Override
     public void accept(NewContractorSubscriptionPayment event) {
-        commandBus.send(new CreateInvoice(MemberType.CONTRACTOR,event.getContractor().entityId, 0)); // TODO
+        commandBus.send(new CreateInvoice(MemberType.CONTRACTOR, event.getContractor().entityId, event.getAmount()));
     }
 }

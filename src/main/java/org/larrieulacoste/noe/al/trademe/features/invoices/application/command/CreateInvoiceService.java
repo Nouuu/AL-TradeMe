@@ -3,7 +3,6 @@ package org.larrieulacoste.noe.al.trademe.features.invoices.application.command;
 import org.larrieulacoste.noe.al.trademe.application.event.InvoiceEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorInvoice;
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanInvoice;
-import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
@@ -34,7 +33,7 @@ public class CreateInvoiceService implements CommandHandler<CreateInvoice, Entit
                 command.memberType,
                 command.memberId,
                 ZonedDateTime.now(),
-                Amount.of(command.amount)
+                command.amount
         );
         invoices.save(invoice);
 

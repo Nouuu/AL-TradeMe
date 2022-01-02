@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application.command;
 
+import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
@@ -9,12 +10,12 @@ import java.util.Objects;
 public class CreateInvoice implements Command {
     public final MemberType memberType;
     public final EntityId memberId;
-    public final double amount;
+    public final Amount amount;
 
-    public CreateInvoice(MemberType memberType, EntityId memberId, double amount) {
+    public CreateInvoice(MemberType memberType, EntityId memberId, Amount amount) {
         this.memberType = Objects.requireNonNull(memberType);
         this.memberId = Objects.requireNonNull(memberId);
-        this.amount = amount;
+        this.amount = Objects.requireNonNull(amount);
     }
 
     @Override
@@ -24,19 +25,16 @@ public class CreateInvoice implements Command {
 
         CreateInvoice that = (CreateInvoice) o;
 
-        if (Double.compare(that.amount, amount) != 0) return false;
         if (memberType != that.memberType) return false;
-        return Objects.equals(memberId, that.memberId);
+        if (!memberId.equals(that.memberId)) return false;
+        return amount.equals(that.amount);
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = memberType != null ? memberType.hashCode() : 0;
-        result = 31 * result + (memberId != null ? memberId.hashCode() : 0);
-        temp = Double.doubleToLongBits(amount);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = memberType.hashCode();
+        result = 31 * result + memberId.hashCode();
+        result = 31 * result + amount.hashCode();
         return result;
     }
 

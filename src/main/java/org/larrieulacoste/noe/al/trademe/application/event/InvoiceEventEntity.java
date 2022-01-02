@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
+import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
 
@@ -11,17 +12,17 @@ public class InvoiceEventEntity {
     private final MemberType memberType;
     private final EntityId memberId;
     private final ZonedDateTime occurredDate;
-    private final double amount;
+    private final Amount amount;
 
-    private InvoiceEventEntity(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, double amount) {
+    private InvoiceEventEntity(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, Amount amount) {
         this.invoiceId = Objects.requireNonNull(invoiceId);
         this.memberType = Objects.requireNonNull(memberType);
         this.memberId = Objects.requireNonNull(memberId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.amount = amount;
+        this.amount = Objects.requireNonNull(amount);
     }
 
-    public static InvoiceEventEntity of(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, double amount) {
+    public static InvoiceEventEntity of(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, Amount amount) {
         return new InvoiceEventEntity(invoiceId, memberType, memberId, occurredDate, amount);
     }
 
@@ -41,7 +42,7 @@ public class InvoiceEventEntity {
         return occurredDate;
     }
 
-    public double getAmount() {
+    public Amount getAmount() {
         return amount;
     }
 
@@ -53,23 +54,20 @@ public class InvoiceEventEntity {
 
         InvoiceEventEntity that = (InvoiceEventEntity) o;
 
-        if (Double.compare(that.amount, amount) != 0) return false;
-        if (!Objects.equals(invoiceId, that.invoiceId)) return false;
+        if (!invoiceId.equals(that.invoiceId)) return false;
         if (memberType != that.memberType) return false;
         if (!memberId.equals(that.memberId)) return false;
-        return occurredDate.equals(that.occurredDate);
+        if (!occurredDate.equals(that.occurredDate)) return false;
+        return amount.equals(that.amount);
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = invoiceId.hashCode();
+        int result = invoiceId.hashCode();
         result = 31 * result + memberType.hashCode();
         result = 31 * result + memberId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        temp = Double.doubleToLongBits(amount);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + amount.hashCode();
         return result;
     }
 
