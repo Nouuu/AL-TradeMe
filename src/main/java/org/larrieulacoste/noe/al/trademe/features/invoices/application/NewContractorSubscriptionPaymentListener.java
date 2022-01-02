@@ -3,14 +3,15 @@ package org.larrieulacoste.noe.al.trademe.features.invoices.application;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoice;
-import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
+import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.DefaultInvoicesCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 public class NewContractorSubscriptionPaymentListener implements EventSubscriber<NewContractorSubscriptionPayment> {
 
-    private final CommandBus commandBus;
+    private final InvoicesCommandBus commandBus;
 
-    public NewContractorSubscriptionPaymentListener(CommandBus commandBus) {
+    public NewContractorSubscriptionPaymentListener(InvoicesCommandBus commandBus) {
         this.commandBus = commandBus;
     }
 

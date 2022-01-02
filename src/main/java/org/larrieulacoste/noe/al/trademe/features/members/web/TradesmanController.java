@@ -6,8 +6,8 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Cr
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanById;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
-import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
-import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
+import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersQueryBus;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 
 @Path("tradesman")
 public class TradesmanController {
-    private final QueryBus queryBus;
-    private final CommandBus commandBus;
+    private final MembersQueryBus queryBus;
+    private final MembersCommandBus commandBus;
 
-    public TradesmanController(QueryBus queryBus, CommandBus commandBus) {
+    public TradesmanController(MembersQueryBus queryBus, MembersCommandBus commandBus) {
         this.queryBus = queryBus;
         this.commandBus = commandBus;
     }
