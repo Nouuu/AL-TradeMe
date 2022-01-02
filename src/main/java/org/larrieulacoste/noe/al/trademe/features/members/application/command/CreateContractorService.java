@@ -26,7 +26,7 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
 
     @Override
     public EntityId handle(CreateContractor createContractor) {
-        memberValidationService.validateContractor(createContractor);
+        memberValidationService.validateCreateContractor(createContractor);
 
         final EntityId userId = contractors.nextId();
         Contractor contractor = Contractor.of(
