@@ -2,6 +2,7 @@ package org.larrieulacoste.noe.al.trademe.features.payment.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
+import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
@@ -17,6 +18,7 @@ public class TradesmanSubscriptionPaymentService implements CommandHandler<Trade
     private final Logger logger;
     private final PaymentAPI paymentAPI;
     private final EventBus<ApplicationEvent> eventBus;
+    private final Amount subscriptionAmount = Amount.of(0.);
 
     public TradesmanSubscriptionPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus) {
         this.logger = LoggerFactory.getLogger(this);
@@ -28,8 +30,8 @@ public class TradesmanSubscriptionPaymentService implements CommandHandler<Trade
     @Override
     public Void handle(TradesmanSubscriptionPayment tradesmanSubscriptionPayment) {
         logger.log(String.format("Process tradesman payment subscription of : %s with %sf", tradesmanSubscriptionPayment.tradesmanId, tradesmanSubscriptionPayment.paymentMethod));
-        paymentAPI.pay(null, 0);
-        eventBus.publish(NewTradesmanSubscriptionPayment.withTradesman(TradesmanEventEntity.withEntityIdOnly(tradesmanSubscriptionPayment.tradesmanId)));
+        paymentAPI.pay(null, subscriptionAmount.getValue());
+        eventBus.publish(NewTradesmanSubscriptionPayment.withTradesmanAndAmount(TradesmanEventEntity.withEntityIdOnly(tradesmanSubscriptionPayment.tradesmanId), subscriptionAmount));
         return null;
     }
 }
