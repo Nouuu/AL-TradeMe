@@ -7,6 +7,8 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Cr
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveContractorById;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveContractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
+import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersQueryBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 
@@ -17,10 +19,10 @@ import java.util.stream.Collectors;
 
 @Path("contractor")
 public class ContractorController {
-    private final QueryBus queryBus;
-    private final CommandBus commandBus;
+    private final MembersQueryBus queryBus;
+    private final MembersCommandBus commandBus;
 
-    public ContractorController(QueryBus queryBus, CommandBus commandBus) {
+    public ContractorController(MembersQueryBus queryBus, MembersCommandBus commandBus) {
         this.queryBus = queryBus;
         this.commandBus = commandBus;
     }

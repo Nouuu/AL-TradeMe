@@ -1,23 +1,31 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
+import io.quarkus.arc.DefaultBean;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoice;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoiceService;
+import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.DefaultInvoicesCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.*;
+import org.larrieulacoste.noe.al.trademe.features.members.kernel.DefaultMembersCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPaymentService;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPaymentService;
+import org.larrieulacoste.noe.al.trademe.features.payment.kernel.DefaultPaymentCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.command.DefaultCommandBus;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-@ApplicationScoped
+@Dependent
 public class CommandConfiguration {
     @Inject
     CreateContractorService createContractorService;
@@ -38,11 +46,20 @@ public class CommandConfiguration {
     @Inject
     UpdateTradesmanSubscriptionStatusService updateTradesmanSubscriptionStatusService;
 
-    @ApplicationScoped
-    CommandBus commandBus() {
+
+    @Produces
+    InvoicesCommandBus invoicesCommandBus() {
         Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
 
-        // Members feature
+        commandMap.put(CreateInvoice.class, createInvoiceService);
+
+        return new DefaultInvoicesCommandBus(commandMap);
+    }
+
+    @Produces
+    MembersCommandBus membersCommandBus() {
+        Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
+
         commandMap.put(CreateContractor.class, createContractorService);
         commandMap.put(CreateTradesman.class, createTradesmanService);
         commandMap.put(PublishContractorsPendingSubscriptionPayment.class, publishContractorsPendingSubscriptionPaymentService);
@@ -50,14 +67,17 @@ public class CommandConfiguration {
         commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);
         commandMap.put(UpdateTradesmanSubscriptionStatus.class, updateTradesmanSubscriptionStatusService);
 
-        // Payment feature
+        return new DefaultMembersCommandBus(commandMap);
+    }
+
+    @Produces
+    PaymentCommandBus paymentCommandBus() {
+        Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
+
         commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
         commandMap.put(TradesmanSubscriptionPayment.class, tradesmanSubscriptionPaymentService);
 
-        // Invoices feature
-        commandMap.put(CreateInvoice.class, createInvoiceService);
-
-        return new DefaultCommandBus(commandMap);
+        return new DefaultPaymentCommandBus(commandMap);
     }
 
 }

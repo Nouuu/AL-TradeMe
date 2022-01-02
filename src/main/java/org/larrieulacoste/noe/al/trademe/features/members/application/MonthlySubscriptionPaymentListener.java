@@ -3,14 +3,15 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.PublishContractorsPendingSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.PublishTradesmenPendingSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 public class MonthlySubscriptionPaymentListener implements EventSubscriber<NewContractorSubscriptionPayment> {
 
-    private final CommandBus commandBus;
+    private final MembersCommandBus commandBus;
 
-    public MonthlySubscriptionPaymentListener(CommandBus commandBus) {
+    public MonthlySubscriptionPaymentListener(MembersCommandBus commandBus) {
         this.commandBus = commandBus;
     }
 

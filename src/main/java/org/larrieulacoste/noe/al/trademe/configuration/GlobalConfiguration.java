@@ -5,8 +5,10 @@ import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Produces;
 
-@ApplicationScoped
+@Dependent
 public class GlobalConfiguration {
 
     @ConfigProperty(name = "contractor.payment.monthly.amount")
@@ -14,7 +16,7 @@ public class GlobalConfiguration {
     @ConfigProperty(name = "tradesman.payment.monthly.amount")
     double tradesmanMonthlySubscriptionAmount;
 
-    @ApplicationScoped
+    @Produces
     MembersSubscriptionAmount membersSubscriptionAmount() {
         return MembersSubscriptionAmount.of(
                 Amount.of(contractorMonthlySubscriptionAmount),

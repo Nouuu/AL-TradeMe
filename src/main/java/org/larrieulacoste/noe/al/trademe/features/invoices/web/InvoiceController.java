@@ -5,6 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.query.*;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
+import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesQueryBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 
 import javax.ws.rs.GET;
@@ -17,9 +18,9 @@ import java.util.stream.Collectors;
 
 @Path("invoice")
 public class InvoiceController {
-    private final QueryBus queryBus;
+    private final InvoicesQueryBus queryBus;
 
-    public InvoiceController(QueryBus queryBus) {
+    public InvoiceController(InvoicesQueryBus queryBus) {
         this.queryBus = queryBus;
     }
 
