@@ -4,7 +4,6 @@ import org.larrieulacoste.noe.al.trademe.application.event.NewContractorSubscrip
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.PublishContractorsPendingSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.PublishTradesmenPendingSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
-import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 public class MonthlySubscriptionPaymentListener implements EventSubscriber<NewContractorSubscriptionPayment> {

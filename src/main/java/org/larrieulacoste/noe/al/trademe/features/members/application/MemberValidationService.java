@@ -31,6 +31,7 @@ public class MemberValidationService {
             );
         }
     }
+
     public void validateTradesman(CreateTradesman tradesman) {
         logger.log("Triggered validation with tradesman : " + tradesman);
         List<String> errors = getTradesmanInvalidFields(tradesman);

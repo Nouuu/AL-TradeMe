@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import io.quarkus.arc.DefaultBean;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoice;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoiceService;
 import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.DefaultInvoicesCommandBus;
@@ -15,9 +14,7 @@ import org.larrieulacoste.noe.al.trademe.features.payment.application.command.Tr
 import org.larrieulacoste.noe.al.trademe.features.payment.kernel.DefaultPaymentCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
-import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
-import org.larrieulacoste.noe.al.trademe.kernel.command.DefaultCommandBus;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;

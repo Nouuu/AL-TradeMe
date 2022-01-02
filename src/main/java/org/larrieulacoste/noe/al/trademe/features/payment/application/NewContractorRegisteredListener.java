@@ -3,7 +3,6 @@ package org.larrieulacoste.noe.al.trademe.features.payment.application;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistered;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
-import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 public class NewContractorRegisteredListener implements EventSubscriber<NewContractorRegistered> {
