@@ -3,6 +3,7 @@ package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanById;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
@@ -64,5 +65,25 @@ public class TradesmanController {
         ));
 
         return new TradesmanResponse(userId.getValue(), null, null, null);
+    }
+
+    @PUT
+    @Path("{tradesmanId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public TradesmanResponse register(@PathParam("tradesmanId") String tradesmanId, TradesmanRequest tradesman) {
+        Tradesman updatedTradesman = commandBus.send(new UpdateTradesman(
+                tradesmanId,
+                tradesman.firstname,
+                tradesman.lastname,
+                tradesman.email,
+                tradesman.password
+        ));
+
+        return new TradesmanResponse(updatedTradesman.getEntityId().getValue(),
+                updatedTradesman.getFirstname().getField(),
+                updatedTradesman.getLastname().getField(),
+                updatedTradesman.getEmail().getEmailAddressString()
+        );
     }
 }
