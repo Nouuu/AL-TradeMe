@@ -33,6 +33,10 @@ public class CommandConfiguration {
     PublishTradesmenPendingSubscriptionPaymentService publishTradesmenPendingSubscriptionPaymentService;
     @Inject
     CreateInvoiceService createInvoiceService;
+    @Inject
+    UpdateContractorSubscriptionStatusService updateContractorSubscriptionStatusService;
+    @Inject
+    UpdateTradesmanSubscriptionStatusService updateTradesmanSubscriptionStatusService;
 
     @ApplicationScoped
     CommandBus commandBus() {
@@ -43,6 +47,8 @@ public class CommandConfiguration {
         commandMap.put(CreateTradesman.class, createTradesmanService);
         commandMap.put(PublishContractorsPendingSubscriptionPayment.class, publishContractorsPendingSubscriptionPaymentService);
         commandMap.put(PublishTradesmenPendingSubscriptionPayment.class, publishTradesmenPendingSubscriptionPaymentService);
+        commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);
+        commandMap.put(UpdateTradesmanSubscriptionStatus.class, updateTradesmanSubscriptionStatusService);
 
         // Payment feature
         commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);

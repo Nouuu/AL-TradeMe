@@ -6,16 +6,16 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionSta
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class NewTradesmanSubscriptionPaymentListener implements EventSubscriber<NewTradesmanSubscriptionPayment> {
+public class TradesmanSubscriptionPaymentFailureListener implements EventSubscriber<NewTradesmanSubscriptionPayment> {
 
     private final CommandBus commandBus;
 
-    public NewTradesmanSubscriptionPaymentListener(CommandBus commandBus) {
+    public TradesmanSubscriptionPaymentFailureListener(CommandBus commandBus) {
         this.commandBus = commandBus;
     }
 
     @Override
     public void accept(NewTradesmanSubscriptionPayment event) {
-        commandBus.send(new UpdateTradesmanSubscriptionStatus(event.getTradesman().entityId, SubscriptionStatus.ACTIVE));
+        commandBus.send(new UpdateTradesmanSubscriptionStatus(event.getTradesman().entityId, SubscriptionStatus.PAYMENT_FAILED));
     }
 }

@@ -2,7 +2,6 @@ package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistered;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
-import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
@@ -26,9 +25,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
 
     @Override
     public EntityId handle(CreateTradesman createTradesman) {
-        if (!memberValidationService.isTradesmanValid(createTradesman)) {
-            throw new InvalidUserException("Invalid tradesman creation");
-        }
+        memberValidationService.validateTradesman(createTradesman);
 
         final EntityId userId = tradesmen.nextId();
         Tradesman tradesman = Tradesman.of(

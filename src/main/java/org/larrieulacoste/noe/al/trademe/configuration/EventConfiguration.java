@@ -31,6 +31,8 @@ public class EventConfiguration {
 
         eventBus.register(NewContractorSubscriptionPayment.class, new NewContractorSubscriptionPaymentListener(commandBus));
         eventBus.register(NewTradesmanSubscriptionPayment.class, new NewTradesmanSubscriptionPaymentListener(commandBus));
+        eventBus.register(ContractorSubscriptionPaymentFailure.class, new ContractorSubscriptionPaymentFailureListener(commandBus));
+        eventBus.register(TradesmanSubscriptionPaymentFailure.class, new TradesmanSubscriptionPaymentFailureListener(commandBus));
 
         eventBus.register(MonthlySubscriptionPayment.class, new MonthlySubscriptionPaymentListener(commandBus));
 

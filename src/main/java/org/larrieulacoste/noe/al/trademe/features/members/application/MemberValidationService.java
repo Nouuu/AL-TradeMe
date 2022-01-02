@@ -22,22 +22,21 @@ public class MemberValidationService {
         this.stringValidators = ValidatorsFactory.getStringValidatorsInstance();
     }
 
-    public boolean isTradesmanValid(CreateTradesman tradesman) {
-        logger.log("Triggered validation with tradesman : " + tradesman);
-        List<String> errors = getTradesmanInvalidFields(tradesman);
-        if (!errors.isEmpty()) {
-            logger.error("Errors with tradesman :\n - " + String.join("\n - ", errors));
-            return false;
-        }
-        return true;
-    }
-
     public void validateContractor(CreateContractor contractor) {
         logger.log("Triggered validation with contractor : " + contractor);
         List<String> errors = getContractorInvalidFields(contractor);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
                     "Errors with contractor :\n - " + String.join("\n - ", errors)
+            );
+        }
+    }
+    public void validateTradesman(CreateTradesman tradesman) {
+        logger.log("Triggered validation with tradesman : " + tradesman);
+        List<String> errors = getTradesmanInvalidFields(tradesman);
+        if (!errors.isEmpty()) {
+            throw new InvalidUserException(
+                    "Errors with tradesman :\n - " + String.join("\n - ", errors)
             );
         }
     }
