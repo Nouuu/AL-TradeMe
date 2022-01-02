@@ -11,17 +11,19 @@ public final class Contractor {
     private final NotEmptyString firstname;
     private final EmailAddress email;
     private final Password password;
+    private final SubscriptionStatus subscriptionStatus;
 
-    private Contractor(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
+    private Contractor(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password, SubscriptionStatus subscriptionStatus) {
         this.entityId = Objects.requireNonNull(entityId);
         this.lastname = Objects.requireNonNull(lastname);
         this.firstname = Objects.requireNonNull(firstname);
         this.email = Objects.requireNonNull(email);
         this.password = Objects.requireNonNull(password);
+        this.subscriptionStatus = Objects.requireNonNull(subscriptionStatus);
     }
 
-    public static Contractor of(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password) {
-        return new Contractor(entityId, lastname, firstname, email, password);
+    public static Contractor of(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password, SubscriptionStatus subscriptionStatus) {
+        return new Contractor(entityId, lastname, firstname, email, password, subscriptionStatus);
     }
 
     public EntityId getEntityId() {
@@ -44,6 +46,10 @@ public final class Contractor {
         return password;
     }
 
+    public SubscriptionStatus getSubscriptionStatus() {
+        return subscriptionStatus;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,7 +61,8 @@ public final class Contractor {
         if (!lastname.equals(that.lastname)) return false;
         if (!firstname.equals(that.firstname)) return false;
         if (!email.equals(that.email)) return false;
-        return password.equals(that.password);
+        if (!password.equals(that.password)) return false;
+        return subscriptionStatus == that.subscriptionStatus;
     }
 
     @Override
@@ -65,6 +72,7 @@ public final class Contractor {
         result = 31 * result + firstname.hashCode();
         result = 31 * result + email.hashCode();
         result = 31 * result + password.hashCode();
+        result = 31 * result + subscriptionStatus.hashCode();
         return result;
     }
 
@@ -75,7 +83,7 @@ public final class Contractor {
                 ", lastname=" + lastname +
                 ", firstname=" + firstname +
                 ", email=" + email +
-                ", password=" + password +
+                ", subscriptionStatus=" + subscriptionStatus +
                 '}';
     }
 }

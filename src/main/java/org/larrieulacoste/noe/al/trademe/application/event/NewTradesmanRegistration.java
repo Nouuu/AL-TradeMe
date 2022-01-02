@@ -4,6 +4,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 public final class NewTradesmanRegistration implements ApplicationEvent {
     private final EventId eventId;
@@ -11,9 +12,9 @@ public final class NewTradesmanRegistration implements ApplicationEvent {
     private final TradesmanEventEntity tradesmanEventEntity;
 
     private NewTradesmanRegistration(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesmanEventEntity) {
-        this.eventId = eventId;
-        this.occurredDate = occurredDate;
-        this.tradesmanEventEntity = tradesmanEventEntity;
+        this.eventId = Objects.requireNonNull(eventId);
+        this.occurredDate = Objects.requireNonNull(occurredDate);
+        this.tradesmanEventEntity = Objects.requireNonNull(tradesmanEventEntity);
     }
 
     public static NewTradesmanRegistration of(TradesmanEventEntity tradesmanEventEntity) {
