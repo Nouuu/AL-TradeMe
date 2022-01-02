@@ -3,13 +3,9 @@ package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistered;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
-import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Password;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
+import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
@@ -40,7 +36,8 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
                 NotEmptyString.of(createTradesman.lastname),
                 NotEmptyString.of(createTradesman.firstname),
                 EmailAddress.of(createTradesman.email),
-                Password.of(createTradesman.password)
+                Password.of(createTradesman.password),
+                SubscriptionStatus.PENDING_PAYMENT
         );
         tradesmen.save(tradesman);
 

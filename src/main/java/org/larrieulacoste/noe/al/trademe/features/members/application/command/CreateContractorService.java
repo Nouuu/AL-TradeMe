@@ -2,13 +2,9 @@ package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistered;
-import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.EmailAddress;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Password;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
+import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
@@ -38,7 +34,8 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
                 NotEmptyString.of(createContractor.lastname),
                 NotEmptyString.of(createContractor.firstname),
                 EmailAddress.of(createContractor.email),
-                Password.of(createContractor.password)
+                Password.of(createContractor.password),
+                SubscriptionStatus.PENDING_PAYMENT
         );
         contractors.save(contractor);
 
