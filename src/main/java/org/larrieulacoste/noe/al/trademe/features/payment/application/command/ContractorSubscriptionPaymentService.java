@@ -2,11 +2,12 @@ package org.larrieulacoste.noe.al.trademe.features.payment.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.NewContractorSubscriptionPayment;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -17,6 +18,7 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
     private final Logger logger;
     private final PaymentAPI paymentAPI;
     private final EventBus<ApplicationEvent> eventBus;
+    private final Amount subscriptionAmount = Amount.of(0.);
 
     public ContractorSubscriptionPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus) {
         this.logger = LoggerFactory.getLogger(this);
@@ -28,8 +30,8 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
     @Override
     public Void handle(ContractorSubscriptionPayment contractorSubscriptionPayment) {
         logger.log(String.format("Process contractor payment subscription of : %s with %sf", contractorSubscriptionPayment.contractorId, contractorSubscriptionPayment.paymentMethod));
-        paymentAPI.pay(null, 0);
-        eventBus.publish(NewContractorSubscriptionPayment.withContractor(ContractorEventEntity.withEntityIdOnly(contractorSubscriptionPayment.contractorId)));
+        paymentAPI.pay(null, subscriptionAmount.getValue());
+        eventBus.publish(NewContractorSubscriptionPayment.withContractorAndAmount(ContractorEventEntity.withEntityIdOnly(contractorSubscriptionPayment.contractorId), subscriptionAmount));
         return null;
     }
 }
