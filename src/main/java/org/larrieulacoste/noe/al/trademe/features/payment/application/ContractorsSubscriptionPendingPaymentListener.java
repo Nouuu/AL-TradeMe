@@ -3,14 +3,15 @@ package org.larrieulacoste.noe.al.trademe.features.payment.application;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorsSubscriptionPendingPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 public class ContractorsSubscriptionPendingPaymentListener implements EventSubscriber<ContractorsSubscriptionPendingPayment> {
 
-    private final CommandBus commandBus;
+    private final PaymentCommandBus commandBus;
 
-    public ContractorsSubscriptionPendingPaymentListener(CommandBus commandBus) {
+    public ContractorsSubscriptionPendingPaymentListener(PaymentCommandBus commandBus) {
         this.commandBus = commandBus;
     }
 

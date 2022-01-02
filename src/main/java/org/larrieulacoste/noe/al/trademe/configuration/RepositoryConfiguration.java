@@ -7,22 +7,23 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryContractors;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryTradesmen;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Produces;
 
-@ApplicationScoped
+@Dependent
 public class RepositoryConfiguration {
 
-    @ApplicationScoped
+    @Produces
     Tradesmen tradesmen() {
         return new InMemoryTradesmen();
     }
 
-    @ApplicationScoped
+    @Produces
     Contractors contractors() {
         return new InMemoryContractors();
     }
 
-    @ApplicationScoped
+    @Produces
     Invoices invoices() {
         return new InMemoryInvoices();
     }
