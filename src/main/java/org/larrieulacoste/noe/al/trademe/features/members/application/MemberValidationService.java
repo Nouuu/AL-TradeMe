@@ -3,6 +3,8 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
@@ -20,22 +22,21 @@ public class MemberValidationService {
         this.stringValidators = ValidatorsFactory.getStringValidatorsInstance();
     }
 
-    public boolean isTradesmanValid(CreateTradesman tradesman) {
-        logger.log("Triggered validation with tradesman : " + tradesman);
-        List<String> errors = getTradesmanInvalidFields(tradesman);
-        if (!errors.isEmpty()) {
-            logger.error("Errors with tradesman :\n - " + String.join("\n - ", errors));
-            return false;
-        }
-        return true;
-    }
-
     public void validateContractor(CreateContractor contractor) {
         logger.log("Triggered validation with contractor : " + contractor);
         List<String> errors = getContractorInvalidFields(contractor);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
                     "Errors with contractor :\n - " + String.join("\n - ", errors)
+            );
+        }
+    }
+    public void validateTradesman(CreateTradesman tradesman) {
+        logger.log("Triggered validation with tradesman : " + tradesman);
+        List<String> errors = getTradesmanInvalidFields(tradesman);
+        if (!errors.isEmpty()) {
+            throw new InvalidUserException(
+                    "Errors with tradesman :\n - " + String.join("\n - ", errors)
             );
         }
     }

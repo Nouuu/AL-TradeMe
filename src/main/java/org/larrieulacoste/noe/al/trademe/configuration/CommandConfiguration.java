@@ -1,13 +1,12 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateContractor;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateContractorService;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateTradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateTradesmanService;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.ContractorPayment;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.ContractorProcessPaymentService;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.TradesmanPayment;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.TradesmanProcessPaymentService;
+import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoice;
+import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoiceService;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.*;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPaymentService;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPaymentService;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -25,9 +24,19 @@ public class CommandConfiguration {
     @Inject
     CreateTradesmanService createTradesmanService;
     @Inject
-    ContractorProcessPaymentService contractorProcessPaymentService;
+    ContractorSubscriptionPaymentService contractorSubscriptionPaymentService;
     @Inject
-    TradesmanProcessPaymentService tradesmanProcessPaymentService;
+    TradesmanSubscriptionPaymentService tradesmanSubscriptionPaymentService;
+    @Inject
+    PublishContractorsPendingSubscriptionPaymentService publishContractorsPendingSubscriptionPaymentService;
+    @Inject
+    PublishTradesmenPendingSubscriptionPaymentService publishTradesmenPendingSubscriptionPaymentService;
+    @Inject
+    CreateInvoiceService createInvoiceService;
+    @Inject
+    UpdateContractorSubscriptionStatusService updateContractorSubscriptionStatusService;
+    @Inject
+    UpdateTradesmanSubscriptionStatusService updateTradesmanSubscriptionStatusService;
 
     @ApplicationScoped
     CommandBus commandBus() {
@@ -36,10 +45,17 @@ public class CommandConfiguration {
         // Members feature
         commandMap.put(CreateContractor.class, createContractorService);
         commandMap.put(CreateTradesman.class, createTradesmanService);
+        commandMap.put(PublishContractorsPendingSubscriptionPayment.class, publishContractorsPendingSubscriptionPaymentService);
+        commandMap.put(PublishTradesmenPendingSubscriptionPayment.class, publishTradesmenPendingSubscriptionPaymentService);
+        commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);
+        commandMap.put(UpdateTradesmanSubscriptionStatus.class, updateTradesmanSubscriptionStatusService);
 
         // Payment feature
-        commandMap.put(ContractorPayment.class, contractorProcessPaymentService);
-        commandMap.put(TradesmanPayment.class, tradesmanProcessPaymentService);
+        commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
+        commandMap.put(TradesmanSubscriptionPayment.class, tradesmanSubscriptionPaymentService);
+
+        // Invoices feature
+        commandMap.put(CreateInvoice.class, createInvoiceService);
 
         return new DefaultCommandBus(commandMap);
     }
