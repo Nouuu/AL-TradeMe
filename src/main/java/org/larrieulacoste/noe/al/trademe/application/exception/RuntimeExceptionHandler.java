@@ -9,10 +9,10 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class ExceptionHandler implements ExceptionMapper<RuntimeException> {
+public class RuntimeExceptionHandler implements ExceptionMapper<RuntimeException> {
     private final Logger logger;
 
-    public ExceptionHandler() {
+    public RuntimeExceptionHandler() {
         this.logger = LoggerFactory.getLogger(this);
     }
 
@@ -26,5 +26,4 @@ public class ExceptionHandler implements ExceptionMapper<RuntimeException> {
                 )
         ).build();
     }
-
 }
