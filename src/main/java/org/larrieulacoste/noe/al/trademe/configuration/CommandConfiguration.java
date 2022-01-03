@@ -46,6 +46,10 @@ public class CommandConfiguration {
     UpdateContractorSubscriptionStatusService updateContractorSubscriptionStatusService;
     @Inject
     UpdateTradesmanSubscriptionStatusService updateTradesmanSubscriptionStatusService;
+    @Inject
+    DeleteTradesmanService deleteTradesmanService;
+    @Inject
+    DeleteContractorService deleteContractorService;
 
 
     @Produces
@@ -65,6 +69,8 @@ public class CommandConfiguration {
         commandMap.put(CreateTradesman.class, createTradesmanService);
         commandMap.put(UpdateContractor.class, updateContractorService);
         commandMap.put(UpdateTradesman.class, updateTradesmanService);
+        commandMap.put(DeleteTradesman.class, deleteTradesmanService);
+        commandMap.put(DeleteContractor.class, deleteContractorService);
         commandMap.put(PublishContractorsPendingSubscriptionPayment.class, publishContractorsPendingSubscriptionPaymentService);
         commandMap.put(PublishTradesmenPendingSubscriptionPayment.class, publishTradesmenPendingSubscriptionPaymentService);
         commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);

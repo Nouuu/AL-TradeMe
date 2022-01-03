@@ -1,8 +1,10 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.DeleteTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanById;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmen;
@@ -86,4 +88,19 @@ public class TradesmanController {
                 updatedTradesman.getEmail().getEmailAddressString()
         );
     }
+
+    @DELETE
+    @Path("{tradesmanId}")
+    @Operation(summary = "Delete tradesman", description = "Delete tradesman from TradeMe")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public TradesmanResponse delete(@PathParam("tradesmanId") String tradesmanId) {
+        commandBus.send(new DeleteTradesman(tradesmanId));
+
+        return new TradesmanResponse(
+                tradesmanId,
+                null, null, null
+        );
+    }
+
 }
