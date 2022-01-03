@@ -1,11 +1,11 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.NewContractorRegistered;
+import org.larrieulacoste.noe.al.trademe.application.event.ContractorRegistered;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class NewContractorRegisteredListener implements EventSubscriber<NewContractorRegistered> {
+public class NewContractorRegisteredListener implements EventSubscriber<ContractorRegistered> {
 
     private final PaymentCommandBus commandBus;
 
@@ -14,7 +14,7 @@ public class NewContractorRegisteredListener implements EventSubscriber<NewContr
     }
 
     @Override
-    public void accept(NewContractorRegistered event) {
+    public void accept(ContractorRegistered event) {
         ContractorSubscriptionPayment contractor = new ContractorSubscriptionPayment(event.getContractor().entityId, "TODO");
         commandBus.send(contractor);
     }

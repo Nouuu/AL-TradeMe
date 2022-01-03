@@ -6,20 +6,20 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewContractorRegistration implements ApplicationEvent {
+public final class ContractorNewRegistration implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     private final ContractorEventEntity contractorEventEntity;
 
-    private NewContractorRegistration(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity) {
+    private ContractorNewRegistration(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
     }
 
-    public static NewContractorRegistration of(ContractorEventEntity contractorEventEntity) {
-        return new NewContractorRegistration(EventId.create(), ZonedDateTime.now(), contractorEventEntity);
+    public static ContractorNewRegistration of(ContractorEventEntity contractorEventEntity) {
+        return new ContractorNewRegistration(EventId.create(), ZonedDateTime.now(), contractorEventEntity);
     }
 
     @Override
@@ -41,7 +41,7 @@ public final class NewContractorRegistration implements ApplicationEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        NewContractorRegistration that = (NewContractorRegistration) o;
+        ContractorNewRegistration that = (ContractorNewRegistration) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;

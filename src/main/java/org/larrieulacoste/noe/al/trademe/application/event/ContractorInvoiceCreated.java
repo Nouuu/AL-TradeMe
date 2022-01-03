@@ -6,19 +6,20 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewTradesmanRegistration implements ApplicationEvent {
+public final class ContractorInvoiceCreated implements ApplicationEvent {
+
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final TradesmanEventEntity tradesmanEventEntity;
+    private final InvoiceEventEntity invoiceEventEntity;
 
-    private NewTradesmanRegistration(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesmanEventEntity) {
+    private ContractorInvoiceCreated(EventId eventId, ZonedDateTime occurredDate, InvoiceEventEntity invoiceEventEntity) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.tradesmanEventEntity = Objects.requireNonNull(tradesmanEventEntity);
+        this.invoiceEventEntity = Objects.requireNonNull(invoiceEventEntity);
     }
 
-    public static NewTradesmanRegistration of(TradesmanEventEntity tradesmanEventEntity) {
-        return new NewTradesmanRegistration(EventId.create(), ZonedDateTime.now(), tradesmanEventEntity);
+    public static ContractorInvoiceCreated of(InvoiceEventEntity invoiceEventEntity) {
+        return new ContractorInvoiceCreated(EventId.create(), ZonedDateTime.now(), invoiceEventEntity);
     }
 
     @Override
@@ -31,8 +32,8 @@ public final class NewTradesmanRegistration implements ApplicationEvent {
         return occurredDate;
     }
 
-    public TradesmanEventEntity getTradesmanRegistration() {
-        return tradesmanEventEntity;
+    public InvoiceEventEntity getInvoice() {
+        return invoiceEventEntity;
     }
 
     @Override
@@ -40,27 +41,27 @@ public final class NewTradesmanRegistration implements ApplicationEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        NewTradesmanRegistration that = (NewTradesmanRegistration) o;
+        ContractorInvoiceCreated that = (ContractorInvoiceCreated) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        return tradesmanEventEntity.equals(that.tradesmanEventEntity);
+        return invoiceEventEntity.equals(that.invoiceEventEntity);
     }
 
     @Override
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + tradesmanEventEntity.hashCode();
+        result = 31 * result + invoiceEventEntity.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "NewTradesmanRegistration{" +
+        return "NewContractorInvoice{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", tradesman=" + tradesmanEventEntity +
+                ", invoiceEventEntity=" + invoiceEventEntity +
                 '}';
     }
 }

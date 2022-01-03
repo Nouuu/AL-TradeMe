@@ -1,12 +1,12 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistration;
+import org.larrieulacoste.noe.al.trademe.application.event.TradesmanNewRegistration;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class NewTradesmenRegistrationListener implements EventSubscriber<NewTradesmanRegistration> {
+public class NewTradesmenRegistrationListener implements EventSubscriber<TradesmanNewRegistration> {
 
     private final MembersCommandBus commandBus;
 
@@ -15,7 +15,7 @@ public class NewTradesmenRegistrationListener implements EventSubscriber<NewTrad
     }
 
     @Override
-    public void accept(NewTradesmanRegistration event) {
+    public void accept(TradesmanNewRegistration event) {
         TradesmanEventEntity tradesman = event.getTradesmanRegistration();
         commandBus.send(new CreateTradesman(tradesman.firstname, tradesman.lastname, tradesman.email, tradesman.password));
     }

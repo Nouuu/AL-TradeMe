@@ -7,22 +7,22 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewContractorSubscriptionPayment implements ApplicationEvent {
+public final class ContractorNewSubscriptionPayment implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     private final ContractorEventEntity contractorEventEntity;
     private final Amount amount;
 
-    private NewContractorSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity, Amount amount) {
+    private ContractorNewSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity, Amount amount) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
         this.amount = Objects.requireNonNull(amount);
     }
 
-    public static NewContractorSubscriptionPayment withContractorAndAmount(ContractorEventEntity tradesman, Amount amount) {
-        return new NewContractorSubscriptionPayment(EventId.create(), ZonedDateTime.now(), tradesman, amount);
+    public static ContractorNewSubscriptionPayment withContractorAndAmount(ContractorEventEntity tradesman, Amount amount) {
+        return new ContractorNewSubscriptionPayment(EventId.create(), ZonedDateTime.now(), tradesman, amount);
     }
 
     @Override
@@ -58,7 +58,7 @@ public final class NewContractorSubscriptionPayment implements ApplicationEvent 
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        NewContractorSubscriptionPayment that = (NewContractorSubscriptionPayment) o;
+        ContractorNewSubscriptionPayment that = (ContractorNewSubscriptionPayment) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;

@@ -6,20 +6,20 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewTradesmanInvoice implements ApplicationEvent {
+public final class TradesmanNewInvoice implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     private final InvoiceEventEntity invoiceEventEntity;
 
-    private NewTradesmanInvoice(EventId eventId, ZonedDateTime occurredDate, InvoiceEventEntity invoiceEventEntity) {
+    private TradesmanNewInvoice(EventId eventId, ZonedDateTime occurredDate, InvoiceEventEntity invoiceEventEntity) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.invoiceEventEntity = Objects.requireNonNull(invoiceEventEntity);
     }
 
-    public static NewTradesmanInvoice of(InvoiceEventEntity invoiceEventEntity) {
-        return new NewTradesmanInvoice(EventId.create(), ZonedDateTime.now(), invoiceEventEntity);
+    public static TradesmanNewInvoice of(InvoiceEventEntity invoiceEventEntity) {
+        return new TradesmanNewInvoice(EventId.create(), ZonedDateTime.now(), invoiceEventEntity);
     }
 
     @Override
@@ -41,7 +41,7 @@ public final class NewTradesmanInvoice implements ApplicationEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        NewTradesmanInvoice that = (NewTradesmanInvoice) o;
+        TradesmanNewInvoice that = (TradesmanNewInvoice) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;

@@ -7,22 +7,22 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewTradesmanSubscriptionPayment implements ApplicationEvent {
+public final class TradesmanNewSubscriptionPayment implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     private final TradesmanEventEntity tradesman;
     private final Amount amount;
 
-    private NewTradesmanSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman, Amount amount) {
+    private TradesmanNewSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman, Amount amount) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.tradesman = Objects.requireNonNull(tradesman);
         this.amount = amount;
     }
 
-    public static NewTradesmanSubscriptionPayment withTradesmanAndAmount(TradesmanEventEntity tradesman, Amount amount) {
-        return new NewTradesmanSubscriptionPayment(EventId.create(), ZonedDateTime.now(), tradesman, amount);
+    public static TradesmanNewSubscriptionPayment withTradesmanAndAmount(TradesmanEventEntity tradesman, Amount amount) {
+        return new TradesmanNewSubscriptionPayment(EventId.create(), ZonedDateTime.now(), tradesman, amount);
     }
 
     @Override
@@ -48,7 +48,7 @@ public final class NewTradesmanSubscriptionPayment implements ApplicationEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        NewTradesmanSubscriptionPayment that = (NewTradesmanSubscriptionPayment) o;
+        TradesmanNewSubscriptionPayment that = (TradesmanNewSubscriptionPayment) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;

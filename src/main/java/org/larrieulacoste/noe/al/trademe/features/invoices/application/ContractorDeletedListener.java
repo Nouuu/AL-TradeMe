@@ -1,9 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorDeleted;
-import org.larrieulacoste.noe.al.trademe.application.event.NewContractorSubscriptionPayment;
-import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
-import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoice;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.DeleteContractorInvoices;
 import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;

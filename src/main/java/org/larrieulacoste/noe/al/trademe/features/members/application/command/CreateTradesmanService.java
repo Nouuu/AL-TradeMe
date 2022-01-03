@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistered;
+import org.larrieulacoste.noe.al.trademe.application.event.TradesmanRegistered;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
@@ -38,7 +38,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
         );
         tradesmen.save(tradesman);
 
-        eventBus.publish(NewTradesmanRegistered.withTradesman(TradesmanEventEntity.of(userId, createTradesman.firstname,
+        eventBus.publish(TradesmanRegistered.withTradesman(TradesmanEventEntity.of(userId, createTradesman.firstname,
                 createTradesman.lastname, createTradesman.email, createTradesman.password)));
 
         return userId;
