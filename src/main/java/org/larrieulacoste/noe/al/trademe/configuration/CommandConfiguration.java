@@ -1,7 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoice;
-import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoiceService;
+import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.*;
 import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.DefaultInvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.*;
@@ -29,6 +28,10 @@ public class CommandConfiguration {
     @Inject
     CreateTradesmanService createTradesmanService;
     @Inject
+    UpdateContractorService updateContractorService;
+    @Inject
+    UpdateTradesmanService updateTradesmanService;
+    @Inject
     ContractorSubscriptionPaymentService contractorSubscriptionPaymentService;
     @Inject
     TradesmanSubscriptionPaymentService tradesmanSubscriptionPaymentService;
@@ -42,6 +45,14 @@ public class CommandConfiguration {
     UpdateContractorSubscriptionStatusService updateContractorSubscriptionStatusService;
     @Inject
     UpdateTradesmanSubscriptionStatusService updateTradesmanSubscriptionStatusService;
+    @Inject
+    DeleteTradesmanService deleteTradesmanService;
+    @Inject
+    DeleteContractorService deleteContractorService;
+    @Inject
+    DeleteTradesmanInvoicesService deleteTradesmanInvoicesService;
+    @Inject
+    DeleteContractorInvoicesService deleteContractorInvoicesService;
 
 
     @Produces
@@ -49,6 +60,8 @@ public class CommandConfiguration {
         Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
 
         commandMap.put(CreateInvoice.class, createInvoiceService);
+        commandMap.put(DeleteTradesmanInvoices.class, deleteTradesmanInvoicesService);
+        commandMap.put(DeleteContractorInvoices.class, deleteContractorInvoicesService);
 
         return new DefaultInvoicesCommandBus(commandMap);
     }
@@ -59,6 +72,10 @@ public class CommandConfiguration {
 
         commandMap.put(CreateContractor.class, createContractorService);
         commandMap.put(CreateTradesman.class, createTradesmanService);
+        commandMap.put(UpdateContractor.class, updateContractorService);
+        commandMap.put(UpdateTradesman.class, updateTradesmanService);
+        commandMap.put(DeleteTradesman.class, deleteTradesmanService);
+        commandMap.put(DeleteContractor.class, deleteContractorService);
         commandMap.put(PublishContractorsPendingSubscriptionPayment.class, publishContractorsPendingSubscriptionPaymentService);
         commandMap.put(PublishTradesmenPendingSubscriptionPayment.class, publishTradesmenPendingSubscriptionPaymentService);
         commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);

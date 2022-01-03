@@ -25,7 +25,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
 
     @Override
     public EntityId handle(CreateTradesman createTradesman) {
-        memberValidationService.validateTradesman(createTradesman);
+        memberValidationService.validateCreateTradesman(createTradesman);
 
         final EntityId userId = tradesmen.nextId();
         Tradesman tradesman = Tradesman.of(

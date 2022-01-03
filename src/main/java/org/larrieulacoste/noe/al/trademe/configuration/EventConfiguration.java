@@ -1,6 +1,8 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.larrieulacoste.noe.al.trademe.application.event.*;
+import org.larrieulacoste.noe.al.trademe.features.invoices.application.ContractorDeletedListener;
+import org.larrieulacoste.noe.al.trademe.features.invoices.application.TradesmanDeletedListener;
 import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.members.application.*;
 import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
@@ -53,10 +55,10 @@ public class EventConfiguration {
         eventBus.register(TradesmenSubscriptionPendingPayment.class, new TradesmenSubscriptionPendingPaymentListener(paymentCommandBus));
 
         // Invoices feature
-        eventBus.register(NewContractorSubscriptionPayment.class,
-                new org.larrieulacoste.noe.al.trademe.features.invoices.application.NewContractorSubscriptionPaymentListener(invoicesCommandBus));
-        eventBus.register(NewTradesmanSubscriptionPayment.class,
-                new org.larrieulacoste.noe.al.trademe.features.invoices.application.NewTradesmanSubscriptionPaymentListener(invoicesCommandBus));
+        eventBus.register(NewContractorSubscriptionPayment.class, new org.larrieulacoste.noe.al.trademe.features.invoices.application.NewContractorSubscriptionPaymentListener(invoicesCommandBus));
+        eventBus.register(NewTradesmanSubscriptionPayment.class, new org.larrieulacoste.noe.al.trademe.features.invoices.application.NewTradesmanSubscriptionPaymentListener(invoicesCommandBus));
+        eventBus.register(ContractorDeleted.class, new ContractorDeletedListener(invoicesCommandBus));
+        eventBus.register(TradesmanDeleted.class, new TradesmanDeletedListener(invoicesCommandBus));
 
         return eventBus;
     }
