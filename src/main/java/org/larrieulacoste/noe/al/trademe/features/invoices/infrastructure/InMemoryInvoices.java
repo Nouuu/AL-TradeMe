@@ -49,6 +49,11 @@ public final class InMemoryInvoices implements Invoices {
     }
 
     @Override
+    public void remove(Invoice item) {
+        data.remove(item.getInvoiceId());
+    }
+
+    @Override
     public EntityId nextId() {
         return EntityId.of(String.valueOf(counter.incrementAndGet()));
     }

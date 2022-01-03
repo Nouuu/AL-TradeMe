@@ -46,6 +46,11 @@ public final class InMemoryContractors implements Contractors {
     }
 
     @Override
+    public void remove(Contractor item) {
+        data.remove(item.getEntityId());
+    }
+
+    @Override
     public EntityId nextId() {
         return EntityId.of(String.valueOf(counter.incrementAndGet()));
     }

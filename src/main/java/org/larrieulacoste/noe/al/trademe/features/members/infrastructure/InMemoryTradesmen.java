@@ -46,6 +46,11 @@ public final class InMemoryTradesmen implements Tradesmen {
     }
 
     @Override
+    public void remove(Tradesman item) {
+        data.remove(item.getEntityId());
+    }
+
+    @Override
     public EntityId nextId() {
         return EntityId.of(String.valueOf(counter.incrementAndGet()));
     }
