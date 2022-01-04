@@ -4,13 +4,13 @@ package org.larrieulacoste.noe.al.trademe.features.members.web;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.DeleteContractor;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateContractor;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveContractorById;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveContractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersQueryBus;
-import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
-import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -29,7 +29,7 @@ public class ContractorController {
 
     @GET
     @Path("{userId}")
-    @Operation(summary = "Retrieve contractor by ID",description = "Retrieve contractor giving contractor's ID")
+    @Operation(summary = "Retrieve contractor by ID", description = "Retrieve contractor giving contractor's ID")
     @Produces(MediaType.APPLICATION_JSON)
     public ContractorResponse getById(@PathParam("userId") String userId) {
         Contractor contractor = queryBus.send(new RetrieveContractorById(EntityId.of(userId)));
@@ -42,7 +42,7 @@ public class ContractorController {
     }
 
     @GET
-    @Operation(summary = "Retrieve contractors",description = "Retrieve all contractors")
+    @Operation(summary = "Retrieve contractors", description = "Retrieve all contractors")
     @Produces(MediaType.APPLICATION_JSON)
     public ContractorsResponse getAll() {
         List<Contractor> contractors = queryBus.send(new RetrieveContractors());
@@ -58,7 +58,7 @@ public class ContractorController {
     }
 
     @POST
-    @Operation(summary = "Create contractor",description = "Register a new contractor to TradeMe")
+    @Operation(summary = "Create contractor", description = "Register a new contractor to TradeMe")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public ContractorResponse register(ContractorRequest contractor) {
@@ -71,4 +71,41 @@ public class ContractorController {
 
         return new ContractorResponse(userId.getValue(), null, null, null);
     }
+
+    @PUT
+    @Path("{contractorId}")
+    @Operation(summary = "Update contractor", description = "Update contractor in TradeMe")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ContractorResponse update(@PathParam("contractorId") String contractorId, ContractorRequest contractor) {
+        Contractor updatedContractor = commandBus.send(new UpdateContractor(
+                contractorId,
+                contractor.firstname,
+                contractor.lastname,
+                contractor.email,
+                contractor.password
+        ));
+
+        return new ContractorResponse(
+                updatedContractor.getEntityId().getValue(),
+                updatedContractor.getFirstname().getField(),
+                updatedContractor.getLastname().getField(),
+                updatedContractor.getEmail().getEmailAddressString()
+        );
+    }
+
+    @DELETE
+    @Path("{contractorId}")
+    @Operation(summary = "Delete contractor", description = "Delete contractor from TradeMe")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ContractorResponse delete(@PathParam("contractorId") String contractorId) {
+        commandBus.send(new DeleteContractor(contractorId));
+
+        return new ContractorResponse(
+                contractorId,
+                null, null, null
+        );
+    }
+
 }

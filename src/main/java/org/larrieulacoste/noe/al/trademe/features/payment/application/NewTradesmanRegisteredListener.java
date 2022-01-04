@@ -1,11 +1,11 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistered;
+import org.larrieulacoste.noe.al.trademe.application.event.TradesmanRegistered;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class NewTradesmanRegisteredListener implements EventSubscriber<NewTradesmanRegistered> {
+public class NewTradesmanRegisteredListener implements EventSubscriber<TradesmanRegistered> {
 
     private final PaymentCommandBus commandBus;
 
@@ -14,7 +14,7 @@ public class NewTradesmanRegisteredListener implements EventSubscriber<NewTrades
     }
 
     @Override
-    public void accept(NewTradesmanRegistered event) {
+    public void accept(TradesmanRegistered event) {
         TradesmanSubscriptionPayment tradesman = new TradesmanSubscriptionPayment(event.getTradesman().entityId, "TODO");
         commandBus.send(tradesman);
     }

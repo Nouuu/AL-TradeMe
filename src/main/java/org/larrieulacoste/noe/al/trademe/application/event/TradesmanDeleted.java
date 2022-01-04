@@ -1,28 +1,25 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewTradesmanSubscriptionPayment implements ApplicationEvent {
+public final class TradesmanDeleted implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     private final TradesmanEventEntity tradesman;
-    private final Amount amount;
 
-    private NewTradesmanSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman, Amount amount) {
+    private TradesmanDeleted(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.tradesman = Objects.requireNonNull(tradesman);
-        this.amount = amount;
     }
 
-    public static NewTradesmanSubscriptionPayment withTradesmanAndAmount(TradesmanEventEntity tradesman, Amount amount) {
-        return new NewTradesmanSubscriptionPayment(EventId.create(), ZonedDateTime.now(), tradesman, amount);
+    public static TradesmanDeleted withTradesman(TradesmanEventEntity tradesman) {
+        return new TradesmanDeleted(EventId.create(), ZonedDateTime.now(), tradesman);
     }
 
     @Override
@@ -39,21 +36,26 @@ public final class NewTradesmanSubscriptionPayment implements ApplicationEvent {
         return tradesman;
     }
 
-    public Amount getAmount() {
-        return amount;
+
+    @Override
+    public String toString() {
+        return "TradesmanDeleted{" +
+                "eventId=" + eventId +
+                ", occurredDate=" + occurredDate +
+                ", tradesman=" + tradesman +
+                '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TradesmanDeleted)) return false;
 
-        NewTradesmanSubscriptionPayment that = (NewTradesmanSubscriptionPayment) o;
+        TradesmanDeleted that = (TradesmanDeleted) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        if (!tradesman.equals(that.tradesman)) return false;
-        return amount.equals(that.amount);
+        return tradesman.equals(that.tradesman);
     }
 
     @Override
@@ -61,17 +63,6 @@ public final class NewTradesmanSubscriptionPayment implements ApplicationEvent {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
         result = 31 * result + tradesman.hashCode();
-        result = 31 * result + amount.hashCode();
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "NewTradesmanSubscriptionPayment{" +
-                "eventId=" + eventId +
-                ", occurredDate=" + occurredDate +
-                ", tradesman=" + tradesman +
-                ", amount=" + amount +
-                '}';
     }
 }

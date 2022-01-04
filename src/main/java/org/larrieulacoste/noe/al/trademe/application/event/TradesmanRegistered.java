@@ -6,20 +6,20 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class NewContractorRegistered implements ApplicationEvent {
+public final class TradesmanRegistered implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final ContractorEventEntity contractorEventEntity;
+    private final TradesmanEventEntity tradesman;
 
-    private NewContractorRegistered(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity) {
+    private TradesmanRegistered(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
+        this.tradesman = Objects.requireNonNull(tradesman);
     }
 
-    public static NewContractorRegistered withContractor(ContractorEventEntity tradesman) {
-        return new NewContractorRegistered(EventId.create(), ZonedDateTime.now(), tradesman);
+    public static TradesmanRegistered withTradesman(TradesmanEventEntity tradesman) {
+        return new TradesmanRegistered(EventId.create(), ZonedDateTime.now(), tradesman);
     }
 
     @Override
@@ -32,37 +32,37 @@ public final class NewContractorRegistered implements ApplicationEvent {
         return occurredDate;
     }
 
-    public ContractorEventEntity getContractor() {
-        return contractorEventEntity;
+    public TradesmanEventEntity getTradesman() {
+        return tradesman;
     }
 
 
     @Override
     public String toString() {
-        return "NewContractorRegistered{" +
+        return "NewTradesmanApplicative{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", contractor=" + contractorEventEntity +
+                ", tradesman=" + tradesman +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof NewContractorRegistered)) return false;
+        if (!(o instanceof TradesmanRegistered)) return false;
 
-        NewContractorRegistered that = (NewContractorRegistered) o;
+        TradesmanRegistered that = (TradesmanRegistered) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        return contractorEventEntity.equals(that.contractorEventEntity);
+        return tradesman.equals(that.tradesman);
     }
 
     @Override
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + contractorEventEntity.hashCode();
+        result = 31 * result + tradesman.hashCode();
         return result;
     }
 }

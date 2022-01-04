@@ -33,6 +33,11 @@ public final class JdbcContractors implements Contractors {
     }
 
     @Override
+    public void remove(Contractor item) {
+        throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED_MESSAGE);
+    }
+
+    @Override
     public EntityId nextId() {
         throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED_MESSAGE);
     }

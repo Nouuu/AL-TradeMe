@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.application.event.TradesmanNewSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
@@ -33,7 +33,7 @@ public class TradesmanSubscriptionPaymentService implements CommandHandler<Trade
     public Void handle(TradesmanSubscriptionPayment tradesmanSubscriptionPayment) {
         logger.log(String.format("Process tradesman payment subscription of : %s with %sf", tradesmanSubscriptionPayment.tradesmanId, tradesmanSubscriptionPayment.paymentMethod));
         paymentAPI.pay(null, subscriptionAmount.getValue());
-        eventBus.publish(NewTradesmanSubscriptionPayment.withTradesmanAndAmount(TradesmanEventEntity.withEntityIdOnly(tradesmanSubscriptionPayment.tradesmanId), subscriptionAmount));
+        eventBus.publish(TradesmanNewSubscriptionPayment.withTradesmanAndAmount(TradesmanEventEntity.withEntityIdOnly(tradesmanSubscriptionPayment.tradesmanId), subscriptionAmount));
         return null;
     }
 }
