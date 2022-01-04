@@ -7,10 +7,11 @@ import java.util.*;
 
 public class DefaultEventBus<E extends Event> implements EventBus<E> {
 
-    private final Map<Class<? extends E>, List<EventSubscriber<? extends E>>> associatedSubscribers = new HashMap<>();
+    private final Map<Class<? extends E>, List<EventSubscriber<? extends E>>> associatedSubscribers ;
     private final Logger logger;
 
-    public DefaultEventBus() {
+    public DefaultEventBus(Map<Class<? extends E>, List<EventSubscriber<? extends E>>> associatedSubscribers) {
+        this.associatedSubscribers = associatedSubscribers;
         this.logger = LoggerFactory.getLogger(this);
     }
 

@@ -18,6 +18,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import java.util.HashMap;
 
 @Dependent
 public class EventConfiguration {
@@ -34,7 +35,7 @@ public class EventConfiguration {
 
     @Produces
     EventBus<ApplicationEvent> applicationEventBus() {
-        final EventBus<ApplicationEvent> eventBus = new DefaultEventBus<>();
+        final EventBus<ApplicationEvent> eventBus = new DefaultEventBus<>(new HashMap<>());
 
         // Members feature
         eventBus.register(ContractorNewRegistration.class, new NewContractorRegistrationListener(membersCommandBus));
