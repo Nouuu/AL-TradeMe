@@ -14,6 +14,8 @@ import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandB
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.DefaultEventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
@@ -22,6 +24,10 @@ import java.util.HashMap;
 
 @Dependent
 public class EventConfiguration {
+
+    @Inject
+    @LoggerQualifier(EventBus.class)
+    Logger eventBusLogger;
 
     @Inject
     InvoicesCommandBus invoicesCommandBus;
@@ -35,7 +41,7 @@ public class EventConfiguration {
 
     @Produces
     EventBus<ApplicationEvent> applicationEventBus() {
-        final EventBus<ApplicationEvent> eventBus = new DefaultEventBus<>(new HashMap<>());
+        final EventBus<ApplicationEvent> eventBus = new DefaultEventBus<>(new HashMap<>(), eventBusLogger);
 
         // Members feature
         eventBus.register(ContractorNewRegistration.class, new NewContractorRegistrationListener(membersCommandBus));

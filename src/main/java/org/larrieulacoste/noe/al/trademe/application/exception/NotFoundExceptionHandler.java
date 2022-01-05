@@ -13,7 +13,7 @@ public class NotFoundExceptionHandler implements ExceptionMapper<NotFoundExcepti
     private final Logger logger;
 
     public NotFoundExceptionHandler() {
-        this.logger = LoggerFactory.getLogger(this);
+        this.logger = LoggerFactory.getLoggerStatic(this);
     }
 
     @Override

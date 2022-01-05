@@ -2,12 +2,12 @@ package org.larrieulacoste.noe.al.trademe.kernel.logger;
 
 import java.util.Objects;
 
-public final class LoggerFactory {
+public interface LoggerFactory {
 
-    private LoggerFactory() {
-    }
-
-    public static Logger getLogger(Object object) {
+    static Logger getLoggerStatic(Object object) {
         return new DefaultLogger(Objects.requireNonNull(object).getClass().getSimpleName());
     }
+
+    Logger getLogger(Class<?> objectClass);
+
 }

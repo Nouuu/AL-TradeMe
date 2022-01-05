@@ -3,6 +3,7 @@ package org.larrieulacoste.noe.al.trademe.kernel.event;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ class DefaultEventBusTest {
     private EventBus<Event> eventBus;
     private EventSubscriber eventSubscriber;
     private List<EventSubscriber<? extends Event>> eventSubscribers;
+    private Logger eventBusLogger;
 
     @SuppressWarnings("all")
     @BeforeEach
@@ -24,7 +26,8 @@ class DefaultEventBusTest {
         eventSubscribers.add(eventSubscriber);
         associatedSubscribers = new HashMap<>();
         associatedSubscribers.put(TestEvent.class, eventSubscribers);
-        eventBus = new DefaultEventBus<>(associatedSubscribers);
+        eventBusLogger = new TestLogger();
+        eventBus = new DefaultEventBus<>(associatedSubscribers, eventBusLogger);
     }
 
     @Test

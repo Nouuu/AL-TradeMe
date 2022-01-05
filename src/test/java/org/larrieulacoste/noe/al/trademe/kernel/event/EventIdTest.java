@@ -33,6 +33,6 @@ class EventIdTest {
     @Test
     void testHashCode() {
         EventId eventId = EventId.create();
-        Assertions.assertThat(eventId.hashCode()).isPositive();
+        Assertions.assertThat(eventId.hashCode()).isNotZero();
     }
 }

@@ -1,18 +1,20 @@
 package org.larrieulacoste.noe.al.trademe.kernel.event;
 
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class DefaultEventBus<E extends Event> implements EventBus<E> {
 
-    private final Map<Class<? extends E>, List<EventSubscriber<? extends E>>> associatedSubscribers ;
+    private final Map<Class<? extends E>, List<EventSubscriber<? extends E>>> associatedSubscribers;
     private final Logger logger;
 
-    public DefaultEventBus(Map<Class<? extends E>, List<EventSubscriber<? extends E>>> associatedSubscribers) {
+    public DefaultEventBus(Map<Class<? extends E>, List<EventSubscriber<? extends E>>> associatedSubscribers, Logger logger) {
         this.associatedSubscribers = associatedSubscribers;
-        this.logger = LoggerFactory.getLogger(this);
+        this.logger = logger;
     }
 
     @SuppressWarnings("all")

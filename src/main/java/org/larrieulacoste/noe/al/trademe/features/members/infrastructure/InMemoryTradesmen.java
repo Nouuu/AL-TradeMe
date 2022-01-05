@@ -19,7 +19,7 @@ public final class InMemoryTradesmen implements Tradesmen {
     private final Logger logger;
 
     public InMemoryTradesmen() {
-        this.logger = LoggerFactory.getLogger(this);
+        this.logger = LoggerFactory.getLoggerStatic(this);
     }
 
     @Override
