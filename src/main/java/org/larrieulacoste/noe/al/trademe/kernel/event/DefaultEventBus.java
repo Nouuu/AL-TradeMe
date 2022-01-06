@@ -2,6 +2,7 @@ package org.larrieulacoste.noe.al.trademe.kernel.event;
 
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -9,12 +9,12 @@ import java.util.Objects;
 public final class TradesmanNewRegistration implements ApplicationEvent {
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final TradesmanEventEntity tradesmanEventEntity;
+    public final TradesmanEventEntity tradesman;
 
-    private TradesmanNewRegistration(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesmanEventEntity) {
+    private TradesmanNewRegistration(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.tradesmanEventEntity = Objects.requireNonNull(tradesmanEventEntity);
+        this.tradesman = Objects.requireNonNull(tradesman);
     }
 
     public static TradesmanNewRegistration of(TradesmanEventEntity tradesmanEventEntity) {
@@ -31,10 +31,6 @@ public final class TradesmanNewRegistration implements ApplicationEvent {
         return occurredDate;
     }
 
-    public TradesmanEventEntity getTradesmanRegistration() {
-        return tradesmanEventEntity;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,14 +40,14 @@ public final class TradesmanNewRegistration implements ApplicationEvent {
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        return tradesmanEventEntity.equals(that.tradesmanEventEntity);
+        return tradesman.equals(that.tradesman);
     }
 
     @Override
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + tradesmanEventEntity.hashCode();
+        result = 31 * result + tradesman.hashCode();
         return result;
     }
 
@@ -60,7 +56,7 @@ public final class TradesmanNewRegistration implements ApplicationEvent {
         return "NewTradesmanRegistration{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", tradesman=" + tradesmanEventEntity +
+                ", tradesman=" + tradesman +
                 '}';
     }
 }

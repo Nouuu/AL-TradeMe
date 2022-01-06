@@ -15,6 +15,6 @@ public class TradesmanDeletedListener implements EventSubscriber<TradesmanDelete
 
     @Override
     public void accept(TradesmanDeleted event) {
-        commandBus.send(new DeleteTradesmanInvoices(event.getTradesman().entityId));
+        commandBus.send(new DeleteTradesmanInvoices(event.tradesman.entityId));
     }
 }

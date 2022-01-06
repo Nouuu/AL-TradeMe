@@ -16,7 +16,7 @@ public class NewTradesmenRegistrationListener implements EventSubscriber<Tradesm
 
     @Override
     public void accept(TradesmanNewRegistration event) {
-        TradesmanEventEntity tradesman = event.getTradesmanRegistration();
+        TradesmanEventEntity tradesman = event.tradesman;
         commandBus.send(new CreateTradesman(tradesman.firstname, tradesman.lastname, tradesman.email, tradesman.password));
     }
 }

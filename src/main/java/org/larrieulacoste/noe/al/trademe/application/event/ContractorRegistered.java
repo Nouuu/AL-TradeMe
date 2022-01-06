@@ -10,12 +10,12 @@ public final class ContractorRegistered implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final ContractorEventEntity contractorEventEntity;
+    public final ContractorEventEntity contractor;
 
-    private ContractorRegistered(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity) {
+    private ContractorRegistered(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractor) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
+        this.contractor = Objects.requireNonNull(contractor);
     }
 
     public static ContractorRegistered withContractor(ContractorEventEntity tradesman) {
@@ -32,17 +32,12 @@ public final class ContractorRegistered implements ApplicationEvent {
         return occurredDate;
     }
 
-    public ContractorEventEntity getContractor() {
-        return contractorEventEntity;
-    }
-
-
     @Override
     public String toString() {
         return "NewContractorRegistered{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", contractor=" + contractorEventEntity +
+                ", contractor=" + contractor +
                 '}';
     }
 
@@ -55,14 +50,14 @@ public final class ContractorRegistered implements ApplicationEvent {
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        return contractorEventEntity.equals(that.contractorEventEntity);
+        return contractor.equals(that.contractor);
     }
 
     @Override
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + contractorEventEntity.hashCode();
+        result = 31 * result + contractor.hashCode();
         return result;
     }
 }

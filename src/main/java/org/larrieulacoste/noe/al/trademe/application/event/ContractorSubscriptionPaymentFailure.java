@@ -10,12 +10,12 @@ public final class ContractorSubscriptionPaymentFailure implements ApplicationEv
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final ContractorEventEntity contractorEventEntity;
+    public final ContractorEventEntity contractor;
 
-    private ContractorSubscriptionPaymentFailure(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity) {
+    private ContractorSubscriptionPaymentFailure(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractor) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
+        this.contractor = Objects.requireNonNull(contractor);
     }
 
     public static ContractorSubscriptionPaymentFailure withContractor(ContractorEventEntity tradesman) {
@@ -32,10 +32,6 @@ public final class ContractorSubscriptionPaymentFailure implements ApplicationEv
         return occurredDate;
     }
 
-    public ContractorEventEntity getContractorEventEntity() {
-        return contractorEventEntity;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,14 +41,14 @@ public final class ContractorSubscriptionPaymentFailure implements ApplicationEv
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        return contractorEventEntity.equals(that.contractorEventEntity);
+        return contractor.equals(that.contractor);
     }
 
     @Override
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + contractorEventEntity.hashCode();
+        result = 31 * result + contractor.hashCode();
         return result;
     }
 
@@ -61,7 +57,7 @@ public final class ContractorSubscriptionPaymentFailure implements ApplicationEv
         return "ContractorSubscriptionPaymentFailure{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", contractorEventEntity=" + contractorEventEntity +
+                ", contractorEventEntity=" + contractor +
                 '}';
     }
 }
