@@ -46,18 +46,59 @@ class DefaultEventBusTest {
     }
 
     @Test
+    void publishNullSubscribers() {
+        Event event = new TestEvent2();
+        org.junit.jupiter.api.Assertions.assertAll(() -> eventBus.publish(event));
+    }
+
+    @Test
+    void publishEmptySubscribers() {
+        Event event = new TestEvent();
+        eventBus.unregister(TestEvent.class, eventSubscriber);
+        org.junit.jupiter.api.Assertions.assertAll(() -> eventBus.publish(event));
+    }
+
+    @Test
     void register() {
+        TestEventSubscriber otherSubscriber = new TestEventSubscriber();
+        eventBus.register(TestEvent2.class, otherSubscriber);
+        eventBus.register(TestEvent2.class, otherSubscriber);
+        Assertions.assertThat(associatedSubscribers.containsValue(TestEvent2.class));
+        Assertions.assertThat(associatedSubscribers.get(TestEvent2.class)).containsExactly(otherSubscriber);
     }
 
     @Test
     void unregister() {
+        eventBus.unregister(TestEvent.class, eventSubscriber);
+        Assertions.assertThat(associatedSubscribers.get(TestEvent.class)).isEmpty();
+    }
+    @Test
+    void unregisterNull() {
+        eventBus.unregister(TestEvent2.class, eventSubscriber);
+        Assertions.assertThat(associatedSubscribers.get(TestEvent.class)).containsExactly(eventSubscriber);
     }
 
     @Test
     void registerMultipleSubscribers() {
+        TestEventSubscriber otherSubscriber = new TestEventSubscriber();
+        TestEventSubscriber otherSubscriber2 = new TestEventSubscriber();
+        TestEventSubscriber otherSubscriber3 = new TestEventSubscriber();
+
+        eventBus.registerMultipleSubscribers(TestEvent2.class,
+                List.of(otherSubscriber, otherSubscriber2, otherSubscriber3));
+        Assertions.assertThat(associatedSubscribers.get(TestEvent2.class))
+                .containsExactlyElementsOf(List.of(otherSubscriber, otherSubscriber2, otherSubscriber3));
     }
 
     @Test
     void unregisterMultipleSubscribers() {
+        TestEventSubscriber otherSubscriber = new TestEventSubscriber();
+        TestEventSubscriber otherSubscriber2 = new TestEventSubscriber();
+        TestEventSubscriber otherSubscriber3 = new TestEventSubscriber();
+
+        eventBus.registerMultipleSubscribers(TestEvent2.class,
+                List.of(otherSubscriber, otherSubscriber2, otherSubscriber3));
+        eventBus.unregisterMultipleSubscribers(TestEvent2.class,List.of(otherSubscriber, otherSubscriber2, otherSubscriber3));
+        Assertions.assertThat(associatedSubscribers.get(TestEvent2.class)).isEmpty();
     }
 }
