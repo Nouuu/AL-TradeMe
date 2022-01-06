@@ -15,11 +15,11 @@ public class InvoiceEventEntity {
     public final Amount amount;
 
     private InvoiceEventEntity(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, Amount amount) {
-        this.invoiceId = Objects.requireNonNull(invoiceId);
-        this.memberType = Objects.requireNonNull(memberType);
-        this.memberId = Objects.requireNonNull(memberId);
-        this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.amount = Objects.requireNonNull(amount);
+        this.invoiceId = invoiceId;
+        this.memberType = memberType;
+        this.memberId = memberId;
+        this.occurredDate = occurredDate;
+        this.amount = amount;
     }
 
     public static InvoiceEventEntity of(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, Amount amount) {

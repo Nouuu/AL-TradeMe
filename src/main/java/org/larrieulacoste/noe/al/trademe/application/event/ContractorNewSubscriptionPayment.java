@@ -21,8 +21,8 @@ public final class ContractorNewSubscriptionPayment implements ApplicationEvent 
         this.amount = Objects.requireNonNull(amount);
     }
 
-    public static ContractorNewSubscriptionPayment withContractorAndAmount(ContractorEventEntity tradesman, Amount amount) {
-        return new ContractorNewSubscriptionPayment(EventId.create(), ZonedDateTime.now(), tradesman, amount);
+    public static ContractorNewSubscriptionPayment withContractorAndAmount(ContractorEventEntity contractor, Amount amount) {
+        return new ContractorNewSubscriptionPayment(EventId.create(), ZonedDateTime.now(), contractor, amount);
     }
 
     @Override
