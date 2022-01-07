@@ -72,6 +72,7 @@ class DefaultEventBusTest {
         eventBus.unregister(TestEvent.class, eventSubscriber);
         Assertions.assertThat(associatedSubscribers.get(TestEvent.class)).isEmpty();
     }
+
     @Test
     void unregisterNull() {
         eventBus.unregister(TestEvent2.class, eventSubscriber);
@@ -98,7 +99,7 @@ class DefaultEventBusTest {
 
         eventBus.registerMultipleSubscribers(TestEvent2.class,
                 List.of(otherSubscriber, otherSubscriber2, otherSubscriber3));
-        eventBus.unregisterMultipleSubscribers(TestEvent2.class,List.of(otherSubscriber, otherSubscriber2, otherSubscriber3));
+        eventBus.unregisterMultipleSubscribers(TestEvent2.class, List.of(otherSubscriber, otherSubscriber2, otherSubscriber3));
         Assertions.assertThat(associatedSubscribers.get(TestEvent2.class)).isEmpty();
     }
 }

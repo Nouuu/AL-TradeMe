@@ -19,8 +19,8 @@ public final class PaymentMethod {
         return new PaymentMethod(PaymentMethodType.PAYPAL, paypalEmail);
     }
 
-    public static PaymentMethod of(String paymentMethod, String paypalEmail) {
-        return new PaymentMethod(PaymentMethodType.fromString(paymentMethod), paypalEmail);
+    public static PaymentMethod of(String paymentMethod, String paymentInfo) {
+        return new PaymentMethod(PaymentMethodType.fromString(paymentMethod), paymentInfo);
     }
 
     @Override

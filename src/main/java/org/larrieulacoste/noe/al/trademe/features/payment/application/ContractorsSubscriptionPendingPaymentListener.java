@@ -18,7 +18,7 @@ public class ContractorsSubscriptionPendingPaymentListener implements EventSubsc
     @Override
     public void accept(ContractorsSubscriptionPendingPayment event) {
         for (ContractorEventEntity contractor : event.getContractors()) {
-            ContractorSubscriptionPayment contractorSubscriptionPayment = new ContractorSubscriptionPayment(contractor.entityId, "TODO");
+            ContractorSubscriptionPayment contractorSubscriptionPayment = new ContractorSubscriptionPayment(contractor.entityId, contractor.paymentMethod);
             commandBus.send(contractorSubscriptionPayment);
         }
     }

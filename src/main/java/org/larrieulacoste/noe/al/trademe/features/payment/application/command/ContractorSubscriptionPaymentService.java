@@ -32,7 +32,7 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
     @Override
     public Void handle(ContractorSubscriptionPayment contractorSubscriptionPayment) {
         logger.log(String.format("Process contractor payment subscription of : %s with %sf", contractorSubscriptionPayment.contractorId, contractorSubscriptionPayment.paymentMethod));
-        paymentAPI.pay(null, subscriptionAmount.getValue());
+        paymentAPI.pay(contractorSubscriptionPayment.paymentMethod, subscriptionAmount.getValue());
         eventBus.publish(ContractorNewSubscriptionPayment.withContractorAndAmount(ContractorEventEntity.withEntityIdOnly(contractorSubscriptionPayment.contractorId), subscriptionAmount));
         return null;
     }

@@ -42,7 +42,7 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
         contractors.save(contractor);
 
         eventBus.publish(ContractorRegistered.withContractor(ContractorEventEntity.withoutPassword(userId, createContractor.firstname,
-                createContractor.lastname, createContractor.email)));
+                createContractor.lastname, createContractor.email, PaymentMethod.of(createContractor.paymentMethodType, createContractor.paymentMethodRessource))));
 
         return userId;
     }

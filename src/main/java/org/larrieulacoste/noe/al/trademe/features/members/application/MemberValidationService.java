@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
+import org.larrieulacoste.noe.al.trademe.domain.validators.PaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
@@ -17,10 +18,12 @@ import java.util.List;
 public class MemberValidationService {
     private final Logger logger;
     private final StringValidators stringValidators;
+    private final PaymentInformationsValidator paymentInformationsValidator;
 
     public MemberValidationService(Logger logger) {
         this.logger = logger;
         this.stringValidators = ValidatorsFactory.getStringValidatorsInstance();
+        this.paymentInformationsValidator = ValidatorsFactory.getPaymentInformationsValidator();
     }
 
     public void validateCreateContractor(CreateContractor contractor) {
@@ -58,6 +61,7 @@ public class MemberValidationService {
         required(contractorEventEntity.lastname, "lastname", errors);
         password(contractorEventEntity.password, errors);
         email(contractorEventEntity.email, errors);
+        paymentMethod(contractorEventEntity.paymentMethodType, contractorEventEntity.paymentMethodRessource, errors);
         return errors;
     }
 
@@ -133,6 +137,12 @@ public class MemberValidationService {
     private void email(String field, List<String> errors) {
         if (!stringValidators.isEmail(field)) {
             errors.add("email");
+        }
+    }
+
+    private void paymentMethod(String paymentMethodType, String paymentMethodRessource, List<String> errors) {
+        if (!paymentInformationsValidator.isValidPaymentMethod(paymentMethodType, paymentMethodRessource)) {
+            errors.add("payment method");
         }
     }
 }

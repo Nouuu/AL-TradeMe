@@ -1,11 +1,13 @@
 package org.larrieulacoste.noe.al.trademe.domain.validators;
 
 import org.larrieulacoste.noe.al.trademe.infrastructure.validators.SimpleDateValidators;
+import org.larrieulacoste.noe.al.trademe.infrastructure.validators.SimplePaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.infrastructure.validators.SimpleStringValidators;
 
 public final class ValidatorsFactory {
     private static final DateValidators DATE_VALIDATORS_INSTANCE = new SimpleDateValidators();
     private static final StringValidators STRING_VALIDATORS_INSTANCE = new SimpleStringValidators();
+    private static final PaymentInformationsValidator PAYMENT_INFORMATIONS_VALIDATOR = new SimplePaymentInformationsValidator();
 
     private ValidatorsFactory() {
     }
@@ -16,5 +18,9 @@ public final class ValidatorsFactory {
 
     public static StringValidators getStringValidatorsInstance() {
         return STRING_VALIDATORS_INSTANCE;
+    }
+
+    public static PaymentInformationsValidator getPaymentInformationsValidator() {
+        return PAYMENT_INFORMATIONS_VALIDATOR;
     }
 }
