@@ -7,35 +7,37 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
 import java.time.ZonedDateTime;
 
-class ContractorRegisteredTest {
+class ContractorUpdatedTest {
     EntityId eventEntityId = EntityId.of("123");
+
 
     @Test
     void withContractor() {
-        Assertions.assertThat(ContractorRegistered.withContractor(ContractorEventEntity.withEntityIdOnly(eventEntityId)))
+        Assertions.assertThat(ContractorUpdated.withContractor(ContractorEventEntity.withEntityIdOnly(eventEntityId)))
                 .isNotNull()
-                .isInstanceOf(ContractorRegistered.class);
+                .isInstanceOf(ContractorUpdated.class);
 
     }
 
     @Test
     void withContractorNullArgs() {
-        Assertions.assertThatThrownBy(() -> ContractorRegistered.withContractor(null))
+        Assertions.assertThatThrownBy(() -> ContractorUpdated.withContractor(null))
                 .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void getEventId() {
-        ContractorRegistered contractorRegistered = ContractorRegistered.withContractor(ContractorEventEntity.withEntityIdOnly(eventEntityId));
-        Assertions.assertThat(contractorRegistered.getEventId())
+        ContractorUpdated contractorUpdated = ContractorUpdated.withContractor(ContractorEventEntity.withEntityIdOnly(eventEntityId));
+        Assertions.assertThat(contractorUpdated.getEventId())
                 .isNotNull()
                 .isInstanceOf(EventId.class);
     }
 
     @Test
     void getOccurredDate() {
-        ContractorRegistered contractorRegistered = ContractorRegistered.withContractor(ContractorEventEntity.withEntityIdOnly(eventEntityId));
-        Assertions.assertThat(contractorRegistered.getOccurredDate().toEpochSecond())
+        ContractorUpdated contractorUpdated = ContractorUpdated.withContractor(ContractorEventEntity.withEntityIdOnly(eventEntityId));
+        Assertions.assertThat(contractorUpdated.getOccurredDate().toEpochSecond())
                 .isBetween(ZonedDateTime.now().toEpochSecond(), ZonedDateTime.now().toEpochSecond() + 1);
     }
+
 }

@@ -6,20 +6,20 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public final class TradesmanNewInvoice implements ApplicationEvent {
+public final class TradesmanInvoiceCreated implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     public final InvoiceEventEntity invoice;
 
-    private TradesmanNewInvoice(EventId eventId, ZonedDateTime occurredDate, InvoiceEventEntity invoice) {
+    private TradesmanInvoiceCreated(EventId eventId, ZonedDateTime occurredDate, InvoiceEventEntity invoice) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.invoice = Objects.requireNonNull(invoice);
     }
 
-    public static TradesmanNewInvoice of(InvoiceEventEntity invoiceEventEntity) {
-        return new TradesmanNewInvoice(EventId.create(), ZonedDateTime.now(), invoiceEventEntity);
+    public static TradesmanInvoiceCreated of(InvoiceEventEntity invoiceEventEntity) {
+        return new TradesmanInvoiceCreated(EventId.create(), ZonedDateTime.now(), invoiceEventEntity);
     }
 
     @Override
@@ -37,7 +37,7 @@ public final class TradesmanNewInvoice implements ApplicationEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TradesmanNewInvoice that = (TradesmanNewInvoice) o;
+        TradesmanInvoiceCreated that = (TradesmanInvoiceCreated) o;
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
@@ -54,7 +54,7 @@ public final class TradesmanNewInvoice implements ApplicationEvent {
 
     @Override
     public String toString() {
-        return "NewTradesmanInvoice{" +
+        return "TradesmanInvoiceCreated{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
                 ", invoiceEventEntity=" + invoice +

@@ -18,7 +18,7 @@ public final class TradesmanNewSubscriptionPayment implements ApplicationEvent {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.tradesman = Objects.requireNonNull(tradesman);
-        this.amount = amount;
+        this.amount = Objects.requireNonNull(amount);
     }
 
     public static TradesmanNewSubscriptionPayment withTradesmanAndAmount(TradesmanEventEntity tradesman, Amount amount) {
