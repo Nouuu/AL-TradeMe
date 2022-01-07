@@ -22,7 +22,7 @@ public final class InMemoryInvoices implements Invoices {
     private final Logger logger;
 
     public InMemoryInvoices() {
-        this.logger = LoggerFactory.getLogger(this);
+        this.logger = LoggerFactory.getLoggerStatic(this);
     }
 
     @Override

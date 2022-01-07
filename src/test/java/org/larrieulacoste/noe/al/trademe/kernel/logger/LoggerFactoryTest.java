@@ -7,7 +7,7 @@ class LoggerFactoryTest {
 
     @Test
     void getLogger() {
-        final Logger logger = LoggerFactory.getLogger(this);
+        final Logger logger = LoggerFactory.getLoggerStatic(this);
         Assertions.assertThat(logger).isInstanceOf(DefaultLogger.class);
     }
 }

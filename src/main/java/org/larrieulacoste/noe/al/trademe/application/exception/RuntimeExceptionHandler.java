@@ -13,7 +13,7 @@ public class RuntimeExceptionHandler implements ExceptionMapper<RuntimeException
     private final Logger logger;
 
     public RuntimeExceptionHandler() {
-        this.logger = LoggerFactory.getLogger(this);
+        this.logger = LoggerFactory.getLoggerStatic(this);
     }
 
     @Override

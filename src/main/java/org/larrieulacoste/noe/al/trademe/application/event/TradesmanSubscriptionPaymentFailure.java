@@ -10,12 +10,12 @@ public final class TradesmanSubscriptionPaymentFailure implements ApplicationEve
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final TradesmanEventEntity tradesmanEventEntity;
+    public final TradesmanEventEntity tradesman;
 
-    private TradesmanSubscriptionPaymentFailure(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesmanEventEntity) {
+    private TradesmanSubscriptionPaymentFailure(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.tradesmanEventEntity = Objects.requireNonNull(tradesmanEventEntity);
+        this.tradesman = Objects.requireNonNull(tradesman);
     }
 
     public static TradesmanSubscriptionPaymentFailure withTradesman(TradesmanEventEntity tradesman) {
@@ -32,10 +32,6 @@ public final class TradesmanSubscriptionPaymentFailure implements ApplicationEve
         return occurredDate;
     }
 
-    public TradesmanEventEntity getTradesmanEventEntity() {
-        return tradesmanEventEntity;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,14 +41,14 @@ public final class TradesmanSubscriptionPaymentFailure implements ApplicationEve
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        return tradesmanEventEntity.equals(that.tradesmanEventEntity);
+        return tradesman.equals(that.tradesman);
     }
 
     @Override
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + tradesmanEventEntity.hashCode();
+        result = 31 * result + tradesman.hashCode();
         return result;
     }
 
@@ -61,7 +57,7 @@ public final class TradesmanSubscriptionPaymentFailure implements ApplicationEve
         return "TradesmanSubscriptionPaymentFailure{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", tradesmanEventEntity=" + tradesmanEventEntity +
+                ", tradesmanEventEntity=" + tradesman +
                 '}';
     }
 }

@@ -10,7 +10,7 @@ public final class TradesmanUpdated implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final TradesmanEventEntity tradesman;
+    public final TradesmanEventEntity tradesman;
 
     private TradesmanUpdated(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman) {
         this.eventId = Objects.requireNonNull(eventId);
@@ -31,11 +31,6 @@ public final class TradesmanUpdated implements ApplicationEvent {
     public ZonedDateTime getOccurredDate() {
         return occurredDate;
     }
-
-    public TradesmanEventEntity getTradesman() {
-        return tradesman;
-    }
-
 
     @Override
     public String toString() {

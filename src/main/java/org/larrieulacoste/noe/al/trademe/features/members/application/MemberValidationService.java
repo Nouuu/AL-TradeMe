@@ -8,7 +8,6 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Cr
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateContractor;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
@@ -19,8 +18,8 @@ public class MemberValidationService {
     private final Logger logger;
     private final StringValidators stringValidators;
 
-    public MemberValidationService() {
-        this.logger = LoggerFactory.getLogger(this);
+    public MemberValidationService(Logger logger) {
+        this.logger = logger;
         this.stringValidators = ValidatorsFactory.getStringValidatorsInstance();
     }
 

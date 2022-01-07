@@ -16,6 +16,6 @@ public class ContractorSubscriptionPaymentFailureListener implements EventSubscr
 
     @Override
     public void accept(ContractorNewSubscriptionPayment event) {
-        commandBus.send(new UpdateContractorSubscriptionStatus(event.getContractor().entityId, SubscriptionStatus.PAYMENT_FAILED));
+        commandBus.send(new UpdateContractorSubscriptionStatus(event.contractor.entityId, SubscriptionStatus.PAYMENT_FAILED));
     }
 }

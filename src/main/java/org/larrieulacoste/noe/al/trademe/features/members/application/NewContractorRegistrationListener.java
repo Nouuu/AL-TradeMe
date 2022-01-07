@@ -16,7 +16,7 @@ public class NewContractorRegistrationListener implements EventSubscriber<Contra
 
     @Override
     public void accept(ContractorNewRegistration event) {
-        ContractorEventEntity contractor = event.getContractorRegistration();
+        ContractorEventEntity contractor = event.contractor;
         commandBus.send(new CreateContractor(contractor.firstname, contractor.lastname, contractor.email, contractor.password));
     }
 }

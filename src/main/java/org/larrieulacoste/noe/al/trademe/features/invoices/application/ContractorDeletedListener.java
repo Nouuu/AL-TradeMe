@@ -15,6 +15,6 @@ public class ContractorDeletedListener implements EventSubscriber<ContractorDele
 
     @Override
     public void accept(ContractorDeleted event) {
-        commandBus.send(new DeleteContractorInvoices(event.getContractor().entityId));
+        commandBus.send(new DeleteContractorInvoices(event.contractor.entityId));
     }
 }

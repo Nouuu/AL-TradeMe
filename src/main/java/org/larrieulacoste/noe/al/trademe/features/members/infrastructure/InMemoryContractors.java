@@ -19,7 +19,7 @@ public final class InMemoryContractors implements Contractors {
     private final Logger logger;
 
     public InMemoryContractors() {
-        this.logger = LoggerFactory.getLogger(this);
+        this.logger = LoggerFactory.getLoggerStatic(this);
     }
 
     @Override

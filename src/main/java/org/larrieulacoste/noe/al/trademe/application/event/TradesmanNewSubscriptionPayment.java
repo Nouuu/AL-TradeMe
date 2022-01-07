@@ -11,14 +11,14 @@ public final class TradesmanNewSubscriptionPayment implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final TradesmanEventEntity tradesman;
-    private final Amount amount;
+    public final TradesmanEventEntity tradesman;
+    public final Amount amount;
 
     private TradesmanNewSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman, Amount amount) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.tradesman = Objects.requireNonNull(tradesman);
-        this.amount = amount;
+        this.amount = Objects.requireNonNull(amount);
     }
 
     public static TradesmanNewSubscriptionPayment withTradesmanAndAmount(TradesmanEventEntity tradesman, Amount amount) {
@@ -33,14 +33,6 @@ public final class TradesmanNewSubscriptionPayment implements ApplicationEvent {
     @Override
     public ZonedDateTime getOccurredDate() {
         return occurredDate;
-    }
-
-    public TradesmanEventEntity getTradesman() {
-        return tradesman;
-    }
-
-    public Amount getAmount() {
-        return amount;
     }
 
     @Override
