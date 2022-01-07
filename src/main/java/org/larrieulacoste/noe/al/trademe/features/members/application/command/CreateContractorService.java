@@ -3,6 +3,7 @@ package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorRegistered;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -35,7 +36,8 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
                 NotEmptyString.of(createContractor.firstname),
                 EmailAddress.of(createContractor.email),
                 Password.of(createContractor.password),
-                SubscriptionStatus.PENDING_PAYMENT
+                SubscriptionStatus.PENDING_PAYMENT,
+                PaymentMethod.of(createContractor.paymentMethodType, createContractor.paymentMethodRessource)
         );
         contractors.save(contractor);
 

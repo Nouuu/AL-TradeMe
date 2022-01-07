@@ -66,8 +66,8 @@ public class ContractorController {
                 contractor.firstname,
                 contractor.lastname,
                 contractor.email,
-                contractor.password
-        ));
+                contractor.password,
+                paymentMethodType, paymentMethodRessource));
 
         return new ContractorResponse(userId.getValue(), null, null, null);
     }

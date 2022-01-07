@@ -31,7 +31,8 @@ public class UpdateContractorSubscriptionStatusService implements CommandHandler
                 contractor.getFirstname(),
                 contractor.getEmail(),
                 contractor.getPassword(),
-                command.subscriptionStatus
+                command.subscriptionStatus,
+                contractor.getPaymentMethod()
         );
 
         contractors.save(updatedContractor);
