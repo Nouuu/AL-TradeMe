@@ -3,27 +3,37 @@ package org.larrieulacoste.noe.al.trademe.application.event;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
+import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethodType;
 
 import java.time.ZonedDateTime;
-import java.util.Objects;
 
 public class InvoiceEventEntity {
     public final EntityId invoiceId;
     public final MemberType memberType;
     public final EntityId memberId;
     public final ZonedDateTime occurredDate;
+    public final PaymentMethodType paymentMethodType;
     public final Amount amount;
 
-    private InvoiceEventEntity(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, Amount amount) {
+    private InvoiceEventEntity(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, PaymentMethodType paymentMethodType, Amount amount) {
         this.invoiceId = invoiceId;
         this.memberType = memberType;
         this.memberId = memberId;
         this.occurredDate = occurredDate;
+        this.paymentMethodType = paymentMethodType;
         this.amount = amount;
     }
 
-    public static InvoiceEventEntity of(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, Amount amount) {
-        return new InvoiceEventEntity(invoiceId, memberType, memberId, occurredDate, amount);
+    @Override
+    public String toString() {
+        return "InvoiceEventEntity{" +
+                "invoiceId=" + invoiceId +
+                ", memberType=" + memberType +
+                ", memberId=" + memberId +
+                ", occurredDate=" + occurredDate +
+                ", paymentMethodType=" + paymentMethodType +
+                ", amount=" + amount +
+                '}';
     }
 
     @Override
@@ -37,6 +47,7 @@ public class InvoiceEventEntity {
         if (memberType != that.memberType) return false;
         if (!memberId.equals(that.memberId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
+        if (paymentMethodType != that.paymentMethodType) return false;
         return amount.equals(that.amount);
     }
 
@@ -46,18 +57,13 @@ public class InvoiceEventEntity {
         result = 31 * result + memberType.hashCode();
         result = 31 * result + memberId.hashCode();
         result = 31 * result + occurredDate.hashCode();
+        result = 31 * result + paymentMethodType.hashCode();
         result = 31 * result + amount.hashCode();
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "Invoice{" +
-                "invoiceId=" + invoiceId +
-                ", memberType=" + memberType +
-                ", memberId=" + memberId +
-                ", occurredDate=" + occurredDate +
-                ", amount=" + amount +
-                '}';
+    public static InvoiceEventEntity of(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, PaymentMethodType paymentMethodType, Amount amount) {
+        return new InvoiceEventEntity(invoiceId, memberType, memberId, occurredDate, paymentMethodType, amount);
     }
+
 }

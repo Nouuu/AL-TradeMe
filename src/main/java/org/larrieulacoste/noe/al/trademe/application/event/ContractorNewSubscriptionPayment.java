@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -12,17 +13,19 @@ public final class ContractorNewSubscriptionPayment implements ApplicationEvent 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
     public final ContractorEventEntity contractor;
+    public final PaymentMethod paymentMethod;
     public final Amount amount;
 
-    private ContractorNewSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractor, Amount amount) {
+    private ContractorNewSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractor, PaymentMethod paymentMethod, Amount amount) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
         this.contractor = Objects.requireNonNull(contractor);
+        this.paymentMethod = Objects.requireNonNull(paymentMethod);
         this.amount = Objects.requireNonNull(amount);
     }
 
-    public static ContractorNewSubscriptionPayment withContractorAndAmount(ContractorEventEntity contractor, Amount amount) {
-        return new ContractorNewSubscriptionPayment(EventId.create(), ZonedDateTime.now(), contractor, amount);
+    public static ContractorNewSubscriptionPayment of(ContractorEventEntity contractor, PaymentMethod paymentMethod, Amount amount) {
+        return new ContractorNewSubscriptionPayment(EventId.create(), ZonedDateTime.now(), contractor, paymentMethod, amount);
     }
 
     @Override

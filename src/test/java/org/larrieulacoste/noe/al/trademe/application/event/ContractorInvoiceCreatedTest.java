@@ -12,7 +12,7 @@ class ContractorInvoiceCreatedTest {
 
     @Test
     void of() {
-        Assertions.assertThat(ContractorInvoiceCreated.of(InvoiceEventEntity.of(eventEntityId, null, null, null, null)))
+        Assertions.assertThat(ContractorInvoiceCreated.of(InvoiceEventEntity.of(eventEntityId, null, null, null, null, null)))
                 .isNotNull()
                 .isInstanceOf(ContractorInvoiceCreated.class);
     }
@@ -25,7 +25,7 @@ class ContractorInvoiceCreatedTest {
 
     @Test
     void getEventId() {
-        ContractorInvoiceCreated contractorInvoiceCreated = ContractorInvoiceCreated.of(InvoiceEventEntity.of(eventEntityId, null, null, null, null));
+        ContractorInvoiceCreated contractorInvoiceCreated = ContractorInvoiceCreated.of(InvoiceEventEntity.of(eventEntityId, null, null, null, null, null));
         Assertions.assertThat(contractorInvoiceCreated.getEventId())
                 .isNotNull()
                 .isInstanceOf(EventId.class);
@@ -33,7 +33,7 @@ class ContractorInvoiceCreatedTest {
 
     @Test
     void getOccurredDate() {
-        ContractorInvoiceCreated contractorInvoiceCreated = ContractorInvoiceCreated.of(InvoiceEventEntity.of(eventEntityId, null, null, null, null));
+        ContractorInvoiceCreated contractorInvoiceCreated = ContractorInvoiceCreated.of(InvoiceEventEntity.of(eventEntityId, null, null, null, null, null));
         Assertions.assertThat(contractorInvoiceCreated.getOccurredDate().toEpochSecond())
                 .isBetween(ZonedDateTime.now().toEpochSecond(), ZonedDateTime.now().toEpochSecond() + 1);
     }
