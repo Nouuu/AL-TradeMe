@@ -5,7 +5,6 @@ import org.larrieulacoste.noe.al.trademe.application.event.MonthlySubscriptionPa
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -15,9 +14,9 @@ public class ScheduledPaymentService {
     private final EventBus<ApplicationEvent> eventBus;
 
 
-    ScheduledPaymentService(EventBus<ApplicationEvent> eventBus) {
+    ScheduledPaymentService(Logger logger, EventBus<ApplicationEvent> eventBus) {
+        this.logger = logger;
         this.eventBus = eventBus;
-        logger = LoggerFactory.getLoggerStatic(this);
     }
 
 
