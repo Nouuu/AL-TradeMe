@@ -18,6 +18,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,6 +57,7 @@ final class CommandConfiguration {
 
 
     @Produces
+    @Singleton
     InvoicesCommandBus invoicesCommandBus() {
         Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
 
@@ -67,6 +69,7 @@ final class CommandConfiguration {
     }
 
     @Produces
+    @Singleton
     MembersCommandBus membersCommandBus() {
         Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
 
@@ -85,6 +88,7 @@ final class CommandConfiguration {
     }
 
     @Produces
+    @Singleton
     PaymentCommandBus paymentCommandBus() {
         Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
 

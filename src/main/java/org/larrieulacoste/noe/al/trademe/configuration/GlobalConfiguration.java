@@ -3,19 +3,17 @@ package org.larrieulacoste.noe.al.trademe.configuration;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.DefaultLoggerFactory;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.*;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
+import javax.inject.Singleton;
 
 @Dependent
 final class GlobalConfiguration {
 
-    private final LoggerFactory loggerFactory = new DefaultLoggerFactory();
+    private final LoggerFactory loggerFactory = new JBossLoggerFactory();
 
     @ConfigProperty(name = "contractor.payment.monthly.amount")
     double contractorMonthlySubscriptionAmount;
@@ -23,6 +21,7 @@ final class GlobalConfiguration {
     double tradesmanMonthlySubscriptionAmount;
 
     @Produces
+    @Singleton
     MembersSubscriptionAmount membersSubscriptionAmount() {
         return MembersSubscriptionAmount.of(
                 Amount.of(contractorMonthlySubscriptionAmount),

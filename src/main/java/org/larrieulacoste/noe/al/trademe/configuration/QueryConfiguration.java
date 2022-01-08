@@ -14,6 +14,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.query.QueryHandler;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,7 @@ final class QueryConfiguration {
     RetrieveInvoiceByIdService retrieveInvoiceByIdService;
 
     @Produces
+    @Singleton
     InvoicesQueryBus invoicesQueryBus() {
         Map<Class<? extends Query>, QueryHandler<? extends Query, ?>> queryMap = new HashMap<>();
 
@@ -56,6 +58,7 @@ final class QueryConfiguration {
     }
 
     @Produces
+    @Singleton
     MembersQueryBus membersQueryBus() {
         Map<Class<? extends Query>, QueryHandler<? extends Query, ?>> queryMap = new HashMap<>();
 
@@ -68,6 +71,7 @@ final class QueryConfiguration {
     }
 
     @Produces
+    @Singleton
     PaymentQueryBus queryBus() {
         Map<Class<? extends Query>, QueryHandler<? extends Query, ?>> queryMap = new HashMap<>();
 
