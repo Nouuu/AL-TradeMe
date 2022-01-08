@@ -20,6 +20,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.HashMap;
 
 @Dependent
@@ -40,6 +41,7 @@ final class EventConfiguration {
 
 
     @Produces
+    @Singleton
     EventBus<ApplicationEvent> applicationEventBus() {
         final EventBus<ApplicationEvent> eventBus = new DefaultEventBus<>(new HashMap<>(), eventBusLogger);
 
