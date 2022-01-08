@@ -31,7 +31,8 @@ public class UpdateTradesmanSubscriptionStatusService implements CommandHandler<
                 tradesman.getFirstname(),
                 tradesman.getEmail(),
                 tradesman.getPassword(),
-                command.subscriptionStatus
+                command.subscriptionStatus,
+                tradesman.getPaymentMethod()
         );
 
         tradesmen.save(updatedTradesman);
@@ -40,7 +41,8 @@ public class UpdateTradesmanSubscriptionStatusService implements CommandHandler<
                 tradesman.getLastname().getField(),
                 tradesman.getFirstname().getField(),
                 tradesman.getEmail().getEmailAddressString(),
-                tradesman.getPassword().getPasswordString()
+                tradesman.getPassword().getPasswordString(),
+                tradesman.getPaymentMethod()
         )));
         return null;
     }

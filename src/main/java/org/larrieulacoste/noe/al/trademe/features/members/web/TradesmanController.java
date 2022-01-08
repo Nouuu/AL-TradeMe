@@ -63,8 +63,9 @@ public class TradesmanController {
                 tradesman.firstname,
                 tradesman.lastname,
                 tradesman.email,
-                tradesman.password
-        ));
+                tradesman.password,
+                tradesman.paymentMethodType,
+                tradesman.paymentMethodRessource));
 
         return new TradesmanResponse(userId.getValue(), null, null, null);
     }

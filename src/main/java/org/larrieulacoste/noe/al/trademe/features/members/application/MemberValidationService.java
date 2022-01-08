@@ -52,16 +52,17 @@ public class MemberValidationService {
         required(tradesman.lastname, "lastname", errors);
         password(tradesman.password, errors);
         email(tradesman.email, errors);
+        paymentMethod(tradesman.paymentMethodType, tradesman.paymentMethodRessource, errors);
         return errors;
     }
 
-    private List<String> getCreateContractorInvalidFields(CreateContractor contractorEventEntity) {
+    private List<String> getCreateContractorInvalidFields(CreateContractor contractor) {
         List<String> errors = new ArrayList<>();
-        required(contractorEventEntity.firstname, "firstname", errors);
-        required(contractorEventEntity.lastname, "lastname", errors);
-        password(contractorEventEntity.password, errors);
-        email(contractorEventEntity.email, errors);
-        paymentMethod(contractorEventEntity.paymentMethodType, contractorEventEntity.paymentMethodRessource, errors);
+        required(contractor.firstname, "firstname", errors);
+        required(contractor.lastname, "lastname", errors);
+        password(contractor.password, errors);
+        email(contractor.email, errors);
+        paymentMethod(contractor.paymentMethodType, contractor.paymentMethodRessource, errors);
         return errors;
     }
 
