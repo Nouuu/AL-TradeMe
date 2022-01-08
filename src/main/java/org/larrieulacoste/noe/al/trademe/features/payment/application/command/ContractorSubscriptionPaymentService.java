@@ -9,7 +9,6 @@ import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Objects;
@@ -21,8 +20,8 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
     private final EventBus<ApplicationEvent> eventBus;
     private final Amount subscriptionAmount;
 
-    ContractorSubscriptionPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus, MembersSubscriptionAmount membersSubscriptionAmount) {
-        this.logger = LoggerFactory.getLoggerStatic(this);
+    ContractorSubscriptionPaymentService(Logger logger, PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus, MembersSubscriptionAmount membersSubscriptionAmount) {
+        this.logger = logger;
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
         this.subscriptionAmount = membersSubscriptionAmount.getContractorSubscriptionAmount();

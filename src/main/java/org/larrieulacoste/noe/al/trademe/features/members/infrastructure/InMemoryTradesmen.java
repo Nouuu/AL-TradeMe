@@ -5,7 +5,6 @@ import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -18,8 +17,8 @@ public final class InMemoryTradesmen implements Tradesmen {
     private final Map<EntityId, Tradesman> data = new ConcurrentHashMap<>();
     private final Logger logger;
 
-    public InMemoryTradesmen() {
-        this.logger = LoggerFactory.getLoggerStatic(this);
+    public InMemoryTradesmen(Logger logger) {
+        this.logger = logger;
     }
 
     @Override

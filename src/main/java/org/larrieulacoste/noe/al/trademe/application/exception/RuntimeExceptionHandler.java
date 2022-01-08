@@ -1,7 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.application.exception;
 
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -12,8 +11,8 @@ import javax.ws.rs.ext.Provider;
 public final class RuntimeExceptionHandler implements ExceptionMapper<RuntimeException> {
     private final Logger logger;
 
-    public RuntimeExceptionHandler() {
-        this.logger = LoggerFactory.getLoggerStatic(this);
+    public RuntimeExceptionHandler(Logger logger) {
+        this.logger = logger;
     }
 
     @Override

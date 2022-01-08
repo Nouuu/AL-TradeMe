@@ -7,7 +7,6 @@ import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -21,8 +20,8 @@ public final class InMemoryInvoices implements Invoices {
     private final Map<EntityId, Invoice> data = new ConcurrentHashMap<>();
     private final Logger logger;
 
-    public InMemoryInvoices() {
-        this.logger = LoggerFactory.getLoggerStatic(this);
+    public InMemoryInvoices(Logger logger) {
+        this.logger = logger;
     }
 
     @Override
