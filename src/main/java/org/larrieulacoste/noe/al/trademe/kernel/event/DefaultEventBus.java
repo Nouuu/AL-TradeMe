@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class DefaultEventBus<E extends Event> implements EventBus<E> {
+public final class DefaultEventBus<E extends Event> implements EventBus<E> {
 
     private final Map<Class<? extends E>, List<EventSubscriber<? extends E>>> associatedSubscribers;
     private final Logger logger;

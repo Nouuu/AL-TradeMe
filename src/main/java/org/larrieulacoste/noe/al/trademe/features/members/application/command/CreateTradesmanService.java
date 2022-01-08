@@ -18,7 +18,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public CreateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
+    CreateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
         this.tradesmen = tradesmen;
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;

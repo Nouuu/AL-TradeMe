@@ -11,7 +11,7 @@ import java.util.Objects;
 public class RetrieveContractorByIdService implements QueryHandler<RetrieveContractorById, Contractor> {
     private final Contractors contractors;
 
-    public RetrieveContractorByIdService(Contractors contractors) {
+    RetrieveContractorByIdService(Contractors contractors) {
         this.contractors = Objects.requireNonNull(contractors);
     }
 

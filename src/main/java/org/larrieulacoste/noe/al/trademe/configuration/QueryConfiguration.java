@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Dependent
-public class QueryConfiguration {
+final class QueryConfiguration {
     @Inject
     RetrieveContractorByIdService retrieveContractorByIdService;
     @Inject

@@ -5,7 +5,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 
 import java.util.Objects;
 
-public class CreateInvoice implements Command {
+public final class CreateInvoice implements Command {
     public final MemberType memberType;
     public final EntityId memberId;
     public final PaymentMethodType paymentMethodType;

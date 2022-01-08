@@ -11,7 +11,7 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 
 @Dependent
-public class RepositoryConfiguration {
+final class RepositoryConfiguration {
 
     @Produces
     Tradesmen tradesmen() {

@@ -10,7 +10,7 @@ import javax.enterprise.context.ApplicationScoped;
 public class RetrieveTradesmanByIdService implements QueryHandler<RetrieveTradesmanById, Tradesman> {
     private final Tradesmen tradesmen;
 
-    public RetrieveTradesmanByIdService(Tradesmen tradesmen) {
+    RetrieveTradesmanByIdService(Tradesmen tradesmen) {
         this.tradesmen = tradesmen;
     }
 

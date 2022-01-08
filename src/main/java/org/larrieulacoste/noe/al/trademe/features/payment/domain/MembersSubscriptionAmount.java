@@ -2,7 +2,7 @@ package org.larrieulacoste.noe.al.trademe.features.payment.domain;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 
-public class MembersSubscriptionAmount {
+public final class MembersSubscriptionAmount {
     private final Amount contractorSubscriptionAmount;
     private final Amount tradesmanSubscriptionAmount;
 

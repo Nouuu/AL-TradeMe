@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Cr
 import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class NewContractorRegistrationListener implements EventSubscriber<ContractorNewRegistration> {
+public final class NewContractorRegistrationListener implements EventSubscriber<ContractorNewRegistration> {
 
     private final MembersCommandBus commandBus;
 

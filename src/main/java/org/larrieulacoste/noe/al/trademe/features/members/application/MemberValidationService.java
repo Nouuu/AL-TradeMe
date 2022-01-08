@@ -20,7 +20,7 @@ public class MemberValidationService {
     private final StringValidators stringValidators;
     private final PaymentInformationsValidator paymentInformationsValidator;
 
-    public MemberValidationService(Logger logger) {
+    MemberValidationService(Logger logger) {
         this.logger = logger;
         this.stringValidators = ValidatorsFactory.getStringValidatorsInstance();
         this.paymentInformationsValidator = ValidatorsFactory.getPaymentInformationsValidator();

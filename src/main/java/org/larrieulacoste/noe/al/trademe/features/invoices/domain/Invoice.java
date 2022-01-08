@@ -5,7 +5,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.*;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public class Invoice {
+public final class Invoice {
     private final EntityId invoiceId;
     private final MemberType memberType;
     private final EntityId memberId;

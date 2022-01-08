@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.features.payment.application.command.Co
 import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class ContractorsSubscriptionPendingPaymentListener implements EventSubscriber<ContractorsSubscriptionPendingPayment> {
+public final class ContractorsSubscriptionPendingPaymentListener implements EventSubscriber<ContractorsSubscriptionPendingPayment> {
 
     private final PaymentCommandBus commandBus;
 

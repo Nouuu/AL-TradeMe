@@ -4,7 +4,7 @@ import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class SimpleStringValidators implements StringValidators {
+public final class SimpleStringValidators implements StringValidators {
 
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
     private static final String PASSWORD_REGEX = "^.{8}.*$";
@@ -21,6 +21,6 @@ public class SimpleStringValidators implements StringValidators {
 
     @Override
     public boolean isEmail(String email) {
-        return isNotBlank(email) && email.matches(EMAIL_REGEX);
+        return email != null && email.matches(EMAIL_REGEX);
     }
 }

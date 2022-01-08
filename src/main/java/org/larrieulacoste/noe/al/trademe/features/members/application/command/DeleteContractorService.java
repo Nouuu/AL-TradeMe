@@ -17,7 +17,7 @@ public class DeleteContractorService implements CommandHandler<DeleteContractor,
     private final Contractors contractors;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public DeleteContractorService(Contractors contractors, EventBus<ApplicationEvent> eventBus) {
+    DeleteContractorService(Contractors contractors, EventBus<ApplicationEvent> eventBus) {
         this.contractors = Objects.requireNonNull(contractors);
         this.eventBus = eventBus;
     }

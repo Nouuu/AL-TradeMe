@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.C
 import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class NewTradesmanSubscriptionPaymentListener implements EventSubscriber<TradesmanNewSubscriptionPayment> {
+public final class NewTradesmanSubscriptionPaymentListener implements EventSubscriber<TradesmanNewSubscriptionPayment> {
 
     private final InvoicesCommandBus commandBus;
 

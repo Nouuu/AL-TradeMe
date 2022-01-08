@@ -20,7 +20,7 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
     private final Tradesmen tradesmen;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public PublishTradesmenPendingSubscriptionPaymentService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus) {
+    PublishTradesmenPendingSubscriptionPaymentService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.eventBus = eventBus;
     }

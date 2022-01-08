@@ -1,10 +1,10 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 final class TradesmanResponse {
-    public final String userId;
-    public final String firstname;
-    public final String lastname;
-    public final String email;
+    final String userId;
+    final String firstname;
+    final String lastname;
+    final String email;
 
     TradesmanResponse(String userId, String firstname, String lastname, String email) {
         this.userId = userId;
