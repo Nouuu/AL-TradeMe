@@ -1,7 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.application.exception;
 
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -9,11 +11,10 @@ import javax.ws.rs.ext.Provider;
 
 @Provider
 public final class NotFoundExceptionHandler implements ExceptionMapper<NotFoundException> {
-    private final Logger logger;
+    @Inject
+    @LoggerQualifier(NotFoundExceptionHandler.class)
+    Logger logger;
 
-    public NotFoundExceptionHandler(Logger logger) {
-        this.logger = logger;
-    }
 
     @Override
     public Response toResponse(NotFoundException exception) {

@@ -1,7 +1,10 @@
 package org.larrieulacoste.noe.al.trademe.application.exception;
 
+import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -9,11 +12,10 @@ import javax.ws.rs.ext.Provider;
 
 @Provider
 public final class RuntimeExceptionHandler implements ExceptionMapper<RuntimeException> {
-    private final Logger logger;
+    @Inject
+    @LoggerQualifier(RuntimeExceptionHandler.class)
+    Logger logger;
 
-    public RuntimeExceptionHandler(Logger logger) {
-        this.logger = logger;
-    }
 
     @Override
     public Response toResponse(RuntimeException exception) {

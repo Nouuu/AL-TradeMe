@@ -3,8 +3,8 @@ package org.larrieulacoste.noe.al.trademe.features.invoices.web;
 import java.util.List;
 
 final class InvoicesResponse {
-    final List<InvoiceResponse> invoices;
-    final int count;
+    public final List<InvoiceResponse> invoices;
+    public final int count;
 
     InvoicesResponse(List<InvoiceResponse> invoices, int count) {
         this.invoices = invoices;

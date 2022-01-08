@@ -4,14 +4,14 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethodType;
 
 final class ContractorRequest {
-    final String userId;
-    final String firstname;
-    final String lastname;
-    final String email;
-    final String password;
+    public final String userId;
+    public final String firstname;
+    public final String lastname;
+    public final String email;
+    public final String password;
     @Schema(anyOf = PaymentMethodType.class)
-    final String paymentMethodType;
-    final String paymentMethodRessource;
+    public final String paymentMethodType;
+    public final String paymentMethodRessource;
 
     ContractorRequest(String userId, String firstname, String lastname, String email, String password, String paymentMethodType, String paymentMethodRessource) {
         this.userId = userId;
