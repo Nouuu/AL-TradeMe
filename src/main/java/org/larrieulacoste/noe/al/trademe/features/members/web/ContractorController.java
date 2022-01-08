@@ -33,12 +33,7 @@ final class ContractorController {
     @Produces(MediaType.APPLICATION_JSON)
     public ContractorResponse getById(@PathParam("userId") String userId) {
         Contractor contractor = queryBus.send(new RetrieveContractorById(EntityId.of(userId)));
-        return new ContractorResponse(
-                contractor.getEntityId().getValue(),
-                contractor.getFirstname().getField(),
-                contractor.getLastname().getField(),
-                contractor.getEmail().getEmailAddressString()
-        );
+        return getContractorResponse(contractor);
     }
 
     @GET
@@ -47,14 +42,7 @@ final class ContractorController {
     public ContractorsResponse getAll() {
         List<Contractor> contractors = queryBus.send(new RetrieveContractors());
 
-        return new ContractorsResponse(
-                contractors.stream().map(contractor -> new ContractorResponse(
-                        contractor.getEntityId().getValue(),
-                        contractor.getFirstname().getField(),
-                        contractor.getLastname().getField(),
-                        contractor.getEmail().getEmailAddressString()
-                )).collect(Collectors.toList()),
-                contractors.size());
+        return getContractorsResponse(contractors);
     }
 
     @POST
@@ -70,7 +58,7 @@ final class ContractorController {
                 contractor.paymentMethodType,
                 contractor.paymentMethodRessource));
 
-        return new ContractorResponse(userId.getValue(), null, null, null);
+        return new ContractorResponse(userId.value, null, null, null);
     }
 
     @PUT
@@ -87,12 +75,7 @@ final class ContractorController {
                 contractor.password
         ));
 
-        return new ContractorResponse(
-                updatedContractor.getEntityId().getValue(),
-                updatedContractor.getFirstname().getField(),
-                updatedContractor.getLastname().getField(),
-                updatedContractor.getEmail().getEmailAddressString()
-        );
+        return getContractorResponse(updatedContractor);
     }
 
     @DELETE
@@ -103,10 +86,21 @@ final class ContractorController {
     public ContractorResponse delete(@PathParam("contractorId") String contractorId) {
         commandBus.send(new DeleteContractor(contractorId));
 
-        return new ContractorResponse(
-                contractorId,
-                null, null, null
-        );
+        return new ContractorResponse(contractorId,null, null, null);
     }
 
+    private ContractorsResponse getContractorsResponse(List<Contractor> contractors) {
+        return new ContractorsResponse(
+                contractors.stream().map(this::getContractorResponse).collect(Collectors.toList()),
+                contractors.size());
+    }
+
+    private ContractorResponse getContractorResponse(Contractor contractor) {
+        return new ContractorResponse(
+                contractor.entityId.value,
+                contractor.firstname.value,
+                contractor.lastname.value,
+                contractor.email.value
+        );
+    }
 }

@@ -26,7 +26,7 @@ public final class InMemoryTradesmen implements Tradesmen {
     public void save(Tradesman tradesman) {
         logger.log("Saving tradesman in memory repository : " + tradesman);
 
-        data.put(Objects.requireNonNull(tradesman).getEntityId(), tradesman);
+        data.put(Objects.requireNonNull(tradesman).entityId, tradesman);
     }
 
     @Override
@@ -35,7 +35,7 @@ public final class InMemoryTradesmen implements Tradesmen {
 
         final Tradesman tradesman = data.get(Objects.requireNonNull(entityId));
         if (tradesman == null) {
-            throw new UserNotFoundException("No tradesman for " + entityId.getValue());
+            throw new UserNotFoundException("No tradesman for " + entityId.value);
         }
         return tradesman;
     }
@@ -47,7 +47,7 @@ public final class InMemoryTradesmen implements Tradesmen {
 
     @Override
     public void remove(Tradesman item) {
-        data.remove(item.getEntityId());
+        data.remove(item.entityId);
     }
 
     @Override

@@ -3,27 +3,23 @@ package org.larrieulacoste.noe.al.trademe.features.members.domain;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 
 public final class NotEmptyString {
-    private final String field;
+    public final String value;
 
-    private NotEmptyString(String field) {
-        if (!ValidatorsFactory.getStringValidatorsInstance().isNotEmptyOrOnlyWhitespaces(field)) {
+    private NotEmptyString(String value) {
+        if (!ValidatorsFactory.getStringValidatorsInstance().isNotEmptyOrOnlyWhitespaces(value)) {
             throw new IllegalArgumentException("Field must not be empty");
         }
-        this.field = field;
+        this.value = value;
     }
 
     public static NotEmptyString of(String value) {
         return new NotEmptyString(value);
     }
 
-    public String getField() {
-        return field;
-    }
-
     @Override
     public String toString() {
         return "NotEmptyString{" +
-                "field='" + field + '\'' +
+                "field='" + value + '\'' +
                 '}';
     }
 
@@ -34,11 +30,11 @@ public final class NotEmptyString {
 
         NotEmptyString that = (NotEmptyString) o;
 
-        return field.equals(that.field);
+        return value.equals(that.value);
     }
 
     @Override
     public int hashCode() {
-        return field.hashCode();
+        return value.hashCode();
     }
 }

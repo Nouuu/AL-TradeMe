@@ -6,13 +6,13 @@ import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import java.util.Objects;
 
 public final class Tradesman {
-    private final EntityId entityId;
-    private final NotEmptyString lastname;
-    private final NotEmptyString firstname;
-    private final EmailAddress email;
-    private final Password password;
-    private final SubscriptionStatus subscriptionStatus;
-    private final PaymentMethod paymentMethod;
+    public final EntityId entityId;
+    public final NotEmptyString lastname;
+    public final NotEmptyString firstname;
+    public final EmailAddress email;
+    public final Password password;
+    public final SubscriptionStatus subscriptionStatus;
+    public final PaymentMethod paymentMethod;
 
     private Tradesman(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password, SubscriptionStatus subscriptionStatus, PaymentMethod paymentMethod) {
         this.entityId = Objects.requireNonNull(entityId);
@@ -26,34 +26,6 @@ public final class Tradesman {
 
     public static Tradesman of(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password, SubscriptionStatus subscriptionStatus, PaymentMethod paymentMethod) {
         return new Tradesman(entityId, lastname, firstname, email, password, subscriptionStatus, paymentMethod);
-    }
-
-    public EntityId getEntityId() {
-        return entityId;
-    }
-
-    public NotEmptyString getLastname() {
-        return lastname;
-    }
-
-    public NotEmptyString getFirstname() {
-        return firstname;
-    }
-
-    public EmailAddress getEmail() {
-        return email;
-    }
-
-    public Password getPassword() {
-        return password;
-    }
-
-    public SubscriptionStatus getSubscriptionStatus() {
-        return subscriptionStatus;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
     }
 
     @Override

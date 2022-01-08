@@ -34,7 +34,7 @@ public class PublishContractorsPendingSubscriptionPaymentService implements Comm
         eventBus.publish(
                 ContractorsSubscriptionPendingPayment.withContractors(
                         contractorsPendingPayment.stream()
-                                .map(contractor -> ContractorEventEntity.withEntityIdOnly(contractor.getEntityId()))
+                                .map(contractor -> ContractorEventEntity.withEntityIdOnly(contractor.entityId))
                                 .collect(Collectors.toList())
                 )
         );
@@ -43,22 +43,22 @@ public class PublishContractorsPendingSubscriptionPaymentService implements Comm
 
     public void updateSubscriptionToPending(Contractor contractor) {
         Contractor updatedContractor = Contractor.of(
-                contractor.getEntityId(),
-                contractor.getLastname(),
-                contractor.getFirstname(),
-                contractor.getEmail(),
-                contractor.getPassword(),
+                contractor.entityId,
+                contractor.lastname,
+                contractor.firstname,
+                contractor.email,
+                contractor.password,
                 SubscriptionStatus.PENDING_PAYMENT,
-                contractor.getPaymentMethod()
+                contractor.paymentMethod
         );
         contractors.save(updatedContractor);
         eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.of(
-                contractor.getEntityId(),
-                contractor.getLastname().getField(),
-                contractor.getFirstname().getField(),
-                contractor.getEmail().getEmailAddressString(),
-                contractor.getPassword().getPasswordString(),
-                contractor.getPaymentMethod()
+                contractor.entityId,
+                contractor.lastname.value,
+                contractor.firstname.value,
+                contractor.email.value,
+                contractor.password.value,
+                contractor.paymentMethod
         )));
     }
 }

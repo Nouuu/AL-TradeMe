@@ -1,8 +1,8 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
 public final class Coordinate {
-    private final double longitude; // Y
-    private final double latitude; // X
+    public final double longitude; // Y
+    public final double latitude; // X
 
     private Coordinate(double longitude, double latitude) {
         this.longitude = longitude;
@@ -11,14 +11,6 @@ public final class Coordinate {
 
     public static Coordinate of(double longitude, double latitude) {
         return new Coordinate(longitude, latitude);
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
     }
 
 

@@ -27,7 +27,7 @@ public class DeleteTradesmanService implements CommandHandler<DeleteTradesman, V
         Tradesman tradesman = tradesmen.byId(EntityId.of(command.tradesmanId));
         tradesmen.remove(tradesman);
         eventBus.publish(TradesmanDeleted.withTradesman(
-                TradesmanEventEntity.withEntityIdOnly(tradesman.getEntityId())
+                TradesmanEventEntity.withEntityIdOnly(tradesman.entityId)
         ));
         return null;
     }

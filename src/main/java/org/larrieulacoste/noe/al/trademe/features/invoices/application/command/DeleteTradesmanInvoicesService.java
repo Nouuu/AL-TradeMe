@@ -28,7 +28,7 @@ public class DeleteTradesmanInvoicesService implements CommandHandler<DeleteTrad
         for (Invoice invoiceToDelete : invoicesToDelete) {
             invoices.remove(invoiceToDelete);
             eventBus.publish(TradesmanInvoiceDeleted.of(
-                    InvoiceEventEntity.of(invoiceToDelete.getInvoiceId(), MemberType.TRADESMAN, command.tradesmanId, null, null, null)
+                    InvoiceEventEntity.of(invoiceToDelete.invoiceId, MemberType.TRADESMAN, command.tradesmanId, null, null, null)
             ));
         }
         return null;

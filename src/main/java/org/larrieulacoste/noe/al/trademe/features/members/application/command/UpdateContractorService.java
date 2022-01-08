@@ -31,17 +31,17 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
         memberValidationService.validateUpdateContractor(updateContractor);
 
         Contractor updatedContractor = Contractor.of(
-                inMemoryContractor.getEntityId(),
-                updateContractor.lastname != null ? NotEmptyString.of(updateContractor.lastname) : inMemoryContractor.getLastname(),
-                updateContractor.firstname != null ? NotEmptyString.of(updateContractor.firstname) : inMemoryContractor.getLastname(),
-                updateContractor.email != null ? EmailAddress.of(updateContractor.email) : inMemoryContractor.getEmail(),
-                updateContractor.password != null ? Password.of(updateContractor.password) : inMemoryContractor.getPassword(),
-                inMemoryContractor.getSubscriptionStatus(),
-                inMemoryContractor.getPaymentMethod());
+                inMemoryContractor.entityId,
+                updateContractor.lastname != null ? NotEmptyString.of(updateContractor.lastname) : inMemoryContractor.lastname,
+                updateContractor.firstname != null ? NotEmptyString.of(updateContractor.firstname) : inMemoryContractor.lastname,
+                updateContractor.email != null ? EmailAddress.of(updateContractor.email) : inMemoryContractor.email,
+                updateContractor.password != null ? Password.of(updateContractor.password) : inMemoryContractor.password,
+                inMemoryContractor.subscriptionStatus,
+                inMemoryContractor.paymentMethod);
         contractors.save(updatedContractor);
 
-        eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.withoutPassword(inMemoryContractor.getEntityId(),
-                updateContractor.firstname, updateContractor.lastname, updateContractor.email, inMemoryContractor.getPaymentMethod())));
+        eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.withoutPassword(inMemoryContractor.entityId,
+                updateContractor.firstname, updateContractor.lastname, updateContractor.email, inMemoryContractor.paymentMethod)));
         return updatedContractor;
     }
 }

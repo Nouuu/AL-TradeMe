@@ -43,7 +43,7 @@ public class CreateInvoiceService implements CommandHandler<CreateInvoice, Entit
                     invoiceId,
                     MemberType.TRADESMAN,
                     command.memberId,
-                    invoice.getOccurredDate(),
+                    invoice.occurredDate,
                     command.paymentMethodType,
                     command.amount
             )));
@@ -52,7 +52,7 @@ public class CreateInvoiceService implements CommandHandler<CreateInvoice, Entit
                     invoiceId,
                     MemberType.CONTRACTOR,
                     command.memberId,
-                    invoice.getOccurredDate(),
+                    invoice.occurredDate,
                     command.paymentMethodType,
                     command.amount
             )));

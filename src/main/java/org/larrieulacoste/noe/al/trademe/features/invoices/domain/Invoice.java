@@ -6,12 +6,12 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 public final class Invoice {
-    private final EntityId invoiceId;
-    private final MemberType memberType;
-    private final EntityId memberId;
-    private final ZonedDateTime occurredDate;
-    private final PaymentMethodType paymentMethodType;
-    private final Amount amount;
+    public final EntityId invoiceId;
+    public final MemberType memberType;
+    public final EntityId memberId;
+    public final ZonedDateTime occurredDate;
+    public final PaymentMethodType paymentMethodType;
+    public final Amount amount;
 
     private Invoice(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, PaymentMethodType paymentMethodType, Amount amount) {
         this.invoiceId = Objects.requireNonNull(invoiceId);
@@ -24,30 +24,6 @@ public final class Invoice {
 
     public static Invoice of(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, PaymentMethodType paymentMethod, Amount amount) {
         return new Invoice(invoiceId, memberType, memberId, occurredDate, paymentMethod, amount);
-    }
-
-    public EntityId getInvoiceId() {
-        return invoiceId;
-    }
-
-    public MemberType getMemberType() {
-        return memberType;
-    }
-
-    public EntityId getMemberId() {
-        return memberId;
-    }
-
-    public ZonedDateTime getOccurredDate() {
-        return occurredDate;
-    }
-
-    public Amount getAmount() {
-        return amount;
-    }
-
-    public PaymentMethodType getPaymentMethodType() {
-        return paymentMethodType;
     }
 
     @Override

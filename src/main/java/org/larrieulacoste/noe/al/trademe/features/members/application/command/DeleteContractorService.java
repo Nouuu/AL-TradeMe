@@ -27,7 +27,7 @@ public class DeleteContractorService implements CommandHandler<DeleteContractor,
         Contractor contractor = contractors.byId(EntityId.of(command.contractorId));
         contractors.remove(contractor);
         eventBus.publish(ContractorDeleted.withContractor(
-                ContractorEventEntity.withEntityIdOnly(contractor.getEntityId())
+                ContractorEventEntity.withEntityIdOnly(contractor.entityId)
         ));
         return null;
     }
