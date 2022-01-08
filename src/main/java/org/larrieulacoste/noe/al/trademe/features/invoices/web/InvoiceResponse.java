@@ -7,14 +7,16 @@ public class InvoiceResponse {
     public final String memberType;
     public final String memberId;
     public final ZonedDateTime occurredDate;
+    public final String paymentMethodType;
     public final double amount;
 
 
-    public InvoiceResponse(String invoiceId, String memberType, String memberId, ZonedDateTime occurredDate, double amount) {
+    public InvoiceResponse(String invoiceId, String memberType, String memberId, ZonedDateTime occurredDate, String paymentMethodType, double amount) {
         this.invoiceId = invoiceId;
         this.memberType = memberType;
         this.memberId = memberId;
         this.occurredDate = occurredDate;
+        this.paymentMethodType = paymentMethodType;
         this.amount = amount;
     }
 

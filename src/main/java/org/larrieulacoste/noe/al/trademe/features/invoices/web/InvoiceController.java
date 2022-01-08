@@ -93,6 +93,7 @@ public class InvoiceController {
                 invoice.getMemberType().value,
                 invoice.getMemberId().getValue(),
                 invoice.getOccurredDate(),
+                invoice.getPaymentMethodType().value,
                 invoice.getAmount().getValue()
         );
     }
