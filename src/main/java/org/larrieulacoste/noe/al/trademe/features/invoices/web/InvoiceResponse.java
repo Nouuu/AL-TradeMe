@@ -3,12 +3,12 @@ package org.larrieulacoste.noe.al.trademe.features.invoices.web;
 import java.time.ZonedDateTime;
 
 final class InvoiceResponse {
-    final String invoiceId;
-    final String memberType;
-    final String memberId;
-    final ZonedDateTime occurredDate;
-    final String paymentMethodType;
-    final double amount;
+    public final String invoiceId;
+    public final String memberType;
+    public final String memberId;
+    public final ZonedDateTime occurredDate;
+    public final String paymentMethodType;
+    public final double amount;
 
 
     InvoiceResponse(String invoiceId, String memberType, String memberId, ZonedDateTime occurredDate, String paymentMethodType, double amount) {

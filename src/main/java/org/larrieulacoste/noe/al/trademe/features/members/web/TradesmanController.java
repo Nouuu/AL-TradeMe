@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("tradesman")
-class TradesmanController {
+public final class TradesmanController {
     private final MembersQueryBus queryBus;
     private final MembersCommandBus commandBus;
 

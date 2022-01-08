@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("invoice")
-final class InvoiceController {
+public final class InvoiceController {
     private final InvoicesQueryBus queryBus;
 
     InvoiceController(InvoicesQueryBus queryBus) {
