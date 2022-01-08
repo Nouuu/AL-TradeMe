@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -11,18 +12,20 @@ public final class ContractorNewSubscriptionPayment implements ApplicationEvent 
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final ContractorEventEntity contractorEventEntity;
-    private final Amount amount;
+    public final ContractorEventEntity contractor;
+    public final PaymentMethod paymentMethod;
+    public final Amount amount;
 
-    private ContractorNewSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity, Amount amount) {
+    private ContractorNewSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractor, PaymentMethod paymentMethod, Amount amount) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
+        this.contractor = Objects.requireNonNull(contractor);
+        this.paymentMethod = Objects.requireNonNull(paymentMethod);
         this.amount = Objects.requireNonNull(amount);
     }
 
-    public static ContractorNewSubscriptionPayment withContractorAndAmount(ContractorEventEntity tradesman, Amount amount) {
-        return new ContractorNewSubscriptionPayment(EventId.create(), ZonedDateTime.now(), tradesman, amount);
+    public static ContractorNewSubscriptionPayment of(ContractorEventEntity contractor, PaymentMethod paymentMethod, Amount amount) {
+        return new ContractorNewSubscriptionPayment(EventId.create(), ZonedDateTime.now(), contractor, paymentMethod, amount);
     }
 
     @Override
@@ -35,20 +38,12 @@ public final class ContractorNewSubscriptionPayment implements ApplicationEvent 
         return occurredDate;
     }
 
-    public ContractorEventEntity getContractor() {
-        return contractorEventEntity;
-    }
-
-    public Amount getAmount() {
-        return amount;
-    }
-
     @Override
     public String toString() {
         return "NewContractorSubscriptionPayment{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", contractorEventEntity=" + contractorEventEntity +
+                ", contractorEventEntity=" + contractor +
                 ", amount=" + amount +
                 '}';
     }
@@ -62,7 +57,7 @@ public final class ContractorNewSubscriptionPayment implements ApplicationEvent 
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        if (!contractorEventEntity.equals(that.contractorEventEntity)) return false;
+        if (!contractor.equals(that.contractor)) return false;
         return amount.equals(that.amount);
     }
 
@@ -70,7 +65,7 @@ public final class ContractorNewSubscriptionPayment implements ApplicationEvent 
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + contractorEventEntity.hashCode();
+        result = 31 * result + contractor.hashCode();
         result = 31 * result + amount.hashCode();
         return result;
     }

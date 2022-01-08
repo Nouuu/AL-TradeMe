@@ -10,12 +10,12 @@ public final class ContractorNewRegistration implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final ContractorEventEntity contractorEventEntity;
+    public final ContractorEventEntity contractor;
 
-    private ContractorNewRegistration(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractorEventEntity) {
+    private ContractorNewRegistration(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractor) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.contractorEventEntity = Objects.requireNonNull(contractorEventEntity);
+        this.contractor = Objects.requireNonNull(contractor);
     }
 
     public static ContractorNewRegistration of(ContractorEventEntity contractorEventEntity) {
@@ -32,10 +32,6 @@ public final class ContractorNewRegistration implements ApplicationEvent {
         return occurredDate;
     }
 
-    public ContractorEventEntity getContractorRegistration() {
-        return contractorEventEntity;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,14 +41,14 @@ public final class ContractorNewRegistration implements ApplicationEvent {
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        return contractorEventEntity.equals(that.contractorEventEntity);
+        return contractor.equals(that.contractor);
     }
 
     @Override
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + contractorEventEntity.hashCode();
+        result = 31 * result + contractor.hashCode();
         return result;
     }
 
@@ -61,7 +57,7 @@ public final class ContractorNewRegistration implements ApplicationEvent {
         return "NewContractorRegistration{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", contractor=" + contractorEventEntity +
+                ", contractor=" + contractor +
                 '}';
     }
 }

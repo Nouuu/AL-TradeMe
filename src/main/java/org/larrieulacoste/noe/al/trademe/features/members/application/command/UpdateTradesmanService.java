@@ -36,10 +36,12 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
                 updateTradesman.firstname != null ? NotEmptyString.of(updateTradesman.firstname) : inMemoryTradesman.getLastname(),
                 updateTradesman.email != null ? EmailAddress.of(updateTradesman.email) : inMemoryTradesman.getEmail(),
                 updateTradesman.password != null ? Password.of(updateTradesman.password) : inMemoryTradesman.getPassword(),
-                inMemoryTradesman.getSubscriptionStatus());
+                inMemoryTradesman.getSubscriptionStatus(),
+                inMemoryTradesman.getPaymentMethod());
         tradesmen.save(updatedTradesman);
 
-        eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.withoutPassword(inMemoryTradesman.getEntityId(), updateTradesman.firstname, updateTradesman.lastname, updateTradesman.email)));
+        eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.withoutPassword(inMemoryTradesman.getEntityId(),
+                updateTradesman.firstname, updateTradesman.lastname, updateTradesman.email, inMemoryTradesman.getPaymentMethod())));
         return updatedTradesman;
     }
 }

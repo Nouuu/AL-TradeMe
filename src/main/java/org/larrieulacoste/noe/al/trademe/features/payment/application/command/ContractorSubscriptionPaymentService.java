@@ -22,7 +22,7 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
     private final Amount subscriptionAmount;
 
     public ContractorSubscriptionPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus, MembersSubscriptionAmount membersSubscriptionAmount) {
-        this.logger = LoggerFactory.getLogger(this);
+        this.logger = LoggerFactory.getLoggerStatic(this);
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
         this.subscriptionAmount = membersSubscriptionAmount.getContractorSubscriptionAmount();
@@ -32,8 +32,9 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
     @Override
     public Void handle(ContractorSubscriptionPayment contractorSubscriptionPayment) {
         logger.log(String.format("Process contractor payment subscription of : %s with %sf", contractorSubscriptionPayment.contractorId, contractorSubscriptionPayment.paymentMethod));
-        paymentAPI.pay(null, subscriptionAmount.getValue());
-        eventBus.publish(ContractorNewSubscriptionPayment.withContractorAndAmount(ContractorEventEntity.withEntityIdOnly(contractorSubscriptionPayment.contractorId), subscriptionAmount));
+        paymentAPI.pay(contractorSubscriptionPayment.paymentMethod, subscriptionAmount.getValue());
+        eventBus.publish(ContractorNewSubscriptionPayment.of(ContractorEventEntity.withEntityIdOnly(contractorSubscriptionPayment.contractorId),
+                contractorSubscriptionPayment.paymentMethod, subscriptionAmount));
         return null;
     }
 }

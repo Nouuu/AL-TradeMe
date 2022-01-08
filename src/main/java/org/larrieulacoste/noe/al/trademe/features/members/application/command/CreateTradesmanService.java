@@ -1,8 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanRegistered;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
+import org.larrieulacoste.noe.al.trademe.application.event.TradesmanRegistered;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -34,12 +35,14 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
                 NotEmptyString.of(createTradesman.firstname),
                 EmailAddress.of(createTradesman.email),
                 Password.of(createTradesman.password),
-                SubscriptionStatus.PENDING_PAYMENT
+                SubscriptionStatus.PENDING_PAYMENT,
+                PaymentMethod.of(createTradesman.paymentMethodType, createTradesman.paymentMethodRessource)
+
         );
         tradesmen.save(tradesman);
 
         eventBus.publish(TradesmanRegistered.withTradesman(TradesmanEventEntity.of(userId, createTradesman.firstname,
-                createTradesman.lastname, createTradesman.email, createTradesman.password)));
+                createTradesman.lastname, createTradesman.email, createTradesman.password, PaymentMethod.of(createTradesman.paymentMethodType, createTradesman.paymentMethodRessource))));
 
         return userId;
     }

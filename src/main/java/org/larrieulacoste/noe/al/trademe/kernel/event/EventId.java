@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public final class EventId {
 
-    private final String value;
+    final String value;
 
     private EventId(String value) {
         this.value = Objects.requireNonNull(value);

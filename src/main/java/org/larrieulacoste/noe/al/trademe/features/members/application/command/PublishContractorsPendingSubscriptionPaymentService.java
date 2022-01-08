@@ -48,7 +48,8 @@ public class PublishContractorsPendingSubscriptionPaymentService implements Comm
                 contractor.getFirstname(),
                 contractor.getEmail(),
                 contractor.getPassword(),
-                SubscriptionStatus.PENDING_PAYMENT
+                SubscriptionStatus.PENDING_PAYMENT,
+                contractor.getPaymentMethod()
         );
         contractors.save(updatedContractor);
         eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.of(
@@ -56,7 +57,8 @@ public class PublishContractorsPendingSubscriptionPaymentService implements Comm
                 contractor.getLastname().getField(),
                 contractor.getFirstname().getField(),
                 contractor.getEmail().getEmailAddressString(),
-                contractor.getPassword().getPasswordString()
+                contractor.getPassword().getPasswordString(),
+                contractor.getPaymentMethod()
         )));
     }
 }

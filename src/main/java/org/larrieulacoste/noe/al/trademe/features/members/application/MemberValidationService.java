@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
+import org.larrieulacoste.noe.al.trademe.domain.validators.PaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
@@ -8,7 +9,6 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Cr
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateContractor;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
@@ -18,10 +18,12 @@ import java.util.List;
 public class MemberValidationService {
     private final Logger logger;
     private final StringValidators stringValidators;
+    private final PaymentInformationsValidator paymentInformationsValidator;
 
-    public MemberValidationService() {
-        this.logger = LoggerFactory.getLogger(this);
+    public MemberValidationService(Logger logger) {
+        this.logger = logger;
         this.stringValidators = ValidatorsFactory.getStringValidatorsInstance();
+        this.paymentInformationsValidator = ValidatorsFactory.getPaymentInformationsValidator();
     }
 
     public void validateCreateContractor(CreateContractor contractor) {
@@ -50,15 +52,17 @@ public class MemberValidationService {
         required(tradesman.lastname, "lastname", errors);
         password(tradesman.password, errors);
         email(tradesman.email, errors);
+        paymentMethod(tradesman.paymentMethodType, tradesman.paymentMethodRessource, errors);
         return errors;
     }
 
-    private List<String> getCreateContractorInvalidFields(CreateContractor contractorEventEntity) {
+    private List<String> getCreateContractorInvalidFields(CreateContractor contractor) {
         List<String> errors = new ArrayList<>();
-        required(contractorEventEntity.firstname, "firstname", errors);
-        required(contractorEventEntity.lastname, "lastname", errors);
-        password(contractorEventEntity.password, errors);
-        email(contractorEventEntity.email, errors);
+        required(contractor.firstname, "firstname", errors);
+        required(contractor.lastname, "lastname", errors);
+        password(contractor.password, errors);
+        email(contractor.email, errors);
+        paymentMethod(contractor.paymentMethodType, contractor.paymentMethodRessource, errors);
         return errors;
     }
 
@@ -134,6 +138,12 @@ public class MemberValidationService {
     private void email(String field, List<String> errors) {
         if (!stringValidators.isEmail(field)) {
             errors.add("email");
+        }
+    }
+
+    private void paymentMethod(String paymentMethodType, String paymentMethodRessource, List<String> errors) {
+        if (!paymentInformationsValidator.isValidPaymentMethod(paymentMethodType, paymentMethodRessource)) {
+            errors.add("payment method");
         }
     }
 }

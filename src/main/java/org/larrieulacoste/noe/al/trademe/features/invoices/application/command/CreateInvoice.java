@@ -1,8 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application.command;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
+import org.larrieulacoste.noe.al.trademe.domain.model.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 
 import java.util.Objects;
@@ -10,11 +8,13 @@ import java.util.Objects;
 public class CreateInvoice implements Command {
     public final MemberType memberType;
     public final EntityId memberId;
+    public final PaymentMethodType paymentMethodType;
     public final Amount amount;
 
-    public CreateInvoice(MemberType memberType, EntityId memberId, Amount amount) {
+    public CreateInvoice(MemberType memberType, EntityId memberId, PaymentMethodType paymentMethodType, Amount amount) {
         this.memberType = Objects.requireNonNull(memberType);
         this.memberId = Objects.requireNonNull(memberId);
+        this.paymentMethodType = Objects.requireNonNull(paymentMethodType);
         this.amount = Objects.requireNonNull(amount);
     }
 

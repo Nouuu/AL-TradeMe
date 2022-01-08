@@ -15,7 +15,7 @@ public class NewContractorRegisteredListener implements EventSubscriber<Contract
 
     @Override
     public void accept(ContractorRegistered event) {
-        ContractorSubscriptionPayment contractor = new ContractorSubscriptionPayment(event.getContractor().entityId, "TODO");
+        ContractorSubscriptionPayment contractor = new ContractorSubscriptionPayment(event.contractor.entityId, event.contractor.paymentMethod);
         commandBus.send(contractor);
     }
 }

@@ -36,10 +36,12 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
                 updateContractor.firstname != null ? NotEmptyString.of(updateContractor.firstname) : inMemoryContractor.getLastname(),
                 updateContractor.email != null ? EmailAddress.of(updateContractor.email) : inMemoryContractor.getEmail(),
                 updateContractor.password != null ? Password.of(updateContractor.password) : inMemoryContractor.getPassword(),
-                inMemoryContractor.getSubscriptionStatus());
+                inMemoryContractor.getSubscriptionStatus(),
+                inMemoryContractor.getPaymentMethod());
         contractors.save(updatedContractor);
 
-        eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.withoutPassword(inMemoryContractor.getEntityId(), updateContractor.firstname, updateContractor.lastname, updateContractor.email)));
+        eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.withoutPassword(inMemoryContractor.getEntityId(),
+                updateContractor.firstname, updateContractor.lastname, updateContractor.email, inMemoryContractor.getPaymentMethod())));
         return updatedContractor;
     }
 }

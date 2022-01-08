@@ -17,7 +17,7 @@ public class ScheduledPaymentService {
 
     public ScheduledPaymentService(EventBus<ApplicationEvent> eventBus) {
         this.eventBus = eventBus;
-        logger = LoggerFactory.getLogger(this);
+        logger = LoggerFactory.getLoggerStatic(this);
     }
 
 

@@ -48,7 +48,8 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
                 tradesman.getFirstname(),
                 tradesman.getEmail(),
                 tradesman.getPassword(),
-                SubscriptionStatus.PENDING_PAYMENT
+                SubscriptionStatus.PENDING_PAYMENT,
+                tradesman.getPaymentMethod()
         );
         tradesmen.save(updatedTradesman);
         eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.of(
@@ -56,7 +57,8 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
                 tradesman.getLastname().getField(),
                 tradesman.getFirstname().getField(),
                 tradesman.getEmail().getEmailAddressString(),
-                tradesman.getPassword().getPasswordString()
+                tradesman.getPassword().getPasswordString(),
+                tradesman.getPaymentMethod()
         )));
     }
 

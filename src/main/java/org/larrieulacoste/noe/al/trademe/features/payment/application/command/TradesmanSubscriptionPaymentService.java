@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanNewSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
+import org.larrieulacoste.noe.al.trademe.application.event.TradesmanNewSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;
@@ -22,7 +22,7 @@ public class TradesmanSubscriptionPaymentService implements CommandHandler<Trade
     private final Amount subscriptionAmount;
 
     public TradesmanSubscriptionPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus, MembersSubscriptionAmount membersSubscriptionAmount) {
-        this.logger = LoggerFactory.getLogger(this);
+        this.logger = LoggerFactory.getLoggerStatic(this);
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
         this.subscriptionAmount = membersSubscriptionAmount.getTradesmanSubscriptionAmount();
@@ -32,8 +32,9 @@ public class TradesmanSubscriptionPaymentService implements CommandHandler<Trade
     @Override
     public Void handle(TradesmanSubscriptionPayment tradesmanSubscriptionPayment) {
         logger.log(String.format("Process tradesman payment subscription of : %s with %sf", tradesmanSubscriptionPayment.tradesmanId, tradesmanSubscriptionPayment.paymentMethod));
-        paymentAPI.pay(null, subscriptionAmount.getValue());
-        eventBus.publish(TradesmanNewSubscriptionPayment.withTradesmanAndAmount(TradesmanEventEntity.withEntityIdOnly(tradesmanSubscriptionPayment.tradesmanId), subscriptionAmount));
+        paymentAPI.pay(tradesmanSubscriptionPayment.paymentMethod, subscriptionAmount.getValue());
+        eventBus.publish(TradesmanNewSubscriptionPayment.of(TradesmanEventEntity.withEntityIdOnly(tradesmanSubscriptionPayment.tradesmanId),
+                tradesmanSubscriptionPayment.paymentMethod, subscriptionAmount));
         return null;
     }
 }

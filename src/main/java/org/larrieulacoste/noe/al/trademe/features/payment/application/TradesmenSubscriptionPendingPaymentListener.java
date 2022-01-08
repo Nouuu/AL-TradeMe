@@ -17,7 +17,7 @@ public class TradesmenSubscriptionPendingPaymentListener implements EventSubscri
     @Override
     public void accept(TradesmenSubscriptionPendingPayment event) {
         for (TradesmanEventEntity tradesman : event.getTradesmen()) {
-            TradesmanSubscriptionPayment tradesmanSubscriptionPayment = new TradesmanSubscriptionPayment(tradesman.entityId, "TODO");
+            TradesmanSubscriptionPayment tradesmanSubscriptionPayment = new TradesmanSubscriptionPayment(tradesman.entityId, tradesman.paymentMethod);
             commandBus.send(tradesmanSubscriptionPayment);
         }
 

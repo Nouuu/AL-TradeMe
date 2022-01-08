@@ -10,12 +10,12 @@ public final class ContractorInvoiceCreated implements ApplicationEvent {
 
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    private final InvoiceEventEntity invoiceEventEntity;
+    public final InvoiceEventEntity invoice;
 
-    private ContractorInvoiceCreated(EventId eventId, ZonedDateTime occurredDate, InvoiceEventEntity invoiceEventEntity) {
+    private ContractorInvoiceCreated(EventId eventId, ZonedDateTime occurredDate, InvoiceEventEntity invoice) {
         this.eventId = Objects.requireNonNull(eventId);
         this.occurredDate = Objects.requireNonNull(occurredDate);
-        this.invoiceEventEntity = Objects.requireNonNull(invoiceEventEntity);
+        this.invoice = Objects.requireNonNull(invoice);
     }
 
     public static ContractorInvoiceCreated of(InvoiceEventEntity invoiceEventEntity) {
@@ -32,10 +32,6 @@ public final class ContractorInvoiceCreated implements ApplicationEvent {
         return occurredDate;
     }
 
-    public InvoiceEventEntity getInvoice() {
-        return invoiceEventEntity;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,14 +41,14 @@ public final class ContractorInvoiceCreated implements ApplicationEvent {
 
         if (!eventId.equals(that.eventId)) return false;
         if (!occurredDate.equals(that.occurredDate)) return false;
-        return invoiceEventEntity.equals(that.invoiceEventEntity);
+        return invoice.equals(that.invoice);
     }
 
     @Override
     public int hashCode() {
         int result = eventId.hashCode();
         result = 31 * result + occurredDate.hashCode();
-        result = 31 * result + invoiceEventEntity.hashCode();
+        result = 31 * result + invoice.hashCode();
         return result;
     }
 
@@ -61,7 +57,7 @@ public final class ContractorInvoiceCreated implements ApplicationEvent {
         return "NewContractorInvoice{" +
                 "eventId=" + eventId +
                 ", occurredDate=" + occurredDate +
-                ", invoiceEventEntity=" + invoiceEventEntity +
+                ", invoiceEventEntity=" + invoice +
                 '}';
     }
 }

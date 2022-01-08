@@ -13,7 +13,7 @@ public final class JdbcContractors implements Contractors {
     private final Logger logger;
 
     public JdbcContractors() {
-        this.logger = LoggerFactory.getLogger(this);
+        this.logger = LoggerFactory.getLoggerStatic(this);
         this.logger.error("Warning !!! Your are instancing a not yet implemented repository");
     }
 
