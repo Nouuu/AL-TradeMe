@@ -16,7 +16,7 @@ class EventIdTest {
         EventId eventId = EventId.create();
         String eventIdValue = eventId.value;
         Assertions.assertThat(eventIdValue).isNotEmpty();
-        Assertions.assertThat(eventId.toString()).isEqualTo("EventId{value='" + eventIdValue + "'}");
+        Assertions.assertThat(eventId).hasToString("EventId{value='" + eventIdValue + "'}");
     }
 
     @Test

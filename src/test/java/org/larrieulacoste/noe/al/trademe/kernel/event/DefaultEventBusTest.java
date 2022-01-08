@@ -63,7 +63,6 @@ class DefaultEventBusTest {
         TestEventSubscriber otherSubscriber = new TestEventSubscriber();
         eventBus.register(TestEvent2.class, otherSubscriber);
         eventBus.register(TestEvent2.class, otherSubscriber);
-        Assertions.assertThat(associatedSubscribers.containsValue(TestEvent2.class));
         Assertions.assertThat(associatedSubscribers.get(TestEvent2.class)).containsExactly(otherSubscriber);
     }
 
