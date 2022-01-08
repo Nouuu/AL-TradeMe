@@ -26,23 +26,23 @@ public class UpdateContractorSubscriptionStatusService implements CommandHandler
         Contractor contractor = contractors.byId(command.contractorId);
 
         Contractor updatedContractor = Contractor.of(
-                contractor.getEntityId(),
-                contractor.getLastname(),
-                contractor.getFirstname(),
-                contractor.getEmail(),
-                contractor.getPassword(),
+                contractor.entityId,
+                contractor.lastname,
+                contractor.firstname,
+                contractor.email,
+                contractor.password,
                 command.subscriptionStatus,
-                contractor.getPaymentMethod()
+                contractor.paymentMethod
         );
 
         contractors.save(updatedContractor);
         eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.of(
-                contractor.getEntityId(),
-                contractor.getLastname().getField(),
-                contractor.getFirstname().getField(),
-                contractor.getEmail().getEmailAddressString(),
-                contractor.getPassword().getPasswordString(),
-                contractor.getPaymentMethod()
+                contractor.entityId,
+                contractor.lastname.value,
+                contractor.firstname.value,
+                contractor.email.value,
+                contractor.password.value,
+                contractor.paymentMethod
         )));
         return null;
     }

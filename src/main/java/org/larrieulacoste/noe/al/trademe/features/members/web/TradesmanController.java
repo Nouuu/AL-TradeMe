@@ -33,10 +33,10 @@ class TradesmanController {
     public TradesmanResponse getById(@PathParam("userId") String userId) {
         Tradesman tradesman = queryBus.send(new RetrieveTradesmanById(EntityId.of(userId)));
         return new TradesmanResponse(
-                tradesman.getEntityId().getValue(),
-                tradesman.getFirstname().getField(),
-                tradesman.getLastname().getField(),
-                tradesman.getEmail().getEmailAddressString()
+                tradesman.getEntityId().value,
+                tradesman.getFirstname().value,
+                tradesman.getLastname().value,
+                tradesman.getEmail().value
         );
     }
 
@@ -47,10 +47,10 @@ class TradesmanController {
 
         return new TradesmenResponse(
                 tradesmen.stream().map(tradesman -> new TradesmanResponse(
-                        tradesman.getEntityId().getValue(),
-                        tradesman.getFirstname().getField(),
-                        tradesman.getLastname().getField(),
-                        tradesman.getEmail().getEmailAddressString()
+                        tradesman.getEntityId().value,
+                        tradesman.getFirstname().value,
+                        tradesman.getLastname().value,
+                        tradesman.getEmail().value
                 )).collect(Collectors.toList()),
                 tradesmen.size());
     }
@@ -67,7 +67,7 @@ class TradesmanController {
                 tradesman.paymentMethodType,
                 tradesman.paymentMethodRessource));
 
-        return new TradesmanResponse(userId.getValue(), null, null, null);
+        return new TradesmanResponse(userId.value, null, null, null);
     }
 
     @PUT
@@ -83,10 +83,10 @@ class TradesmanController {
                 tradesman.password
         ));
 
-        return new TradesmanResponse(updatedTradesman.getEntityId().getValue(),
-                updatedTradesman.getFirstname().getField(),
-                updatedTradesman.getLastname().getField(),
-                updatedTradesman.getEmail().getEmailAddressString()
+        return new TradesmanResponse(updatedTradesman.getEntityId().value,
+                updatedTradesman.getFirstname().value,
+                updatedTradesman.getLastname().value,
+                updatedTradesman.getEmail().value
         );
     }
 

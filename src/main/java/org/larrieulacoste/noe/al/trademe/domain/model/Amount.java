@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
 public final class Amount {
-    private final double value;
+    public final double value;
 
     private Amount(double value) {
         this.value = value;
@@ -9,10 +9,6 @@ public final class Amount {
 
     public static Amount of(double value) {
         return new Amount(value);
-    }
-
-    public double getValue() {
-        return value;
     }
 
     @Override

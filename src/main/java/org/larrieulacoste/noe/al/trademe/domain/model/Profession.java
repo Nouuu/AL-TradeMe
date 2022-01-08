@@ -5,7 +5,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import java.util.Objects;
 
 public final class Profession {
-    private final NotEmptyString professionName;
+    public final NotEmptyString professionName;
 
     private Profession(NotEmptyString professionName) {
         this.professionName = Objects.requireNonNull(professionName);
@@ -13,10 +13,6 @@ public final class Profession {
 
     public static Profession of(NotEmptyString professionName) {
         return new Profession(professionName);
-    }
-
-    public NotEmptyString getProfessionName() {
-        return professionName;
     }
 
     @Override

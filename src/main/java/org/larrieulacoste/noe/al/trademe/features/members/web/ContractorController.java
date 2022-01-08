@@ -34,10 +34,10 @@ final class ContractorController {
     public ContractorResponse getById(@PathParam("userId") String userId) {
         Contractor contractor = queryBus.send(new RetrieveContractorById(EntityId.of(userId)));
         return new ContractorResponse(
-                contractor.getEntityId().getValue(),
-                contractor.getFirstname().getField(),
-                contractor.getLastname().getField(),
-                contractor.getEmail().getEmailAddressString()
+                contractor.entityId.value,
+                contractor.firstname.value,
+                contractor.lastname.value,
+                contractor.email.value
         );
     }
 
@@ -49,10 +49,10 @@ final class ContractorController {
 
         return new ContractorsResponse(
                 contractors.stream().map(contractor -> new ContractorResponse(
-                        contractor.getEntityId().getValue(),
-                        contractor.getFirstname().getField(),
-                        contractor.getLastname().getField(),
-                        contractor.getEmail().getEmailAddressString()
+                        contractor.entityId.value,
+                        contractor.firstname.value,
+                        contractor.lastname.value,
+                        contractor.email.value
                 )).collect(Collectors.toList()),
                 contractors.size());
     }
@@ -70,7 +70,7 @@ final class ContractorController {
                 contractor.paymentMethodType,
                 contractor.paymentMethodRessource));
 
-        return new ContractorResponse(userId.getValue(), null, null, null);
+        return new ContractorResponse(userId.value, null, null, null);
     }
 
     @PUT
@@ -88,10 +88,10 @@ final class ContractorController {
         ));
 
         return new ContractorResponse(
-                updatedContractor.getEntityId().getValue(),
-                updatedContractor.getFirstname().getField(),
-                updatedContractor.getLastname().getField(),
-                updatedContractor.getEmail().getEmailAddressString()
+                updatedContractor.entityId.value,
+                updatedContractor.firstname.value,
+                updatedContractor.lastname.value,
+                updatedContractor.email.value
         );
     }
 

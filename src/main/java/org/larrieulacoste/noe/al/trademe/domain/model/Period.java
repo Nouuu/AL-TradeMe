@@ -6,8 +6,8 @@ import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 import java.time.ZonedDateTime;
 
 public final class Period {
-    private final ZonedDateTime startDate;
-    private final ZonedDateTime endDate;
+    public final ZonedDateTime startDate;
+    public final ZonedDateTime endDate;
 
     private Period(ZonedDateTime startDate, ZonedDateTime endDate) {
         if (!ValidatorsFactory.getDateValidatorsInstance().isValidPeriod(startDate, endDate)) {
@@ -19,14 +19,6 @@ public final class Period {
 
     public static Period of(ZonedDateTime startDate, ZonedDateTime endDate) {
         return new Period(startDate, endDate);
-    }
-
-    public ZonedDateTime getStartDate() {
-        return startDate;
-    }
-
-    public ZonedDateTime getEndDate() {
-        return endDate;
     }
 
     @Override

@@ -89,12 +89,12 @@ final class InvoiceController {
 
     private InvoiceResponse getInvoiceResponse(Invoice invoice) {
         return new InvoiceResponse(
-                invoice.getInvoiceId().getValue(),
-                invoice.getMemberType().value,
-                invoice.getMemberId().getValue(),
-                invoice.getOccurredDate(),
-                invoice.getPaymentMethodType().value,
-                invoice.getAmount().getValue()
+                invoice.invoiceId.value,
+                invoice.memberType.value,
+                invoice.memberId.value,
+                invoice.occurredDate,
+                invoice.paymentMethodType.value,
+                invoice.amount.value
         );
     }
 }

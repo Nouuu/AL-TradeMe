@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public final class EntityId {
-    private final String value;
+    public final String value;
 
     private EntityId(String value) {
         this.value = Objects.requireNonNull(value);
@@ -16,10 +16,6 @@ public final class EntityId {
 
     public static EntityId of(String value) {
         return new EntityId(value);
-    }
-
-    public String getValue() {
-        return value;
     }
 
     @Override

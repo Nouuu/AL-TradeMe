@@ -32,7 +32,7 @@ public class TradesmanSubscriptionPaymentService implements CommandHandler<Trade
     @Override
     public Void handle(TradesmanSubscriptionPayment tradesmanSubscriptionPayment) {
         logger.log(String.format("Process tradesman payment subscription of : %s with %sf", tradesmanSubscriptionPayment.tradesmanId, tradesmanSubscriptionPayment.paymentMethod));
-        paymentAPI.pay(tradesmanSubscriptionPayment.paymentMethod, subscriptionAmount.getValue());
+        paymentAPI.pay(tradesmanSubscriptionPayment.paymentMethod, subscriptionAmount.value);
         eventBus.publish(TradesmanNewSubscriptionPayment.of(TradesmanEventEntity.withEntityIdOnly(tradesmanSubscriptionPayment.tradesmanId),
                 tradesmanSubscriptionPayment.paymentMethod, subscriptionAmount));
         return null;

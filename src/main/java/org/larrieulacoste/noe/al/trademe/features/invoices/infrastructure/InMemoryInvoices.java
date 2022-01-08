@@ -29,7 +29,7 @@ public final class InMemoryInvoices implements Invoices {
     public void save(Invoice invoice) {
         logger.log("Saving invoice in memory repository : " + invoice);
 
-        data.put(Objects.requireNonNull(invoice).getInvoiceId(), invoice);
+        data.put(Objects.requireNonNull(invoice).invoiceId, invoice);
     }
 
     @Override
@@ -38,7 +38,7 @@ public final class InMemoryInvoices implements Invoices {
 
         final Invoice invoice = data.get(Objects.requireNonNull(entityId));
         if (invoice == null) {
-            throw new UserNotFoundException("No invoice for " + entityId.getValue());
+            throw new UserNotFoundException("No invoice for " + entityId.value);
         }
         return invoice;
     }
@@ -50,7 +50,7 @@ public final class InMemoryInvoices implements Invoices {
 
     @Override
     public void remove(Invoice item) {
-        data.remove(item.getInvoiceId());
+        data.remove(item.invoiceId);
     }
 
     @Override
@@ -62,7 +62,7 @@ public final class InMemoryInvoices implements Invoices {
     public List<Invoice> getTradesmenInvoices() {
         return List.copyOf(
                 data.values().stream()
-                        .filter(invoice -> invoice.getMemberType().equals(MemberType.TRADESMAN))
+                        .filter(invoice -> invoice.memberType.equals(MemberType.TRADESMAN))
                         .collect(Collectors.toList())
         );
     }
@@ -71,7 +71,7 @@ public final class InMemoryInvoices implements Invoices {
     public List<Invoice> getContractorsInvoices() {
         return List.copyOf(
                 data.values().stream()
-                        .filter(invoice -> invoice.getMemberType().equals(MemberType.CONTRACTOR))
+                        .filter(invoice -> invoice.memberType.equals(MemberType.CONTRACTOR))
                         .collect(Collectors.toList())
         );
     }
@@ -80,8 +80,8 @@ public final class InMemoryInvoices implements Invoices {
     public List<Invoice> getTradesmanInvoices(EntityId tradesmanId) {
         return List.copyOf(
                 data.values().stream()
-                        .filter(invoice -> invoice.getMemberType().equals(MemberType.TRADESMAN)
-                                && invoice.getMemberId().equals(tradesmanId))
+                        .filter(invoice -> invoice.memberType.equals(MemberType.TRADESMAN)
+                                && invoice.memberId.equals(tradesmanId))
                         .collect(Collectors.toList())
         );
     }
@@ -90,8 +90,8 @@ public final class InMemoryInvoices implements Invoices {
     public List<Invoice> getContractorInvoices(EntityId contractorId) {
         return List.copyOf(
                 data.values().stream()
-                        .filter(invoice -> invoice.getMemberType().equals(MemberType.CONTRACTOR)
-                                && invoice.getMemberId().equals(contractorId))
+                        .filter(invoice -> invoice.memberType.equals(MemberType.CONTRACTOR)
+                                && invoice.memberId.equals(contractorId))
                         .collect(Collectors.toList())
         );
     }

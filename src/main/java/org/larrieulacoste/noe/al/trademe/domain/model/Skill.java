@@ -5,8 +5,8 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import java.util.Objects;
 
 public final class Skill {
-    private final NotEmptyString skillName;
-    private final int requiredLevel;
+    public final NotEmptyString skillName;
+    public final int requiredLevel;
 
     private Skill(NotEmptyString skillName, int requiredLevel) {
         this.skillName = Objects.requireNonNull(skillName);
@@ -15,14 +15,6 @@ public final class Skill {
 
     public static Skill of(NotEmptyString skillName, int requiredLevel) {
         return new Skill(skillName, requiredLevel);
-    }
-
-    public NotEmptyString getSkillName() {
-        return skillName;
-    }
-
-    public int getRequiredLevel() {
-        return requiredLevel;
     }
 
     @Override

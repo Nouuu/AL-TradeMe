@@ -35,7 +35,7 @@ public final class InMemoryTradesmen implements Tradesmen {
 
         final Tradesman tradesman = data.get(Objects.requireNonNull(entityId));
         if (tradesman == null) {
-            throw new UserNotFoundException("No tradesman for " + entityId.getValue());
+            throw new UserNotFoundException("No tradesman for " + entityId.value);
         }
         return tradesman;
     }

@@ -5,8 +5,8 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import java.util.Objects;
 
 public final class Location {
-    private final Coordinate coordinate;
-    private final NotEmptyString locationName;
+    public final Coordinate coordinate;
+    public final NotEmptyString locationName;
 
     private Location(Coordinate coordinate, NotEmptyString locationName) {
         this.coordinate = Objects.requireNonNull(coordinate);
@@ -15,14 +15,6 @@ public final class Location {
 
     public static Location of(Coordinate coordinate, NotEmptyString locationName) {
         return new Location(coordinate, locationName);
-    }
-
-    public Coordinate getCoordinate() {
-        return coordinate;
-    }
-
-    public NotEmptyString getLocationName() {
-        return locationName;
     }
 
     @Override

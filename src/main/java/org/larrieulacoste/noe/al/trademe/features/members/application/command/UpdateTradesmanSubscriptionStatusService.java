@@ -38,10 +38,10 @@ public class UpdateTradesmanSubscriptionStatusService implements CommandHandler<
         tradesmen.save(updatedTradesman);
         eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.of(
                 tradesman.getEntityId(),
-                tradesman.getLastname().getField(),
-                tradesman.getFirstname().getField(),
-                tradesman.getEmail().getEmailAddressString(),
-                tradesman.getPassword().getPasswordString(),
+                tradesman.getLastname().value,
+                tradesman.getFirstname().value,
+                tradesman.getEmail().value,
+                tradesman.getPassword().value,
                 tradesman.getPaymentMethod()
         )));
         return null;
