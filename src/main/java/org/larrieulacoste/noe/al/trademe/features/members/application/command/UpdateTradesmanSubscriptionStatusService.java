@@ -16,7 +16,7 @@ public class UpdateTradesmanSubscriptionStatusService implements CommandHandler<
     private final Tradesmen tradesmen;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public UpdateTradesmanSubscriptionStatusService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus) {
+    UpdateTradesmanSubscriptionStatusService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.eventBus = eventBus;
     }

@@ -18,7 +18,7 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public UpdateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
+    UpdateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;

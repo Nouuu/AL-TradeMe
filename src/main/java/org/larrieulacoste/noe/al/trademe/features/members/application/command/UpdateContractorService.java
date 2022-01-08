@@ -18,7 +18,7 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
+    UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
         this.contractors = Objects.requireNonNull(contractors);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;

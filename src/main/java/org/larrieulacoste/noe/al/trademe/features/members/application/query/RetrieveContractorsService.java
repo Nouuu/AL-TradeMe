@@ -12,7 +12,7 @@ import java.util.Objects;
 public class RetrieveContractorsService implements QueryHandler<RetrieveContractors, List<Contractor>> {
     private final Contractors contractors;
 
-    public RetrieveContractorsService(Contractors contractors) {
+    RetrieveContractorsService(Contractors contractors) {
         this.contractors = Objects.requireNonNull(contractors);
     }
 

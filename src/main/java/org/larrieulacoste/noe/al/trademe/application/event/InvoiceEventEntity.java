@@ -7,7 +7,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethodType;
 
 import java.time.ZonedDateTime;
 
-public class InvoiceEventEntity {
+public final class InvoiceEventEntity {
     public final EntityId invoiceId;
     public final MemberType memberType;
     public final EntityId memberId;

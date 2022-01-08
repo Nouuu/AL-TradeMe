@@ -5,7 +5,7 @@ import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.D
 import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class TradesmanDeletedListener implements EventSubscriber<TradesmanDeleted> {
+public final class TradesmanDeletedListener implements EventSubscriber<TradesmanDeleted> {
 
     private final InvoicesCommandBus commandBus;
 

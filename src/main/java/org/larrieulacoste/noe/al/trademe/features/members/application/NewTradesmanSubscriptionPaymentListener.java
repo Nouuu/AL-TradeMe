@@ -8,7 +8,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 import javax.annotation.Nonnull;
 
-public class NewTradesmanSubscriptionPaymentListener implements EventSubscriber<TradesmanNewSubscriptionPayment> {
+public final class NewTradesmanSubscriptionPaymentListener implements EventSubscriber<TradesmanNewSubscriptionPayment> {
 
     private final MembersCommandBus commandBus;
 

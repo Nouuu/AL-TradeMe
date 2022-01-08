@@ -21,7 +21,7 @@ public class TradesmanSubscriptionPaymentService implements CommandHandler<Trade
     private final EventBus<ApplicationEvent> eventBus;
     private final Amount subscriptionAmount;
 
-    public TradesmanSubscriptionPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus, MembersSubscriptionAmount membersSubscriptionAmount) {
+    TradesmanSubscriptionPaymentService(PaymentAPI paymentAPI, EventBus<ApplicationEvent> eventBus, MembersSubscriptionAmount membersSubscriptionAmount) {
         this.logger = LoggerFactory.getLoggerStatic(this);
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;

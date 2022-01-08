@@ -9,7 +9,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class RuntimeExceptionHandler implements ExceptionMapper<RuntimeException> {
+public final class RuntimeExceptionHandler implements ExceptionMapper<RuntimeException> {
     private final Logger logger;
 
     public RuntimeExceptionHandler() {

@@ -7,7 +7,7 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 
 @Dependent
-public class APIConfiguration {
+final class APIConfiguration {
 
     @Produces
     PaymentAPI paymentAPI() {

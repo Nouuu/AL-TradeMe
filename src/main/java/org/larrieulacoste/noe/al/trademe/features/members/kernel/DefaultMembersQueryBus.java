@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.query.QueryHandler;
 
 import java.util.Map;
 
-public class DefaultMembersQueryBus extends DefaultQueryBus implements MembersQueryBus {
+public final class DefaultMembersQueryBus extends DefaultQueryBus implements MembersQueryBus {
     public DefaultMembersQueryBus(Map<Class<? extends Query>, QueryHandler<? extends Query, ?>> queryMap) {
         super(queryMap);
     }

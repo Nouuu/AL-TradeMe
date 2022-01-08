@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import java.util.HashMap;
 
 @Dependent
-public class EventConfiguration {
+final class EventConfiguration {
 
     @Inject
     @LoggerQualifier(EventBus.class)

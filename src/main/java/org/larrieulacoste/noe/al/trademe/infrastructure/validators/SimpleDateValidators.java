@@ -4,7 +4,7 @@ import org.larrieulacoste.noe.al.trademe.domain.validators.DateValidators;
 
 import java.time.ZonedDateTime;
 
-public class SimpleDateValidators implements DateValidators {
+public final class SimpleDateValidators implements DateValidators {
 
     @Override
     public boolean isValidPeriod(ZonedDateTime start, ZonedDateTime end) {

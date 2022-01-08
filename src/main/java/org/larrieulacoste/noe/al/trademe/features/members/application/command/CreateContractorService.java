@@ -19,7 +19,7 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public CreateContractorService(Contractors contractors, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
+    CreateContractorService(Contractors contractors, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
         this.contractors = Objects.requireNonNull(contractors);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;

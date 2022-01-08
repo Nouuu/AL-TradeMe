@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionSta
 import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class TradesmanSubscriptionPaymentFailureListener implements EventSubscriber<TradesmanNewSubscriptionPayment> {
+public final class TradesmanSubscriptionPaymentFailureListener implements EventSubscriber<TradesmanNewSubscriptionPayment> {
 
     private final MembersCommandBus commandBus;
 

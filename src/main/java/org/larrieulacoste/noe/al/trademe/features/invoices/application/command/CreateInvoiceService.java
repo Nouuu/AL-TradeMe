@@ -19,7 +19,7 @@ public class CreateInvoiceService implements CommandHandler<CreateInvoice, Entit
     private final Invoices invoices;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public CreateInvoiceService(Invoices invoices, EventBus<ApplicationEvent> eventBus) {
+    CreateInvoiceService(Invoices invoices, EventBus<ApplicationEvent> eventBus) {
         this.invoices = invoices;
         this.eventBus = eventBus;
     }

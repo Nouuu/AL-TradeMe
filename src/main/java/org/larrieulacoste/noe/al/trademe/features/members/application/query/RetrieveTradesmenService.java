@@ -11,7 +11,7 @@ import java.util.List;
 public class RetrieveTradesmenService implements QueryHandler<RetrieveTradesmen, List<Tradesman>> {
     private final Tradesmen tradesmen;
 
-    public RetrieveTradesmenService(Tradesmen tradesmen) {
+    RetrieveTradesmenService(Tradesmen tradesmen) {
         this.tradesmen = tradesmen;
     }
 

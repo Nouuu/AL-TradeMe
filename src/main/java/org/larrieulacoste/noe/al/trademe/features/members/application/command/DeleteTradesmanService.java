@@ -17,7 +17,7 @@ public class DeleteTradesmanService implements CommandHandler<DeleteTradesman, V
     private final Tradesmen tradesmen;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public DeleteTradesmanService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus) {
+    DeleteTradesmanService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.eventBus = eventBus;
     }

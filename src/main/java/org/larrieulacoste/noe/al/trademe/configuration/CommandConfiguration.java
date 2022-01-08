@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Dependent
-public class CommandConfiguration {
+final class CommandConfiguration {
     @Inject
     CreateContractorService createContractorService;
     @Inject
