@@ -29,33 +29,24 @@ class TradesmanController {
 
     @GET
     @Path("{userId}")
+    @Operation(summary = "Retrieve tradesman by ID", description = "Retrieve tradesman giving tradesman's ID")
     @Produces(MediaType.APPLICATION_JSON)
     public TradesmanResponse getById(@PathParam("userId") String userId) {
         Tradesman tradesman = queryBus.send(new RetrieveTradesmanById(EntityId.of(userId)));
-        return new TradesmanResponse(
-                tradesman.entityId.value,
-                tradesman.firstname.value,
-                tradesman.lastname.value,
-                tradesman.email.value
-        );
+        return getTradesmanResponse(tradesman);
     }
 
     @GET
+    @Operation(summary = "Retrieve tradesmen", description = "Retrieve all tradesmen")
     @Produces(MediaType.APPLICATION_JSON)
     public TradesmenResponse getAll() {
         List<Tradesman> tradesmen = queryBus.send(new RetrieveTradesmen());
 
-        return new TradesmenResponse(
-                tradesmen.stream().map(tradesman -> new TradesmanResponse(
-                        tradesman.entityId.value,
-                        tradesman.firstname.value,
-                        tradesman.lastname.value,
-                        tradesman.email.value
-                )).collect(Collectors.toList()),
-                tradesmen.size());
+        return getTradesmenResponse(tradesmen);
     }
 
     @POST
+    @Operation(summary = "Create tradesman", description = "Register a new tradesman to TradeMe")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public TradesmanResponse register(TradesmanRequest tradesman) {
@@ -72,9 +63,10 @@ class TradesmanController {
 
     @PUT
     @Path("{tradesmanId}")
+    @Operation(summary = "Update tradesman", description = "Update tradesman in TradeMe")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public TradesmanResponse register(@PathParam("tradesmanId") String tradesmanId, TradesmanRequest tradesman) {
+    public TradesmanResponse update(@PathParam("tradesmanId") String tradesmanId, TradesmanRequest tradesman) {
         Tradesman updatedTradesman = commandBus.send(new UpdateTradesman(
                 tradesmanId,
                 tradesman.firstname,
@@ -83,11 +75,7 @@ class TradesmanController {
                 tradesman.password
         ));
 
-        return new TradesmanResponse(updatedTradesman.entityId.value,
-                updatedTradesman.firstname.value,
-                updatedTradesman.lastname.value,
-                updatedTradesman.email.value
-        );
+        return getTradesmanResponse(updatedTradesman);
     }
 
     @DELETE
@@ -98,10 +86,21 @@ class TradesmanController {
     public TradesmanResponse delete(@PathParam("tradesmanId") String tradesmanId) {
         commandBus.send(new DeleteTradesman(tradesmanId));
 
-        return new TradesmanResponse(
-                tradesmanId,
-                null, null, null
-        );
+        return new TradesmanResponse(tradesmanId, null, null, null);
     }
 
+    private TradesmenResponse getTradesmenResponse(List<Tradesman> tradesmen) {
+        return new TradesmenResponse(
+                tradesmen.stream().map(this::getTradesmanResponse).collect(Collectors.toList()),
+                tradesmen.size());
+    }
+
+    private TradesmanResponse getTradesmanResponse(Tradesman tradesman) {
+        return new TradesmanResponse(
+                tradesman.entityId.value,
+                tradesman.firstname.value,
+                tradesman.lastname.value,
+                tradesman.email.value
+        );
+    }
 }
