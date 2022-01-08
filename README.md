@@ -84,8 +84,22 @@ Les différentes tâches à exécuter suite à cet enregistrement n'auront alors
 
 ## Command / Query Bus
 
+![DefaultCommandBus_send.png](D:\Projets\AL-TradeMe\assets\b03d3454f6c7f3dbeb0336faaf94ee45eb074b77.png)
+
+<img title="" src="file:///D:/Projets/AL-TradeMe/assets/226848c6adb9c7b64e310525ca2fe3cc8b8c5654.png" alt="DefaultQueryBus_send.png" width="386" data-align="inline">
+
 ## Event Bus
+
+![DefaultEventBus_publish.png](D:\Projets\AL-TradeMe\assets\a9f6a79984efe1a9d27836c83b31105338d0cd3e.png)
 
 ## Dependency Injection
 
 # Quarkus
+
+![ContractorController_getById.png](D:\Projets\AL-TradeMe\assets\e23c3babbd0586bfdf24e174c4f82d1e0029fef1.png)
+
+![ContractorController_register.png](D:\Projets\AL-TradeMe\assets\7cf3bd38e9da2f6b5c0c5d1c72b917839a3501ac.png)
+
+![CreateContractorService_handle.png](D:\Projets\AL-TradeMe\assets\34fcc6dc2f0d90667dd400094cd2bbe96e08e807.png)
+
+![RetrieveContractorByIdService_handle.png](D:\Projets\AL-TradeMe\assets\2482b9a4365d47fb4ffdfbe2a6c0c3671ac18c40.png)
