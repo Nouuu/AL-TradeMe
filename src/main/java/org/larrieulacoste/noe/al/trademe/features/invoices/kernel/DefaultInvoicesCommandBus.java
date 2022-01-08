@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.command.DefaultCommandBus;
 
 import java.util.Map;
 
-public class DefaultInvoicesCommandBus extends DefaultCommandBus implements InvoicesCommandBus {
+public final class DefaultInvoicesCommandBus extends DefaultCommandBus implements InvoicesCommandBus {
     public DefaultInvoicesCommandBus(Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap) {
         super(commandMap);
     }

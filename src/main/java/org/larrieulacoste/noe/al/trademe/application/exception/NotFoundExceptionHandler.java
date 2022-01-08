@@ -9,7 +9,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class NotFoundExceptionHandler implements ExceptionMapper<NotFoundException> {
+public final class NotFoundExceptionHandler implements ExceptionMapper<NotFoundException> {
     private final Logger logger;
 
     public NotFoundExceptionHandler() {

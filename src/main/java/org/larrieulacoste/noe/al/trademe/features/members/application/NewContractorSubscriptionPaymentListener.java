@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionSta
 import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class NewContractorSubscriptionPaymentListener implements EventSubscriber<ContractorNewSubscriptionPayment> {
+public final class NewContractorSubscriptionPaymentListener implements EventSubscriber<ContractorNewSubscriptionPayment> {
 
     private final MembersCommandBus commandBus;
 

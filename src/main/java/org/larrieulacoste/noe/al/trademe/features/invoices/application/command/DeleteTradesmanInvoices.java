@@ -3,7 +3,7 @@ package org.larrieulacoste.noe.al.trademe.features.invoices.application.command;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 
-public class DeleteTradesmanInvoices implements Command {
+public final class DeleteTradesmanInvoices implements Command {
     public final EntityId tradesmanId;
 
     public DeleteTradesmanInvoices(EntityId tradesmanId) {

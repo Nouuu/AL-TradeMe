@@ -16,7 +16,7 @@ public class UpdateContractorSubscriptionStatusService implements CommandHandler
     private final Contractors contractors;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public UpdateContractorSubscriptionStatusService(Contractors contractors, EventBus<ApplicationEvent> eventBus) {
+    UpdateContractorSubscriptionStatusService(Contractors contractors, EventBus<ApplicationEvent> eventBus) {
         this.contractors = Objects.requireNonNull(contractors);
         this.eventBus = eventBus;
     }

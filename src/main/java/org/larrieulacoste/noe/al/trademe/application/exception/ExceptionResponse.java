@@ -2,7 +2,7 @@ package org.larrieulacoste.noe.al.trademe.application.exception;
 
 import java.time.ZonedDateTime;
 
-public final class ExceptionResponse {
+final class ExceptionResponse {
 
     public final String source;
     public final ZonedDateTime occurredDate;

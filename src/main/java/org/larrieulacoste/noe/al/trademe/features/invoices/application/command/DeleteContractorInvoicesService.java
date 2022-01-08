@@ -17,7 +17,7 @@ public class DeleteContractorInvoicesService implements CommandHandler<DeleteCon
     private final Invoices invoices;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public DeleteContractorInvoicesService(Invoices invoices, EventBus<ApplicationEvent> eventBus) {
+    DeleteContractorInvoicesService(Invoices invoices, EventBus<ApplicationEvent> eventBus) {
         this.invoices = invoices;
         this.eventBus = eventBus;
     }

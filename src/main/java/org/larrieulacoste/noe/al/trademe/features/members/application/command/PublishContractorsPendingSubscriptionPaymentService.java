@@ -20,7 +20,7 @@ public class PublishContractorsPendingSubscriptionPaymentService implements Comm
     private final Contractors contractors;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public PublishContractorsPendingSubscriptionPaymentService(Contractors contractors, EventBus<ApplicationEvent> eventBus) {
+    PublishContractorsPendingSubscriptionPaymentService(Contractors contractors, EventBus<ApplicationEvent> eventBus) {
         this.contractors = Objects.requireNonNull(contractors);
         this.eventBus = eventBus;
     }

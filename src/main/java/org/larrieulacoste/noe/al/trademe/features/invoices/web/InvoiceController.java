@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("invoice")
-public class InvoiceController {
+final class InvoiceController {
     private final InvoicesQueryBus queryBus;
 
-    public InvoiceController(InvoicesQueryBus queryBus) {
+    InvoiceController(InvoicesQueryBus queryBus) {
         this.queryBus = queryBus;
     }
 

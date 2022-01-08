@@ -17,7 +17,7 @@ public class DeleteTradesmanInvoicesService implements CommandHandler<DeleteTrad
     private final Invoices invoices;
     private final EventBus<ApplicationEvent> eventBus;
 
-    public DeleteTradesmanInvoicesService(Invoices invoices, EventBus<ApplicationEvent> eventBus) {
+    DeleteTradesmanInvoicesService(Invoices invoices, EventBus<ApplicationEvent> eventBus) {
         this.invoices = invoices;
         this.eventBus = eventBus;
     }

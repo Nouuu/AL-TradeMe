@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.command.DefaultCommandBus;
 
 import java.util.Map;
 
-public class DefaultMembersCommandBus extends DefaultCommandBus implements MembersCommandBus {
+public final class DefaultMembersCommandBus extends DefaultCommandBus implements MembersCommandBus {
     public DefaultMembersCommandBus(Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap) {
         super(commandMap);
     }

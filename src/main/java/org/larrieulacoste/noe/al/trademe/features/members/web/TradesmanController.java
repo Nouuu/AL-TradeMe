@@ -18,11 +18,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("tradesman")
-public class TradesmanController {
+class TradesmanController {
     private final MembersQueryBus queryBus;
     private final MembersCommandBus commandBus;
 
-    public TradesmanController(MembersQueryBus queryBus, MembersCommandBus commandBus) {
+    TradesmanController(MembersQueryBus queryBus, MembersCommandBus commandBus) {
         this.queryBus = queryBus;
         this.commandBus = commandBus;
     }

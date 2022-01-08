@@ -13,7 +13,7 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
 @Dependent
-public class GlobalConfiguration {
+final class GlobalConfiguration {
 
     private final LoggerFactory loggerFactory = new DefaultLoggerFactory();
 

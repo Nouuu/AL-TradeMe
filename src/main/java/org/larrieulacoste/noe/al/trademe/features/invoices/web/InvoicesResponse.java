@@ -2,11 +2,11 @@ package org.larrieulacoste.noe.al.trademe.features.invoices.web;
 
 import java.util.List;
 
-public class InvoicesResponse {
-    public final List<InvoiceResponse> invoices;
-    public final int count;
+final class InvoicesResponse {
+    final List<InvoiceResponse> invoices;
+    final int count;
 
-    public InvoicesResponse(List<InvoiceResponse> invoices, int count) {
+    InvoicesResponse(List<InvoiceResponse> invoices, int count) {
         this.invoices = invoices;
         this.count = count;
     }

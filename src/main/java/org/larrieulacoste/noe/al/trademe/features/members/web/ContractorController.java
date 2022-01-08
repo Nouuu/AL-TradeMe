@@ -18,11 +18,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("contractor")
-public class ContractorController {
+final class ContractorController {
     private final MembersQueryBus queryBus;
     private final MembersCommandBus commandBus;
 
-    public ContractorController(MembersQueryBus queryBus, MembersCommandBus commandBus) {
+    ContractorController(MembersQueryBus queryBus, MembersCommandBus commandBus) {
         this.queryBus = queryBus;
         this.commandBus = commandBus;
     }

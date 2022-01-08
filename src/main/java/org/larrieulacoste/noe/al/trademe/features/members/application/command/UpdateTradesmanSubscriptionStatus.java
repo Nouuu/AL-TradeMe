@@ -4,7 +4,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionStatus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 
-public class UpdateTradesmanSubscriptionStatus implements Command {
+public final class UpdateTradesmanSubscriptionStatus implements Command {
     public final EntityId tradesmanId;
     public final SubscriptionStatus subscriptionStatus;
 
