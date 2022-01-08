@@ -33,10 +33,10 @@ class TradesmanController {
     public TradesmanResponse getById(@PathParam("userId") String userId) {
         Tradesman tradesman = queryBus.send(new RetrieveTradesmanById(EntityId.of(userId)));
         return new TradesmanResponse(
-                tradesman.getEntityId().value,
-                tradesman.getFirstname().value,
-                tradesman.getLastname().value,
-                tradesman.getEmail().value
+                tradesman.entityId.value,
+                tradesman.firstname.value,
+                tradesman.lastname.value,
+                tradesman.email.value
         );
     }
 
@@ -47,10 +47,10 @@ class TradesmanController {
 
         return new TradesmenResponse(
                 tradesmen.stream().map(tradesman -> new TradesmanResponse(
-                        tradesman.getEntityId().value,
-                        tradesman.getFirstname().value,
-                        tradesman.getLastname().value,
-                        tradesman.getEmail().value
+                        tradesman.entityId.value,
+                        tradesman.firstname.value,
+                        tradesman.lastname.value,
+                        tradesman.email.value
                 )).collect(Collectors.toList()),
                 tradesmen.size());
     }
@@ -83,10 +83,10 @@ class TradesmanController {
                 tradesman.password
         ));
 
-        return new TradesmanResponse(updatedTradesman.getEntityId().value,
-                updatedTradesman.getFirstname().value,
-                updatedTradesman.getLastname().value,
-                updatedTradesman.getEmail().value
+        return new TradesmanResponse(updatedTradesman.entityId.value,
+                updatedTradesman.firstname.value,
+                updatedTradesman.lastname.value,
+                updatedTradesman.email.value
         );
     }
 

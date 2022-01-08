@@ -26,23 +26,23 @@ public class UpdateTradesmanSubscriptionStatusService implements CommandHandler<
         Tradesman tradesman = tradesmen.byId(command.tradesmanId);
 
         Tradesman updatedTradesman = Tradesman.of(
-                tradesman.getEntityId(),
-                tradesman.getLastname(),
-                tradesman.getFirstname(),
-                tradesman.getEmail(),
-                tradesman.getPassword(),
+                tradesman.entityId,
+                tradesman.lastname,
+                tradesman.firstname,
+                tradesman.email,
+                tradesman.password,
                 command.subscriptionStatus,
-                tradesman.getPaymentMethod()
+                tradesman.paymentMethod
         );
 
         tradesmen.save(updatedTradesman);
         eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.of(
-                tradesman.getEntityId(),
-                tradesman.getLastname().value,
-                tradesman.getFirstname().value,
-                tradesman.getEmail().value,
-                tradesman.getPassword().value,
-                tradesman.getPaymentMethod()
+                tradesman.entityId,
+                tradesman.lastname.value,
+                tradesman.firstname.value,
+                tradesman.email.value,
+                tradesman.password.value,
+                tradesman.paymentMethod
         )));
         return null;
     }

@@ -25,7 +25,7 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
         this.logger = LoggerFactory.getLoggerStatic(this);
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
-        this.subscriptionAmount = membersSubscriptionAmount.getContractorSubscriptionAmount();
+        this.subscriptionAmount = membersSubscriptionAmount.contractorSubscriptionAmount;
     }
 
 

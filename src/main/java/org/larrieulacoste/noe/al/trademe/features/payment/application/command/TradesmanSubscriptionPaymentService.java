@@ -25,7 +25,7 @@ public class TradesmanSubscriptionPaymentService implements CommandHandler<Trade
         this.logger = LoggerFactory.getLoggerStatic(this);
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
-        this.subscriptionAmount = membersSubscriptionAmount.getTradesmanSubscriptionAmount();
+        this.subscriptionAmount = membersSubscriptionAmount.tradesmanSubscriptionAmount;
     }
 
 

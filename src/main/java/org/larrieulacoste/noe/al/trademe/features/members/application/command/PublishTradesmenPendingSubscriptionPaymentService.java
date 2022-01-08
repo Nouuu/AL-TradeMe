@@ -34,7 +34,7 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
         eventBus.publish(
                 TradesmenSubscriptionPendingPayment.withTradesmen(
                         tradesmenPendingPayment.stream()
-                                .map(tradesman -> TradesmanEventEntity.withEntityIdOnly(tradesman.getEntityId()))
+                                .map(tradesman -> TradesmanEventEntity.withEntityIdOnly(tradesman.entityId))
                                 .collect(Collectors.toList())
                 )
         );
@@ -43,22 +43,22 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
 
     public void updateSubscriptionToPending(Tradesman tradesman) {
         Tradesman updatedTradesman = Tradesman.of(
-                tradesman.getEntityId(),
-                tradesman.getLastname(),
-                tradesman.getFirstname(),
-                tradesman.getEmail(),
-                tradesman.getPassword(),
+                tradesman.entityId,
+                tradesman.lastname,
+                tradesman.firstname,
+                tradesman.email,
+                tradesman.password,
                 SubscriptionStatus.PENDING_PAYMENT,
-                tradesman.getPaymentMethod()
+                tradesman.paymentMethod
         );
         tradesmen.save(updatedTradesman);
         eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.of(
-                tradesman.getEntityId(),
-                tradesman.getLastname().value,
-                tradesman.getFirstname().value,
-                tradesman.getEmail().value,
-                tradesman.getPassword().value,
-                tradesman.getPaymentMethod()
+                tradesman.entityId,
+                tradesman.lastname.value,
+                tradesman.firstname.value,
+                tradesman.email.value,
+                tradesman.password.value,
+                tradesman.paymentMethod
         )));
     }
 

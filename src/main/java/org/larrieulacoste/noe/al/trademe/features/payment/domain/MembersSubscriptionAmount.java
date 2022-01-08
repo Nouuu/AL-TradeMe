@@ -3,8 +3,8 @@ package org.larrieulacoste.noe.al.trademe.features.payment.domain;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 
 public final class MembersSubscriptionAmount {
-    private final Amount contractorSubscriptionAmount;
-    private final Amount tradesmanSubscriptionAmount;
+    public final Amount contractorSubscriptionAmount;
+    public final Amount tradesmanSubscriptionAmount;
 
     private MembersSubscriptionAmount(Amount contractorSubscriptionAmount, Amount tradesmanSubscriptionAmount) {
         this.contractorSubscriptionAmount = contractorSubscriptionAmount;
@@ -13,14 +13,6 @@ public final class MembersSubscriptionAmount {
 
     public static MembersSubscriptionAmount of(Amount contractorSubscriptionAmount, Amount tradesmanSubscriptionAmount) {
         return new MembersSubscriptionAmount(contractorSubscriptionAmount, tradesmanSubscriptionAmount);
-    }
-
-    public Amount getContractorSubscriptionAmount() {
-        return contractorSubscriptionAmount;
-    }
-
-    public Amount getTradesmanSubscriptionAmount() {
-        return tradesmanSubscriptionAmount;
     }
 
     @Override

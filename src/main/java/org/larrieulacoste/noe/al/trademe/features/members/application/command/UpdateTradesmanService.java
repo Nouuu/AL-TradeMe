@@ -31,17 +31,17 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
         memberValidationService.validateUpdateTradesman(updateTradesman);
 
         Tradesman updatedTradesman = Tradesman.of(
-                inMemoryTradesman.getEntityId(),
-                updateTradesman.lastname != null ? NotEmptyString.of(updateTradesman.lastname) : inMemoryTradesman.getLastname(),
-                updateTradesman.firstname != null ? NotEmptyString.of(updateTradesman.firstname) : inMemoryTradesman.getLastname(),
-                updateTradesman.email != null ? EmailAddress.of(updateTradesman.email) : inMemoryTradesman.getEmail(),
-                updateTradesman.password != null ? Password.of(updateTradesman.password) : inMemoryTradesman.getPassword(),
-                inMemoryTradesman.getSubscriptionStatus(),
-                inMemoryTradesman.getPaymentMethod());
+                inMemoryTradesman.entityId,
+                updateTradesman.lastname != null ? NotEmptyString.of(updateTradesman.lastname) : inMemoryTradesman.lastname,
+                updateTradesman.firstname != null ? NotEmptyString.of(updateTradesman.firstname) : inMemoryTradesman.lastname,
+                updateTradesman.email != null ? EmailAddress.of(updateTradesman.email) : inMemoryTradesman.email,
+                updateTradesman.password != null ? Password.of(updateTradesman.password) : inMemoryTradesman.password,
+                inMemoryTradesman.subscriptionStatus,
+                inMemoryTradesman.paymentMethod);
         tradesmen.save(updatedTradesman);
 
-        eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.withoutPassword(inMemoryTradesman.getEntityId(),
-                updateTradesman.firstname, updateTradesman.lastname, updateTradesman.email, inMemoryTradesman.getPaymentMethod())));
+        eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.withoutPassword(inMemoryTradesman.entityId,
+                updateTradesman.firstname, updateTradesman.lastname, updateTradesman.email, inMemoryTradesman.paymentMethod)));
         return updatedTradesman;
     }
 }
