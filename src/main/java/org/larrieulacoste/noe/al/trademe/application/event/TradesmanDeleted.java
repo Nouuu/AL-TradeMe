@@ -8,9 +8,9 @@ import java.util.Objects;
 
 public final class TradesmanDeleted implements ApplicationEvent {
 
+    public final TradesmanEventEntity tradesman;
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    public final TradesmanEventEntity tradesman;
 
     private TradesmanDeleted(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman) {
         this.eventId = Objects.requireNonNull(eventId);

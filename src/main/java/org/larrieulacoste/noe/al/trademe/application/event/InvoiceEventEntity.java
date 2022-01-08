@@ -24,6 +24,10 @@ public final class InvoiceEventEntity {
         this.amount = amount;
     }
 
+    public static InvoiceEventEntity of(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, PaymentMethodType paymentMethodType, Amount amount) {
+        return new InvoiceEventEntity(invoiceId, memberType, memberId, occurredDate, paymentMethodType, amount);
+    }
+
     @Override
     public String toString() {
         return "InvoiceEventEntity{" +
@@ -60,10 +64,6 @@ public final class InvoiceEventEntity {
         result = 31 * result + paymentMethodType.hashCode();
         result = 31 * result + amount.hashCode();
         return result;
-    }
-
-    public static InvoiceEventEntity of(EntityId invoiceId, MemberType memberType, EntityId memberId, ZonedDateTime occurredDate, PaymentMethodType paymentMethodType, Amount amount) {
-        return new InvoiceEventEntity(invoiceId, memberType, memberId, occurredDate, paymentMethodType, amount);
     }
 
 }

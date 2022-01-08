@@ -8,9 +8,9 @@ import java.util.Objects;
 
 public final class ContractorNewRegistration implements ApplicationEvent {
 
+    public final ContractorEventEntity contractor;
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    public final ContractorEventEntity contractor;
 
     private ContractorNewRegistration(EventId eventId, ZonedDateTime occurredDate, ContractorEventEntity contractor) {
         this.eventId = Objects.requireNonNull(eventId);

@@ -6,8 +6,6 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionSta
 import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-import javax.annotation.Nonnull;
-
 public final class NewTradesmanSubscriptionPaymentListener implements EventSubscriber<TradesmanNewSubscriptionPayment> {
 
     private final MembersCommandBus commandBus;

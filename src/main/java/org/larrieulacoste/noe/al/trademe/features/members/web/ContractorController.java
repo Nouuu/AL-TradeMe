@@ -86,7 +86,7 @@ final class ContractorController {
     public ContractorResponse delete(@PathParam("contractorId") String contractorId) {
         commandBus.send(new DeleteContractor(contractorId));
 
-        return new ContractorResponse(contractorId,null, null, null);
+        return new ContractorResponse(contractorId, null, null, null);
     }
 
     private ContractorsResponse getContractorsResponse(List<Contractor> contractors) {

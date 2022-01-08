@@ -10,11 +10,11 @@ import java.util.Objects;
 
 public final class TradesmanNewSubscriptionPayment implements ApplicationEvent {
 
-    private final EventId eventId;
-    private final ZonedDateTime occurredDate;
     public final TradesmanEventEntity tradesman;
     public final PaymentMethod paymentMethod;
     public final Amount amount;
+    private final EventId eventId;
+    private final ZonedDateTime occurredDate;
 
     private TradesmanNewSubscriptionPayment(EventId eventId, ZonedDateTime occurredDate, TradesmanEventEntity tradesman, PaymentMethod paymentMethod, Amount amount) {
         this.eventId = Objects.requireNonNull(eventId);

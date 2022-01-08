@@ -7,8 +7,6 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
 import java.time.ZonedDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class TradesmanSubscriptionPaymentFailureTest {
     EntityId eventEntityId = EntityId.of("123");
     TradesmanEventEntity tradesmanEventEntity = TradesmanEventEntity.withEntityIdOnly(eventEntityId);

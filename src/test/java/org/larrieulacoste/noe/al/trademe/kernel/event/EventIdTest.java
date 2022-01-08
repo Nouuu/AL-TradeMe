@@ -3,8 +3,6 @@ package org.larrieulacoste.noe.al.trademe.kernel.event;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 class EventIdTest {
 
     @Test

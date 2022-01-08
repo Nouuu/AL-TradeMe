@@ -2,7 +2,7 @@ package org.larrieulacoste.noe.al.trademe.kernel.event;
 
 import java.time.ZonedDateTime;
 
-public class TestEvent2 implements Event{
+public class TestEvent2 implements Event {
     @Override
     public EventId getEventId() {
         return EventId.create();

@@ -2,11 +2,12 @@ package org.larrieulacoste.noe.al.trademe.application.event;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.larrieulacoste.noe.al.trademe.domain.model.*;
+import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
+import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethodType;
 
 import java.time.ZonedDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class InvoiceEventEntityTest {
 

@@ -8,9 +8,9 @@ import java.util.Objects;
 
 public final class ContractorInvoiceDeleted implements ApplicationEvent {
 
+    public final InvoiceEventEntity invoice;
     private final EventId eventId;
     private final ZonedDateTime occurredDate;
-    public final InvoiceEventEntity invoice;
 
     private ContractorInvoiceDeleted(EventId eventId, ZonedDateTime occurredDate, InvoiceEventEntity invoice) {
         this.eventId = Objects.requireNonNull(eventId);

@@ -28,7 +28,7 @@ public class DeleteContractorInvoicesService implements CommandHandler<DeleteCon
         for (Invoice invoiceToDelete : invoicesToDelete) {
             invoices.remove(invoiceToDelete);
             eventBus.publish(ContractorInvoiceDeleted.of(
-                    InvoiceEventEntity.of(invoiceToDelete.invoiceId, MemberType.CONTRACTOR, command.contractorId, null, null,null)
+                    InvoiceEventEntity.of(invoiceToDelete.invoiceId, MemberType.CONTRACTOR, command.contractorId, null, null, null)
             ));
         }
         return null;
