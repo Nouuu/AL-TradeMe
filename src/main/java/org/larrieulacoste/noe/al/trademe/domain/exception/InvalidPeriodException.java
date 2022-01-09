@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.application.exception;
+package org.larrieulacoste.noe.al.trademe.domain.exception;
 
 public final class InvalidPeriodException extends IllegalArgumentException {
     public InvalidPeriodException(String message) {

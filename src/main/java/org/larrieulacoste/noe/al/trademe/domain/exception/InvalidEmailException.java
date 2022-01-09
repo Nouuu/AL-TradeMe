@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.application.exception;
+package org.larrieulacoste.noe.al.trademe.domain.exception;
 
 public final class InvalidEmailException extends IllegalArgumentException {
     public InvalidEmailException(String message) {

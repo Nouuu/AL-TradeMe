@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.infrastructure;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.UserNotFoundException;
+import org.larrieulacoste.noe.al.trademe.domain.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;

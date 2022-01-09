@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.InvalidPasswordException;
+import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidPasswordException;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 
 public final class Password {

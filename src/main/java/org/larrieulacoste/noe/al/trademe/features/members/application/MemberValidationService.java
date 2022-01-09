@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.InvalidUserException;
+import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidUserException;
 import org.larrieulacoste.noe.al.trademe.domain.validators.PaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;

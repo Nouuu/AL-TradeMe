@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.InvalidEmailException;
+import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidEmailException;
 import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
 
 public final class EmailAddress {

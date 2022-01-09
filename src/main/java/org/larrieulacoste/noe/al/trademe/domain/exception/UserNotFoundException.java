@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.application.exception;
+package org.larrieulacoste.noe.al.trademe.domain.exception;
 
 public final class UserNotFoundException extends NotFoundException {
     public UserNotFoundException(String message) {

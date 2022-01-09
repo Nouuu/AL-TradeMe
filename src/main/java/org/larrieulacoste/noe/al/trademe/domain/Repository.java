@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.domain;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.NotFoundException;
+import org.larrieulacoste.noe.al.trademe.domain.exception.NotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 
 import java.util.List;

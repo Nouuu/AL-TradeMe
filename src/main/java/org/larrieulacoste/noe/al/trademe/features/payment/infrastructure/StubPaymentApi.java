@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.infrastructure;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.PaymentException;
+import org.larrieulacoste.noe.al.trademe.domain.exception.PaymentException;
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 

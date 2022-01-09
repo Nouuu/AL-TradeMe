@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.infrastructure;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.InvoiceNotFoundException;
-import org.larrieulacoste.noe.al.trademe.application.exception.UserNotFoundException;
+import org.larrieulacoste.noe.al.trademe.domain.exception.InvoiceNotFoundException;
+import org.larrieulacoste.noe.al.trademe.domain.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
