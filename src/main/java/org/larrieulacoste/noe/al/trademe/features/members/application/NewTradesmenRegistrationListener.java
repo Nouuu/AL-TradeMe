@@ -1,21 +1,23 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.NewTradesmanRegistration;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
-import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
+import org.larrieulacoste.noe.al.trademe.application.event.TradesmanNewRegistration;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
-public class NewTradesmenRegistrationListener implements EventSubscriber<NewTradesmanRegistration> {
+public final class NewTradesmenRegistrationListener implements EventSubscriber<TradesmanNewRegistration> {
 
-    private final CommandBus commandBus;
+    private final MembersCommandBus commandBus;
 
-    public NewTradesmenRegistrationListener(CommandBus commandBus) {
+    public NewTradesmenRegistrationListener(MembersCommandBus commandBus) {
         this.commandBus = commandBus;
     }
 
     @Override
-    public void accept(NewTradesmanRegistration event) {
-        TradesmanEventEntity tradesman = event.getTradesmanRegistration();
-        commandBus.send(new CreateTradesman(tradesman.firstname, tradesman.lastname, tradesman.email, tradesman.password));
+    public void accept(TradesmanNewRegistration event) {
+        TradesmanEventEntity tradesman = event.tradesman;
+        commandBus.send(new CreateTradesman(tradesman.firstname, tradesman.lastname, tradesman.email,
+                tradesman.password, tradesman.paymentMethod.paymentMethodType.value, tradesman.paymentMethod.paymentInfo));
     }
 }

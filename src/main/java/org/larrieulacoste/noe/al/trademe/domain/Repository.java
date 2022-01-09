@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.domain;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.NotFoundException;
+import org.larrieulacoste.noe.al.trademe.domain.exception.NotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 
 import java.util.List;
@@ -13,6 +13,8 @@ public interface Repository<T> {
     T byId(EntityId entityId) throws NotFoundException;
 
     List<T> findAll();
+
+    void remove(T item);
 
     default EntityId nextId() {
         return EntityId.fromUUID(UUID.randomUUID());

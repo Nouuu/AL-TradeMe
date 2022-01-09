@@ -1,30 +1,26 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.InvalidPasswordException;
-import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidPasswordException;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
 
 public final class Password {
-    private final String passwordString;
+    public final String value;
 
-    private Password(String passwordString) {
-        if (!ValidatorsFactory.getStringValidatorsInstance().isValidPassword(passwordString)) {
-            throw new InvalidPasswordException("Invalid password : " + passwordString);
+    private Password(String value) {
+        if (!ValidatorsFactory.getStringValidatorsInstance().isValidPassword(value)) {
+            throw new InvalidPasswordException("Invalid password : " + value);
         }
-        this.passwordString = passwordString;
+        this.value = value;
     }
 
     public static Password of(String password) {
         return new Password(password);
     }
 
-    public String getPasswordString() {
-        return passwordString;
-    }
-
     @Override
     public String toString() {
         return "Password{" +
-                "passwordString='" + passwordString + '\'' +
+                "passwordString='" + value + '\'' +
                 '}';
     }
 
@@ -35,11 +31,11 @@ public final class Password {
 
         Password password = (Password) o;
 
-        return passwordString.equals(password.passwordString);
+        return value.equals(password.value);
     }
 
     @Override
     public int hashCode() {
-        return passwordString.hashCode();
+        return value.hashCode();
     }
 }

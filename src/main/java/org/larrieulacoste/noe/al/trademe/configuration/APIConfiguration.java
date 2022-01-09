@@ -3,12 +3,15 @@ package org.larrieulacoste.noe.al.trademe.configuration;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.features.payment.infrastructure.StubPaymentApi;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 
-@ApplicationScoped
-public class APIConfiguration {
+@Dependent
+final class APIConfiguration {
 
-    @ApplicationScoped
+    @Produces
+    @Singleton
     PaymentAPI paymentAPI() {
         return new StubPaymentApi();
     }

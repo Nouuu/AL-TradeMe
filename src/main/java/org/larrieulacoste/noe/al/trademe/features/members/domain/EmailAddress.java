@@ -1,24 +1,20 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.application.exception.InvalidEmailException;
-import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidEmailException;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
 
 public final class EmailAddress {
-    private final String emailAddressString;
+    public final String value;
 
-    private EmailAddress(String emailAddressString) {
-        if (!ValidatorsFactory.getStringValidatorsInstance().isEmail(emailAddressString)) {
-            throw new InvalidEmailException("Invalid email : " + emailAddressString);
+    private EmailAddress(String value) {
+        if (!ValidatorsFactory.getStringValidatorsInstance().isEmail(value)) {
+            throw new InvalidEmailException("Invalid email : " + value);
         }
-        this.emailAddressString = emailAddressString;
+        this.value = value;
     }
 
     public static EmailAddress of(String emailAddress) {
         return new EmailAddress(emailAddress);
-    }
-
-    public String getEmailAddressString() {
-        return emailAddressString;
     }
 
     @Override
@@ -28,18 +24,18 @@ public final class EmailAddress {
 
         EmailAddress that = (EmailAddress) o;
 
-        return emailAddressString.equals(that.emailAddressString);
+        return value.equals(that.value);
     }
 
     @Override
     public int hashCode() {
-        return emailAddressString.hashCode();
+        return value.hashCode();
     }
 
     @Override
     public String toString() {
         return "EmailAddress{" +
-                "emailAddress='" + emailAddressString + '\'' +
+                "value='" + value + '\'' +
                 '}';
     }
 }

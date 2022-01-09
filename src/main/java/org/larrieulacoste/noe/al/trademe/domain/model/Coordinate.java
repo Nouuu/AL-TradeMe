@@ -1,27 +1,18 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
-import java.util.Objects;
-
 public final class Coordinate {
-    private final Double longitude; // Y
-    private final Double latitude; // X
+    public final double longitude; // Y
+    public final double latitude; // X
 
-    private Coordinate(Double longitude, Double latitude) {
-        this.longitude = Objects.requireNonNull(longitude);
-        this.latitude = Objects.requireNonNull(latitude);
+    private Coordinate(double longitude, double latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
-    public static Coordinate of(Double longitude, Double latitude) {
+    public static Coordinate of(double longitude, double latitude) {
         return new Coordinate(longitude, latitude);
     }
 
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -30,14 +21,18 @@ public final class Coordinate {
 
         Coordinate that = (Coordinate) o;
 
-        if (!longitude.equals(that.longitude)) return false;
-        return latitude.equals(that.latitude);
+        if (Double.compare(that.longitude, longitude) != 0) return false;
+        return Double.compare(that.latitude, latitude) == 0;
     }
 
     @Override
     public int hashCode() {
-        int result = longitude.hashCode();
-        result = 31 * result + latitude.hashCode();
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(longitude);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(latitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 

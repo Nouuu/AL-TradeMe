@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 
 import java.util.Objects;
 
@@ -10,25 +11,31 @@ public final class ContractorEventEntity {
     public final String lastname;
     public final String email;
     public final String password;
+    public final PaymentMethod paymentMethod;
 
-    private ContractorEventEntity(EntityId entityId, String firstname, String lastname, String email, String password) {
+    private ContractorEventEntity(EntityId entityId, String firstname, String lastname, String email, String password, PaymentMethod paymentMethod) {
         this.entityId = entityId;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+        this.paymentMethod = paymentMethod;
     }
 
-    public static ContractorEventEntity of(EntityId entityId, String firstname, String lastname, String email, String password) {
-        return new ContractorEventEntity(entityId, firstname, lastname, email, password);
+    public static ContractorEventEntity of(EntityId entityId, String firstname, String lastname, String email, String password, PaymentMethod paymentMethod) {
+        return new ContractorEventEntity(entityId, firstname, lastname, email, password, paymentMethod);
     }
 
-    public static ContractorEventEntity withoutPassword(EntityId entityId, String firstname, String lastname, String email) {
-        return new ContractorEventEntity(entityId, firstname, lastname, email, null);
+    public static ContractorEventEntity withoutPassword(EntityId entityId, String firstname, String lastname, String email, PaymentMethod paymentMethod) {
+        return new ContractorEventEntity(entityId, firstname, lastname, email, null, paymentMethod);
     }
 
     public static ContractorEventEntity withEntityIdOnly(EntityId entityId) {
-        return new ContractorEventEntity(entityId, null, null, null, null);
+        return new ContractorEventEntity(entityId, null, null, null, null, null);
+    }
+
+    public static ContractorEventEntity withEntityIdAndPaymentMethodOnly(EntityId entityId, PaymentMethod paymentMethod) {
+        return new ContractorEventEntity(entityId, null, null, null, null, paymentMethod);
     }
 
     @Override

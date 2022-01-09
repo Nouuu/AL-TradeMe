@@ -4,7 +4,6 @@ import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 
 import java.util.List;
 
@@ -12,8 +11,8 @@ public final class JdbcContractors implements Contractors {
     private static final String NOT_YET_IMPLEMENTED_MESSAGE = "Not yet implemented";
     private final Logger logger;
 
-    public JdbcContractors() {
-        this.logger = LoggerFactory.getLogger(this);
+    public JdbcContractors(Logger logger) {
+        this.logger = logger;
         this.logger.error("Warning !!! Your are instancing a not yet implemented repository");
     }
 
@@ -29,6 +28,11 @@ public final class JdbcContractors implements Contractors {
 
     @Override
     public List<Contractor> findAll() {
+        throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED_MESSAGE);
+    }
+
+    @Override
+    public void remove(Contractor item) {
         throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED_MESSAGE);
     }
 

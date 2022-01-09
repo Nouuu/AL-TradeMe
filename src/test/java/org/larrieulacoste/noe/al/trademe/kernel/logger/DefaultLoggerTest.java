@@ -2,7 +2,6 @@ package org.larrieulacoste.noe.al.trademe.kernel.logger;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.DefaultLogger;
 
 class DefaultLoggerTest {
     private final DefaultLogger defaultLogger = new DefaultLogger("Logger");

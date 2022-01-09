@@ -1,22 +1,49 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
+import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
+import org.larrieulacoste.noe.al.trademe.features.invoices.infrastructure.InMemoryInvoices;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryContractors;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryTradesmen;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-@ApplicationScoped
-public class RepositoryConfiguration {
+@Dependent
+final class RepositoryConfiguration {
 
-    @ApplicationScoped
+    @Inject
+    @LoggerQualifier(Tradesmen.class)
+
+    Logger tradesmenLogger;
+    @Inject
+    @LoggerQualifier(Contractors.class)
+    Logger contractorsLogger;
+
+    @Inject
+    @LoggerQualifier(Invoices.class)
+    Logger invoicesLogger;
+
+    @Produces
+    @Singleton
     Tradesmen tradesmen() {
-        return new InMemoryTradesmen();
+        return new InMemoryTradesmen(tradesmenLogger);
     }
 
-    @ApplicationScoped
+    @Produces
+    @Singleton
     Contractors contractors() {
-        return new InMemoryContractors();
+        return new InMemoryContractors(contractorsLogger);
+    }
+
+    @Produces
+    @Singleton
+    Invoices invoices() {
+        return new InMemoryInvoices(invoicesLogger);
     }
 }

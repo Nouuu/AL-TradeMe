@@ -6,7 +6,7 @@ final class TradesmenResponse {
     public final List<TradesmanResponse> tradesmen;
     public final int count;
 
-    public TradesmenResponse(List<TradesmanResponse> tradesmen, int count) {
+    TradesmenResponse(List<TradesmanResponse> tradesmen, int count) {
         this.tradesmen = tradesmen;
         this.count = count;
     }

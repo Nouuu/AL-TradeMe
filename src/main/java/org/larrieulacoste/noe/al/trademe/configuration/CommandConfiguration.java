@@ -1,47 +1,101 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateContractor;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateContractorService;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateTradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.application.CreateTradesmanService;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.ContractorPayment;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.ContractorProcessPaymentService;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.TradesmanPayment;
-import org.larrieulacoste.noe.al.trademe.features.payment.application.TradesmanProcessPaymentService;
+import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.*;
+import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.DefaultInvoicesCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.*;
+import org.larrieulacoste.noe.al.trademe.features.members.kernel.DefaultMembersCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPaymentService;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPaymentService;
+import org.larrieulacoste.noe.al.trademe.features.payment.kernel.DefaultPaymentCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
-import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
-import org.larrieulacoste.noe.al.trademe.kernel.command.DefaultCommandBus;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
 
-@ApplicationScoped
-public class CommandConfiguration {
+@Dependent
+final class CommandConfiguration {
     @Inject
     CreateContractorService createContractorService;
     @Inject
     CreateTradesmanService createTradesmanService;
     @Inject
-    ContractorProcessPaymentService contractorProcessPaymentService;
+    UpdateContractorService updateContractorService;
     @Inject
-    TradesmanProcessPaymentService tradesmanProcessPaymentService;
+    UpdateTradesmanService updateTradesmanService;
+    @Inject
+    ContractorSubscriptionPaymentService contractorSubscriptionPaymentService;
+    @Inject
+    TradesmanSubscriptionPaymentService tradesmanSubscriptionPaymentService;
+    @Inject
+    PublishContractorsPendingSubscriptionPaymentService publishContractorsPendingSubscriptionPaymentService;
+    @Inject
+    PublishTradesmenPendingSubscriptionPaymentService publishTradesmenPendingSubscriptionPaymentService;
+    @Inject
+    CreateInvoiceService createInvoiceService;
+    @Inject
+    UpdateContractorSubscriptionStatusService updateContractorSubscriptionStatusService;
+    @Inject
+    UpdateTradesmanSubscriptionStatusService updateTradesmanSubscriptionStatusService;
+    @Inject
+    DeleteTradesmanService deleteTradesmanService;
+    @Inject
+    DeleteContractorService deleteContractorService;
+    @Inject
+    DeleteTradesmanInvoicesService deleteTradesmanInvoicesService;
+    @Inject
+    DeleteContractorInvoicesService deleteContractorInvoicesService;
 
-    @ApplicationScoped
-    CommandBus commandBus() {
+
+    @Produces
+    @Singleton
+    InvoicesCommandBus invoicesCommandBus() {
         Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
 
-        // Members feature
+        commandMap.put(CreateInvoice.class, createInvoiceService);
+        commandMap.put(DeleteTradesmanInvoices.class, deleteTradesmanInvoicesService);
+        commandMap.put(DeleteContractorInvoices.class, deleteContractorInvoicesService);
+
+        return new DefaultInvoicesCommandBus(commandMap);
+    }
+
+    @Produces
+    @Singleton
+    MembersCommandBus membersCommandBus() {
+        Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
+
         commandMap.put(CreateContractor.class, createContractorService);
         commandMap.put(CreateTradesman.class, createTradesmanService);
+        commandMap.put(UpdateContractor.class, updateContractorService);
+        commandMap.put(UpdateTradesman.class, updateTradesmanService);
+        commandMap.put(DeleteTradesman.class, deleteTradesmanService);
+        commandMap.put(DeleteContractor.class, deleteContractorService);
+        commandMap.put(PublishContractorsPendingSubscriptionPayment.class, publishContractorsPendingSubscriptionPaymentService);
+        commandMap.put(PublishTradesmenPendingSubscriptionPayment.class, publishTradesmenPendingSubscriptionPaymentService);
+        commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);
+        commandMap.put(UpdateTradesmanSubscriptionStatus.class, updateTradesmanSubscriptionStatusService);
 
-        // Payment feature
-        commandMap.put(ContractorPayment.class, contractorProcessPaymentService);
-        commandMap.put(TradesmanPayment.class, tradesmanProcessPaymentService);
+        return new DefaultMembersCommandBus(commandMap);
+    }
 
-        return new DefaultCommandBus(commandMap);
+    @Produces
+    @Singleton
+    PaymentCommandBus paymentCommandBus() {
+        Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
+
+        commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
+        commandMap.put(TradesmanSubscriptionPayment.class, tradesmanSubscriptionPaymentService);
+
+        return new DefaultPaymentCommandBus(commandMap);
     }
 
 }

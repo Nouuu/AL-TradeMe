@@ -26,4 +26,15 @@ class DefaultQueryBusTest {
         String queryReturn = defaultQueryBus.send(new TestQuery());
         Assertions.assertThat(queryReturn).isEqualTo("ok");
     }
+
+    @Test
+    void sendException() {
+        queryMap = new HashMap<>();
+        defaultQueryBus = new DefaultQueryBus(queryMap);
+        TestQuery testQuery = new TestQuery();
+
+        Assertions.assertThatThrownBy(() -> defaultQueryBus.send(testQuery))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("No such query handler for org.larrieulacoste.noe.al.trademe.kernel.query.TestQuery");
+    }
 }

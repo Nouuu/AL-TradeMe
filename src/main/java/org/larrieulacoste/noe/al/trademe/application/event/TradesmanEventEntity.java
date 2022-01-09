@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 
 import java.util.Objects;
 
@@ -10,25 +11,31 @@ public final class TradesmanEventEntity {
     public final String lastname;
     public final String email;
     public final String password;
+    public final PaymentMethod paymentMethod;
 
-    private TradesmanEventEntity(EntityId entityId, String firstname, String lastname, String email, String password) {
+    private TradesmanEventEntity(EntityId entityId, String firstname, String lastname, String email, String password, PaymentMethod paymentMethod) {
         this.entityId = entityId;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+        this.paymentMethod = paymentMethod;
     }
 
-    public static TradesmanEventEntity of(EntityId entityId, String firstname, String lastname, String email, String password) {
-        return new TradesmanEventEntity(entityId, firstname, lastname, email, password);
+    public static TradesmanEventEntity of(EntityId entityId, String firstname, String lastname, String email, String password, PaymentMethod paymentMethod) {
+        return new TradesmanEventEntity(entityId, firstname, lastname, email, password, paymentMethod);
     }
 
-    public static TradesmanEventEntity withoutPassword(EntityId entityId, String firstname, String lastname, String email) {
-        return new TradesmanEventEntity(entityId, firstname, lastname, email, null);
+    public static TradesmanEventEntity withoutPassword(EntityId entityId, String firstname, String lastname, String email, PaymentMethod paymentMethod) {
+        return new TradesmanEventEntity(entityId, firstname, lastname, email, null, paymentMethod);
     }
 
     public static TradesmanEventEntity withEntityIdOnly(EntityId entityId) {
-        return new TradesmanEventEntity(entityId, null, null, null, null);
+        return new TradesmanEventEntity(entityId, null, null, null, null, null);
+    }
+
+    public static TradesmanEventEntity withEntityIdAndPaymentMethodOnly(EntityId entityId, PaymentMethod paymentMethod) {
+        return new TradesmanEventEntity(entityId, null, null, null, null, paymentMethod);
     }
 
 
