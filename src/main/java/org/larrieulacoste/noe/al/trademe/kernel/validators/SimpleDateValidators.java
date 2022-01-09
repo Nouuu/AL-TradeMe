@@ -1,7 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.kernel.validators;
 
-import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
-
 import java.time.ZonedDateTime;
 
 public final class SimpleDateValidators implements DateValidators {
