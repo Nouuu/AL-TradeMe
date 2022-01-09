@@ -19,6 +19,9 @@ public class MemberValidationService {
     private final Logger logger;
     private final StringValidators stringValidators;
     private final PaymentInformationsValidator paymentInformationsValidator;
+    private static final String STRING_DELIMITER = "\n - ";
+    private static final String FIRSTNAME = "firstname";
+    private static final String LASTNAME = "lastname";
 
     MemberValidationService(Logger logger) {
         this.logger = logger;
@@ -31,7 +34,7 @@ public class MemberValidationService {
         List<String> errors = getCreateContractorInvalidFields(contractor);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with contractor :\n - " + String.join("\n - ", errors)
+                    "Errors with contractor :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
             );
         }
     }
@@ -41,15 +44,15 @@ public class MemberValidationService {
         List<String> errors = getCreateTradesmanInvalidFields(tradesman);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with tradesman :\n - " + String.join("\n - ", errors)
+                    "Errors with tradesman :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
             );
         }
     }
 
     private List<String> getCreateTradesmanInvalidFields(CreateTradesman tradesman) {
         List<String> errors = new ArrayList<>();
-        required(tradesman.firstname, "firstname", errors);
-        required(tradesman.lastname, "lastname", errors);
+        required(tradesman.firstname, MemberValidationService.FIRSTNAME, errors);
+        required(tradesman.lastname, MemberValidationService.LASTNAME, errors);
         password(tradesman.password, errors);
         email(tradesman.email, errors);
         paymentMethod(tradesman.paymentMethodType, tradesman.paymentMethodRessource, errors);
@@ -58,8 +61,8 @@ public class MemberValidationService {
 
     private List<String> getCreateContractorInvalidFields(CreateContractor contractor) {
         List<String> errors = new ArrayList<>();
-        required(contractor.firstname, "firstname", errors);
-        required(contractor.lastname, "lastname", errors);
+        required(contractor.firstname, MemberValidationService.FIRSTNAME, errors);
+        required(contractor.lastname, MemberValidationService.LASTNAME, errors);
         password(contractor.password, errors);
         email(contractor.email, errors);
         paymentMethod(contractor.paymentMethodType, contractor.paymentMethodRessource, errors);
@@ -71,7 +74,7 @@ public class MemberValidationService {
         List<String> errors = getUpdateContractorInvalidFields(contractor);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with contractor :\n - " + String.join("\n - ", errors)
+                    "Errors with contractor :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
             );
         }
     }
@@ -81,7 +84,7 @@ public class MemberValidationService {
         List<String> errors = getUpdateTradesmanInvalidFields(tradesman);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with tradesman :\n - " + String.join("\n - ", errors)
+                    "Errors with tradesman :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
             );
         }
     }
@@ -90,10 +93,10 @@ public class MemberValidationService {
         List<String> errors = new ArrayList<>();
         required(tradesman.tradesmanId, "tradesmanId", errors);
         if (tradesman.firstname != null) {
-            required(tradesman.firstname, "firstname", errors);
+            required(tradesman.firstname, MemberValidationService.FIRSTNAME, errors);
         }
         if (tradesman.lastname != null) {
-            required(tradesman.lastname, "lastname", errors);
+            required(tradesman.lastname, MemberValidationService.LASTNAME, errors);
         }
         if (tradesman.password != null) {
             password(tradesman.password, errors);
@@ -108,10 +111,10 @@ public class MemberValidationService {
         List<String> errors = new ArrayList<>();
         required(contractor.contractorId, "contractorId", errors);
         if (contractor.firstname != null) {
-            required(contractor.firstname, "firstname", errors);
+            required(contractor.firstname, MemberValidationService.FIRSTNAME, errors);
         }
         if (contractor.lastname != null) {
-            required(contractor.lastname, "lastname", errors);
+            required(contractor.lastname, MemberValidationService.LASTNAME, errors);
         }
         if (contractor.password != null) {
             password(contractor.password, errors);
