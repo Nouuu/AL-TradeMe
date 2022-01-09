@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.web;
+package org.larrieulacoste.noe.al.trademe.application.exception;
 
 import java.time.ZonedDateTime;
 

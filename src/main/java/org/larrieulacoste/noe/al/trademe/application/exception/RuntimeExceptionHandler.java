@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.domain.exception;
+package org.larrieulacoste.noe.al.trademe.application.exception;
 
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
