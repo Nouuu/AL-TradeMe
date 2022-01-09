@@ -1,14 +1,14 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidUserException;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.PaymentInformationsValidator;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateContractor;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.PaymentInformationsValidator;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;

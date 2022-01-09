@@ -3,7 +3,10 @@ package org.larrieulacoste.noe.al.trademe.configuration;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;
-import org.larrieulacoste.noe.al.trademe.kernel.logger.*;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.JBossLoggerFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
