@@ -1,5 +1,5 @@
-| [![github](https://img.shields.io/badge/repository-github-blue)](https://github.com/Nouuu/AL-TradeMe) | [![wakatime](https://wakatime.com/badge/user/3106fbc8-c1fe-4d47-b9ce-b0514ce3fb3d/project/945bfe6c-4742-4cbe-896d-b9b5692afeca.svg)](https://wakatime.com/@Nou/projects/aqygjxcins) |     |
-| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| [![github](https://img.shields.io/badge/repository-github-blue)](https://github.com/Nouuu/AL-TradeMe) | [![wakatime](https://wakatime.com/badge/user/3106fbc8-c1fe-4d47-b9ce-b0514ce3fb3d/project/945bfe6c-4742-4cbe-896d-b9b5692afeca.svg)](https://wakatime.com/@Nou/projects/aqygjxcins) |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 | Dev status | [![Coverage](https://sonar.nospy.fr/api/project_badges/measure?project=Nouuu_AL-TradeMe&metric=coverage&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe) | [![Maintainability Rating](https://sonar.nospy.fr/api/project_badges/measure?branch=feature%2F15-create-all-entities-and-models&project=Nouuu_AL-TradeMe&metric=sqale_rating&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=feature%2F15-create-all-entities-and-models) | [![Quality Gate Status](https://sonar.nospy.fr/api/project_badges/measure?branch=feature%2F15-create-all-entities-and-models&project=Nouuu_AL-TradeMe&metric=alert_status&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=feature%2F15-create-all-entities-and-models) | [![Reliability Rating](https://sonar.nospy.fr/api/project_badges/measure?branch=feature%2F15-create-all-entities-and-models&project=Nouuu_AL-TradeMe&metric=reliability_rating&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=feature%2F15-create-all-entities-and-models) | [![Security Rating](https://sonar.nospy.fr/api/project_badges/measure?branch=feature%2F15-create-all-entities-and-models&project=Nouuu_AL-TradeMe&metric=security_rating&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=feature%2F15-create-all-entities-and-models) |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -13,13 +13,13 @@
 
 Pour mener à bien ce projet, je me suis inspiré de l'architecture hexagonal, qui permet un faible couplage entre plusieurs composants. 
 
-Cela permet entre autre à mon application de pouvoir être testé en isolation de ses éventuels systèmes d'exécution de base de données ou d'autres services.
+Cela permet entre autre à l'application de pouvoir être **testé en isolation** de ses éventuels systèmes d'exécution de base de données ou d'autres services.
 
 Elle est également beaucoup plus maintenable et propice aux évolutions.
 
 ## Domain-Driven Design
 
-Cette application a été conçu en utilisant une approche DDD (Domain-Driven Design). Cela fait référence à une conception piloté par le métier. 
+Cette application a été conçu en utilisant une approche **DDD** (**Domain-Driven Design**). Cela fait référence à une conception piloté par le métier. 
 
 De cette manière, l'application est séparée en plusieurs package, dont celui du domaine qui contient l'ensemble des modèles relatifs au métier, et le package applicatif qui possède les services de ce même domaine.
 
@@ -33,13 +33,13 @@ Chaque fonctionnalités de l'application sont gérées par un bus d'évènement 
 
 De cette manière, nous pouvons gérer grâce à un maillage entre événement et observateurs tout le comportement de nos fonctionnalités entre elles sans que ces dernières ne communiquent jamais directement entre elle. 
 
-Un des nombreux avantages que cela représente et le découpage de notre application qui devient beaucoup plus simple, et qui se prête naturellement aux micro services.
+Un des nombreux avantages que cela représente et le découpage de notre application qui devient beaucoup plus simple, et qui se prête naturellement aux **micro services**.
 
 # Implémentation
 
 ## Dependency Inversion Principle
 
-Le principe d'inversion des dépendances correspond au « D » de l'acronyme SOLID.
+Le principe d'inversion des dépendances correspond au « **D** » de l'acronyme **SOLID**.
 
  En suivant ce principe, la relation de dépendance conventionnelle que les modules de haut niveau ont, par rapport aux modules de bas niveau, est inversée dans le but de rendre les premiers indépendants des seconds.
 
@@ -54,7 +54,7 @@ Ce principe a été respecté pour cette application.
 
 La **séparation commande-requête** est un principe de la programmation impérative. 
 
-Elle stipule que chaque méthode doit être une *commande* qui effectue une action ou une *requête* qui renvoie des données à l'appelant, mais pas les deux. 
+Elle stipule que chaque méthode doit être une ***commande*** qui effectue une action ou une ***requête*** qui renvoie des données à l'appelant, mais pas les deux. 
 
 Plus formellement, les méthodes ne devraient retourner une valeur que si elles sont référentiellement transparentes et ne possèdent donc pas d'effets de bord.
 
@@ -68,7 +68,7 @@ Le package applicatif contient le **traitement dit métier** de notre applicatio
 
 Ce sont eux qui vont utiliser les différentes ressources de notre application pour **exécuter les traitements de leurs propres domaines**.
 
-Les services présents dans ce package se basent principalement sur les **interfaces** de nos autres classes afin de ne pas être dépendants d'une implémentation en particulier. On peut faire ça grâce au **polymorphisme**, la **programmation par interfaces** et le **pattern dependency injection**. Ces mêmes services sont des "micro-services" qui respecte le fameux pattern CQS et sont donc des Query / Command handlers.
+Les services présents dans ce package se basent principalement sur les **interfaces** de nos autres classes afin de ne pas être dépendants d'une implémentation en particulier. On peut faire ça grâce au **polymorphisme**, la **programmation par interfaces** et le **pattern dependency injection**. Ces mêmes services sont des "micro-services" qui respecte le fameux pattern **CQS** et sont donc des **Query** / **Command** handlers.
 
 Cas d'utilisation, création d'un contractor :
 
@@ -118,9 +118,11 @@ Contient les exceptions d'exécution du domaine métiers tel que **PaymentExcept
 
 ### Features
 
-Chaque fonctionnalités de notre application est séparé dans différents package à l'intérieur du package feature. Ces dernières ne peuvent utiliser les ressources uniquement de l'applications principal, mais jamais directement entre elles. Une feature ne dépend jamais d'une autre feature. 
+Chaque fonctionnalités de notre application est séparée dans différents packages à l'intérieur du package feature. 
 
-Ces dernières reprennent chacune les différents package (domain, infrastructure, kernel, ...) selon leur besoin.
+Ces dernières ne peuvent utiliser les ressources uniquement de l'applications principal, mais jamais directement entre elles. Une feature ne dépend jamais d'une autre feature. 
+
+Ces dernières reprennent chacune les différents packages (domain, infrastructure, kernel, ...) selon leurs besoins.
 
 Actuellement il existe 3 features :
 
@@ -138,7 +140,7 @@ Ce package permet d'avoir une **persistance des données** entités de l'applica
 
 Pour cela on utilise le **pattern repository et strategy** afin de **séparer son interface**, qui restera dans le **domaine**, de son implémentation dans **l'infrastructure**.
 
-Actuellement l'implémentation stock les entités en mémoire et se vide quand l'application s'arrête.
+Actuellement l'implémentation stoque les entités en mémoire et se vide quand l'application s'arrête.
 
 ### Kernel
 
@@ -192,7 +194,7 @@ Comportement du bus d'événement par défaut :
 
 En utilisant le **pattern strategy** ainsi que **factory**, ce package permet à une classe d'obtenir un logger qui lui est propre grâce au **LoggerFactory**. Les interfaces font parties du **domaine** et leurs implémentation de **l'infrastructure**. Actuellement l'implémentation présente réutilise le la classe **Logger** **de Java**.
 
-Une deuxième implémentation utilise le logger **JBoss** qui permet d'avoir des logs formattés autrement en console, en plus de les écrire dans un fichier de logs en temps réel afin de garder une trace du comportement de l'aplication et des éventuelles erreurs
+Une deuxième implémentation utilise le logger **JBoss** qui permet d'avoir des logs formattés autrement en console, en plus de les écrire dans un fichier de logs en temps réel afin de garder une trace du comportement de l'aplication et des éventuelles erreurs.
 
 ### Web
 
@@ -206,24 +208,69 @@ Cas d'utilisation, récupération des factures :
 
 # Quarkus
 
-Pour gagner en puissance dans notre application et avoir des controller web ainsi qu'une injection de dépendance puissante, l'application est soutenu par le framework Quarkus.
+Pour gagner en puissance dans notre application et avoir des controller web ainsi qu'une **injection de dépendance** puissante, l'application est soutenu par le framework **Quarkus**.
 
 Ce dernier sert à :
 
-- Gérer les controller web ainsi que le sérialiseur / désérialiser JSON grâce à Jackson
-- Configurer les différentes bean pour l'injection de dépendances au sein des différents services (package configuration)
-- Gérer le Scheduler qui permet de lancer les paiements mensuels.
-- Intégrer le logger JBoss plus facilement.
-- Intégrer Swagger plus facilement grâce à des annotations sur les controller
-- Gérer certains paramètre de l'application à la volé sans devoir recompiler le code tout le temps grâce à un ichier de configuration **application.properties** (configuration swagger, gestion du prix des abonnements, du jour de paiement, du formattage et du stockage des logs).
+- Gérer les controller web ainsi que le sérialiseur / désérialiser JSON grâce à **Jackson**
+- Configurer les différentes **bean** pour l'injection de dépendances au sein des différents services (package configuration)
+- Gérer le **Scheduler** qui permet de lancer les paiements mensuels.
+- Intégrer le logger **JBoss** plus facilement.
+- Intégrer **Swagger** plus facilement grâce à des annotations sur les controller
+- Gérer certains paramètre de l'application à la volée sans devoir recompiler le code tout le temps grâce à un fichier de configuration **application.properties** (configuration swagger, gestion du prix des abonnements, du jour de paiement, du formattage et du stockage des logs).
 
 Le découpage de l'application en amont a permis une intégration très simple de Quarkus. L'application ne dépend pas de quarkus mais utlise simplement le framework comme une implémentation de la solution.
 
 ## Dependency Injection
 
+Dans le package configuration, les beans sont réparties dans différentes classes :
+
+### GlobalConfiguration
+
+C'est lui qui va injecter les bean dites "globals" tel que le logger ou encore la classe contenant les montants pour les abonnements.
+
+<img src="assets/README/GlobalConfiguration.png" alt="GlobalConfiguration" style="zoom:50%;" />
+
+### APIConfiguration
+
+Comme son nom l'indique, inject les différents API nécéssaire au bon foncitonnement de l'application, actuellement il n'y a que l'API de paiement qui est injecté, mais d'autres peuvent être amené à être créés...
+
+<img src="assets/README/APIConfiguration.png" alt="APIConfiguration" style="zoom:50%;" />
+
+### CommandConfiguration
+
+Injete les différents bus de commandes selon la feature, la configuration aura fait au préalable le maillage nécéssaire entre les commandes et les services applicatifs.
+
+<img src="assets/README/CommandConfiguration.png" alt="CommandConfiguration" style="zoom:50%;" />
+
+### QueryConfiguration
+
+Injete les différents bus de requêtes selon la feature, la configuration aura fait au préalable le maillage nécéssaire entre les requêtes et les services applicatifs.
+
+<img src="assets/README/QueryConfiguration.png" alt="QueryConfiguration" style="zoom:50%;" />
+
+### EventConfiguration
+
+Injete les différents bus d'événements selon le type d'événement (actuellement uniquement ceux du type **ApplicationEvent**, la configuration aura fait au préalable le maillage nécéssaire entre les événements et les observateurs.
+
+| <img src="assets/README/image-20220109161750915.png" alt="image-20220109161750915" style="zoom:67%;" /> | <img src="assets/README/EventConfiguration.png" alt="EventConfiguration" style="zoom: 67%;" /> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+
+
+### RepositoryConfiguration
+
+Injecte les différents repositories au sein des services qui en ont besoin :
+
+<img src="assets/README/RepositoryConfiguration.png" alt="RepositoryConfiguration" style="zoom:50%;" />
+
+
+
 # Tests unitaires
 
-Afin d'assurer le bon fonctionnement et grâce au découpage de nos composants, l'application est couverte par des tests unitaires ( qui se lancent d'ailleurs automatiquement à chaque push sur github grâce à des actions de CI )
+Afin d'assurer le bon fonctionnement et grâce au découpage de nos composants, l'application est couverte par des tests unitaires ( qui se lancent d'ailleurs automatiquement à chaque push sur github grâce à des **actions de CI** )
+
+![image-20220109160441842](assets/README/image-20220109160441842.png)
 
 | Branche DEV                                                  | Branch MAIN                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
