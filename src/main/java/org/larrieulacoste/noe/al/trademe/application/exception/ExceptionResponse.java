@@ -1,8 +1,8 @@
-package org.larrieulacoste.noe.al.trademe.domain.exception;
+package org.larrieulacoste.noe.al.trademe.web;
 
 import java.time.ZonedDateTime;
 
-final class ExceptionResponse {
+public final class ExceptionResponse {
 
     public final String source;
     public final ZonedDateTime occurredDate;
