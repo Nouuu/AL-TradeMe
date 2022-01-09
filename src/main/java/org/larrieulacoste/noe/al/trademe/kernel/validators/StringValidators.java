@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.domain.validators;
+package org.larrieulacoste.noe.al.trademe.kernel.validators;
 
 public interface StringValidators {
     boolean isNotEmptyOrOnlyWhitespaces(String item);

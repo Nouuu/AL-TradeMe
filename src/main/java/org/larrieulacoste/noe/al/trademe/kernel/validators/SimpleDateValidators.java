@@ -1,6 +1,6 @@
-package org.larrieulacoste.noe.al.trademe.infrastructure.validators;
+package org.larrieulacoste.noe.al.trademe.kernel.validators;
 
-import org.larrieulacoste.noe.al.trademe.domain.validators.DateValidators;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
 
 import java.time.ZonedDateTime;
 

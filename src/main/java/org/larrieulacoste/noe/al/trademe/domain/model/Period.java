@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidPeriodException;
-import org.larrieulacoste.noe.al.trademe.domain.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
 
 import java.time.ZonedDateTime;
 

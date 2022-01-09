@@ -3,6 +3,7 @@ package org.larrieulacoste.noe.al.trademe.infrastructure.validators;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.SimpleDateValidators;
 
 import java.time.ZonedDateTime;
 

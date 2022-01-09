@@ -1,6 +1,6 @@
-package org.larrieulacoste.noe.al.trademe.infrastructure.validators;
+package org.larrieulacoste.noe.al.trademe.kernel.validators;
 
-import org.larrieulacoste.noe.al.trademe.domain.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 

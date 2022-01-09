@@ -1,8 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.domain.validators;
-
-import org.larrieulacoste.noe.al.trademe.infrastructure.validators.SimpleDateValidators;
-import org.larrieulacoste.noe.al.trademe.infrastructure.validators.SimplePaymentInformationsValidator;
-import org.larrieulacoste.noe.al.trademe.infrastructure.validators.SimpleStringValidators;
+package org.larrieulacoste.noe.al.trademe.kernel.validators;
 
 public final class ValidatorsFactory {
     private static final DateValidators DATE_VALIDATORS_INSTANCE = new SimpleDateValidators();

@@ -2,6 +2,7 @@ package org.larrieulacoste.noe.al.trademe.infrastructure.validators;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.SimpleStringValidators;
 
 class SimpleStringValidatorsTest {
     private final SimpleStringValidators simpleStringValidators = new SimpleStringValidators();

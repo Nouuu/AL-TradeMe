@@ -1,7 +1,7 @@
-package org.larrieulacoste.noe.al.trademe.infrastructure.validators;
+package org.larrieulacoste.noe.al.trademe.kernel.validators;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethodType;
-import org.larrieulacoste.noe.al.trademe.domain.validators.PaymentInformationsValidator;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.PaymentInformationsValidator;
 
 public final class SimplePaymentInformationsValidator implements PaymentInformationsValidator {
 
