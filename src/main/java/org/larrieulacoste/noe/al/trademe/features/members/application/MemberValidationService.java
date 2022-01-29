@@ -8,7 +8,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Up
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.PaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsAccessor;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ public class MemberValidationService {
 
     MemberValidationService(Logger logger) {
         this.logger = logger;
-        this.stringValidators = ValidatorsFactory.getStringValidatorsInstance();
-        this.paymentInformationsValidator = ValidatorsFactory.getPaymentInformationsValidator();
+        this.stringValidators = ValidatorsAccessor.getStringValidatorsInstance();
+        this.paymentInformationsValidator = ValidatorsAccessor.getPaymentInformationsValidator();
     }
 
     public void validateCreateContractor(CreateContractor contractor) {
@@ -34,8 +34,7 @@ public class MemberValidationService {
         List<String> errors = getCreateContractorInvalidFields(contractor);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with contractor :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
-            );
+                    "Errors with contractor :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors));
         }
     }
 
@@ -44,8 +43,7 @@ public class MemberValidationService {
         List<String> errors = getCreateTradesmanInvalidFields(tradesman);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with tradesman :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
-            );
+                    "Errors with tradesman :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors));
         }
     }
 
@@ -74,8 +72,7 @@ public class MemberValidationService {
         List<String> errors = getUpdateContractorInvalidFields(contractor);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with contractor :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
-            );
+                    "Errors with contractor :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors));
         }
     }
 
@@ -84,8 +81,7 @@ public class MemberValidationService {
         List<String> errors = getUpdateTradesmanInvalidFields(tradesman);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with tradesman :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
-            );
+                    "Errors with tradesman :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors));
         }
     }
 
@@ -124,7 +120,6 @@ public class MemberValidationService {
         }
         return errors;
     }
-
 
     private void required(String field, String fieldName, List<String> errors) {
         if (!stringValidators.isNotEmptyOrOnlyWhitespaces(field)) {

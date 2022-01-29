@@ -1,11 +1,11 @@
 package org.larrieulacoste.noe.al.trademe.kernel.validators;
 
-public final class ValidatorsFactory {
+public final class ValidatorsAccessor {
     private static final DateValidators DATE_VALIDATORS_INSTANCE = new SimpleDateValidators();
     private static final StringValidators STRING_VALIDATORS_INSTANCE = new SimpleStringValidators();
     private static final PaymentInformationsValidator PAYMENT_INFORMATIONS_VALIDATOR = new SimplePaymentInformationsValidator();
 
-    private ValidatorsFactory() {
+    private ValidatorsAccessor() {
     }
 
     public static DateValidators getDateValidatorsInstance() {

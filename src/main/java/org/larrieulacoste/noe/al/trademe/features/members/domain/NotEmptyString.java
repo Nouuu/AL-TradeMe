@@ -1,12 +1,12 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsAccessor;
 
 public final class NotEmptyString {
     public final String value;
 
     private NotEmptyString(String value) {
-        if (!ValidatorsFactory.getStringValidatorsInstance().isNotEmptyOrOnlyWhitespaces(value)) {
+        if (!ValidatorsAccessor.getStringValidatorsInstance().isNotEmptyOrOnlyWhitespaces(value)) {
             throw new IllegalArgumentException("Field must not be empty");
         }
         this.value = value;
@@ -25,8 +25,10 @@ public final class NotEmptyString {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof NotEmptyString)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof NotEmptyString))
+            return false;
 
         NotEmptyString that = (NotEmptyString) o;
 
