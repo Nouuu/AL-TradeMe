@@ -3,7 +3,7 @@ package org.larrieulacoste.noe.al.trademe.configuration;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
 import org.larrieulacoste.noe.al.trademe.features.invoices.infrastructure.InMemoryInvoices;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmans;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryContractors;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryTradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
@@ -18,7 +18,7 @@ import javax.inject.Singleton;
 final class RepositoryConfiguration {
 
     @Inject
-    @LoggerQualifier(Tradesmen.class)
+    @LoggerQualifier(Tradesmans.class)
 
     Logger tradesmenLogger;
     @Inject
@@ -31,7 +31,7 @@ final class RepositoryConfiguration {
 
     @Produces
     @Singleton
-    Tradesmen tradesmen() {
+    Tradesmans tradesmans() {
         return new InMemoryTradesmen(tradesmenLogger);
     }
 

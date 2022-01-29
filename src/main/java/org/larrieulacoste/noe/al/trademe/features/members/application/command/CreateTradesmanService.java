@@ -14,12 +14,13 @@ import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class CreateTradesmanService implements CommandHandler<CreateTradesman, EntityId> {
-    private final Tradesmen tradesmen;
+    private final Tradesmans tradesmans;
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
 
-    CreateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
-        this.tradesmen = tradesmen;
+    CreateTradesmanService(Tradesmans tradesmans, MemberValidationService memberValidationService,
+            EventBus<ApplicationEvent> eventBus) {
+        this.tradesmans = tradesmans;
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
     }
@@ -28,7 +29,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
     public EntityId handle(CreateTradesman createTradesman) {
         memberValidationService.validateCreateTradesman(createTradesman);
 
-        final EntityId userId = tradesmen.nextId();
+        final EntityId userId = tradesmans.nextId();
         Tradesman tradesman = Tradesman.of(
                 userId,
                 NotEmptyString.of(createTradesman.lastname),
@@ -39,10 +40,11 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
                 PaymentMethod.of(createTradesman.paymentMethodType, createTradesman.paymentMethodRessource)
 
         );
-        tradesmen.save(tradesman);
+        tradesmans.save(tradesman);
 
         eventBus.publish(TradesmanRegistered.withTradesman(TradesmanEventEntity.of(userId, createTradesman.firstname,
-                createTradesman.lastname, createTradesman.email, createTradesman.password, PaymentMethod.of(createTradesman.paymentMethodType, createTradesman.paymentMethodRessource))));
+                createTradesman.lastname, createTradesman.email, createTradesman.password,
+                PaymentMethod.of(createTradesman.paymentMethodType, createTradesman.paymentMethodRessource))));
 
         return userId;
     }
