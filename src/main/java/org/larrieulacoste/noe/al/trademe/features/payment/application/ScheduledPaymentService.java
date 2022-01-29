@@ -13,15 +13,14 @@ public class ScheduledPaymentService {
     private final Logger logger;
     private final EventBus<ApplicationEvent> eventBus;
 
-
     ScheduledPaymentService(Logger logger, EventBus<ApplicationEvent> eventBus) {
         this.logger = logger;
         this.eventBus = eventBus;
     }
 
-
     @Scheduled(cron = "0 ${cron.payment.monthly.hour-of-month} ${cron.payment.monthly.day-of-month} * *")
     public void monthlyPayment() {
+        logger.log("Triggering monthly payments");
         eventBus.publish(MonthlySubscriptionPayment.create());
     }
 }
