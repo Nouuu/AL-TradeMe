@@ -5,7 +5,7 @@ import org.larrieulacoste.noe.al.trademe.application.event.TradesmanUpdated;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmenSubscriptionPendingPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionStatus;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmans;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
@@ -16,19 +16,18 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class PublishTradesmenPendingSubscriptionPaymentService
-        implements CommandHandler<PublishTradesmenPendingSubscriptionPayment, Void> {
-    private final Tradesmans tradesmans;
+public class PublishTradesmenPendingSubscriptionPaymentService implements CommandHandler<PublishTradesmenPendingSubscriptionPayment, Void> {
+    private final Tradesmen tradesmen;
     private final EventBus<ApplicationEvent> eventBus;
 
-    PublishTradesmenPendingSubscriptionPaymentService(Tradesmans tradesmans, EventBus<ApplicationEvent> eventBus) {
-        this.tradesmans = Objects.requireNonNull(tradesmans);
+    PublishTradesmenPendingSubscriptionPaymentService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus) {
+        this.tradesmen = Objects.requireNonNull(tradesmen);
         this.eventBus = eventBus;
     }
 
     @Override
     public Void handle(PublishTradesmenPendingSubscriptionPayment command) {
-        List<Tradesman> tradesmenPendingPayment = tradesmans.findAll();
+        List<Tradesman> tradesmenPendingPayment = tradesmen.findAll();
 
         tradesmenPendingPayment.forEach(this::updateSubscriptionToPending);
 
@@ -36,7 +35,9 @@ public class PublishTradesmenPendingSubscriptionPaymentService
                 TradesmenSubscriptionPendingPayment.withTradesmen(
                         tradesmenPendingPayment.stream()
                                 .map(tradesman -> TradesmanEventEntity.withEntityIdOnly(tradesman.entityId))
-                                .collect(Collectors.toList())));
+                                .collect(Collectors.toList())
+                )
+        );
         return null;
     }
 
@@ -48,15 +49,17 @@ public class PublishTradesmenPendingSubscriptionPaymentService
                 tradesman.email,
                 tradesman.password,
                 SubscriptionStatus.PENDING_PAYMENT,
-                tradesman.paymentMethod);
-        tradesmans.save(updatedTradesman);
+                tradesman.paymentMethod
+        );
+        tradesmen.save(updatedTradesman);
         eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.of(
                 tradesman.entityId,
                 tradesman.lastname.value,
                 tradesman.firstname.value,
                 tradesman.email.value,
                 tradesman.password.value,
-                tradesman.paymentMethod)));
+                tradesman.paymentMethod
+        )));
     }
 
 }

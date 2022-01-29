@@ -4,7 +4,7 @@ import org.larrieulacoste.noe.al.trademe.application.event.TradesmanDeleted;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmans;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
@@ -14,10 +14,10 @@ import java.util.Objects;
 
 @ApplicationScoped
 public class DeleteTradesmanService implements CommandHandler<DeleteTradesman, Void> {
-    private final Tradesmans tradesmen;
+    private final Tradesmen tradesmen;
     private final EventBus<ApplicationEvent> eventBus;
 
-    DeleteTradesmanService(Tradesmans tradesmen, EventBus<ApplicationEvent> eventBus) {
+    DeleteTradesmanService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.eventBus = eventBus;
     }
@@ -27,7 +27,8 @@ public class DeleteTradesmanService implements CommandHandler<DeleteTradesman, V
         Tradesman tradesman = tradesmen.byId(EntityId.of(command.tradesmanId));
         tradesmen.remove(tradesman);
         eventBus.publish(TradesmanDeleted.withTradesman(
-                TradesmanEventEntity.withEntityIdOnly(tradesman.entityId)));
+                TradesmanEventEntity.withEntityIdOnly(tradesman.entityId)
+        ));
         return null;
     }
 }
