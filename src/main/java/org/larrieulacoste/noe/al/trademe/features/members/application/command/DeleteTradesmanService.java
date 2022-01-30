@@ -14,18 +14,18 @@ import java.util.Objects;
 
 @ApplicationScoped
 public class DeleteTradesmanService implements CommandHandler<DeleteTradesman, Void> {
-    private final Tradesmans tradesmen;
+    private final Tradesmans tradesmans;
     private final EventBus<ApplicationEvent> eventBus;
 
-    DeleteTradesmanService(Tradesmans tradesmen, EventBus<ApplicationEvent> eventBus) {
-        this.tradesmen = Objects.requireNonNull(tradesmen);
+    DeleteTradesmanService(Tradesmans tradesmans, EventBus<ApplicationEvent> eventBus) {
+        this.tradesmans = Objects.requireNonNull(tradesmans);
         this.eventBus = eventBus;
     }
 
     @Override
     public Void handle(DeleteTradesman command) {
-        Tradesman tradesman = tradesmen.byId(EntityId.of(command.tradesmanId));
-        tradesmen.remove(tradesman);
+        Tradesman tradesman = tradesmans.byId(EntityId.of(command.tradesmanId));
+        tradesmans.remove(tradesman);
         eventBus.publish(TradesmanDeleted.withTradesman(
                 TradesmanEventEntity.withEntityIdOnly(tradesman.entityId)));
         return null;
