@@ -1,20 +1,20 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidEmailException;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 public final class EmailAddress {
     public final String value;
 
-    private EmailAddress(String value) {
-        if (!ValidatorsFactory.getStringValidatorsInstance().isEmail(value)) {
+    private EmailAddress(String value, StringValidators stringValidators) {
+        if (!stringValidators.isEmail(value)) {
             throw new InvalidEmailException("Invalid email : " + value);
         }
         this.value = value;
     }
 
-    public static EmailAddress of(String emailAddress) {
-        return new EmailAddress(emailAddress);
+    public static EmailAddress of(String emailAddress, StringValidators stringValidators) {
+        return new EmailAddress(emailAddress, stringValidators);
     }
 
     @Override

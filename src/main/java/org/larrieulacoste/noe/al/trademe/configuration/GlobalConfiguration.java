@@ -7,6 +7,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.logger.JBossLoggerFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.*;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
@@ -42,5 +43,20 @@ final class GlobalConfiguration {
     @Produces
     Logger loggerWithoutQualifier(InjectionPoint injectionPoint) {
         return loggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
+    }
+
+    @Produces
+    DateValidators dateValidators() {
+        return new SimpleDateValidators();
+    }
+
+    @Produces
+    StringValidators stringValidators() {
+        return new SimpleStringValidators();
+    }
+
+    @Produces
+    PaymentInformationsValidator paymentInformationsValidator() {
+        return new SimplePaymentInformationsValidator();
     }
 }
