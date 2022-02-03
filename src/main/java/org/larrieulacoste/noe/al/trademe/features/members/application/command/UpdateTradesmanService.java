@@ -3,7 +3,6 @@ package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanUpdated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.features.members.application.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;

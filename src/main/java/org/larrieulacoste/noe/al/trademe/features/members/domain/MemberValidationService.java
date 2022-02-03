@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.features.members.application;
+package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidUserException;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
