@@ -28,7 +28,7 @@ class TradesmanUpdatedTest {
     @Test
     void getEventId() {
         TradesmanUpdated tradesmanUpdated = TradesmanUpdated.withTradesman(TradesmanEventEntity.withEntityIdOnly(eventEntityId));
-        Assertions.assertThat(tradesmanUpdated.getEventId())
+        Assertions.assertThat(tradesmanUpdated.eventId())
                 .isNotNull()
                 .isInstanceOf(EventId.class);
     }
@@ -36,7 +36,7 @@ class TradesmanUpdatedTest {
     @Test
     void getOccurredDate() {
         TradesmanUpdated tradesmanUpdated = TradesmanUpdated.withTradesman(TradesmanEventEntity.withEntityIdOnly(eventEntityId));
-        Assertions.assertThat(tradesmanUpdated.getOccurredDate().toEpochSecond())
+        Assertions.assertThat(tradesmanUpdated.occurredDate().toEpochSecond())
                 .isBetween(ZonedDateTime.now().toEpochSecond(), ZonedDateTime.now().toEpochSecond() + 1);
     }
 }

@@ -19,12 +19,12 @@ public final class MonthlySubscriptionPayment implements ApplicationEvent {
     }
 
     @Override
-    public EventId getEventId() {
+    public EventId eventId() {
         return eventId;
     }
 
     @Override
-    public ZonedDateTime getOccurredDate() {
+    public ZonedDateTime occurredDate() {
         return occurredDate;
     }
 

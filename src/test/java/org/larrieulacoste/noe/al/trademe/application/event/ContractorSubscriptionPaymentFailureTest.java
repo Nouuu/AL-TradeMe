@@ -28,7 +28,7 @@ class ContractorSubscriptionPaymentFailureTest {
     void getEventId() {
         ContractorSubscriptionPaymentFailure contractorSubscriptionPaymentFailure =
                 ContractorSubscriptionPaymentFailure.withContractor(contractorEventEntity);
-        Assertions.assertThat(contractorSubscriptionPaymentFailure.getEventId())
+        Assertions.assertThat(contractorSubscriptionPaymentFailure.eventId())
                 .isNotNull()
                 .isInstanceOf(EventId.class);
     }
@@ -37,7 +37,7 @@ class ContractorSubscriptionPaymentFailureTest {
     void getOccurredDate() {
         ContractorSubscriptionPaymentFailure contractorSubscriptionPaymentFailure =
                 ContractorSubscriptionPaymentFailure.withContractor(contractorEventEntity);
-        Assertions.assertThat(contractorSubscriptionPaymentFailure.getOccurredDate().toEpochSecond())
+        Assertions.assertThat(contractorSubscriptionPaymentFailure.occurredDate().toEpochSecond())
                 .isBetween(ZonedDateTime.now().toEpochSecond(), ZonedDateTime.now().toEpochSecond() + 1);
     }
 }

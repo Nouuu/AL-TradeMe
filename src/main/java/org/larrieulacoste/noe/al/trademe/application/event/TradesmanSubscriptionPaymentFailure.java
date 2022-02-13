@@ -23,12 +23,12 @@ public final class TradesmanSubscriptionPaymentFailure implements ApplicationEve
     }
 
     @Override
-    public EventId getEventId() {
+    public EventId eventId() {
         return eventId;
     }
 
     @Override
-    public ZonedDateTime getOccurredDate() {
+    public ZonedDateTime occurredDate() {
         return occurredDate;
     }
 

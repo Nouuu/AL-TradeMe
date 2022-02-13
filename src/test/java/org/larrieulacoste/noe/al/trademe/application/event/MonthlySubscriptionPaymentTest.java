@@ -17,7 +17,7 @@ class MonthlySubscriptionPaymentTest {
     @Test
     void getEventId() {
         MonthlySubscriptionPayment monthlySubscriptionPayment = MonthlySubscriptionPayment.create();
-        Assertions.assertThat(monthlySubscriptionPayment.getEventId())
+        Assertions.assertThat(monthlySubscriptionPayment.eventId())
                 .isNotNull()
                 .isInstanceOf(EventId.class);
     }
@@ -25,7 +25,7 @@ class MonthlySubscriptionPaymentTest {
     @Test
     void getOccurredDate() {
         MonthlySubscriptionPayment monthlySubscriptionPayment = MonthlySubscriptionPayment.create();
-        Assertions.assertThat(monthlySubscriptionPayment.getOccurredDate().toEpochSecond())
+        Assertions.assertThat(monthlySubscriptionPayment.occurredDate().toEpochSecond())
                 .isBetween(ZonedDateTime.now().toEpochSecond(), ZonedDateTime.now().toEpochSecond() + 1);
     }
 }
