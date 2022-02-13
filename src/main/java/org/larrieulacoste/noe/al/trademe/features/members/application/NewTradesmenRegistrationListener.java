@@ -3,14 +3,14 @@ package org.larrieulacoste.noe.al.trademe.features.members.application;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanNewRegistration;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 public final class NewTradesmenRegistrationListener implements EventSubscriber<TradesmanNewRegistration> {
 
-    private final MembersCommandBus commandBus;
+    private final CommandBus commandBus;
 
-    public NewTradesmenRegistrationListener(MembersCommandBus commandBus) {
+    public NewTradesmenRegistrationListener(CommandBus commandBus) {
         this.commandBus = commandBus;
     }
 
