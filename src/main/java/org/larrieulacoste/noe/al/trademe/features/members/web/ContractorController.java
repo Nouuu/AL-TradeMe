@@ -9,8 +9,8 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Up
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveContractorById;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveContractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersQueryBus;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
+import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 
 @Path("contractor")
 public final class ContractorController {
-    private final MembersQueryBus queryBus;
-    private final MembersCommandBus commandBus;
+    private final QueryBus queryBus;
+    private final CommandBus commandBus;
 
-    ContractorController(MembersQueryBus queryBus, MembersCommandBus commandBus) {
+    ContractorController(QueryBus queryBus, CommandBus commandBus) {
         this.queryBus = queryBus;
         this.commandBus = commandBus;
     }

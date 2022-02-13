@@ -15,12 +15,12 @@ import java.util.List;
 
 @ApplicationScoped
 public class MemberValidationService {
-    private final Logger logger;
-    private final StringValidators stringValidators;
-    private final PaymentInformationsValidator paymentInformationsValidator;
     private static final String STRING_DELIMITER = "\n - ";
     private static final String FIRSTNAME = "firstname";
     private static final String LASTNAME = "lastname";
+    private final Logger logger;
+    private final StringValidators stringValidators;
+    private final PaymentInformationsValidator paymentInformationsValidator;
 
     MemberValidationService(Logger logger, StringValidators stringValidators, PaymentInformationsValidator paymentInformationsValidator) {
         this.logger = logger;

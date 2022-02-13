@@ -1,19 +1,15 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.*;
-import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.DefaultInvoicesCommandBus;
-import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.*;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.DefaultMembersCommandBus;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPaymentService;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPaymentService;
-import org.larrieulacoste.noe.al.trademe.features.payment.kernel.DefaultPaymentCommandBus;
-import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
+import org.larrieulacoste.noe.al.trademe.kernel.command.DefaultCommandBus;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
@@ -55,24 +51,17 @@ final class CommandConfiguration {
     @Inject
     DeleteContractorInvoicesService deleteContractorInvoicesService;
 
-
     @Produces
     @Singleton
-    InvoicesCommandBus invoicesCommandBus() {
+    CommandBus commandBus() {
         Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
 
+        // Invoices
         commandMap.put(CreateInvoice.class, createInvoiceService);
         commandMap.put(DeleteTradesmanInvoices.class, deleteTradesmanInvoicesService);
         commandMap.put(DeleteContractorInvoices.class, deleteContractorInvoicesService);
 
-        return new DefaultInvoicesCommandBus(commandMap);
-    }
-
-    @Produces
-    @Singleton
-    MembersCommandBus membersCommandBus() {
-        Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
-
+        // Members
         commandMap.put(CreateContractor.class, createContractorService);
         commandMap.put(CreateTradesman.class, createTradesmanService);
         commandMap.put(UpdateContractor.class, updateContractorService);
@@ -84,18 +73,10 @@ final class CommandConfiguration {
         commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);
         commandMap.put(UpdateTradesmanSubscriptionStatus.class, updateTradesmanSubscriptionStatusService);
 
-        return new DefaultMembersCommandBus(commandMap);
-    }
-
-    @Produces
-    @Singleton
-    PaymentCommandBus paymentCommandBus() {
-        Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
-
+        // Payments
         commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
         commandMap.put(TradesmanSubscriptionPayment.class, tradesmanSubscriptionPaymentService);
 
-        return new DefaultPaymentCommandBus(commandMap);
+        return new DefaultCommandBus(commandMap);
     }
-
 }

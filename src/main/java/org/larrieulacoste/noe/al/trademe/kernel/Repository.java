@@ -1,4 +1,4 @@
-package org.larrieulacoste.noe.al.trademe.domain;
+package org.larrieulacoste.noe.al.trademe.kernel;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.NotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
