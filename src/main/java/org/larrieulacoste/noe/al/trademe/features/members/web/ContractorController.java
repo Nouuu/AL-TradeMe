@@ -15,7 +15,6 @@ import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("contractor")
 @Produces(MediaType.APPLICATION_JSON)
