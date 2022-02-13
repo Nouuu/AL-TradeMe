@@ -8,7 +8,6 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Up
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.PaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
@@ -23,10 +22,10 @@ public class MemberValidationService {
     private static final String FIRSTNAME = "firstname";
     private static final String LASTNAME = "lastname";
 
-    MemberValidationService(Logger logger) {
+    MemberValidationService(Logger logger, StringValidators stringValidators, PaymentInformationsValidator paymentInformationsValidator) {
         this.logger = logger;
-        this.stringValidators = ValidatorsFactory.getStringValidatorsInstance();
-        this.paymentInformationsValidator = ValidatorsFactory.getPaymentInformationsValidator();
+        this.stringValidators = stringValidators;
+        this.paymentInformationsValidator = paymentInformationsValidator;
     }
 
     public void validateCreateContractor(CreateContractor contractor) {

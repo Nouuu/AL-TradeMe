@@ -1,20 +1,20 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidPasswordException;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 public final class Password {
     public final String value;
 
-    private Password(String value) {
-        if (!ValidatorsFactory.getStringValidatorsInstance().isValidPassword(value)) {
+    private Password(String value, StringValidators stringValidators) {
+        if (!stringValidators.isValidPassword(value)) {
             throw new InvalidPasswordException("Invalid password : " + value);
         }
         this.value = value;
     }
 
-    public static Password of(String password) {
-        return new Password(password);
+    public static Password of(String password, StringValidators stringValidators) {
+        return new Password(password, stringValidators);
     }
 
     @Override
