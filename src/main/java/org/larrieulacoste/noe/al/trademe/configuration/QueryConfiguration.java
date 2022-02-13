@@ -1,12 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.query.*;
-import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.DefaultInvoicesQueryBus;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.*;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.DefaultMembersQueryBus;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersQueryBus;
-import org.larrieulacoste.noe.al.trademe.features.payment.kernel.DefaultPaymentQueryBus;
-import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentQueryBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.DefaultQueryBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.Query;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;

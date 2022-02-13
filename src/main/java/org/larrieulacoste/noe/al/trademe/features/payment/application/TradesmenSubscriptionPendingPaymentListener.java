@@ -20,6 +20,5 @@ public final class TradesmenSubscriptionPendingPaymentListener implements EventS
             TradesmanSubscriptionPayment tradesmanSubscriptionPayment = new TradesmanSubscriptionPayment(tradesman.entityId, tradesman.paymentMethod);
             commandBus.send(tradesmanSubscriptionPayment);
         }
-
     }
 }
