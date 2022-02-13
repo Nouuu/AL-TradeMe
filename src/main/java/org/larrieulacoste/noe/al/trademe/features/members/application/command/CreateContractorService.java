@@ -8,6 +8,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Objects;
@@ -17,11 +18,13 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
     private final Contractors contractors;
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
+    private final StringValidators stringValidators;
 
-    CreateContractorService(Contractors contractors, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
+    CreateContractorService(Contractors contractors, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
         this.contractors = Objects.requireNonNull(contractors);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
+        this.stringValidators = stringValidators;
     }
 
     @Override
@@ -31,10 +34,10 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
         final EntityId userId = contractors.nextId();
         Contractor contractor = Contractor.of(
                 userId,
-                NotEmptyString.of(createContractor.lastname),
-                NotEmptyString.of(createContractor.firstname),
-                EmailAddress.of(createContractor.email),
-                Password.of(createContractor.password),
+                NotEmptyString.of(createContractor.lastname, stringValidators),
+                NotEmptyString.of(createContractor.firstname, stringValidators),
+                EmailAddress.of(createContractor.email, stringValidators),
+                Password.of(createContractor.password, stringValidators),
                 SubscriptionStatus.PENDING_PAYMENT,
                 PaymentMethod.of(createContractor.paymentMethodType, createContractor.paymentMethodRessource)
         );

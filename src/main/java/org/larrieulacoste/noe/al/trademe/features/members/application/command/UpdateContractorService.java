@@ -7,6 +7,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Objects;
@@ -16,11 +17,13 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
     private final Contractors contractors;
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
+    private final StringValidators stringValidators;
 
-    UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
+    UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
         this.contractors = Objects.requireNonNull(contractors);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
+        this.stringValidators = stringValidators;
     }
 
     @Override
@@ -31,10 +34,10 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
 
         Contractor updatedContractor = Contractor.of(
                 inMemoryContractor.entityId,
-                updateContractor.lastname != null ? NotEmptyString.of(updateContractor.lastname) : inMemoryContractor.lastname,
-                updateContractor.firstname != null ? NotEmptyString.of(updateContractor.firstname) : inMemoryContractor.lastname,
-                updateContractor.email != null ? EmailAddress.of(updateContractor.email) : inMemoryContractor.email,
-                updateContractor.password != null ? Password.of(updateContractor.password) : inMemoryContractor.password,
+                updateContractor.lastname != null ? NotEmptyString.of(updateContractor.lastname, stringValidators) : inMemoryContractor.lastname,
+                updateContractor.firstname != null ? NotEmptyString.of(updateContractor.firstname, stringValidators) : inMemoryContractor.lastname,
+                updateContractor.email != null ? EmailAddress.of(updateContractor.email, stringValidators) : inMemoryContractor.email,
+                updateContractor.password != null ? Password.of(updateContractor.password, stringValidators) : inMemoryContractor.password,
                 inMemoryContractor.subscriptionStatus,
                 inMemoryContractor.paymentMethod);
         contractors.save(updatedContractor);

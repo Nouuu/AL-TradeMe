@@ -7,6 +7,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Objects;
@@ -16,11 +17,13 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
     private final Tradesmen tradesmen;
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
+    private final StringValidators stringValidators;
 
-    UpdateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus) {
+    UpdateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
+        this.stringValidators = stringValidators;
     }
 
     @Override
@@ -31,10 +34,10 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
 
         Tradesman updatedTradesman = Tradesman.of(
                 inMemoryTradesman.entityId,
-                updateTradesman.lastname != null ? NotEmptyString.of(updateTradesman.lastname) : inMemoryTradesman.lastname,
-                updateTradesman.firstname != null ? NotEmptyString.of(updateTradesman.firstname) : inMemoryTradesman.lastname,
-                updateTradesman.email != null ? EmailAddress.of(updateTradesman.email) : inMemoryTradesman.email,
-                updateTradesman.password != null ? Password.of(updateTradesman.password) : inMemoryTradesman.password,
+                updateTradesman.lastname != null ? NotEmptyString.of(updateTradesman.lastname, stringValidators) : inMemoryTradesman.lastname,
+                updateTradesman.firstname != null ? NotEmptyString.of(updateTradesman.firstname, stringValidators) : inMemoryTradesman.lastname,
+                updateTradesman.email != null ? EmailAddress.of(updateTradesman.email, stringValidators) : inMemoryTradesman.email,
+                updateTradesman.password != null ? Password.of(updateTradesman.password, stringValidators) : inMemoryTradesman.password,
                 inMemoryTradesman.subscriptionStatus,
                 inMemoryTradesman.paymentMethod);
         tradesmen.save(updatedTradesman);

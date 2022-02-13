@@ -1,19 +1,19 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 public final class NotEmptyString {
     public final String value;
 
-    private NotEmptyString(String value) {
-        if (!ValidatorsFactory.getStringValidatorsInstance().isNotEmptyOrOnlyWhitespaces(value)) {
+    private NotEmptyString(String value, StringValidators stringValidators) {
+        if (!stringValidators.isNotEmptyOrOnlyWhitespaces(value)) {
             throw new IllegalArgumentException("Field must not be empty");
         }
         this.value = value;
     }
 
-    public static NotEmptyString of(String value) {
-        return new NotEmptyString(value);
+    public static NotEmptyString of(String value, StringValidators stringValidators) {
+        return new NotEmptyString(value, stringValidators);
     }
 
     @Override

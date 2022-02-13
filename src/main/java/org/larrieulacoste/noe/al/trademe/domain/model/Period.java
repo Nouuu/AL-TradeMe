@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidPeriodException;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
 
 import java.time.ZonedDateTime;
 
@@ -9,16 +9,16 @@ public final class Period {
     public final ZonedDateTime startDate;
     public final ZonedDateTime endDate;
 
-    private Period(ZonedDateTime startDate, ZonedDateTime endDate) {
-        if (!ValidatorsFactory.getDateValidatorsInstance().isValidPeriod(startDate, endDate)) {
+    private Period(ZonedDateTime startDate, ZonedDateTime endDate, DateValidators dateValidators) {
+        if (!dateValidators.isValidPeriod(startDate, endDate)) {
             throw new InvalidPeriodException("Invalid period " + startDate + " - " + endDate);
         }
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public static Period of(ZonedDateTime startDate, ZonedDateTime endDate) {
-        return new Period(startDate, endDate);
+    public static Period of(ZonedDateTime startDate, ZonedDateTime endDate, DateValidators dateValidators) {
+        return new Period(startDate, endDate, dateValidators);
     }
 
     @Override
