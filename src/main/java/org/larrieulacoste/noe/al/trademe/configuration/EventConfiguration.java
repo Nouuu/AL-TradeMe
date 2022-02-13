@@ -3,7 +3,6 @@ package org.larrieulacoste.noe.al.trademe.configuration;
 import org.larrieulacoste.noe.al.trademe.application.event.*;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.ContractorDeletedListener;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.TradesmanDeletedListener;
-import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.members.application.*;
 import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.ContractorsSubscriptionPendingPaymentListener;
@@ -11,6 +10,7 @@ import org.larrieulacoste.noe.al.trademe.features.payment.application.NewContrac
 import org.larrieulacoste.noe.al.trademe.features.payment.application.NewTradesmanRegisteredListener;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.TradesmenSubscriptionPendingPaymentListener;
 import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.DefaultEventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
@@ -31,13 +31,7 @@ final class EventConfiguration {
     Logger eventBusLogger;
 
     @Inject
-    InvoicesCommandBus invoicesCommandBus;
-
-    @Inject
-    MembersCommandBus membersCommandBus;
-
-    @Inject
-    PaymentCommandBus paymentCommandBus;
+    CommandBus commandBus;
 
 
     @Produces
@@ -46,28 +40,28 @@ final class EventConfiguration {
         final EventBus<ApplicationEvent> eventBus = new DefaultEventBus<>(new HashMap<>(), eventBusLogger);
 
         // Members feature
-        eventBus.register(ContractorNewRegistration.class, new NewContractorRegistrationListener(membersCommandBus));
-        eventBus.register(TradesmanNewRegistration.class, new NewTradesmenRegistrationListener(membersCommandBus));
+        eventBus.register(ContractorNewRegistration.class, new NewContractorRegistrationListener(commandBus));
+        eventBus.register(TradesmanNewRegistration.class, new NewTradesmenRegistrationListener(commandBus));
 
-        eventBus.register(ContractorNewSubscriptionPayment.class, new NewContractorSubscriptionPaymentListener(membersCommandBus));
-        eventBus.register(TradesmanNewSubscriptionPayment.class, new NewTradesmanSubscriptionPaymentListener(membersCommandBus));
-        eventBus.register(ContractorSubscriptionPaymentFailure.class, new ContractorSubscriptionPaymentFailureListener(membersCommandBus));
-        eventBus.register(TradesmanSubscriptionPaymentFailure.class, new TradesmanSubscriptionPaymentFailureListener(membersCommandBus));
+        eventBus.register(ContractorNewSubscriptionPayment.class, new NewContractorSubscriptionPaymentListener(commandBus));
+        eventBus.register(TradesmanNewSubscriptionPayment.class, new NewTradesmanSubscriptionPaymentListener(commandBus));
+        eventBus.register(ContractorSubscriptionPaymentFailure.class, new ContractorSubscriptionPaymentFailureListener(commandBus));
+        eventBus.register(TradesmanSubscriptionPaymentFailure.class, new TradesmanSubscriptionPaymentFailureListener(commandBus));
 
-        eventBus.register(MonthlySubscriptionPayment.class, new MonthlySubscriptionPaymentListener(membersCommandBus));
+        eventBus.register(MonthlySubscriptionPayment.class, new MonthlySubscriptionPaymentListener(commandBus));
 
         // Payment feature
-        eventBus.register(ContractorRegistered.class, new NewContractorRegisteredListener(paymentCommandBus));
-        eventBus.register(TradesmanRegistered.class, new NewTradesmanRegisteredListener(paymentCommandBus));
+        eventBus.register(ContractorRegistered.class, new NewContractorRegisteredListener(commandBus));
+        eventBus.register(TradesmanRegistered.class, new NewTradesmanRegisteredListener(commandBus));
 
-        eventBus.register(ContractorsSubscriptionPendingPayment.class, new ContractorsSubscriptionPendingPaymentListener(paymentCommandBus));
-        eventBus.register(TradesmenSubscriptionPendingPayment.class, new TradesmenSubscriptionPendingPaymentListener(paymentCommandBus));
+        eventBus.register(ContractorsSubscriptionPendingPayment.class, new ContractorsSubscriptionPendingPaymentListener(commandBus));
+        eventBus.register(TradesmenSubscriptionPendingPayment.class, new TradesmenSubscriptionPendingPaymentListener(commandBus));
 
         // Invoices feature
-        eventBus.register(ContractorNewSubscriptionPayment.class, new org.larrieulacoste.noe.al.trademe.features.invoices.application.NewContractorSubscriptionPaymentListener(invoicesCommandBus));
-        eventBus.register(TradesmanNewSubscriptionPayment.class, new org.larrieulacoste.noe.al.trademe.features.invoices.application.NewTradesmanSubscriptionPaymentListener(invoicesCommandBus));
-        eventBus.register(ContractorDeleted.class, new ContractorDeletedListener(invoicesCommandBus));
-        eventBus.register(TradesmanDeleted.class, new TradesmanDeletedListener(invoicesCommandBus));
+        eventBus.register(ContractorNewSubscriptionPayment.class, new org.larrieulacoste.noe.al.trademe.features.invoices.application.NewContractorSubscriptionPaymentListener(commandBus));
+        eventBus.register(TradesmanNewSubscriptionPayment.class, new org.larrieulacoste.noe.al.trademe.features.invoices.application.NewTradesmanSubscriptionPaymentListener(commandBus));
+        eventBus.register(ContractorDeleted.class, new ContractorDeletedListener(commandBus));
+        eventBus.register(TradesmanDeleted.class, new TradesmanDeletedListener(commandBus));
 
         return eventBus;
     }
