@@ -22,6 +22,7 @@ public class ScheduledPaymentService {
 
     @Scheduled(cron = "0 ${cron.payment.monthly.hour-of-month} ${cron.payment.monthly.day-of-month} * *")
     public void monthlyPayment() {
+        logger.log("Triggering monthly payments");
         eventBus.publish(MonthlySubscriptionPayment.create());
     }
 }
