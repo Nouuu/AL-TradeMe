@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("contractor")
+@Produces(MediaType.APPLICATION_JSON)
 public final class ContractorController {
     private final QueryBus queryBus;
     private final CommandBus commandBus;
@@ -30,7 +31,6 @@ public final class ContractorController {
     @GET
     @Path("{userId}")
     @Operation(summary = "Retrieve contractor by ID", description = "Retrieve contractor giving contractor's ID")
-    @Produces(MediaType.APPLICATION_JSON)
     public ContractorResponse getById(@PathParam("userId") String userId) {
         Contractor contractor = queryBus.send(new RetrieveContractorById(EntityId.of(userId)));
         return getContractorResponse(contractor);
@@ -38,7 +38,6 @@ public final class ContractorController {
 
     @GET
     @Operation(summary = "Retrieve contractors", description = "Retrieve all contractors")
-    @Produces(MediaType.APPLICATION_JSON)
     public ContractorsResponse getAll() {
         List<Contractor> contractors = queryBus.send(new RetrieveContractors());
 
@@ -47,7 +46,6 @@ public final class ContractorController {
 
     @POST
     @Operation(summary = "Create contractor", description = "Register a new contractor to TradeMe")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public ContractorResponse register(ContractorRequest contractor) {
         EntityId userId = commandBus.send(new CreateContractor(
@@ -64,7 +62,6 @@ public final class ContractorController {
     @PUT
     @Path("{contractorId}")
     @Operation(summary = "Update contractor", description = "Update contractor in TradeMe")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public ContractorResponse update(@PathParam("contractorId") String contractorId, ContractorRequest contractor) {
         Contractor updatedContractor = commandBus.send(new UpdateContractor(
@@ -81,7 +78,6 @@ public final class ContractorController {
     @DELETE
     @Path("{contractorId}")
     @Operation(summary = "Delete contractor", description = "Delete contractor from TradeMe")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public ContractorResponse delete(@PathParam("contractorId") String contractorId) {
         commandBus.send(new DeleteContractor(contractorId));
@@ -91,7 +87,7 @@ public final class ContractorController {
 
     private ContractorsResponse getContractorsResponse(List<Contractor> contractors) {
         return new ContractorsResponse(
-                contractors.stream().map(this::getContractorResponse).collect(Collectors.toList()),
+                contractors.stream().map(this::getContractorResponse).toList(),
                 contractors.size());
     }
 

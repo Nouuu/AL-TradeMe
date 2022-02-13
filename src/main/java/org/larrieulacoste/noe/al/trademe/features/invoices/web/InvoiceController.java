@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("invoice")
+@Produces(MediaType.APPLICATION_JSON)
 public final class InvoiceController {
     private final QueryBus queryBus;
 
@@ -26,7 +27,6 @@ public final class InvoiceController {
     @GET
     @Path("{invoiceId}")
     @Operation(summary = "Retrieve invoice by ID", description = "Retrieve invoice giving invoice's ID")
-    @Produces(MediaType.APPLICATION_JSON)
     public InvoiceResponse getById(@PathParam("invoiceId") String invoiceId) {
         Invoice invoice = queryBus.send(new RetrieveInvoiceById(EntityId.of(invoiceId)));
         return getInvoiceResponse(invoice);
@@ -35,7 +35,6 @@ public final class InvoiceController {
     @GET
     @Path("contractor/{contractorId}")
     @Operation(summary = "Retrieve contractor invoices", description = "Retrieve contractor invoices giving contractor's ID")
-    @Produces(MediaType.APPLICATION_JSON)
     public InvoicesResponse getByContractorId(@PathParam("contractorId") String contractorId) {
         List<Invoice> invoices = queryBus.send(new RetrieveContractorInvoices(EntityId.of(contractorId)));
 
@@ -45,7 +44,6 @@ public final class InvoiceController {
     @GET
     @Path("tradesman/{tradesmanId}")
     @Operation(summary = "Retrieve tradesman invoices", description = "Retrieve tradesman invoices giving tradesman's ID")
-    @Produces(MediaType.APPLICATION_JSON)
     public InvoicesResponse getByTradesmanId(@PathParam("tradesmanId") String tradesmanId) {
         List<Invoice> invoices = queryBus.send(new RetrieveTradesmanInvoices(EntityId.of(tradesmanId)));
 
@@ -55,7 +53,6 @@ public final class InvoiceController {
     @GET
     @Path("contractor")
     @Operation(summary = "Retrieve contractor invoices", description = "Retrieve contractor invoices giving contractor's ID")
-    @Produces(MediaType.APPLICATION_JSON)
     public InvoicesResponse getContractorsInvoices() {
         List<Invoice> invoices = queryBus.send(new RetrieveContractorsInvoices());
 
@@ -65,7 +62,6 @@ public final class InvoiceController {
     @GET
     @Path("tradesman")
     @Operation(summary = "Retrieve tradesman invoices", description = "Retrieve tradesman invoices giving tradesman's ID")
-    @Produces(MediaType.APPLICATION_JSON)
     public InvoicesResponse getTradesmenInvoices() {
         List<Invoice> invoices = queryBus.send(new RetrieveTradesmenInvoices());
 
@@ -74,7 +70,6 @@ public final class InvoiceController {
 
     @GET
     @Operation(summary = "Retrieve invoices", description = "Retrieve all invoices")
-    @Produces(MediaType.APPLICATION_JSON)
     public InvoicesResponse getAll() {
         List<Invoice> invoices = queryBus.send(new RetrieveAllInvoices());
 
@@ -83,7 +78,7 @@ public final class InvoiceController {
 
     private InvoicesResponse getInvoicesResponse(List<Invoice> invoices) {
         return new InvoicesResponse(
-                invoices.stream().map(this::getInvoiceResponse).collect(Collectors.toList()),
+                invoices.stream().map(this::getInvoiceResponse).toList(),
                 invoices.size());
     }
 

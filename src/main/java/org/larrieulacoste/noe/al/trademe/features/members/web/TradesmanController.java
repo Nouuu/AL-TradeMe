@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("tradesman")
+@Produces(MediaType.APPLICATION_JSON)
 public final class TradesmanController {
     private final QueryBus queryBus;
     private final CommandBus commandBus;
@@ -30,7 +31,6 @@ public final class TradesmanController {
     @GET
     @Path("{userId}")
     @Operation(summary = "Retrieve tradesman by ID", description = "Retrieve tradesman giving tradesman's ID")
-    @Produces(MediaType.APPLICATION_JSON)
     public TradesmanResponse getById(@PathParam("userId") String userId) {
         Tradesman tradesman = queryBus.send(new RetrieveTradesmanById(EntityId.of(userId)));
         return getTradesmanResponse(tradesman);
@@ -38,7 +38,6 @@ public final class TradesmanController {
 
     @GET
     @Operation(summary = "Retrieve tradesmen", description = "Retrieve all tradesmen")
-    @Produces(MediaType.APPLICATION_JSON)
     public TradesmenResponse getAll() {
         List<Tradesman> tradesmen = queryBus.send(new RetrieveTradesmen());
 
@@ -47,7 +46,6 @@ public final class TradesmanController {
 
     @POST
     @Operation(summary = "Create tradesman", description = "Register a new tradesman to TradeMe")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public TradesmanResponse register(TradesmanRequest tradesman) {
         EntityId userId = commandBus.send(new CreateTradesman(
@@ -64,7 +62,6 @@ public final class TradesmanController {
     @PUT
     @Path("{tradesmanId}")
     @Operation(summary = "Update tradesman", description = "Update tradesman in TradeMe")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public TradesmanResponse update(@PathParam("tradesmanId") String tradesmanId, TradesmanRequest tradesman) {
         Tradesman updatedTradesman = commandBus.send(new UpdateTradesman(
@@ -81,7 +78,6 @@ public final class TradesmanController {
     @DELETE
     @Path("{tradesmanId}")
     @Operation(summary = "Delete tradesman", description = "Delete tradesman from TradeMe")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public TradesmanResponse delete(@PathParam("tradesmanId") String tradesmanId) {
         commandBus.send(new DeleteTradesman(tradesmanId));
@@ -91,7 +87,7 @@ public final class TradesmanController {
 
     private TradesmenResponse getTradesmenResponse(List<Tradesman> tradesmen) {
         return new TradesmenResponse(
-                tradesmen.stream().map(this::getTradesmanResponse).collect(Collectors.toList()),
+                tradesmen.stream().map(this::getTradesmanResponse).toList(),
                 tradesmen.size());
     }
 
