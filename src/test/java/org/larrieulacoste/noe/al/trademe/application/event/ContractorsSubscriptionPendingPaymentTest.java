@@ -73,7 +73,7 @@ class ContractorsSubscriptionPendingPaymentTest {
                         contractorEventEntity3
                 )
         );
-        Assertions.assertThat(contractorsSubscriptionPendingPayment.getContractors())
+        Assertions.assertThat(contractorsSubscriptionPendingPayment.contractors())
                 .containsExactlyElementsOf(List.of(contractorEventEntity1,
                         contractorEventEntity2,
                         contractorEventEntity3));
