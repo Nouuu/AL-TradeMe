@@ -28,22 +28,22 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
 
     @Override
     public Contractor handle(UpdateContractor updateContractor) {
-        Contractor inMemoryContractor = contractors.byId(EntityId.of(updateContractor.contractorId));
+        Contractor inMemoryContractor = contractors.byId(EntityId.of(updateContractor.contractorId()));
 
         memberValidationService.validateUpdateContractor(updateContractor);
 
         Contractor updatedContractor = Contractor.of(
-                inMemoryContractor.entityId,
-                updateContractor.lastname != null ? NotEmptyString.of(updateContractor.lastname, stringValidators) : inMemoryContractor.lastname,
-                updateContractor.firstname != null ? NotEmptyString.of(updateContractor.firstname, stringValidators) : inMemoryContractor.lastname,
-                updateContractor.email != null ? EmailAddress.of(updateContractor.email, stringValidators) : inMemoryContractor.email,
-                updateContractor.password != null ? Password.of(updateContractor.password, stringValidators) : inMemoryContractor.password,
-                inMemoryContractor.subscriptionStatus,
-                inMemoryContractor.paymentMethod);
+                inMemoryContractor.entityId(),
+                updateContractor.lastname() != null ? NotEmptyString.of(updateContractor.lastname(), stringValidators) : inMemoryContractor.lastname(),
+                updateContractor.firstname() != null ? NotEmptyString.of(updateContractor.firstname(), stringValidators) : inMemoryContractor.lastname(),
+                updateContractor.email() != null ? EmailAddress.of(updateContractor.email(), stringValidators) : inMemoryContractor.email(),
+                updateContractor.password() != null ? Password.of(updateContractor.password(), stringValidators) : inMemoryContractor.password(),
+                inMemoryContractor.subscriptionStatus(),
+                inMemoryContractor.paymentMethod());
         contractors.save(updatedContractor);
 
-        eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.withoutPassword(inMemoryContractor.entityId,
-                updateContractor.firstname, updateContractor.lastname, updateContractor.email, inMemoryContractor.paymentMethod)));
+        eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.withoutPassword(inMemoryContractor.entityId(),
+                updateContractor.firstname(), updateContractor.lastname(), updateContractor.email(), inMemoryContractor.paymentMethod())));
         return updatedContractor;
     }
 }

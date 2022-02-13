@@ -13,7 +13,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("invoice")
 @Produces(MediaType.APPLICATION_JSON)
@@ -84,12 +83,12 @@ public final class InvoiceController {
 
     private InvoiceResponse getInvoiceResponse(Invoice invoice) {
         return new InvoiceResponse(
-                invoice.invoiceId.value,
-                invoice.memberType.value,
-                invoice.memberId.value,
-                invoice.occurredDate,
-                invoice.paymentMethodType.value,
-                invoice.amount.value
+                invoice.invoiceId().value(),
+                invoice.memberType().value,
+                invoice.memberId().value(),
+                invoice.occurredDate(),
+                invoice.paymentMethodType().value,
+                invoice.amount().value()
         );
     }
 }

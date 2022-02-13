@@ -34,17 +34,17 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
         final EntityId userId = contractors.nextId();
         Contractor contractor = Contractor.of(
                 userId,
-                NotEmptyString.of(createContractor.lastname, stringValidators),
-                NotEmptyString.of(createContractor.firstname, stringValidators),
-                EmailAddress.of(createContractor.email, stringValidators),
-                Password.of(createContractor.password, stringValidators),
+                NotEmptyString.of(createContractor.lastname(), stringValidators),
+                NotEmptyString.of(createContractor.firstname(), stringValidators),
+                EmailAddress.of(createContractor.email(), stringValidators),
+                Password.of(createContractor.password(), stringValidators),
                 SubscriptionStatus.PENDING_PAYMENT,
-                PaymentMethod.of(createContractor.paymentMethodType, createContractor.paymentMethodRessource)
+                PaymentMethod.of(createContractor.paymentMethodType(), createContractor.paymentMethodRessource())
         );
         contractors.save(contractor);
 
-        eventBus.publish(ContractorRegistered.withContractor(ContractorEventEntity.withoutPassword(userId, createContractor.firstname,
-                createContractor.lastname, createContractor.email, PaymentMethod.of(createContractor.paymentMethodType, createContractor.paymentMethodRessource))));
+        eventBus.publish(ContractorRegistered.withContractor(ContractorEventEntity.withoutPassword(userId, createContractor.firstname(),
+                createContractor.lastname(), createContractor.email(), PaymentMethod.of(createContractor.paymentMethodType(), createContractor.paymentMethodRessource()))));
 
         return userId;
     }

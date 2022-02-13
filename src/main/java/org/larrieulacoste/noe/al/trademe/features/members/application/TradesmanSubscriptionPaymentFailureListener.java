@@ -16,6 +16,6 @@ public final class TradesmanSubscriptionPaymentFailureListener implements EventS
 
     @Override
     public void accept(TradesmanNewSubscriptionPayment event) {
-        commandBus.send(new UpdateTradesmanSubscriptionStatus(event.tradesman.entityId, SubscriptionStatus.PAYMENT_FAILED));
+        commandBus.send(new UpdateTradesmanSubscriptionStatus(event.tradesman().entityId(), SubscriptionStatus.PAYMENT_FAILED));
     }
 }

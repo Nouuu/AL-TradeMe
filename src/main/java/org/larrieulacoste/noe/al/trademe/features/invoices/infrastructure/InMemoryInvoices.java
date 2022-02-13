@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public final class InMemoryInvoices implements Invoices {
     private final AtomicInteger counter = new AtomicInteger(0);
@@ -28,7 +27,7 @@ public final class InMemoryInvoices implements Invoices {
     public void save(Invoice invoice) {
         logger.log("Saving invoice in memory repository : " + invoice);
 
-        data.put(Objects.requireNonNull(invoice).invoiceId, invoice);
+        data.put(Objects.requireNonNull(invoice).invoiceId(), invoice);
     }
 
     @Override
@@ -37,7 +36,7 @@ public final class InMemoryInvoices implements Invoices {
 
         final Invoice invoice = data.get(Objects.requireNonNull(entityId));
         if (invoice == null) {
-            throw new UserNotFoundException("No invoice for " + entityId.value);
+            throw new UserNotFoundException("No invoice for " + entityId.value());
         }
         return invoice;
     }
@@ -49,7 +48,7 @@ public final class InMemoryInvoices implements Invoices {
 
     @Override
     public void remove(Invoice item) {
-        data.remove(item.invoiceId);
+        data.remove(item.invoiceId());
     }
 
     @Override
@@ -61,8 +60,8 @@ public final class InMemoryInvoices implements Invoices {
     public List<Invoice> getTradesmenInvoices() {
         return List.copyOf(
                 data.values().stream()
-                        .filter(invoice -> invoice.memberType.equals(MemberType.TRADESMAN))
-                        .collect(Collectors.toList())
+                        .filter(invoice -> invoice.memberType().equals(MemberType.TRADESMAN))
+                        .toList()
         );
     }
 
@@ -70,8 +69,8 @@ public final class InMemoryInvoices implements Invoices {
     public List<Invoice> getContractorsInvoices() {
         return List.copyOf(
                 data.values().stream()
-                        .filter(invoice -> invoice.memberType.equals(MemberType.CONTRACTOR))
-                        .collect(Collectors.toList())
+                        .filter(invoice -> invoice.memberType().equals(MemberType.CONTRACTOR))
+                        .toList()
         );
     }
 
@@ -79,9 +78,9 @@ public final class InMemoryInvoices implements Invoices {
     public List<Invoice> getTradesmanInvoices(EntityId tradesmanId) {
         return List.copyOf(
                 data.values().stream()
-                        .filter(invoice -> invoice.memberType.equals(MemberType.TRADESMAN)
-                                && invoice.memberId.equals(tradesmanId))
-                        .collect(Collectors.toList())
+                        .filter(invoice -> invoice.memberType().equals(MemberType.TRADESMAN)
+                                && invoice.memberId().equals(tradesmanId))
+                        .toList()
         );
     }
 
@@ -89,9 +88,9 @@ public final class InMemoryInvoices implements Invoices {
     public List<Invoice> getContractorInvoices(EntityId contractorId) {
         return List.copyOf(
                 data.values().stream()
-                        .filter(invoice -> invoice.memberType.equals(MemberType.CONTRACTOR)
-                                && invoice.memberId.equals(contractorId))
-                        .collect(Collectors.toList())
+                        .filter(invoice -> invoice.memberType().equals(MemberType.CONTRACTOR)
+                                && invoice.memberId().equals(contractorId))
+                        .toList()
         );
     }
 }

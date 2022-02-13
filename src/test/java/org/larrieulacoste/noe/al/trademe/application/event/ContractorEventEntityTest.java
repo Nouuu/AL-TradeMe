@@ -13,12 +13,12 @@ class ContractorEventEntityTest {
         EntityId entityId = EntityId.of("123");
         ContractorEventEntity contractorEventEntity =
                 ContractorEventEntity.of(entityId, "firstname", "lastname", "email", "password", paymentMethod);
-        Assertions.assertThat(contractorEventEntity.entityId).isEqualTo(entityId);
-        Assertions.assertThat(contractorEventEntity.firstname).isEqualTo("firstname");
-        Assertions.assertThat(contractorEventEntity.lastname).isEqualTo("lastname");
-        Assertions.assertThat(contractorEventEntity.email).isEqualTo("email");
-        Assertions.assertThat(contractorEventEntity.password).isEqualTo("password");
-        Assertions.assertThat(contractorEventEntity.paymentMethod).isEqualTo(paymentMethod);
+        Assertions.assertThat(contractorEventEntity.entityId()).isEqualTo(entityId);
+        Assertions.assertThat(contractorEventEntity.firstname()).isEqualTo("firstname");
+        Assertions.assertThat(contractorEventEntity.lastname()).isEqualTo("lastname");
+        Assertions.assertThat(contractorEventEntity.email()).isEqualTo("email");
+        Assertions.assertThat(contractorEventEntity.password()).isEqualTo("password");
+        Assertions.assertThat(contractorEventEntity.paymentMethod()).isEqualTo(paymentMethod);
     }
 
     @Test
@@ -26,12 +26,12 @@ class ContractorEventEntityTest {
         EntityId entityId = EntityId.of("123");
         ContractorEventEntity contractorEventEntity =
                 ContractorEventEntity.withoutPassword(entityId, "firstname", "lastname", "email", paymentMethod);
-        Assertions.assertThat(contractorEventEntity.entityId).isEqualTo(entityId);
-        Assertions.assertThat(contractorEventEntity.firstname).isEqualTo("firstname");
-        Assertions.assertThat(contractorEventEntity.lastname).isEqualTo("lastname");
-        Assertions.assertThat(contractorEventEntity.email).isEqualTo("email");
-        Assertions.assertThat(contractorEventEntity.paymentMethod).isEqualTo(paymentMethod);
-        Assertions.assertThat(contractorEventEntity.password).isNull();
+        Assertions.assertThat(contractorEventEntity.entityId()).isEqualTo(entityId);
+        Assertions.assertThat(contractorEventEntity.firstname()).isEqualTo("firstname");
+        Assertions.assertThat(contractorEventEntity.lastname()).isEqualTo("lastname");
+        Assertions.assertThat(contractorEventEntity.email()).isEqualTo("email");
+        Assertions.assertThat(contractorEventEntity.paymentMethod()).isEqualTo(paymentMethod);
+        Assertions.assertThat(contractorEventEntity.password()).isNull();
     }
 
     @Test
@@ -39,12 +39,12 @@ class ContractorEventEntityTest {
         EntityId entityId = EntityId.of("123");
         ContractorEventEntity contractorEventEntity =
                 ContractorEventEntity.withEntityIdOnly(entityId);
-        Assertions.assertThat(contractorEventEntity.entityId).isEqualTo(entityId);
-        Assertions.assertThat(contractorEventEntity.firstname).isNull();
-        Assertions.assertThat(contractorEventEntity.lastname).isNull();
-        Assertions.assertThat(contractorEventEntity.email).isNull();
-        Assertions.assertThat(contractorEventEntity.password).isNull();
-        Assertions.assertThat(contractorEventEntity.paymentMethod).isNull();
+        Assertions.assertThat(contractorEventEntity.entityId()).isEqualTo(entityId);
+        Assertions.assertThat(contractorEventEntity.firstname()).isNull();
+        Assertions.assertThat(contractorEventEntity.lastname()).isNull();
+        Assertions.assertThat(contractorEventEntity.email()).isNull();
+        Assertions.assertThat(contractorEventEntity.password()).isNull();
+        Assertions.assertThat(contractorEventEntity.paymentMethod()).isNull();
     }
 
     @Test
@@ -52,12 +52,12 @@ class ContractorEventEntityTest {
         EntityId entityId = EntityId.of("123");
         ContractorEventEntity contractorEventEntity =
                 ContractorEventEntity.withEntityIdAndPaymentMethodOnly(entityId, paymentMethod);
-        Assertions.assertThat(contractorEventEntity.entityId).isEqualTo(entityId);
-        Assertions.assertThat(contractorEventEntity.firstname).isNull();
-        Assertions.assertThat(contractorEventEntity.lastname).isNull();
-        Assertions.assertThat(contractorEventEntity.email).isNull();
-        Assertions.assertThat(contractorEventEntity.password).isNull();
-        Assertions.assertThat(contractorEventEntity.paymentMethod).isEqualTo(paymentMethod);
+        Assertions.assertThat(contractorEventEntity.entityId()).isEqualTo(entityId);
+        Assertions.assertThat(contractorEventEntity.firstname()).isNull();
+        Assertions.assertThat(contractorEventEntity.lastname()).isNull();
+        Assertions.assertThat(contractorEventEntity.email()).isNull();
+        Assertions.assertThat(contractorEventEntity.password()).isNull();
+        Assertions.assertThat(contractorEventEntity.paymentMethod()).isEqualTo(paymentMethod);
 
     }
 }

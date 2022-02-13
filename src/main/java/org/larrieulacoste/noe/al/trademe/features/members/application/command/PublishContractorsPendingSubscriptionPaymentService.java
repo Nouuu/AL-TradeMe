@@ -13,7 +13,6 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class PublishContractorsPendingSubscriptionPaymentService implements CommandHandler<PublishContractorsPendingSubscriptionPayment, Void> {
@@ -34,8 +33,8 @@ public class PublishContractorsPendingSubscriptionPaymentService implements Comm
         eventBus.publish(
                 ContractorsSubscriptionPendingPayment.withContractors(
                         contractorsPendingPayment.stream()
-                                .map(contractor -> ContractorEventEntity.withEntityIdOnly(contractor.entityId))
-                                .collect(Collectors.toList())
+                                .map(contractor -> ContractorEventEntity.withEntityIdOnly(contractor.entityId()))
+                                .toList()
                 )
         );
         return null;
@@ -43,22 +42,22 @@ public class PublishContractorsPendingSubscriptionPaymentService implements Comm
 
     public void updateSubscriptionToPending(Contractor contractor) {
         Contractor updatedContractor = Contractor.of(
-                contractor.entityId,
-                contractor.lastname,
-                contractor.firstname,
-                contractor.email,
-                contractor.password,
+                contractor.entityId(),
+                contractor.lastname(),
+                contractor.firstname(),
+                contractor.email(),
+                contractor.password(),
                 SubscriptionStatus.PENDING_PAYMENT,
-                contractor.paymentMethod
+                contractor.paymentMethod()
         );
         contractors.save(updatedContractor);
         eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.of(
-                contractor.entityId,
-                contractor.lastname.value,
-                contractor.firstname.value,
-                contractor.email.value,
-                contractor.password.value,
-                contractor.paymentMethod
+                contractor.entityId(),
+                contractor.lastname().value,
+                contractor.firstname().value,
+                contractor.email().value,
+                contractor.password().value,
+                contractor.paymentMethod()
         )));
     }
 }

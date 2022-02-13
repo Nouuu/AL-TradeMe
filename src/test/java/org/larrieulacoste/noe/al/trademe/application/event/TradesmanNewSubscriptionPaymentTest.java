@@ -37,7 +37,7 @@ class TradesmanNewSubscriptionPaymentTest {
     void getEventId() {
         TradesmanNewSubscriptionPayment tradesmanNewSubscriptionPayment =
                 TradesmanNewSubscriptionPayment.of(TradesmanEventEntity.withEntityIdOnly(eventEntityId), paymentMethod, Amount.of(0));
-        Assertions.assertThat(tradesmanNewSubscriptionPayment.getEventId())
+        Assertions.assertThat(tradesmanNewSubscriptionPayment.eventId())
                 .isNotNull()
                 .isInstanceOf(EventId.class);
     }
@@ -46,7 +46,7 @@ class TradesmanNewSubscriptionPaymentTest {
     void getOccurredDate() {
         TradesmanNewSubscriptionPayment tradesmanNewSubscriptionPayment =
                 TradesmanNewSubscriptionPayment.of(TradesmanEventEntity.withEntityIdOnly(eventEntityId), paymentMethod, Amount.of(0));
-        Assertions.assertThat(tradesmanNewSubscriptionPayment.getOccurredDate().toEpochSecond())
+        Assertions.assertThat(tradesmanNewSubscriptionPayment.occurredDate().toEpochSecond())
                 .isBetween(ZonedDateTime.now().toEpochSecond(), ZonedDateTime.now().toEpochSecond() + 1);
 
     }

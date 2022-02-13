@@ -23,26 +23,26 @@ public class UpdateTradesmanSubscriptionStatusService implements CommandHandler<
 
     @Override
     public Void handle(UpdateTradesmanSubscriptionStatus command) {
-        Tradesman tradesman = tradesmen.byId(command.tradesmanId);
+        Tradesman tradesman = tradesmen.byId(command.tradesmanId());
 
         Tradesman updatedTradesman = Tradesman.of(
-                tradesman.entityId,
-                tradesman.lastname,
-                tradesman.firstname,
-                tradesman.email,
-                tradesman.password,
-                command.subscriptionStatus,
-                tradesman.paymentMethod
+                tradesman.entityId(),
+                tradesman.lastname(),
+                tradesman.firstname(),
+                tradesman.email(),
+                tradesman.password(),
+                command.subscriptionStatus(),
+                tradesman.paymentMethod()
         );
 
         tradesmen.save(updatedTradesman);
         eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.of(
-                tradesman.entityId,
-                tradesman.lastname.value,
-                tradesman.firstname.value,
-                tradesman.email.value,
-                tradesman.password.value,
-                tradesman.paymentMethod
+                tradesman.entityId(),
+                tradesman.lastname().value,
+                tradesman.firstname().value,
+                tradesman.email().value,
+                tradesman.password().value,
+                tradesman.paymentMethod()
         )));
         return null;
     }

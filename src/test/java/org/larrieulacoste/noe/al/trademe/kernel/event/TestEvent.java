@@ -4,12 +4,12 @@ import java.time.ZonedDateTime;
 
 public class TestEvent implements Event {
     @Override
-    public EventId getEventId() {
+    public EventId eventId() {
         return EventId.create();
     }
 
     @Override
-    public ZonedDateTime getOccurredDate() {
+    public ZonedDateTime occurredDate() {
         return ZonedDateTime.now();
     }
 }

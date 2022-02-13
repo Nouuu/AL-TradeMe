@@ -26,7 +26,7 @@ class TradesmanNewRegistrationTest {
     @Test
     void getEventId() {
         TradesmanNewRegistration tradesmanInvoiceCreated = TradesmanNewRegistration.of(TradesmanEventEntity.withEntityIdOnly(eventEntityId));
-        Assertions.assertThat(tradesmanInvoiceCreated.getEventId())
+        Assertions.assertThat(tradesmanInvoiceCreated.eventId())
                 .isNotNull()
                 .isInstanceOf(EventId.class);
     }
@@ -34,7 +34,7 @@ class TradesmanNewRegistrationTest {
     @Test
     void getOccurredDate() {
         TradesmanNewRegistration tradesmanInvoiceCreated = TradesmanNewRegistration.of(TradesmanEventEntity.withEntityIdOnly(eventEntityId));
-        Assertions.assertThat(tradesmanInvoiceCreated.getOccurredDate().toEpochSecond())
+        Assertions.assertThat(tradesmanInvoiceCreated.occurredDate().toEpochSecond())
                 .isBetween(ZonedDateTime.now().toEpochSecond(), ZonedDateTime.now().toEpochSecond() + 1);
     }
 }

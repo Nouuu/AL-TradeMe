@@ -21,11 +21,11 @@ class InvoiceEventEntityTest {
         Amount amount = Amount.of(12);
         InvoiceEventEntity invoiceEventEntity = InvoiceEventEntity.of(invoiceId, memberType, memberId, occurredDate, paymentMethodType, amount);
 
-        Assertions.assertThat(invoiceEventEntity.invoiceId).isEqualTo(invoiceId);
-        Assertions.assertThat(invoiceEventEntity.memberType).isEqualTo(memberType);
-        Assertions.assertThat(invoiceEventEntity.memberId).isEqualTo(memberId);
-        Assertions.assertThat(invoiceEventEntity.occurredDate).isEqualTo(occurredDate);
-        Assertions.assertThat(invoiceEventEntity.paymentMethodType.value).isEqualTo(paymentMethodType.value);
-        Assertions.assertThat(invoiceEventEntity.amount).isEqualTo(amount);
+        Assertions.assertThat(invoiceEventEntity.invoiceId()).isEqualTo(invoiceId);
+        Assertions.assertThat(invoiceEventEntity.memberType()).isEqualTo(memberType);
+        Assertions.assertThat(invoiceEventEntity.memberId()).isEqualTo(memberId);
+        Assertions.assertThat(invoiceEventEntity.occurredDate()).isEqualTo(occurredDate);
+        Assertions.assertThat(invoiceEventEntity.paymentMethodType().value).isEqualTo(paymentMethodType.value);
+        Assertions.assertThat(invoiceEventEntity.amount()).isEqualTo(amount);
     }
 }

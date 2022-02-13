@@ -33,18 +33,18 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
         final EntityId userId = tradesmen.nextId();
         Tradesman tradesman = Tradesman.of(
                 userId,
-                NotEmptyString.of(createTradesman.lastname, stringValidators),
-                NotEmptyString.of(createTradesman.firstname, stringValidators),
-                EmailAddress.of(createTradesman.email, stringValidators),
-                Password.of(createTradesman.password, stringValidators),
+                NotEmptyString.of(createTradesman.lastname(), stringValidators),
+                NotEmptyString.of(createTradesman.firstname(), stringValidators),
+                EmailAddress.of(createTradesman.email(), stringValidators),
+                Password.of(createTradesman.password(), stringValidators),
                 SubscriptionStatus.PENDING_PAYMENT,
-                PaymentMethod.of(createTradesman.paymentMethodType, createTradesman.paymentMethodRessource)
+                PaymentMethod.of(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource())
 
         );
         tradesmen.save(tradesman);
 
-        eventBus.publish(TradesmanRegistered.withTradesman(TradesmanEventEntity.of(userId, createTradesman.firstname,
-                createTradesman.lastname, createTradesman.email, createTradesman.password, PaymentMethod.of(createTradesman.paymentMethodType, createTradesman.paymentMethodRessource))));
+        eventBus.publish(TradesmanRegistered.withTradesman(TradesmanEventEntity.of(userId, createTradesman.firstname(),
+                createTradesman.lastname(), createTradesman.email(), createTradesman.password(), PaymentMethod.of(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource()))));
 
         return userId;
     }

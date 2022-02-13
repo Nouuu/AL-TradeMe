@@ -24,16 +24,16 @@ public class TradesmanSubscriptionPaymentService implements CommandHandler<Trade
         this.logger = logger;
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
-        this.subscriptionAmount = membersSubscriptionAmount.tradesmanSubscriptionAmount;
+        this.subscriptionAmount = membersSubscriptionAmount.tradesmanSubscriptionAmount();
     }
 
 
     @Override
     public Void handle(TradesmanSubscriptionPayment tradesmanSubscriptionPayment) {
-        logger.log(String.format("Process tradesman payment subscription of : %s with %sf", tradesmanSubscriptionPayment.tradesmanId, tradesmanSubscriptionPayment.paymentMethod));
-        paymentAPI.pay(tradesmanSubscriptionPayment.paymentMethod, subscriptionAmount.value);
-        eventBus.publish(TradesmanNewSubscriptionPayment.of(TradesmanEventEntity.withEntityIdOnly(tradesmanSubscriptionPayment.tradesmanId),
-                tradesmanSubscriptionPayment.paymentMethod, subscriptionAmount));
+        logger.log(String.format("Process tradesman payment subscription of : %s with %sf", tradesmanSubscriptionPayment.tradesmanId(), tradesmanSubscriptionPayment.paymentMethod()));
+        paymentAPI.pay(tradesmanSubscriptionPayment.paymentMethod(), subscriptionAmount.value());
+        eventBus.publish(TradesmanNewSubscriptionPayment.of(TradesmanEventEntity.withEntityIdOnly(tradesmanSubscriptionPayment.tradesmanId()),
+                tradesmanSubscriptionPayment.paymentMethod(), subscriptionAmount));
         return null;
     }
 }

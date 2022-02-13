@@ -50,21 +50,21 @@ public class MemberValidationService {
 
     private List<String> getCreateTradesmanInvalidFields(CreateTradesman tradesman) {
         List<String> errors = new ArrayList<>();
-        required(tradesman.firstname, MemberValidationService.FIRSTNAME, errors);
-        required(tradesman.lastname, MemberValidationService.LASTNAME, errors);
-        password(tradesman.password, errors);
-        email(tradesman.email, errors);
-        paymentMethod(tradesman.paymentMethodType, tradesman.paymentMethodRessource, errors);
+        required(tradesman.firstname(), MemberValidationService.FIRSTNAME, errors);
+        required(tradesman.lastname(), MemberValidationService.LASTNAME, errors);
+        password(tradesman.password(), errors);
+        email(tradesman.email(), errors);
+        paymentMethod(tradesman.paymentMethodType(), tradesman.paymentMethodRessource(), errors);
         return errors;
     }
 
     private List<String> getCreateContractorInvalidFields(CreateContractor contractor) {
         List<String> errors = new ArrayList<>();
-        required(contractor.firstname, MemberValidationService.FIRSTNAME, errors);
-        required(contractor.lastname, MemberValidationService.LASTNAME, errors);
-        password(contractor.password, errors);
-        email(contractor.email, errors);
-        paymentMethod(contractor.paymentMethodType, contractor.paymentMethodRessource, errors);
+        required(contractor.firstname(), MemberValidationService.FIRSTNAME, errors);
+        required(contractor.lastname(), MemberValidationService.LASTNAME, errors);
+        password(contractor.password(), errors);
+        email(contractor.email(), errors);
+        paymentMethod(contractor.paymentMethodType(), contractor.paymentMethodRessource(), errors);
         return errors;
     }
 
@@ -90,36 +90,36 @@ public class MemberValidationService {
 
     private List<String> getUpdateTradesmanInvalidFields(UpdateTradesman tradesman) {
         List<String> errors = new ArrayList<>();
-        required(tradesman.tradesmanId, "tradesmanId", errors);
-        if (tradesman.firstname != null) {
-            required(tradesman.firstname, MemberValidationService.FIRSTNAME, errors);
+        required(tradesman.tradesmanId(), "tradesmanId", errors);
+        if (tradesman.firstname() != null) {
+            required(tradesman.firstname(), MemberValidationService.FIRSTNAME, errors);
         }
-        if (tradesman.lastname != null) {
-            required(tradesman.lastname, MemberValidationService.LASTNAME, errors);
+        if (tradesman.lastname() != null) {
+            required(tradesman.lastname(), MemberValidationService.LASTNAME, errors);
         }
-        if (tradesman.password != null) {
-            password(tradesman.password, errors);
+        if (tradesman.password() != null) {
+            password(tradesman.password(), errors);
         }
-        if (tradesman.email != null) {
-            email(tradesman.email, errors);
+        if (tradesman.email() != null) {
+            email(tradesman.email(), errors);
         }
         return errors;
     }
 
     private List<String> getUpdateContractorInvalidFields(UpdateContractor contractor) {
         List<String> errors = new ArrayList<>();
-        required(contractor.contractorId, "contractorId", errors);
-        if (contractor.firstname != null) {
-            required(contractor.firstname, MemberValidationService.FIRSTNAME, errors);
+        required(contractor.contractorId(), "contractorId", errors);
+        if (contractor.firstname() != null) {
+            required(contractor.firstname(), MemberValidationService.FIRSTNAME, errors);
         }
-        if (contractor.lastname != null) {
-            required(contractor.lastname, MemberValidationService.LASTNAME, errors);
+        if (contractor.lastname() != null) {
+            required(contractor.lastname(), MemberValidationService.LASTNAME, errors);
         }
-        if (contractor.password != null) {
-            password(contractor.password, errors);
+        if (contractor.password() != null) {
+            password(contractor.password(), errors);
         }
-        if (contractor.email != null) {
-            email(contractor.email, errors);
+        if (contractor.email() != null) {
+            email(contractor.email(), errors);
         }
         return errors;
     }

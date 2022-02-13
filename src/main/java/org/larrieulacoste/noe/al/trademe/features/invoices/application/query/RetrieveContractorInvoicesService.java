@@ -18,6 +18,6 @@ public class RetrieveContractorInvoicesService implements QueryHandler<RetrieveC
 
     @Override
     public List<Invoice> handle(RetrieveContractorInvoices query) {
-        return invoices.getContractorInvoices(query.contractorId);
+        return invoices.getContractorInvoices(query.contractorId());
     }
 }

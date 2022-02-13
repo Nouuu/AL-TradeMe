@@ -18,6 +18,6 @@ public class RetrieveTradesmanInvoicesService implements QueryHandler<RetrieveTr
 
     @Override
     public List<Invoice> handle(RetrieveTradesmanInvoices query) {
-        return invoices.getTradesmanInvoices(query.tradesmanId);
+        return invoices.getTradesmanInvoices(query.tradesmanId());
     }
 }

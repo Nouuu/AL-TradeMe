@@ -15,7 +15,7 @@ public final class NewTradesmanRegisteredListener implements EventSubscriber<Tra
 
     @Override
     public void accept(TradesmanRegistered event) {
-        TradesmanSubscriptionPayment tradesman = new TradesmanSubscriptionPayment(event.tradesman.entityId, event.tradesman.paymentMethod);
+        TradesmanSubscriptionPayment tradesman = new TradesmanSubscriptionPayment(event.tradesman().entityId(), event.tradesman().paymentMethod());
         commandBus.send(tradesman);
     }
 }

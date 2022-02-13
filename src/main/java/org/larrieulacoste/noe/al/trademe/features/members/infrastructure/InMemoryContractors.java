@@ -25,7 +25,7 @@ public final class InMemoryContractors implements Contractors {
     public void save(Contractor contractor) {
         logger.log("Saving contractor in memory repository : " + contractor);
 
-        data.put(Objects.requireNonNull(contractor).entityId, contractor);
+        data.put(Objects.requireNonNull(contractor).entityId(), contractor);
     }
 
     @Override
@@ -34,7 +34,7 @@ public final class InMemoryContractors implements Contractors {
 
         final Contractor contractor = data.get(Objects.requireNonNull(entityId));
         if (contractor == null) {
-            throw new UserNotFoundException("No contractor for " + entityId.value);
+            throw new UserNotFoundException("No contractor for " + entityId.value());
         }
         return contractor;
     }
@@ -46,7 +46,7 @@ public final class InMemoryContractors implements Contractors {
 
     @Override
     public void remove(Contractor item) {
-        data.remove(item.entityId);
+        data.remove(item.entityId());
     }
 
     @Override

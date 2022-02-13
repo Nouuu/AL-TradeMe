@@ -27,7 +27,7 @@ class ContractorRegisteredTest {
     @Test
     void getEventId() {
         ContractorRegistered contractorRegistered = ContractorRegistered.withContractor(ContractorEventEntity.withEntityIdOnly(eventEntityId));
-        Assertions.assertThat(contractorRegistered.getEventId())
+        Assertions.assertThat(contractorRegistered.eventId())
                 .isNotNull()
                 .isInstanceOf(EventId.class);
     }
@@ -35,7 +35,7 @@ class ContractorRegisteredTest {
     @Test
     void getOccurredDate() {
         ContractorRegistered contractorRegistered = ContractorRegistered.withContractor(ContractorEventEntity.withEntityIdOnly(eventEntityId));
-        Assertions.assertThat(contractorRegistered.getOccurredDate().toEpochSecond())
+        Assertions.assertThat(contractorRegistered.occurredDate().toEpochSecond())
                 .isBetween(ZonedDateTime.now().toEpochSecond(), ZonedDateTime.now().toEpochSecond() + 1);
     }
 }

@@ -46,7 +46,7 @@ class ContractorsSubscriptionPendingPaymentTest {
                         contractorEventEntity3
                 )
         );
-        Assertions.assertThat(contractorsSubscriptionPendingPayment.getEventId())
+        Assertions.assertThat(contractorsSubscriptionPendingPayment.eventId())
                 .isNotNull()
                 .isInstanceOf(EventId.class);
     }
@@ -60,7 +60,7 @@ class ContractorsSubscriptionPendingPaymentTest {
                         contractorEventEntity3
                 )
         );
-        Assertions.assertThat(contractorsSubscriptionPendingPayment.getOccurredDate().toEpochSecond())
+        Assertions.assertThat(contractorsSubscriptionPendingPayment.occurredDate().toEpochSecond())
                 .isBetween(ZonedDateTime.now().toEpochSecond(), ZonedDateTime.now().toEpochSecond() + 1);
     }
 
@@ -73,7 +73,7 @@ class ContractorsSubscriptionPendingPaymentTest {
                         contractorEventEntity3
                 )
         );
-        Assertions.assertThat(contractorsSubscriptionPendingPayment.getContractors())
+        Assertions.assertThat(contractorsSubscriptionPendingPayment.contractors())
                 .containsExactlyElementsOf(List.of(contractorEventEntity1,
                         contractorEventEntity2,
                         contractorEventEntity3));

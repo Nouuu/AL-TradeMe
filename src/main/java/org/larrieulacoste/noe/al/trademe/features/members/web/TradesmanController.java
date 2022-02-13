@@ -15,7 +15,6 @@ import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("tradesman")
 @Produces(MediaType.APPLICATION_JSON)
@@ -49,14 +48,14 @@ public final class TradesmanController {
     @Consumes(MediaType.APPLICATION_JSON)
     public TradesmanResponse register(TradesmanRequest tradesman) {
         EntityId userId = commandBus.send(new CreateTradesman(
-                tradesman.firstname,
-                tradesman.lastname,
-                tradesman.email,
-                tradesman.password,
-                tradesman.paymentMethodType,
-                tradesman.paymentMethodRessource));
+                tradesman.firstname(),
+                tradesman.lastname(),
+                tradesman.email(),
+                tradesman.password(),
+                tradesman.paymentMethodType(),
+                tradesman.paymentMethodRessource()));
 
-        return new TradesmanResponse(userId.value, null, null, null);
+        return new TradesmanResponse(userId.value(), null, null, null);
     }
 
     @PUT
@@ -66,10 +65,10 @@ public final class TradesmanController {
     public TradesmanResponse update(@PathParam("tradesmanId") String tradesmanId, TradesmanRequest tradesman) {
         Tradesman updatedTradesman = commandBus.send(new UpdateTradesman(
                 tradesmanId,
-                tradesman.firstname,
-                tradesman.lastname,
-                tradesman.email,
-                tradesman.password
+                tradesman.firstname(),
+                tradesman.lastname(),
+                tradesman.email(),
+                tradesman.password()
         ));
 
         return getTradesmanResponse(updatedTradesman);
@@ -93,10 +92,10 @@ public final class TradesmanController {
 
     private TradesmanResponse getTradesmanResponse(Tradesman tradesman) {
         return new TradesmanResponse(
-                tradesman.entityId.value,
-                tradesman.firstname.value,
-                tradesman.lastname.value,
-                tradesman.email.value
+                tradesman.entityId().value(),
+                tradesman.firstname().value,
+                tradesman.lastname().value,
+                tradesman.email().value
         );
     }
 }

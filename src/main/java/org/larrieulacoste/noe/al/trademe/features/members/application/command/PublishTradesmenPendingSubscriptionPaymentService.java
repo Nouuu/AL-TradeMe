@@ -13,7 +13,6 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class PublishTradesmenPendingSubscriptionPaymentService implements CommandHandler<PublishTradesmenPendingSubscriptionPayment, Void> {
@@ -34,8 +33,8 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
         eventBus.publish(
                 TradesmenSubscriptionPendingPayment.withTradesmen(
                         tradesmenPendingPayment.stream()
-                                .map(tradesman -> TradesmanEventEntity.withEntityIdOnly(tradesman.entityId))
-                                .collect(Collectors.toList())
+                                .map(tradesman -> TradesmanEventEntity.withEntityIdOnly(tradesman.entityId()))
+                                .toList()
                 )
         );
         return null;
@@ -43,22 +42,22 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
 
     public void updateSubscriptionToPending(Tradesman tradesman) {
         Tradesman updatedTradesman = Tradesman.of(
-                tradesman.entityId,
-                tradesman.lastname,
-                tradesman.firstname,
-                tradesman.email,
-                tradesman.password,
+                tradesman.entityId(),
+                tradesman.lastname(),
+                tradesman.firstname(),
+                tradesman.email(),
+                tradesman.password(),
                 SubscriptionStatus.PENDING_PAYMENT,
-                tradesman.paymentMethod
+                tradesman.paymentMethod()
         );
         tradesmen.save(updatedTradesman);
         eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.of(
-                tradesman.entityId,
-                tradesman.lastname.value,
-                tradesman.firstname.value,
-                tradesman.email.value,
-                tradesman.password.value,
-                tradesman.paymentMethod
+                tradesman.entityId(),
+                tradesman.lastname().value,
+                tradesman.firstname().value,
+                tradesman.email().value,
+                tradesman.password().value,
+                tradesman.paymentMethod()
         )));
     }
 

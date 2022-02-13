@@ -28,7 +28,7 @@ class TradesmanSubscriptionPaymentFailureTest {
     void getEventId() {
         TradesmanSubscriptionPaymentFailure tradesmanSubscriptionPaymentFailure =
                 TradesmanSubscriptionPaymentFailure.withTradesman(tradesmanEventEntity);
-        Assertions.assertThat(tradesmanSubscriptionPaymentFailure.getEventId())
+        Assertions.assertThat(tradesmanSubscriptionPaymentFailure.eventId())
                 .isNotNull()
                 .isInstanceOf(EventId.class);
     }
@@ -37,7 +37,7 @@ class TradesmanSubscriptionPaymentFailureTest {
     void getOccurredDate() {
         TradesmanSubscriptionPaymentFailure tradesmanSubscriptionPaymentFailure =
                 TradesmanSubscriptionPaymentFailure.withTradesman(tradesmanEventEntity);
-        Assertions.assertThat(tradesmanSubscriptionPaymentFailure.getOccurredDate().toEpochSecond())
+        Assertions.assertThat(tradesmanSubscriptionPaymentFailure.occurredDate().toEpochSecond())
                 .isBetween(ZonedDateTime.now().toEpochSecond(), ZonedDateTime.now().toEpochSecond() + 1);
     }
 }
