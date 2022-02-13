@@ -16,8 +16,8 @@ public final class TradesmenSubscriptionPendingPaymentListener implements EventS
 
     @Override
     public void accept(TradesmenSubscriptionPendingPayment event) {
-        for (TradesmanEventEntity tradesman : event.getTradesmen()) {
-            TradesmanSubscriptionPayment tradesmanSubscriptionPayment = new TradesmanSubscriptionPayment(tradesman.entityId, tradesman.paymentMethod);
+        for (TradesmanEventEntity tradesman : event.tradesmen()) {
+            TradesmanSubscriptionPayment tradesmanSubscriptionPayment = new TradesmanSubscriptionPayment(tradesman.entityId(), tradesman.paymentMethod());
             commandBus.send(tradesmanSubscriptionPayment);
         }
     }

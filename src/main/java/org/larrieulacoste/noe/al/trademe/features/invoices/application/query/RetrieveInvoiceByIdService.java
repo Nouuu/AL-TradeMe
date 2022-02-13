@@ -17,6 +17,6 @@ public class RetrieveInvoiceByIdService implements QueryHandler<RetrieveInvoiceB
 
     @Override
     public Invoice handle(RetrieveInvoiceById query) {
-        return invoices.byId(query.invoiceId);
+        return invoices.byId(query.invoiceId());
     }
 }

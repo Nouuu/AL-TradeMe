@@ -24,10 +24,10 @@ public class DeleteTradesmanService implements CommandHandler<DeleteTradesman, V
 
     @Override
     public Void handle(DeleteTradesman command) {
-        Tradesman tradesman = tradesmen.byId(EntityId.of(command.tradesmanId));
+        Tradesman tradesman = tradesmen.byId(EntityId.of(command.tradesmanId()));
         tradesmen.remove(tradesman);
         eventBus.publish(TradesmanDeleted.withTradesman(
-                TradesmanEventEntity.withEntityIdOnly(tradesman.entityId)
+                TradesmanEventEntity.withEntityIdOnly(tradesman.entityId())
         ));
         return null;
     }

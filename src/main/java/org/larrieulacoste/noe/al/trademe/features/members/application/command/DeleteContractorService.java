@@ -24,10 +24,10 @@ public class DeleteContractorService implements CommandHandler<DeleteContractor,
 
     @Override
     public Void handle(DeleteContractor command) {
-        Contractor contractor = contractors.byId(EntityId.of(command.contractorId));
+        Contractor contractor = contractors.byId(EntityId.of(command.contractorId()));
         contractors.remove(contractor);
         eventBus.publish(ContractorDeleted.withContractor(
-                ContractorEventEntity.withEntityIdOnly(contractor.entityId)
+                ContractorEventEntity.withEntityIdOnly(contractor.entityId())
         ));
         return null;
     }

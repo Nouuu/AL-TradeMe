@@ -28,22 +28,22 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
 
     @Override
     public Tradesman handle(UpdateTradesman updateTradesman) {
-        Tradesman inMemoryTradesman = tradesmen.byId(EntityId.of(updateTradesman.tradesmanId));
+        Tradesman inMemoryTradesman = tradesmen.byId(EntityId.of(updateTradesman.tradesmanId()));
 
         memberValidationService.validateUpdateTradesman(updateTradesman);
 
         Tradesman updatedTradesman = Tradesman.of(
-                inMemoryTradesman.entityId,
-                updateTradesman.lastname != null ? NotEmptyString.of(updateTradesman.lastname, stringValidators) : inMemoryTradesman.lastname,
-                updateTradesman.firstname != null ? NotEmptyString.of(updateTradesman.firstname, stringValidators) : inMemoryTradesman.lastname,
-                updateTradesman.email != null ? EmailAddress.of(updateTradesman.email, stringValidators) : inMemoryTradesman.email,
-                updateTradesman.password != null ? Password.of(updateTradesman.password, stringValidators) : inMemoryTradesman.password,
-                inMemoryTradesman.subscriptionStatus,
-                inMemoryTradesman.paymentMethod);
+                inMemoryTradesman.entityId(),
+                updateTradesman.lastname() != null ? NotEmptyString.of(updateTradesman.lastname(), stringValidators) : inMemoryTradesman.lastname(),
+                updateTradesman.firstname() != null ? NotEmptyString.of(updateTradesman.firstname(), stringValidators) : inMemoryTradesman.lastname(),
+                updateTradesman.email() != null ? EmailAddress.of(updateTradesman.email(), stringValidators) : inMemoryTradesman.email(),
+                updateTradesman.password() != null ? Password.of(updateTradesman.password(), stringValidators) : inMemoryTradesman.password(),
+                inMemoryTradesman.subscriptionStatus(),
+                inMemoryTradesman.paymentMethod());
         tradesmen.save(updatedTradesman);
 
-        eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.withoutPassword(inMemoryTradesman.entityId,
-                updateTradesman.firstname, updateTradesman.lastname, updateTradesman.email, inMemoryTradesman.paymentMethod)));
+        eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.withoutPassword(inMemoryTradesman.entityId(),
+                updateTradesman.firstname(), updateTradesman.lastname(), updateTradesman.email(), inMemoryTradesman.paymentMethod())));
         return updatedTradesman;
     }
 }

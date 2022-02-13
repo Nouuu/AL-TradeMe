@@ -23,26 +23,26 @@ public class UpdateContractorSubscriptionStatusService implements CommandHandler
 
     @Override
     public Void handle(UpdateContractorSubscriptionStatus command) {
-        Contractor contractor = contractors.byId(command.contractorId);
+        Contractor contractor = contractors.byId(command.contractorId());
 
         Contractor updatedContractor = Contractor.of(
-                contractor.entityId,
-                contractor.lastname,
-                contractor.firstname,
-                contractor.email,
-                contractor.password,
-                command.subscriptionStatus,
-                contractor.paymentMethod
+                contractor.entityId(),
+                contractor.lastname(),
+                contractor.firstname(),
+                contractor.email(),
+                contractor.password(),
+                command.subscriptionStatus(),
+                contractor.paymentMethod()
         );
 
         contractors.save(updatedContractor);
         eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.of(
-                contractor.entityId,
-                contractor.lastname.value,
-                contractor.firstname.value,
-                contractor.email.value,
-                contractor.password.value,
-                contractor.paymentMethod
+                contractor.entityId(),
+                contractor.lastname().value,
+                contractor.firstname().value,
+                contractor.email().value,
+                contractor.password().value,
+                contractor.paymentMethod()
         )));
         return null;
     }

@@ -16,6 +16,6 @@ public final class NewTradesmanSubscriptionPaymentListener implements EventSubsc
 
     @Override
     public void accept(TradesmanNewSubscriptionPayment event) {
-        commandBus.send(new UpdateTradesmanSubscriptionStatus(event.tradesman.entityId, SubscriptionStatus.ACTIVE));
+        commandBus.send(new UpdateTradesmanSubscriptionStatus(event.tradesman().entityId(), SubscriptionStatus.ACTIVE));
     }
 }

@@ -49,14 +49,14 @@ public final class ContractorController {
     @Consumes(MediaType.APPLICATION_JSON)
     public ContractorResponse register(ContractorRequest contractor) {
         EntityId userId = commandBus.send(new CreateContractor(
-                contractor.firstname,
-                contractor.lastname,
-                contractor.email,
-                contractor.password,
-                contractor.paymentMethodType,
-                contractor.paymentMethodRessource));
+                contractor.firstname(),
+                contractor.lastname(),
+                contractor.email(),
+                contractor.password(),
+                contractor.paymentMethodType(),
+                contractor.paymentMethodRessource()));
 
-        return new ContractorResponse(userId.value, null, null, null);
+        return new ContractorResponse(userId.value(), null, null, null);
     }
 
     @PUT
@@ -66,10 +66,10 @@ public final class ContractorController {
     public ContractorResponse update(@PathParam("contractorId") String contractorId, ContractorRequest contractor) {
         Contractor updatedContractor = commandBus.send(new UpdateContractor(
                 contractorId,
-                contractor.firstname,
-                contractor.lastname,
-                contractor.email,
-                contractor.password
+                contractor.firstname(),
+                contractor.lastname(),
+                contractor.email(),
+                contractor.password()
         ));
 
         return getContractorResponse(updatedContractor);
@@ -93,10 +93,10 @@ public final class ContractorController {
 
     private ContractorResponse getContractorResponse(Contractor contractor) {
         return new ContractorResponse(
-                contractor.entityId.value,
-                contractor.firstname.value,
-                contractor.lastname.value,
-                contractor.email.value
+                contractor.entityId().value(),
+                contractor.firstname().value,
+                contractor.lastname().value,
+                contractor.email().value
         );
     }
 }

@@ -30,31 +30,31 @@ public class CreateInvoiceService implements CommandHandler<CreateInvoice, Entit
 
         Invoice invoice = Invoice.of(
                 invoiceId,
-                command.memberType,
-                command.memberId,
+                command.memberType(),
+                command.memberId(),
                 ZonedDateTime.now(),
-                command.paymentMethodType,
-                command.amount
+                command.paymentMethodType(),
+                command.amount()
         );
         invoices.save(invoice);
 
-        if (command.memberType == MemberType.TRADESMAN) {
+        if (command.memberType() == MemberType.TRADESMAN) {
             eventBus.publish(TradesmanInvoiceCreated.of(InvoiceEventEntity.of(
                     invoiceId,
                     MemberType.TRADESMAN,
-                    command.memberId,
-                    invoice.occurredDate,
-                    command.paymentMethodType,
-                    command.amount
+                    command.memberId(),
+                    invoice.occurredDate(),
+                    command.paymentMethodType(),
+                    command.amount()
             )));
-        } else if (command.memberType == MemberType.CONTRACTOR) {
+        } else if (command.memberType() == MemberType.CONTRACTOR) {
             eventBus.publish(ContractorInvoiceCreated.of(InvoiceEventEntity.of(
                     invoiceId,
                     MemberType.CONTRACTOR,
-                    command.memberId,
-                    invoice.occurredDate,
-                    command.paymentMethodType,
-                    command.amount
+                    command.memberId(),
+                    invoice.occurredDate(),
+                    command.paymentMethodType(),
+                    command.amount()
             )));
         }
 

@@ -24,16 +24,16 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
         this.logger = logger;
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
-        this.subscriptionAmount = membersSubscriptionAmount.contractorSubscriptionAmount;
+        this.subscriptionAmount = membersSubscriptionAmount.contractorSubscriptionAmount();
     }
 
 
     @Override
     public Void handle(ContractorSubscriptionPayment contractorSubscriptionPayment) {
-        logger.log(String.format("Process contractor payment subscription of : %s with %sf", contractorSubscriptionPayment.contractorId, contractorSubscriptionPayment.paymentMethod));
-        paymentAPI.pay(contractorSubscriptionPayment.paymentMethod, subscriptionAmount.value);
-        eventBus.publish(ContractorNewSubscriptionPayment.of(ContractorEventEntity.withEntityIdOnly(contractorSubscriptionPayment.contractorId),
-                contractorSubscriptionPayment.paymentMethod, subscriptionAmount));
+        logger.log(String.format("Process contractor payment subscription of : %s with %sf", contractorSubscriptionPayment.contractorId(), contractorSubscriptionPayment.paymentMethod()));
+        paymentAPI.pay(contractorSubscriptionPayment.paymentMethod(), subscriptionAmount.value());
+        eventBus.publish(ContractorNewSubscriptionPayment.of(ContractorEventEntity.withEntityIdOnly(contractorSubscriptionPayment.contractorId()),
+                contractorSubscriptionPayment.paymentMethod(), subscriptionAmount));
         return null;
     }
 }

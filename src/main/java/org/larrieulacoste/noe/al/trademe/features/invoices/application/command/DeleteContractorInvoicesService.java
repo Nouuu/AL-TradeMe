@@ -24,11 +24,11 @@ public class DeleteContractorInvoicesService implements CommandHandler<DeleteCon
 
     @Override
     public Void handle(DeleteContractorInvoices command) {
-        List<Invoice> invoicesToDelete = invoices.getContractorInvoices(command.contractorId);
+        List<Invoice> invoicesToDelete = invoices.getContractorInvoices(command.contractorId());
         for (Invoice invoiceToDelete : invoicesToDelete) {
             invoices.remove(invoiceToDelete);
             eventBus.publish(ContractorInvoiceDeleted.of(
-                    InvoiceEventEntity.of(invoiceToDelete.invoiceId, MemberType.CONTRACTOR, command.contractorId, null, null, null)
+                    InvoiceEventEntity.of(invoiceToDelete.invoiceId(), MemberType.CONTRACTOR, command.contractorId(), null, null, null)
             ));
         }
         return null;
