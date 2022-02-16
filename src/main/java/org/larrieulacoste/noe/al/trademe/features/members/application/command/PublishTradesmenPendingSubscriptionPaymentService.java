@@ -48,7 +48,9 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
                 tradesman.email(),
                 tradesman.password(),
                 SubscriptionStatus.PENDING_PAYMENT,
-                tradesman.paymentMethod()
+                tradesman.paymentMethod(),
+                tradesman.professionalAbilities(),
+                tradesman.projects()
         );
         tradesmen.save(updatedTradesman);
         eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.of(

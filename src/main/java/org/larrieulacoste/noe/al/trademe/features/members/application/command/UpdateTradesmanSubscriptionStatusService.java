@@ -32,7 +32,9 @@ public class UpdateTradesmanSubscriptionStatusService implements CommandHandler<
                 tradesman.email(),
                 tradesman.password(),
                 command.subscriptionStatus(),
-                tradesman.paymentMethod()
+                tradesman.paymentMethod(),
+                tradesman.professionalAbilities(),
+                tradesman.projects()
         );
 
         tradesmen.save(updatedTradesman);
