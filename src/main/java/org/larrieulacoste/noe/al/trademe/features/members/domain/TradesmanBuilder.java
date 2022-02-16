@@ -64,8 +64,27 @@ public final class TradesmanBuilder {
   public Tradesman build(EntityId entityId) {
     ActivityPerimeter activityPerimeter = new ActivityPerimeter(longitude, latitude, activityRadius);
     DailyRate localDailyRate = new DailyRate(Amount.of(dailyRate));
-    TradesmanProfessionalAbilities professionalAbilities = new TradesmanProfessionalAbilities(profession, location, skills, activityPerimeter, localDailyRate);
-    return Tradesman.of(entityId, lastname, firstname, email, password, subscriptionStatus, paymentMethod, professionalAbilities, projects);
+    TradesmanProfessionalAbilities professionalAbilities = new TradesmanProfessionalAbilities(profession, location,
+        skills, activityPerimeter, localDailyRate);
+    return Tradesman.of(entityId, lastname, firstname, email, password, subscriptionStatus, paymentMethod,
+        professionalAbilities, projects);
+  }
+
+  public void clear() {
+    lastname = null;
+    firstname = null;
+    email = null;
+    password = null;
+    subscriptionStatus = null;
+    paymentMethod = null;
+    profession = null;
+    longitude = 0;
+    latitude = 0;
+    activityRadius = 0;
+    dailyRate = 0;
+    skills = null;
+    projects = null;
+    location = null;
   }
 
 }
