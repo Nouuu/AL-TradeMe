@@ -32,7 +32,8 @@ public class UpdateContractorSubscriptionStatusService implements CommandHandler
                 contractor.email(),
                 contractor.password(),
                 command.subscriptionStatus(),
-                contractor.paymentMethod()
+                contractor.paymentMethod(),
+                contractor.projects()
         );
 
         contractors.save(updatedContractor);
@@ -42,7 +43,8 @@ public class UpdateContractorSubscriptionStatusService implements CommandHandler
                 contractor.firstname().value,
                 contractor.email().value,
                 contractor.password().value,
-                contractor.paymentMethod()
+                contractor.paymentMethod(),
+                contractor.projects()
         )));
         return null;
     }

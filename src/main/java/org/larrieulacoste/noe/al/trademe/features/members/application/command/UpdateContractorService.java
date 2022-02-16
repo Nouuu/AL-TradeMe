@@ -19,7 +19,8 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
     private final EventBus<ApplicationEvent> eventBus;
     private final StringValidators stringValidators;
 
-    UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
+    UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService,
+            EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
         this.contractors = Objects.requireNonNull(contractors);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
@@ -34,16 +35,23 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
 
         Contractor updatedContractor = Contractor.of(
                 inMemoryContractor.entityId(),
-                updateContractor.lastname() != null ? NotEmptyString.of(updateContractor.lastname(), stringValidators) : inMemoryContractor.lastname(),
-                updateContractor.firstname() != null ? NotEmptyString.of(updateContractor.firstname(), stringValidators) : inMemoryContractor.lastname(),
-                updateContractor.email() != null ? EmailAddress.of(updateContractor.email(), stringValidators) : inMemoryContractor.email(),
-                updateContractor.password() != null ? Password.of(updateContractor.password(), stringValidators) : inMemoryContractor.password(),
+                updateContractor.lastname() != null ? NotEmptyString.of(updateContractor.lastname(), stringValidators)
+                        : inMemoryContractor.lastname(),
+                updateContractor.firstname() != null ? NotEmptyString.of(updateContractor.firstname(), stringValidators)
+                        : inMemoryContractor.lastname(),
+                updateContractor.email() != null ? EmailAddress.of(updateContractor.email(), stringValidators)
+                        : inMemoryContractor.email(),
+                updateContractor.password() != null ? Password.of(updateContractor.password(), stringValidators)
+                        : inMemoryContractor.password(),
                 inMemoryContractor.subscriptionStatus(),
-                inMemoryContractor.paymentMethod());
+                inMemoryContractor.paymentMethod(),
+                inMemoryContractor.projects());
         contractors.save(updatedContractor);
 
-        eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.withoutPassword(inMemoryContractor.entityId(),
-                updateContractor.firstname(), updateContractor.lastname(), updateContractor.email(), inMemoryContractor.paymentMethod())));
+        eventBus.publish(
+                ContractorUpdated.withContractor(ContractorEventEntity.withoutPassword(inMemoryContractor.entityId(),
+                        updateContractor.firstname(), updateContractor.lastname(), updateContractor.email(),
+                        inMemoryContractor.paymentMethod(), updatedContractor.projects())));
         return updatedContractor;
     }
 }

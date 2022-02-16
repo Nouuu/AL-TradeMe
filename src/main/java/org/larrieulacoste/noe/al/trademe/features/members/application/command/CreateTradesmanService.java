@@ -39,12 +39,14 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
                 Password.of(createTradesman.password(), stringValidators),
                 SubscriptionStatus.PENDING_PAYMENT,
                 PaymentMethod.of(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource())
-
         );
         tradesmen.save(tradesman);
 
-        eventBus.publish(TradesmanRegistered.withTradesman(TradesmanEventEntity.of(userId, createTradesman.firstname(),
-                createTradesman.lastname(), createTradesman.email(), createTradesman.password(), PaymentMethod.of(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource()))));
+        eventBus.publish(TradesmanRegistered.withTradesman(TradesmanEventEntity.of(
+            userId, createTradesman.firstname(), createTradesman.lastname(), createTradesman.email(),
+            createTradesman.password(), PaymentMethod.of(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource()),
+            tradesman.professionalAbilities(), tradesman.projects()
+        )));
 
         return userId;
     }

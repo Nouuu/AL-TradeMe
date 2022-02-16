@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Objects;
 
 @ApplicationScoped
-public class PublishTradesmenPendingSubscriptionPaymentService implements CommandHandler<PublishTradesmenPendingSubscriptionPayment, Void> {
+public class PublishTradesmenPendingSubscriptionPaymentService
+        implements CommandHandler<PublishTradesmenPendingSubscriptionPayment, Void> {
     private final Tradesmen tradesmen;
     private final EventBus<ApplicationEvent> eventBus;
 
@@ -34,9 +35,7 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
                 TradesmenSubscriptionPendingPayment.withTradesmen(
                         tradesmenPendingPayment.stream()
                                 .map(tradesman -> TradesmanEventEntity.withEntityIdOnly(tradesman.entityId()))
-                                .toList()
-                )
-        );
+                                .toList()));
         return null;
     }
 
@@ -50,17 +49,19 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
                 SubscriptionStatus.PENDING_PAYMENT,
                 tradesman.paymentMethod(),
                 tradesman.professionalAbilities(),
-                tradesman.projects()
-        );
+                tradesman.projects());
         tradesmen.save(updatedTradesman);
-        eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.of(
+        eventBus.publish(TradesmanUpdated.withTradesman(
+            TradesmanEventEntity.of(
                 tradesman.entityId(),
                 tradesman.lastname().value,
                 tradesman.firstname().value,
                 tradesman.email().value,
                 tradesman.password().value,
-                tradesman.paymentMethod()
-        )));
+                tradesman.paymentMethod(),
+                tradesman.professionalAbilities(),
+                tradesman.projects())
+            ));
     }
 
 }

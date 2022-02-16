@@ -44,7 +44,9 @@ public class UpdateTradesmanSubscriptionStatusService implements CommandHandler<
                 tradesman.firstname().value,
                 tradesman.email().value,
                 tradesman.password().value,
-                tradesman.paymentMethod()
+                tradesman.paymentMethod(),
+                tradesman.professionalAbilities(),
+                tradesman.projects()
         )));
         return null;
     }

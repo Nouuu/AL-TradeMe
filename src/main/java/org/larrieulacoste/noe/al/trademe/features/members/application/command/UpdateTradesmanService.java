@@ -19,7 +19,8 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
     private final EventBus<ApplicationEvent> eventBus;
     private final StringValidators stringValidators;
 
-    UpdateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
+    UpdateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService,
+            EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
@@ -33,17 +34,22 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
         memberValidationService.validateUpdateTradesman(updateTradesman);
 
         Tradesman updatedTradesman = Tradesman.of(
-                inMemoryTradesman.entityId(),
-                updateTradesman.lastname() != null ? NotEmptyString.of(updateTradesman.lastname(), stringValidators) : inMemoryTradesman.lastname(),
-                updateTradesman.firstname() != null ? NotEmptyString.of(updateTradesman.firstname(), stringValidators) : inMemoryTradesman.lastname(),
-                updateTradesman.email() != null ? EmailAddress.of(updateTradesman.email(), stringValidators) : inMemoryTradesman.email(),
-                updateTradesman.password() != null ? Password.of(updateTradesman.password(), stringValidators) : inMemoryTradesman.password(),
-                inMemoryTradesman.subscriptionStatus(),
-                inMemoryTradesman.paymentMethod());
+            inMemoryTradesman.entityId(),
+            updateTradesman.lastname() != null ? NotEmptyString.of(updateTradesman.lastname(), stringValidators) : inMemoryTradesman.lastname(),
+            updateTradesman.firstname() != null ? NotEmptyString.of(updateTradesman.firstname(), stringValidators) : inMemoryTradesman.lastname(),
+            updateTradesman.email() != null ? EmailAddress.of(updateTradesman.email(), stringValidators) : inMemoryTradesman.email(),
+            updateTradesman.password() != null ? Password.of(updateTradesman.password(), stringValidators) : inMemoryTradesman.password(),
+            inMemoryTradesman.subscriptionStatus(),
+            inMemoryTradesman.paymentMethod(), inMemoryTradesman.professionalAbilities(), inMemoryTradesman.projects()
+        );
         tradesmen.save(updatedTradesman);
 
-        eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.withoutPassword(inMemoryTradesman.entityId(),
-                updateTradesman.firstname(), updateTradesman.lastname(), updateTradesman.email(), inMemoryTradesman.paymentMethod())));
+        eventBus.publish(
+            TradesmanUpdated.withTradesman(TradesmanEventEntity.withoutPassword(
+                inMemoryTradesman.entityId(), updateTradesman.firstname(), updateTradesman.lastname(), updateTradesman.email(),
+                    updatedTradesman.paymentMethod(), updatedTradesman.professionalAbilities(), updatedTradesman.projects()
+            ))
+        );
         return updatedTradesman;
     }
 }
