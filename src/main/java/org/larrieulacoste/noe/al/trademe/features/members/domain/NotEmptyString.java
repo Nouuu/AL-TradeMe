@@ -2,39 +2,21 @@ package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
-public final class NotEmptyString {
-    public final String value;
+import java.util.Objects;
+
+public record NotEmptyString(String value) {
+    public NotEmptyString {
+        Objects.requireNonNull(value);
+    }
 
     private NotEmptyString(String value, StringValidators stringValidators) {
+        this(value);
         if (!stringValidators.isNotEmptyOrOnlyWhitespaces(value)) {
             throw new IllegalArgumentException("Field must not be empty");
         }
-        this.value = value;
     }
 
     public static NotEmptyString of(String value, StringValidators stringValidators) {
         return new NotEmptyString(value, stringValidators);
-    }
-
-    @Override
-    public String toString() {
-        return "NotEmptyString{" +
-                "field='" + value + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof NotEmptyString)) return false;
-
-        NotEmptyString that = (NotEmptyString) o;
-
-        return value.equals(that.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
     }
 }
