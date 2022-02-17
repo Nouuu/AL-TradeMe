@@ -3,14 +3,18 @@ package org.larrieulacoste.noe.al.trademe.features.members.domain;
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidPasswordException;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
-public final class Password {
-    public final String value;
+import java.util.Objects;
+
+public record Password(String value) {
+    public Password {
+        Objects.requireNonNull(value);
+    }
 
     private Password(String value, StringValidators stringValidators) {
+        this(value);
         if (!stringValidators.isValidPassword(value)) {
             throw new InvalidPasswordException("Invalid password : " + value);
         }
-        this.value = value;
     }
 
     public static Password of(String password, StringValidators stringValidators) {
