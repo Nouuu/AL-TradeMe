@@ -19,7 +19,8 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
     private final EventBus<ApplicationEvent> eventBus;
     private final StringValidators stringValidators;
 
-    CreateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
+    CreateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService,
+            EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
         this.tradesmen = tradesmen;
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
@@ -31,22 +32,19 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
         memberValidationService.validateCreateTradesman(createTradesman);
 
         final EntityId userId = tradesmen.nextId();
-        Tradesman tradesman = Tradesman.of(
-                userId,
-                NotEmptyString.of(createTradesman.lastname(), stringValidators),
-                NotEmptyString.of(createTradesman.firstname(), stringValidators),
-                EmailAddress.of(createTradesman.email(), stringValidators),
-                Password.of(createTradesman.password(), stringValidators),
-                SubscriptionStatus.PENDING_PAYMENT,
-                PaymentMethod.of(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource())
-        );
+        TradesmanBuilder tradesmanBuilder = new TradesmanBuilder(stringValidators);// TODO inject
+        tradesmanBuilder
+                .withLastname(createTradesman.lastname())
+                .withFirstname(createTradesman.firstname())
+                .withEmail(createTradesman.email())
+                .withPassword(createTradesman.password())
+                .withSubscribtionStatus(SubscriptionStatus.PENDING_PAYMENT)
+                .withPaymentMethod(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource())
+                .withLocationName(createTradesman.locationName());
+        Tradesman tradesman = tradesmanBuilder.build(userId);
         tradesmen.save(tradesman);
 
-        eventBus.publish(TradesmanRegistered.withTradesman(TradesmanEventEntity.of(
-            userId, createTradesman.firstname(), createTradesman.lastname(), createTradesman.email(),
-            createTradesman.password(), PaymentMethod.of(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource()),
-            tradesman.professionalAbilities(), tradesman.projects()
-        )));
+        eventBus.publish(TradesmanRegistered.withTradesman(tradesmanBuilder.buildTradesmanEventEntity()));
 
         return userId;
     }
