@@ -1,18 +1,47 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
+import java.util.ArrayList;
+
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.larrieulacoste.noe.al.trademe.domain.model.ActivityRadius;
+import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.domain.model.Coordinate;
+import org.larrieulacoste.noe.al.trademe.domain.model.DailyRate;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.model.Location;
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
+import org.larrieulacoste.noe.al.trademe.domain.model.Profession;
+import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilities;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.SimpleStringValidators;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 class TradesmanEventEntityTest {
     PaymentMethod paymentMethod = PaymentMethod.withPaypal("paypalemail");
+    StringValidators stringValidators;
+    TradesmanProfessionalAbilities abilities;
+    Location location;
+
+    @BeforeEach
+    public void setUp() {
+        stringValidators = new SimpleStringValidators();
+        location = Location.of(Coordinate.of(0, 0), NotEmptyString.of("center of the world", stringValidators));
+        abilities = TradesmanProfessionalAbilities.of(
+                Profession.of(NotEmptyString.of("worker", stringValidators)),
+                location,
+                new ArrayList<>(),
+                ActivityRadius.of(0),
+                DailyRate.of(Amount.of(20)));
+
+    }
 
     @Test
     void of() {
         EntityId entityId = EntityId.of("123");
-        TradesmanEventEntity tradesmanEventEntity =
-                TradesmanEventEntity.of(entityId, "firstname", "lastname", "email", "password", paymentMethod);
+        TradesmanEventEntity tradesmanEventEntity = TradesmanEventEntity.of(entityId, "firstname", "lastname", "email",
+                "password", paymentMethod, abilities);
         Assertions.assertThat(tradesmanEventEntity.entityId()).isEqualTo(entityId);
         Assertions.assertThat(tradesmanEventEntity.firstname()).isEqualTo("firstname");
         Assertions.assertThat(tradesmanEventEntity.lastname()).isEqualTo("lastname");
@@ -25,8 +54,8 @@ class TradesmanEventEntityTest {
     @Test
     void withoutPassword() {
         EntityId entityId = EntityId.of("123");
-        TradesmanEventEntity tradesmanEventEntity =
-                TradesmanEventEntity.withoutPassword(entityId, "firstname", "lastname", "email", paymentMethod);
+        TradesmanEventEntity tradesmanEventEntity = TradesmanEventEntity.withoutPassword(entityId, "firstname",
+                "lastname", "email", paymentMethod, abilities);
         Assertions.assertThat(tradesmanEventEntity.entityId()).isEqualTo(entityId);
         Assertions.assertThat(tradesmanEventEntity.firstname()).isEqualTo("firstname");
         Assertions.assertThat(tradesmanEventEntity.lastname()).isEqualTo("lastname");
@@ -36,10 +65,24 @@ class TradesmanEventEntityTest {
     }
 
     @Test
+    void testAbilities() {
+        EntityId entityId = EntityId.of("123");
+        TradesmanEventEntity tradesmanEventEntity = TradesmanEventEntity.withoutPassword(entityId, "firstname",
+                "lastname", "email", paymentMethod, abilities);
+        TradesmanProfessionalAbilities abilities = tradesmanEventEntity.professionalAblilites();
+
+        Assertions.assertThat(abilities.address()).isEqualTo(location);
+        Assertions.assertThat(abilities.activityRadius()).isEqualTo(ActivityRadius.of(0));
+        Assertions.assertThat(abilities.skills()).isEmpty();
+        Assertions.assertThat(abilities.profession())
+                .isEqualTo(Profession.of(NotEmptyString.of("worker", stringValidators)));
+        Assertions.assertThat(abilities.dailyRate()).isEqualTo(DailyRate.of(Amount.of(20)));
+    }
+
+    @Test
     void withEntityIdOnly() {
         EntityId entityId = EntityId.of("123");
-        TradesmanEventEntity tradesmanEventEntity =
-                TradesmanEventEntity.withEntityIdOnly(entityId);
+        TradesmanEventEntity tradesmanEventEntity = TradesmanEventEntity.withEntityIdOnly(entityId);
         Assertions.assertThat(tradesmanEventEntity.entityId()).isEqualTo(entityId);
         Assertions.assertThat(tradesmanEventEntity.firstname()).isNull();
         Assertions.assertThat(tradesmanEventEntity.lastname()).isNull();
@@ -51,8 +94,8 @@ class TradesmanEventEntityTest {
     @Test
     void withEntityIdAndPaymentMethodOnly() {
         EntityId entityId = EntityId.of("123");
-        TradesmanEventEntity tradesmanEventEntity =
-                TradesmanEventEntity.withEntityIdAndPaymentMethodOnly(entityId, paymentMethod);
+        TradesmanEventEntity tradesmanEventEntity = TradesmanEventEntity.withEntityIdAndPaymentMethodOnly(entityId,
+                paymentMethod);
         Assertions.assertThat(tradesmanEventEntity.entityId()).isEqualTo(entityId);
         Assertions.assertThat(tradesmanEventEntity.firstname()).isNull();
         Assertions.assertThat(tradesmanEventEntity.lastname()).isNull();

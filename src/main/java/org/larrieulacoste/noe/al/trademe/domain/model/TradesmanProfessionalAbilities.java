@@ -15,4 +15,12 @@ public record TradesmanProfessionalAbilities(Profession profession,
     Objects.requireNonNull(activityRadius);
     Objects.requireNonNull(dailyRate);
   }
+
+  public static TradesmanProfessionalAbilities of(Profession profession,
+      Location address,
+      List<Skill> skills,
+      ActivityRadius activityRadius,
+      DailyRate dailyRate) {
+    return new TradesmanProfessionalAbilities(profession, address, skills, activityRadius, dailyRate);
+  }
 }
