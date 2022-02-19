@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
-import org.larrieulacoste.noe.al.trademe.domain.model.ActivityPerimeter;
+import org.larrieulacoste.noe.al.trademe.domain.model.ActivityRadius;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.domain.model.Coordinate;
 import org.larrieulacoste.noe.al.trademe.domain.model.DailyRate;
@@ -28,7 +28,7 @@ public final class TradesmanBuilder {
   private Profession profession;
   private double longitude;
   private double latitude;
-  private double activityRadius;
+  private ActivityRadius activityRadius;
   private DailyRate dailyRate;
   private List<Skill> skills = new ArrayList<>();
   private NotEmptyString locationName;
@@ -43,8 +43,18 @@ public final class TradesmanBuilder {
     return this;
   }
 
+  public TradesmanBuilder withLastname(NotEmptyString lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
   public TradesmanBuilder withFirstname(String firstname) {
     this.firstname = NotEmptyString.of(firstname, stringValidators);
+    return this;
+  }
+
+  public TradesmanBuilder withFirstname(NotEmptyString firstname) {
+    this.firstname = firstname;
     return this;
   }
 
@@ -53,8 +63,18 @@ public final class TradesmanBuilder {
     return this;
   }
 
+  public TradesmanBuilder withEmail(EmailAddress email) {
+    this.email = email;
+    return this;
+  }
+
   public TradesmanBuilder withPassword(String password) {
     this.password = Password.of(password, stringValidators);
+    return this;
+  }
+
+  public TradesmanBuilder withPassword(Password password) {
+    this.password = password;
     return this;
   }
 
@@ -65,6 +85,11 @@ public final class TradesmanBuilder {
 
   public TradesmanBuilder withPaymentMethod(String paymentMethod, String paymentInfo) {
     this.paymentMethod = PaymentMethod.of(paymentMethod, paymentInfo);
+    return this;
+  }
+
+  public TradesmanBuilder withPaymentMethod(PaymentMethod paymentMethod) {
+    this.paymentMethod = paymentMethod;
     return this;
   }
 
@@ -83,13 +108,23 @@ public final class TradesmanBuilder {
     return this;
   }
 
-  public TradesmanBuilder withActivityRaidus(double activityRaidus) {
-    this.activityRadius = activityRaidus;
+  public TradesmanBuilder withActivityRadius(double activityRadius) {
+    this.activityRadius = ActivityRadius.of(activityRadius);
+    return this;
+  }
+
+  public TradesmanBuilder withActivityRadius(ActivityRadius activityRadius) {
+    this.activityRadius = activityRadius;
     return this;
   }
 
   public TradesmanBuilder withDailyRate(double dailyRate) {
     this.dailyRate = DailyRate.of(Amount.of(dailyRate));
+    return this;
+  }
+
+  public TradesmanBuilder withDailyRate(DailyRate dailyRate) {
+    this.dailyRate = dailyRate;
     return this;
   }
 
@@ -108,22 +143,53 @@ public final class TradesmanBuilder {
     return this;
   }
 
+  public TradesmanBuilder withLocation(Location location) {
+    this.locationName = location.locationName();
+    this.latitude = location.coordinate().latitude();
+    this.longitude = location.coordinate().longitude();
+    return this;
+  }
+
+  public TradesmanBuilder withTradesmanProfessionalAbilities(TradesmanProfessionalAbilities abilities) {
+    return this.withSkills(abilities.skills())
+        .withActivityRadius(abilities.activityRadius())
+        .withDailyRate(abilities.dailyRate())
+        .withProfession(abilities.profession())
+        .withLocation(abilities.address());
+  }
+
+  public TradesmanBuilder withTrademan(Tradesman tradesman) {
+    return this.withLastname(tradesman.lastname())
+        .withFirstname(tradesman.firstname())
+        .withEmail(tradesman.email())
+        .withPassword(tradesman.password())
+        .withSubscribtionStatus(tradesman.subscriptionStatus())
+        .withPaymentMethod(tradesman.paymentMethod())
+        .withTradesmanProfessionalAbilities(tradesman.professionalAbilities());
+  }
+
   public Tradesman build(EntityId entityId) {
     this.id = entityId;
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    ActivityPerimeter activityPerimeter = new ActivityPerimeter(longitude, latitude, activityRadius);
     TradesmanProfessionalAbilities professionalAbilities = new TradesmanProfessionalAbilities(profession, location,
-        skills, activityPerimeter, dailyRate);
+        skills, activityRadius, dailyRate);
     return Tradesman.of(entityId, lastname, firstname, email, password, subscriptionStatus, paymentMethod,
         professionalAbilities);
   }
 
   public TradesmanEventEntity buildTradesmanEventEntity() {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    ActivityPerimeter activityPerimeter = new ActivityPerimeter(longitude, latitude, activityRadius);
     TradesmanProfessionalAbilities professionalAbilities = new TradesmanProfessionalAbilities(profession, location,
-        skills, activityPerimeter, dailyRate);
+        skills, activityRadius, dailyRate);
     return TradesmanEventEntity.of(id, firstname.value, lastname.value, email.value, password.value, paymentMethod,
+        professionalAbilities);
+  }
+
+  public TradesmanEventEntity buildTradesmanEventEntityWithoutPassword() {
+    Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
+    TradesmanProfessionalAbilities professionalAbilities = new TradesmanProfessionalAbilities(profession, location,
+        skills, activityRadius, dailyRate);
+    return TradesmanEventEntity.withoutPassword(id, firstname.value, lastname.value, email.value, paymentMethod,
         professionalAbilities);
   }
 
@@ -137,7 +203,7 @@ public final class TradesmanBuilder {
     profession = null;
     longitude = 0;
     latitude = 0;
-    activityRadius = 0;
+    activityRadius = null;
     dailyRate = DailyRate.of(Amount.of(0));
     skills = null;
     locationName = null;

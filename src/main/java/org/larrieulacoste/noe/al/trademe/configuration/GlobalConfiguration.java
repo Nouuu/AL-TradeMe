@@ -2,6 +2,7 @@ package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
 import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.JBossLoggerFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
@@ -29,8 +30,7 @@ final class GlobalConfiguration {
     MembersSubscriptionAmount membersSubscriptionAmount() {
         return MembersSubscriptionAmount.of(
                 Amount.of(contractorMonthlySubscriptionAmount),
-                Amount.of(tradesmanMonthlySubscriptionAmount)
-        );
+                Amount.of(tradesmanMonthlySubscriptionAmount));
     }
 
     @Produces
@@ -58,5 +58,10 @@ final class GlobalConfiguration {
     @Produces
     PaymentInformationsValidator paymentInformationsValidator() {
         return new SimplePaymentInformationsValidator();
+    }
+
+    @Produces
+    TradesmanBuilder tradesmanBuilder() {
+        return new TradesmanBuilder(stringValidators());
     }
 }

@@ -1,14 +1,11 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanRegistered;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -17,14 +14,14 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
     private final Tradesmen tradesmen;
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
-    private final StringValidators stringValidators;
+    private final TradesmanBuilder tradesmanBuilder;
 
     CreateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService,
-            EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
+            EventBus<ApplicationEvent> eventBus, TradesmanBuilder tradesmanBuilder) {
         this.tradesmen = tradesmen;
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
-        this.stringValidators = stringValidators;
+        this.tradesmanBuilder = tradesmanBuilder;
     }
 
     @Override
@@ -32,7 +29,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
         memberValidationService.validateCreateTradesman(createTradesman);
 
         final EntityId userId = tradesmen.nextId();
-        TradesmanBuilder tradesmanBuilder = new TradesmanBuilder(stringValidators);// TODO inject
+        tradesmanBuilder.clear();
         tradesmanBuilder
                 .withLastname(createTradesman.lastname())
                 .withFirstname(createTradesman.firstname())

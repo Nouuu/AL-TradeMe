@@ -6,13 +6,13 @@ import java.util.Objects;
 public record TradesmanProfessionalAbilities(Profession profession,
     Location address,
     List<Skill> skills,
-    ActivityPerimeter activityPerimeter,
+    ActivityRadius activityRadius,
     DailyRate dailyRate) {
   public TradesmanProfessionalAbilities {
     Objects.requireNonNull(profession);
     Objects.requireNonNull(address);
     Objects.requireNonNull(skills);
-    Objects.requireNonNull(activityPerimeter);
+    Objects.requireNonNull(activityRadius);
     Objects.requireNonNull(dailyRate);
   }
 }

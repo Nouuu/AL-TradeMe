@@ -17,14 +17,14 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
     private final Tradesmen tradesmen;
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
-    private final StringValidators stringValidators;
+    private final TradesmanBuilder tradesmanBuilder;
 
     UpdateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService,
-            EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
+            EventBus<ApplicationEvent> eventBus, TradesmanBuilder tradesmanBuilder) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
-        this.stringValidators = stringValidators;
+        this.tradesmanBuilder = tradesmanBuilder;
     }
 
     @Override
@@ -33,23 +33,26 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
 
         memberValidationService.validateUpdateTradesman(updateTradesman);
 
-        Tradesman updatedTradesman = Tradesman.of(
-            inMemoryTradesman.entityId(),
-            updateTradesman.lastname() != null ? NotEmptyString.of(updateTradesman.lastname(), stringValidators) : inMemoryTradesman.lastname(),
-            updateTradesman.firstname() != null ? NotEmptyString.of(updateTradesman.firstname(), stringValidators) : inMemoryTradesman.lastname(),
-            updateTradesman.email() != null ? EmailAddress.of(updateTradesman.email(), stringValidators) : inMemoryTradesman.email(),
-            updateTradesman.password() != null ? Password.of(updateTradesman.password(), stringValidators) : inMemoryTradesman.password(),
-            inMemoryTradesman.subscriptionStatus(),
-            inMemoryTradesman.paymentMethod(), inMemoryTradesman.professionalAbilities(), inMemoryTradesman.projects()
-        );
+        tradesmanBuilder.clear();
+        tradesmanBuilder.withTrademan(inMemoryTradesman);
+        if (updateTradesman.lastname() != null) {
+            tradesmanBuilder.withLastname(updateTradesman.lastname());
+        }
+        if (updateTradesman.firstname() != null) {
+            tradesmanBuilder.withFirstname(updateTradesman.firstname());
+        }
+        if (updateTradesman.email() != null) {
+            tradesmanBuilder.withEmail(updateTradesman.email());
+        }
+        if (updateTradesman.password() != null) {
+            tradesmanBuilder.withPassword(updateTradesman.password());
+        }
+
+        Tradesman updatedTradesman = tradesmanBuilder.build(inMemoryTradesman.entityId());
         tradesmen.save(updatedTradesman);
 
         eventBus.publish(
-            TradesmanUpdated.withTradesman(TradesmanEventEntity.withoutPassword(
-                inMemoryTradesman.entityId(), updateTradesman.firstname(), updateTradesman.lastname(), updateTradesman.email(),
-                    updatedTradesman.paymentMethod(), updatedTradesman.professionalAbilities(), updatedTradesman.projects()
-            ))
-        );
+                TradesmanUpdated.withTradesman(tradesmanBuilder.buildTradesmanEventEntityWithoutPassword()));
         return updatedTradesman;
     }
 }
