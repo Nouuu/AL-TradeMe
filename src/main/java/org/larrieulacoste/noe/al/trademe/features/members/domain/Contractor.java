@@ -14,9 +14,7 @@ public record Contractor(
         EmailAddress email,
         Password password,
         SubscriptionStatus subscriptionStatus,
-        PaymentMethod paymentMethod,
-        List<Project> projects
-) {
+        PaymentMethod paymentMethod) {
 
     public Contractor {
         Objects.requireNonNull(entityId);
@@ -29,8 +27,9 @@ public record Contractor(
         Objects.requireNonNull(projects);
     }
 
-    public static Contractor of(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password, SubscriptionStatus subscriptionStatus, PaymentMethod paymentMethod, List<Project> projects) {
-        return new Contractor(entityId, lastname, firstname, email, password, subscriptionStatus, paymentMethod, projects);
+    public static Contractor of(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname,
+            EmailAddress email, Password password, SubscriptionStatus subscriptionStatus, PaymentMethod paymentMethod) {
+        return new Contractor(entityId, lastname, firstname, email, password, subscriptionStatus, paymentMethod);
     }
 
 }
