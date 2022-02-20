@@ -75,6 +75,16 @@ public class ContractorBuilder {
     return this;
   }
 
+  public ContractorBuilder withContractor(Contractor contractor) {
+    return this
+        .withLastname(contractor.lastname())
+        .withFirstname(contractor.firstname())
+        .withEmail(contractor.email())
+        .withPassword(contractor.password())
+        .withSubscriptionStatus(contractor.subscriptionStatus())
+        .withPaymentMethod(contractor.paymentMethod());
+  }
+
   public Contractor build(EntityId id) {
     this.id = id;
     return Contractor.of(id, lastname, firstname, email, password, subscriptionStatus, paymentMethod);
