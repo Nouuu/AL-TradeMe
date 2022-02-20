@@ -4,46 +4,26 @@ import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidPeriodException
 import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
 
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
-public final class Period {
-    public final ZonedDateTime startDate;
-    public final ZonedDateTime endDate;
+public record Period(
+        ZonedDateTime startDate,
+        ZonedDateTime endDate
+) {
+    public Period {
+        Objects.requireNonNull(startDate);
+        Objects.requireNonNull(endDate);
+    }
 
     private Period(ZonedDateTime startDate, ZonedDateTime endDate, DateValidators dateValidators) {
+        this(startDate, endDate);
         if (!dateValidators.isValidPeriod(startDate, endDate)) {
             throw new InvalidPeriodException("Invalid period " + startDate + " - " + endDate);
         }
-        this.startDate = startDate;
-        this.endDate = endDate;
     }
 
     public static Period of(ZonedDateTime startDate, ZonedDateTime endDate, DateValidators dateValidators) {
         return new Period(startDate, endDate, dateValidators);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Period period = (Period) o;
-
-        if (!startDate.equals(period.startDate)) return false;
-        return endDate.equals(period.endDate);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = startDate.hashCode();
-        result = 31 * result + endDate.hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Period{" +
-                "startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
-    }
 }
