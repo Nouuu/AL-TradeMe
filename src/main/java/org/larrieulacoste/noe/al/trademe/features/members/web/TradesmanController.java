@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
-
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
@@ -53,7 +52,13 @@ public final class TradesmanController {
                 tradesman.email(),
                 tradesman.password(),
                 tradesman.paymentMethodType(),
-                tradesman.paymentMethodRessource()));
+                tradesman.paymentMethodRessource(),
+                tradesman.profession(),
+                tradesman.longitude(),
+                tradesman.latitude(),
+                tradesman.activityRadius(),
+                tradesman.dailyRate(),
+                tradesman.locationName()));
 
         return new TradesmanResponse(userId.value(), null, null, null);
     }
@@ -68,8 +73,7 @@ public final class TradesmanController {
                 tradesman.firstname(),
                 tradesman.lastname(),
                 tradesman.email(),
-                tradesman.password()
-        ));
+                tradesman.password()));
 
         return getTradesmanResponse(updatedTradesman);
     }
@@ -95,7 +99,6 @@ public final class TradesmanController {
                 tradesman.entityId().value(),
                 tradesman.firstname().value,
                 tradesman.lastname().value,
-                tradesman.email().value
-        );
+                tradesman.email().value);
     }
 }

@@ -2,6 +2,7 @@ package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.ContractorBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
 import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.JBossLoggerFactory;
@@ -63,5 +64,10 @@ final class GlobalConfiguration {
     @Produces
     TradesmanBuilder tradesmanBuilder() {
         return new TradesmanBuilder(stringValidators());
+    }
+
+    @Produces
+    ContractorBuilder contractorBuilder() {
+        return new ContractorBuilder(stringValidators());
     }
 }

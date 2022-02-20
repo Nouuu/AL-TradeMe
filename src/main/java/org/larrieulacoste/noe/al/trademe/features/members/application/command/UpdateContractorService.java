@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorUpdated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
