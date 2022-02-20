@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
+import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
@@ -59,13 +60,33 @@ public class ContractorBuilder {
     return this;
   }
 
+  public ContractorBuilder withSubscriptionStatus(SubscriptionStatus subscriptionStatus) {
+    this.subscriptionStatus = subscriptionStatus;
+    return this;
+  }
+
+  public ContractorBuilder withPaymentMethod(String paymentMethod, String paymentInfo) {
+    this.paymentMethod = PaymentMethod.of(paymentMethod, paymentInfo);
+    return this;
+  }
+
+  public ContractorBuilder withPaymentMethod(PaymentMethod paymentMethod) {
+    this.paymentMethod = paymentMethod;
+    return this;
+  }
+
   public Contractor build(EntityId id) {
     this.id = id;
     return Contractor.of(id, lastname, firstname, email, password, subscriptionStatus, paymentMethod);
   }
 
-  // todo SubscriptionStatus
-  // todo paymentMethod
+  public ContractorEventEntity buildEventEntity() {
+    return ContractorEventEntity.of(id, firstname.value, lastname.value, email.value, password.value, paymentMethod);
+  }
+
+  public ContractorEventEntity buildEventEntityWithoutPassword() {
+    return ContractorEventEntity.withoutPassword(id, firstname.value, lastname.value, email.value, paymentMethod);
+  }
 
   public void clear() {
     id = null;

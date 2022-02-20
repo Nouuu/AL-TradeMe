@@ -171,7 +171,7 @@ public final class TradesmanBuilder {
   public Tradesman build(EntityId entityId) {
     this.id = entityId;
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilities professionalAbilities = new TradesmanProfessionalAbilities(profession, location,
+    TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession, location,
         skills, activityRadius, dailyRate);
     return Tradesman.of(entityId, lastname, firstname, email, password, subscriptionStatus, paymentMethod,
         professionalAbilities);
@@ -179,7 +179,7 @@ public final class TradesmanBuilder {
 
   public TradesmanEventEntity buildTradesmanEventEntity() {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilities professionalAbilities = new TradesmanProfessionalAbilities(profession, location,
+    TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession, location,
         skills, activityRadius, dailyRate);
     return TradesmanEventEntity.of(id, firstname.value, lastname.value, email.value, password.value, paymentMethod,
         professionalAbilities);
@@ -187,7 +187,7 @@ public final class TradesmanBuilder {
 
   public TradesmanEventEntity buildTradesmanEventEntityWithoutPassword() {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilities professionalAbilities = new TradesmanProfessionalAbilities(profession, location,
+    TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession, location,
         skills, activityRadius, dailyRate);
     return TradesmanEventEntity.withoutPassword(id, firstname.value, lastname.value, email.value, paymentMethod,
         professionalAbilities);

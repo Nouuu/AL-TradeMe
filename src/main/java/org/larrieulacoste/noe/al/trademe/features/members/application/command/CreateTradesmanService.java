@@ -41,7 +41,8 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
         Tradesman tradesman = tradesmanBuilder.build(userId);
         tradesmen.save(tradesman);
 
-        eventBus.publish(TradesmanRegistered.withTradesman(tradesmanBuilder.buildTradesmanEventEntity()));
+        eventBus.publish(
+                TradesmanRegistered.withTradesman(tradesmanBuilder.buildTradesmanEventEntityWithoutPassword()));
 
         return userId;
     }
