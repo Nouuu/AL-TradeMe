@@ -91,11 +91,12 @@ public class ContractorBuilder {
   }
 
   public ContractorEventEntity buildEventEntity() {
-    return ContractorEventEntity.of(id, firstname.value, lastname.value, email.value, password.value, paymentMethod);
+    return ContractorEventEntity.of(id, firstname.value(), lastname.value(), email.value(), password.value(),
+        paymentMethod);
   }
 
   public ContractorEventEntity buildEventEntityWithoutPassword() {
-    return ContractorEventEntity.withoutPassword(id, firstname.value, lastname.value, email.value, paymentMethod);
+    return ContractorEventEntity.withoutPassword(id, firstname.value(), lastname.value(), email.value(), paymentMethod);
   }
 
   public void clear() {

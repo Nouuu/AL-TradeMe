@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
-
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
@@ -68,8 +67,7 @@ public final class ContractorController {
                 contractor.firstname(),
                 contractor.lastname(),
                 contractor.email(),
-                contractor.password()
-        ));
+                contractor.password()));
 
         return getContractorResponse(updatedContractor);
     }
@@ -93,9 +91,8 @@ public final class ContractorController {
     private ContractorResponse getContractorResponse(Contractor contractor) {
         return new ContractorResponse(
                 contractor.entityId().value(),
-                contractor.firstname().value,
-                contractor.lastname().value,
-                contractor.email().value
-        );
+                contractor.firstname().value(),
+                contractor.lastname().value(),
+                contractor.email().value());
     }
 }

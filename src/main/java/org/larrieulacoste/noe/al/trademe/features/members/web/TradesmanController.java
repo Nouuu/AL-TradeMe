@@ -97,8 +97,8 @@ public final class TradesmanController {
     private TradesmanResponse getTradesmanResponse(Tradesman tradesman) {
         return new TradesmanResponse(
                 tradesman.entityId().value(),
-                tradesman.firstname().value,
-                tradesman.lastname().value,
-                tradesman.email().value);
+                tradesman.firstname().value(),
+                tradesman.lastname().value(),
+                tradesman.email().value());
     }
 }

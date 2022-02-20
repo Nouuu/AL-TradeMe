@@ -181,7 +181,8 @@ public final class TradesmanBuilder {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
     TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession, location,
         skills, activityRadius, dailyRate);
-    return TradesmanEventEntity.of(id, firstname.value, lastname.value, email.value, password.value, paymentMethod,
+    return TradesmanEventEntity.of(id, firstname.value(), lastname.value(), email.value(), password.value(),
+        paymentMethod,
         professionalAbilities);
   }
 
@@ -189,7 +190,7 @@ public final class TradesmanBuilder {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
     TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession, location,
         skills, activityRadius, dailyRate);
-    return TradesmanEventEntity.withoutPassword(id, firstname.value, lastname.value, email.value, paymentMethod,
+    return TradesmanEventEntity.withoutPassword(id, firstname.value(), lastname.value(), email.value(), paymentMethod,
         professionalAbilities);
   }
 

@@ -27,11 +27,11 @@ public final class NewTradesmenRegistrationListener implements EventSubscriber<T
                 tradesman.password(),
                 tradesman.paymentMethod().paymentMethodType().value,
                 tradesman.paymentMethod().paymentInfo(),
-                abilities.profession().professionName().value,
+                abilities.profession().professionName().value(),
                 addressCoordinate.longitude(),
                 addressCoordinate.latitude(),
                 abilities.activityRadius().activityRadius(),
                 abilities.dailyRate().amount().value(),
-                abilities.address().locationName().value));
+                abilities.address().locationName().value()));
     }
 }
