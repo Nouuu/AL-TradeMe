@@ -9,9 +9,8 @@ public record Project(
         NotEmptyString taskName,
         List<Skill> requiredSkills,
         List<Profession> professions,
-        Period period, double dailyRate,
-        Location location
-) {
+        Period period, DailyRate dailyRate,
+        Location location) {
 
     public Project {
         Objects.requireNonNull(taskName);
@@ -22,7 +21,7 @@ public record Project(
     }
 
     public static Project of(NotEmptyString taskName, List<Skill> requiredSkills, List<Profession> professions,
-                             Period period, double dailyRate, Location location) {
+            Period period, DailyRate dailyRate, Location location) {
         return new Project(taskName, requiredSkills, professions, period, dailyRate, location);
     }
 }

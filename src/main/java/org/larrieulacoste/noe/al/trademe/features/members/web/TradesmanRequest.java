@@ -10,6 +10,11 @@ record TradesmanRequest(
         String email,
         String password,
         @Schema(anyOf = PaymentMethodType.class) String paymentMethodType,
-        String paymentMethodRessource
-) {
+        String paymentMethodRessource,
+        String profession,
+        double longitude,
+        double latitude,
+        double activityRadius,
+        double dailyRate,
+        String locationName) {
 }

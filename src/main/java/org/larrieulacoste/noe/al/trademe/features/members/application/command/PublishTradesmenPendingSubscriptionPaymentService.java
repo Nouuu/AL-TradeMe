@@ -5,6 +5,7 @@ import org.larrieulacoste.noe.al.trademe.application.event.TradesmanUpdated;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmenSubscriptionPendingPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionStatus;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
@@ -15,13 +16,17 @@ import java.util.List;
 import java.util.Objects;
 
 @ApplicationScoped
-public class PublishTradesmenPendingSubscriptionPaymentService implements CommandHandler<PublishTradesmenPendingSubscriptionPayment, Void> {
+public class PublishTradesmenPendingSubscriptionPaymentService
+        implements CommandHandler<PublishTradesmenPendingSubscriptionPayment, Void> {
     private final Tradesmen tradesmen;
     private final EventBus<ApplicationEvent> eventBus;
+    private final TradesmanBuilder tradesmanBuilder;
 
-    PublishTradesmenPendingSubscriptionPaymentService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus) {
+    PublishTradesmenPendingSubscriptionPaymentService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus,
+            TradesmanBuilder tradesmanBuilder) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.eventBus = eventBus;
+        this.tradesmanBuilder = Objects.requireNonNull(tradesmanBuilder);
     }
 
     @Override
@@ -34,31 +39,19 @@ public class PublishTradesmenPendingSubscriptionPaymentService implements Comman
                 TradesmenSubscriptionPendingPayment.withTradesmen(
                         tradesmenPendingPayment.stream()
                                 .map(tradesman -> TradesmanEventEntity.withEntityIdOnly(tradesman.entityId()))
-                                .toList()
-                )
-        );
+                                .toList()));
         return null;
     }
 
     public void updateSubscriptionToPending(Tradesman tradesman) {
-        Tradesman updatedTradesman = Tradesman.of(
-                tradesman.entityId(),
-                tradesman.lastname(),
-                tradesman.firstname(),
-                tradesman.email(),
-                tradesman.password(),
-                SubscriptionStatus.PENDING_PAYMENT,
-                tradesman.paymentMethod()
-        );
+        tradesmanBuilder.clear();
+        tradesmanBuilder
+                .withTrademan(tradesman)
+                .withSubscribtionStatus(SubscriptionStatus.PENDING_PAYMENT);
+        Tradesman updatedTradesman = tradesmanBuilder.build(tradesman.entityId());
+
         tradesmen.save(updatedTradesman);
-        eventBus.publish(TradesmanUpdated.withTradesman(TradesmanEventEntity.of(
-                tradesman.entityId(),
-                tradesman.lastname().value,
-                tradesman.firstname().value,
-                tradesman.email().value,
-                tradesman.password().value,
-                tradesman.paymentMethod()
-        )));
+        eventBus.publish(TradesmanUpdated.withTradesman(tradesmanBuilder.buildTradesmanEventEntity()));
     }
 
 }

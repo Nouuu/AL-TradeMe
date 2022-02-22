@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorUpdated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
@@ -17,13 +16,15 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
     private final Contractors contractors;
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
-    private final StringValidators stringValidators;
+    private final ContractorBuilder contractorBuilder;
 
-    UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService, EventBus<ApplicationEvent> eventBus, StringValidators stringValidators) {
+    UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService,
+            EventBus<ApplicationEvent> eventBus, StringValidators stringValidators,
+            ContractorBuilder contractorBuilder) {
         this.contractors = Objects.requireNonNull(contractors);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
-        this.stringValidators = stringValidators;
+        this.contractorBuilder = contractorBuilder;
     }
 
     @Override
@@ -32,18 +33,26 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
 
         memberValidationService.validateUpdateContractor(updateContractor);
 
-        Contractor updatedContractor = Contractor.of(
-                inMemoryContractor.entityId(),
-                updateContractor.lastname() != null ? NotEmptyString.of(updateContractor.lastname(), stringValidators) : inMemoryContractor.lastname(),
-                updateContractor.firstname() != null ? NotEmptyString.of(updateContractor.firstname(), stringValidators) : inMemoryContractor.lastname(),
-                updateContractor.email() != null ? EmailAddress.of(updateContractor.email(), stringValidators) : inMemoryContractor.email(),
-                updateContractor.password() != null ? Password.of(updateContractor.password(), stringValidators) : inMemoryContractor.password(),
-                inMemoryContractor.subscriptionStatus(),
-                inMemoryContractor.paymentMethod());
+        contractorBuilder.clear();
+        contractorBuilder.withContractor(inMemoryContractor);
+        if (updateContractor.lastname() != null) {
+            contractorBuilder.withLastname(updateContractor.lastname());
+        }
+        if (updateContractor.firstname() != null) {
+            contractorBuilder.withFirstname(updateContractor.firstname());
+        }
+        if (updateContractor.email() != null) {
+            contractorBuilder.withEmail(updateContractor.email());
+        }
+        if (updateContractor.password() != null) {
+            contractorBuilder.withPassword(updateContractor.password());
+        }
+
+        Contractor updatedContractor = contractorBuilder.build(inMemoryContractor.entityId());
         contractors.save(updatedContractor);
 
-        eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.withoutPassword(inMemoryContractor.entityId(),
-                updateContractor.firstname(), updateContractor.lastname(), updateContractor.email(), inMemoryContractor.paymentMethod())));
+        eventBus.publish(
+                ContractorUpdated.withContractor(contractorBuilder.buildEventEntityWithoutPassword()));
         return updatedContractor;
     }
 }
