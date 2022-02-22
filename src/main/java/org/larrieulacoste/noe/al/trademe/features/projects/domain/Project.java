@@ -1,5 +1,6 @@
-package org.larrieulacoste.noe.al.trademe.domain.model;
+package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 
+import org.larrieulacoste.noe.al.trademe.domain.model.*;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 
 import java.util.List;
