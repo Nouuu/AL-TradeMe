@@ -8,7 +8,8 @@ import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbili
 public record TradesmanEventEntity(
         EntityId entityId,
         String firstname,
-        String lastname, String email,
+        String lastname,
+        String email,
         String password,
         PaymentMethod paymentMethod,
         Location address,

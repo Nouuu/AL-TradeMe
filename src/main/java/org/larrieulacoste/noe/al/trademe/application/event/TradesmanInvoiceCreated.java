@@ -1,5 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
+import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
+import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethodType;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -9,17 +13,43 @@ import java.util.Objects;
 public record TradesmanInvoiceCreated(
         EventId eventId,
         ZonedDateTime occurredDate,
-        InvoiceEventEntity invoice
+        EntityId invoiceId,
+        MemberType memberType,
+        EntityId memberId,
+        ZonedDateTime invoiceOccurredDate,
+        PaymentMethodType paymentMethodType,
+        Amount amount
 ) implements ApplicationEvent {
 
     public TradesmanInvoiceCreated {
         Objects.requireNonNull(eventId);
         Objects.requireNonNull(occurredDate);
-        Objects.requireNonNull(invoice);
+        Objects.requireNonNull(invoiceId);
+        Objects.requireNonNull(memberType);
+        Objects.requireNonNull(memberId);
+        Objects.requireNonNull(invoiceOccurredDate);
+        Objects.requireNonNull(paymentMethodType);
+        Objects.requireNonNull(amount);
     }
 
-    public static TradesmanInvoiceCreated of(InvoiceEventEntity invoiceEventEntity) {
-        return new TradesmanInvoiceCreated(EventId.create(), ZonedDateTime.now(), invoiceEventEntity);
+    public static TradesmanInvoiceCreated of(
+            EntityId invoiceId,
+            MemberType memberType,
+            EntityId memberId,
+            ZonedDateTime invoiceOccurredDate,
+            PaymentMethodType paymentMethodType,
+            Amount amount
+    ) {
+        return new TradesmanInvoiceCreated(
+                EventId.create(),
+                ZonedDateTime.now(),
+                invoiceId,
+                memberType,
+                memberId,
+                invoiceOccurredDate,
+                paymentMethodType,
+                amount
+        );
     }
 
 }
