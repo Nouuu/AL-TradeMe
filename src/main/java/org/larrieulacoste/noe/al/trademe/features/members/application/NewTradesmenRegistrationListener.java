@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanNewRegistration;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
@@ -16,22 +15,21 @@ public final class NewTradesmenRegistrationListener implements EventSubscriber<T
 
     @Override
     public void accept(TradesmanNewRegistration event) {
-        TradesmanEventEntity tradesman = event.tradesman();
-        var abilites = tradesman.professionalAblilites();
-        var addressCoordinate = tradesman.address().coordinate();
+        var abilities = event.professionalAbilities();
+        var addressCoordinate = event.address().coordinate();
 
         commandBus.send(new CreateTradesman(
-                tradesman.firstname(),
-                tradesman.lastname(),
-                tradesman.email(),
-                tradesman.password(),
-                tradesman.paymentMethod().paymentMethodType().value,
-                tradesman.paymentMethod().paymentInfo(),
-                abilites.profession().professionName().value(),
+                event.firstname(),
+                event.lastname(),
+                event.email(),
+                event.password(),
+                event.paymentMethod().paymentMethodType().value,
+                event.paymentMethod().paymentInfo(),
+                abilities.profession().professionName().value(),
                 addressCoordinate.longitude(),
                 addressCoordinate.latitude(),
-                abilites.activityRadius().activityRadius(),
-                abilites.dailyRate().amount().value(),
-                tradesman.address().locationName().value()));
+                abilities.activityRadius().activityRadius(),
+                abilities.dailyRate().amount().value(),
+                event.address().locationName().value()));
     }
 }
