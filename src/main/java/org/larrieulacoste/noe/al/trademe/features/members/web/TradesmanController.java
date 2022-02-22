@@ -1,7 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -54,9 +52,15 @@ public final class TradesmanController {
     @GET
     @Path("match")
     @Operation(summary = "Match tradesmen", description = "Retrieve tradesmen matching abilities criterion")
-    public TradesmenResponse matchTradesman() {
-        List<Tradesman> tradesmen = queryBus.send(new MatchTradesmen(EntityId.of("11"), new ArrayList<>(),
-                "Plumber", new Date(), new Date(), 150, 80, 80));
+    public TradesmenResponse matchTradesman(MatchTradesmanRequest criterion) {
+        List<Tradesman> tradesmen = queryBus.send(new MatchTradesmen(criterion.projectId(),
+                criterion.requiredSkills(),
+                criterion.profession(),
+                criterion.startDate(),
+                criterion.endDate(),
+                criterion.dailyRate(),
+                criterion.latitude(),
+                criterion.longitude()));
 
         return getTradesmenResponse(tradesmen);
     }
