@@ -78,7 +78,7 @@ public final class TradesmanBuilder {
     return this;
   }
 
-  public TradesmanBuilder withSubscribtionStatus(SubscriptionStatus subscriptionStatus) {
+  public TradesmanBuilder withSubscriptionStatus(SubscriptionStatus subscriptionStatus) {
     this.subscriptionStatus = subscriptionStatus;
     return this;
   }
@@ -157,12 +157,12 @@ public final class TradesmanBuilder {
         .withProfession(abilities.profession());
   }
 
-  public TradesmanBuilder withTrademan(Tradesman tradesman) {
+  public TradesmanBuilder withTradesman(Tradesman tradesman) {
     return this.withLastname(tradesman.lastname())
         .withFirstname(tradesman.firstname())
         .withEmail(tradesman.email())
         .withPassword(tradesman.password())
-        .withSubscribtionStatus(tradesman.subscriptionStatus())
+        .withSubscriptionStatus(tradesman.subscriptionStatus())
         .withPaymentMethod(tradesman.paymentMethod())
         .withLocation(tradesman.address())
         .withTradesmanProfessionalAbilities(tradesman.professionalAbilities());
@@ -205,7 +205,7 @@ public final class TradesmanBuilder {
     latitude = 0;
     activityRadius = null;
     dailyRate = DailyRate.of(Amount.of(0));
-    skills = null;
+    skills = new ArrayList<>();
     locationName = null;
   }
 

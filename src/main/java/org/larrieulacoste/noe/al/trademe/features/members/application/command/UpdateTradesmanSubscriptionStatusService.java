@@ -29,8 +29,8 @@ public class UpdateTradesmanSubscriptionStatusService
     public Void handle(UpdateTradesmanSubscriptionStatus command) {
         Tradesman tradesman = tradesmen.byId(command.tradesmanId());
         tradesmanBuilder.clear();
-        tradesmanBuilder.withTrademan(tradesman);
-        Tradesman updatedTradesman = tradesmanBuilder.withSubscribtionStatus(command.subscriptionStatus())
+        tradesmanBuilder.withTradesman(tradesman);
+        Tradesman updatedTradesman = tradesmanBuilder.withSubscriptionStatus(command.subscriptionStatus())
                 .build(tradesman.entityId());
 
         tradesmen.save(updatedTradesman);
