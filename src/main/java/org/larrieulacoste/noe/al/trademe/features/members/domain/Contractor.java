@@ -12,8 +12,7 @@ public record Contractor(
         EmailAddress email,
         Password password,
         SubscriptionStatus subscriptionStatus,
-        PaymentMethod paymentMethod
-) {
+        PaymentMethod paymentMethod) {
 
     public Contractor {
         Objects.requireNonNull(entityId);
@@ -25,7 +24,8 @@ public record Contractor(
         Objects.requireNonNull(paymentMethod);
     }
 
-    public static Contractor of(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname, EmailAddress email, Password password, SubscriptionStatus subscriptionStatus, PaymentMethod paymentMethod) {
+    public static Contractor of(EntityId entityId, NotEmptyString lastname, NotEmptyString firstname,
+            EmailAddress email, Password password, SubscriptionStatus subscriptionStatus, PaymentMethod paymentMethod) {
         return new Contractor(entityId, lastname, firstname, email, password, subscriptionStatus, paymentMethod);
     }
 

@@ -4,6 +4,7 @@ import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorUpdated;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorsSubscriptionPendingPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.ContractorBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionStatus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -15,13 +16,17 @@ import java.util.List;
 import java.util.Objects;
 
 @ApplicationScoped
-public class PublishContractorsPendingSubscriptionPaymentService implements CommandHandler<PublishContractorsPendingSubscriptionPayment, Void> {
+public class PublishContractorsPendingSubscriptionPaymentService
+        implements CommandHandler<PublishContractorsPendingSubscriptionPayment, Void> {
     private final Contractors contractors;
     private final EventBus<ApplicationEvent> eventBus;
+    private final ContractorBuilder contractorBuilder;
 
-    PublishContractorsPendingSubscriptionPaymentService(Contractors contractors, EventBus<ApplicationEvent> eventBus) {
+    PublishContractorsPendingSubscriptionPaymentService(Contractors contractors, EventBus<ApplicationEvent> eventBus,
+            ContractorBuilder contractorBuilder) {
         this.contractors = Objects.requireNonNull(contractors);
         this.eventBus = eventBus;
+        this.contractorBuilder = Objects.requireNonNull(contractorBuilder);
     }
 
     @Override
@@ -34,30 +39,15 @@ public class PublishContractorsPendingSubscriptionPaymentService implements Comm
                 ContractorsSubscriptionPendingPayment.withContractors(
                         contractorsPendingPayment.stream()
                                 .map(contractor -> ContractorEventEntity.withEntityIdOnly(contractor.entityId()))
-                                .toList()
-                )
-        );
+                                .toList()));
         return null;
     }
 
     public void updateSubscriptionToPending(Contractor contractor) {
-        Contractor updatedContractor = Contractor.of(
-                contractor.entityId(),
-                contractor.lastname(),
-                contractor.firstname(),
-                contractor.email(),
-                contractor.password(),
-                SubscriptionStatus.PENDING_PAYMENT,
-                contractor.paymentMethod()
-        );
+        contractorBuilder.clear();
+        contractorBuilder.withContractor(contractor).withSubscriptionStatus(SubscriptionStatus.PENDING_PAYMENT);
+        Contractor updatedContractor = contractorBuilder.build(contractor.entityId());
         contractors.save(updatedContractor);
-        eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.of(
-                contractor.entityId(),
-                contractor.lastname().value,
-                contractor.firstname().value,
-                contractor.email().value,
-                contractor.password().value,
-                contractor.paymentMethod()
-        )));
+        eventBus.publish(ContractorUpdated.withContractor(contractorBuilder.buildEventEntity()));
     }
 }

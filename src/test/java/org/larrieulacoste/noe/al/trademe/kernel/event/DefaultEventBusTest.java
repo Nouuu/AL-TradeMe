@@ -14,7 +14,7 @@ class DefaultEventBusTest {
 
     private Map<Class<? extends Event>, List<EventSubscriber<? extends Event>>> associatedSubscribers;
     private EventBus<Event> eventBus;
-    private EventSubscriber eventSubscriber;
+    private EventSubscriber<? extends Event> eventSubscriber;
     private List<EventSubscriber<? extends Event>> eventSubscribers;
     private Logger eventBusLogger;
 
@@ -98,7 +98,8 @@ class DefaultEventBusTest {
 
         eventBus.registerMultipleSubscribers(TestEvent2.class,
                 List.of(otherSubscriber, otherSubscriber2, otherSubscriber3));
-        eventBus.unregisterMultipleSubscribers(TestEvent2.class, List.of(otherSubscriber, otherSubscriber2, otherSubscriber3));
+        eventBus.unregisterMultipleSubscribers(TestEvent2.class,
+                List.of(otherSubscriber, otherSubscriber2, otherSubscriber3));
         Assertions.assertThat(associatedSubscribers.get(TestEvent2.class)).isEmpty();
     }
 }
