@@ -16,4 +16,19 @@ public record Location(
     public static Location of(Coordinate coordinate, NotEmptyString locationName) {
         return new Location(coordinate, locationName);
     }
+
+    public double distance(Location location) {
+        double lon1 = Math.toRadians(coordinate().longitude());
+        double lon2 = Math.toRadians(location.coordinate().longitude());
+        double lat1 = Math.toRadians(coordinate().latitude());
+        double lat2 = Math.toRadians(location.coordinate().latitude());
+        double dlon = lon2 - lon1;
+        double dlat = lat2 - lat1;
+        double a = Math.pow(Math.sin(dlat / 2), 2)
+                + Math.cos(lat1) * Math.cos(lat2)
+                * Math.pow(Math.sin(dlon / 2), 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double r = 6371;
+        return (c * r);
+    }
 }

@@ -5,6 +5,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.DeleteTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.application.query.MatchTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanById;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
@@ -13,6 +14,8 @@ import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Path("tradesman")
@@ -38,6 +41,16 @@ public final class TradesmanController {
     @Operation(summary = "Retrieve tradesmen", description = "Retrieve all tradesmen")
     public TradesmenResponse getAll() {
         List<Tradesman> tradesmen = queryBus.send(new RetrieveTradesmen());
+
+        return getTradesmenResponse(tradesmen);
+    }
+
+    @GET
+    @Path("match")
+    @Operation(summary = "Match tradesmen", description = "Retrieve tradesmen matching abilities criterion")
+    public TradesmenResponse matchTradesman() {
+        List<Tradesman> tradesmen = queryBus.send(new MatchTradesmen(new ArrayList<>(),
+                "Plumber",new Date(), new Date(),150,80,80));
 
         return getTradesmenResponse(tradesmen);
     }
