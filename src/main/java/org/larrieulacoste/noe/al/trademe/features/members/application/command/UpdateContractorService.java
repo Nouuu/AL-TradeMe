@@ -2,7 +2,10 @@ package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorUpdated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.ContractorBuilder;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
@@ -13,15 +16,15 @@ import java.util.Objects;
 
 @ApplicationScoped
 public class UpdateContractorService implements CommandHandler<UpdateContractor, Contractor> {
-    private final Contractors contractors;
+    private final Contractors contractor;
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
     private final ContractorBuilder contractorBuilder;
 
-    UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService,
-            EventBus<ApplicationEvent> eventBus, StringValidators stringValidators,
-            ContractorBuilder contractorBuilder) {
-        this.contractors = Objects.requireNonNull(contractors);
+    UpdateContractorService(Contractors contractor, MemberValidationService memberValidationService,
+                            EventBus<ApplicationEvent> eventBus, StringValidators stringValidators,
+                            ContractorBuilder contractorBuilder) {
+        this.contractor = Objects.requireNonNull(contractor);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
         this.contractorBuilder = contractorBuilder;
@@ -29,7 +32,7 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
 
     @Override
     public Contractor handle(UpdateContractor updateContractor) {
-        Contractor inMemoryContractor = contractors.byId(EntityId.of(updateContractor.contractorId()));
+        Contractor inMemoryContractor = contractor.byId(EntityId.of(updateContractor.contractorId()));
 
         memberValidationService.validateUpdateContractor(updateContractor);
 
@@ -49,10 +52,16 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
         }
 
         Contractor updatedContractor = contractorBuilder.build(inMemoryContractor.entityId());
-        contractors.save(updatedContractor);
+        contractor.save(updatedContractor);
 
         eventBus.publish(
-                ContractorUpdated.withContractor(contractorBuilder.buildEventEntityWithoutPassword()));
+                ContractorUpdated.of(
+                        updatedContractor.entityId(),
+                        updatedContractor.firstname().value(),
+                        updatedContractor.lastname().value(),
+                        updatedContractor.email().value(),
+                        updatedContractor.paymentMethod()
+                ));
         return updatedContractor;
     }
 }

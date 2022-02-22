@@ -1,7 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorDeleted;
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
@@ -26,9 +25,7 @@ public class DeleteContractorService implements CommandHandler<DeleteContractor,
     public Void handle(DeleteContractor command) {
         Contractor contractor = contractors.byId(EntityId.of(command.contractorId()));
         contractors.remove(contractor);
-        eventBus.publish(ContractorDeleted.withContractor(
-                ContractorEventEntity.withEntityIdOnly(contractor.entityId())
-        ));
+        eventBus.publish(ContractorDeleted.of(contractor.entityId()));
         return null;
     }
 }

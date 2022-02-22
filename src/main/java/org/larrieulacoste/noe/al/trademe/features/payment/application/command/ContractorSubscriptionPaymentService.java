@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorNewSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
@@ -32,8 +31,11 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
     public Void handle(ContractorSubscriptionPayment contractorSubscriptionPayment) {
         logger.log(String.format("Process contractor payment subscription of : %s with %sf", contractorSubscriptionPayment.contractorId(), contractorSubscriptionPayment.paymentMethod()));
         paymentAPI.pay(contractorSubscriptionPayment.paymentMethod(), subscriptionAmount.value());
-        eventBus.publish(ContractorNewSubscriptionPayment.of(ContractorEventEntity.withEntityIdOnly(contractorSubscriptionPayment.contractorId()),
-                contractorSubscriptionPayment.paymentMethod(), subscriptionAmount));
+        eventBus.publish(ContractorNewSubscriptionPayment.of(
+                contractorSubscriptionPayment.contractorId(),
+                contractorSubscriptionPayment.paymentMethod(),
+                subscriptionAmount
+        ));
         return null;
     }
 }

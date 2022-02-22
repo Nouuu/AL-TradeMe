@@ -18,7 +18,7 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
     private final ContractorBuilder contractorBuilder;
 
     CreateContractorService(Contractors contractors, MemberValidationService memberValidationService,
-            EventBus<ApplicationEvent> eventBus, ContractorBuilder contractorBuilder) {
+                            EventBus<ApplicationEvent> eventBus, ContractorBuilder contractorBuilder) {
         this.contractors = Objects.requireNonNull(contractors);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
@@ -42,7 +42,13 @@ public class CreateContractorService implements CommandHandler<CreateContractor,
         Contractor contractor = contractorBuilder.build(userId);
         contractors.save(contractor);
 
-        eventBus.publish(ContractorRegistered.withContractor(contractorBuilder.buildEventEntityWithoutPassword()));
+        eventBus.publish(ContractorRegistered.of(
+                userId,
+                contractor.firstname().value(),
+                contractor.lastname().value(),
+                contractor.email().value(),
+                contractor.paymentMethod()
+        ));
 
         return userId;
     }
