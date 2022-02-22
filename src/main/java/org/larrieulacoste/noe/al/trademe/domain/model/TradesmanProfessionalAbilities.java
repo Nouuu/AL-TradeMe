@@ -20,7 +20,8 @@ public record TradesmanProfessionalAbilities(
   public static TradesmanProfessionalAbilities of(Profession profession,
       List<Skill> skills,
       ActivityRadius activityRadius,
-      DailyRate dailyRate) {
+      DailyRate dailyRate,
+      List<Period> unavailability) {
     return new TradesmanProfessionalAbilities(profession, skills, activityRadius, dailyRate, unavailability);
   }
 }
