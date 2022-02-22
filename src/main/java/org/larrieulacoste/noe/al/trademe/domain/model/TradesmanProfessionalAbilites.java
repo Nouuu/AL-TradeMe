@@ -3,12 +3,12 @@ package org.larrieulacoste.noe.al.trademe.domain.model;
 import java.util.List;
 import java.util.Objects;
 
-public record TradesmanProfessionalAbilities(Profession profession,
+public record TradesmanProfessionalAbilites(Profession profession,
     Location address,
     List<Skill> skills,
     ActivityRadius activityRadius,
     DailyRate dailyRate) {
-  public TradesmanProfessionalAbilities {
+  public TradesmanProfessionalAbilites {
     Objects.requireNonNull(profession);
     Objects.requireNonNull(address);
     Objects.requireNonNull(skills);
@@ -16,11 +16,11 @@ public record TradesmanProfessionalAbilities(Profession profession,
     Objects.requireNonNull(dailyRate);
   }
 
-  public static TradesmanProfessionalAbilities of(Profession profession,
+  public static TradesmanProfessionalAbilites of(Profession profession,
       Location address,
       List<Skill> skills,
       ActivityRadius activityRadius,
       DailyRate dailyRate) {
-    return new TradesmanProfessionalAbilities(profession, address, skills, activityRadius, dailyRate);
+    return new TradesmanProfessionalAbilites(profession, address, skills, activityRadius, dailyRate);
   }
 }

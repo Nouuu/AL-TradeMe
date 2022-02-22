@@ -12,7 +12,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Location;
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.domain.model.Profession;
-import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilities;
+import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilites;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
 
@@ -150,12 +150,12 @@ public final class TradesmanBuilder {
     return this;
   }
 
-  public TradesmanBuilder withTradesmanProfessionalAbilities(TradesmanProfessionalAbilities abilities) {
-    return this.withSkills(abilities.skills())
-        .withActivityRadius(abilities.activityRadius())
-        .withDailyRate(abilities.dailyRate())
-        .withProfession(abilities.profession())
-        .withLocation(abilities.address());
+  public TradesmanBuilder withTradesmanProfessionalAbilites(TradesmanProfessionalAbilites abilites) {
+    return this.withSkills(abilites.skills())
+        .withActivityRadius(abilites.activityRadius())
+        .withDailyRate(abilites.dailyRate())
+        .withProfession(abilites.profession())
+        .withLocation(abilites.address());
   }
 
   public TradesmanBuilder withTrademan(Tradesman tradesman) {
@@ -165,33 +165,33 @@ public final class TradesmanBuilder {
         .withPassword(tradesman.password())
         .withSubscribtionStatus(tradesman.subscriptionStatus())
         .withPaymentMethod(tradesman.paymentMethod())
-        .withTradesmanProfessionalAbilities(tradesman.professionalAbilities());
+        .withTradesmanProfessionalAbilites(tradesman.professionalAbilites());
   }
 
   public Tradesman build(EntityId entityId) {
     this.id = entityId;
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession, location,
+    TradesmanProfessionalAbilites professionalAbilites = TradesmanProfessionalAbilites.of(profession, location,
         skills, activityRadius, dailyRate);
     return Tradesman.of(entityId, lastname, firstname, email, password, subscriptionStatus, paymentMethod,
-        professionalAbilities);
+        professionalAbilites);
   }
 
   public TradesmanEventEntity buildTradesmanEventEntity() {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession, location,
+    TradesmanProfessionalAbilites professionalAbilites = TradesmanProfessionalAbilites.of(profession, location,
         skills, activityRadius, dailyRate);
     return TradesmanEventEntity.of(id, firstname.value(), lastname.value(), email.value(), password.value(),
         paymentMethod,
-        professionalAbilities);
+        professionalAbilites);
   }
 
   public TradesmanEventEntity buildTradesmanEventEntityWithoutPassword() {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession, location,
+    TradesmanProfessionalAbilites professionalAbilites = TradesmanProfessionalAbilites.of(profession, location,
         skills, activityRadius, dailyRate);
     return TradesmanEventEntity.withoutPassword(id, firstname.value(), lastname.value(), email.value(), paymentMethod,
-        professionalAbilities);
+        professionalAbilites);
   }
 
   public void clear() {
