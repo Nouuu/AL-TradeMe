@@ -30,7 +30,6 @@ class TradesmanEventEntityTest {
         location = Location.of(Coordinate.of(0, 0), NotEmptyString.of("center of the world", stringValidators));
         abilites = TradesmanProfessionalAbilites.of(
                 Profession.of(NotEmptyString.of("worker", stringValidators)),
-                location,
                 new ArrayList<>(),
                 ActivityRadius.of(0),
                 DailyRate.of(Amount.of(20)));
@@ -41,7 +40,7 @@ class TradesmanEventEntityTest {
     void of() {
         EntityId entityId = EntityId.of("123");
         TradesmanEventEntity tradesmanEventEntity = TradesmanEventEntity.of(entityId, "firstname", "lastname", "email",
-                "password", paymentMethod, abilites);
+                "password", paymentMethod, location, abilites);
         Assertions.assertThat(tradesmanEventEntity.entityId()).isEqualTo(entityId);
         Assertions.assertThat(tradesmanEventEntity.firstname()).isEqualTo("firstname");
         Assertions.assertThat(tradesmanEventEntity.lastname()).isEqualTo("lastname");
@@ -55,23 +54,24 @@ class TradesmanEventEntityTest {
     void withoutPassword() {
         EntityId entityId = EntityId.of("123");
         TradesmanEventEntity tradesmanEventEntity = TradesmanEventEntity.withoutPassword(entityId, "firstname",
-                "lastname", "email", paymentMethod, abilites);
+                "lastname", "email", paymentMethod, location, abilites);
         Assertions.assertThat(tradesmanEventEntity.entityId()).isEqualTo(entityId);
         Assertions.assertThat(tradesmanEventEntity.firstname()).isEqualTo("firstname");
         Assertions.assertThat(tradesmanEventEntity.lastname()).isEqualTo("lastname");
         Assertions.assertThat(tradesmanEventEntity.email()).isEqualTo("email");
         Assertions.assertThat(tradesmanEventEntity.paymentMethod()).isEqualTo(paymentMethod);
         Assertions.assertThat(tradesmanEventEntity.password()).isNull();
+        Assertions.assertThat(tradesmanEventEntity.address().locationName().value()).isEqualTo("center of the world");
     }
 
     @Test
     void testAbilites() {
         EntityId entityId = EntityId.of("123");
         TradesmanEventEntity tradesmanEventEntity = TradesmanEventEntity.withoutPassword(entityId, "firstname",
-                "lastname", "email", paymentMethod, abilites);
+                "lastname", "email", paymentMethod, location, abilites);
         TradesmanProfessionalAbilites abilites = tradesmanEventEntity.professionalAblilites();
 
-        Assertions.assertThat(abilites.address()).isEqualTo(location);
+        Assertions.assertThat(tradesmanEventEntity.address()).isEqualTo(location);
         Assertions.assertThat(abilites.activityRadius()).isEqualTo(ActivityRadius.of(0));
         Assertions.assertThat(abilites.skills()).isEmpty();
         Assertions.assertThat(abilites.profession())

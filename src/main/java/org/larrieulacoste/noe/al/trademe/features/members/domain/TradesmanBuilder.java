@@ -154,8 +154,7 @@ public final class TradesmanBuilder {
     return this.withSkills(abilites.skills())
         .withActivityRadius(abilites.activityRadius())
         .withDailyRate(abilites.dailyRate())
-        .withProfession(abilites.profession())
-        .withLocation(abilites.address());
+        .withProfession(abilites.profession());
   }
 
   public TradesmanBuilder withTrademan(Tradesman tradesman) {
@@ -165,33 +164,33 @@ public final class TradesmanBuilder {
         .withPassword(tradesman.password())
         .withSubscribtionStatus(tradesman.subscriptionStatus())
         .withPaymentMethod(tradesman.paymentMethod())
+        .withLocation(tradesman.address())
         .withTradesmanProfessionalAbilites(tradesman.professionalAbilites());
   }
 
   public Tradesman build(EntityId entityId) {
     this.id = entityId;
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilites professionalAbilites = TradesmanProfessionalAbilites.of(profession, location,
+    TradesmanProfessionalAbilites professionalAbilites = TradesmanProfessionalAbilites.of(profession,
         skills, activityRadius, dailyRate);
-    return Tradesman.of(entityId, lastname, firstname, email, password, subscriptionStatus, paymentMethod,
+    return Tradesman.of(entityId, lastname, firstname, email, password, location, subscriptionStatus, paymentMethod,
         professionalAbilites);
   }
 
   public TradesmanEventEntity buildTradesmanEventEntity() {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilites professionalAbilites = TradesmanProfessionalAbilites.of(profession, location,
+    TradesmanProfessionalAbilites professionalAbilites = TradesmanProfessionalAbilites.of(profession,
         skills, activityRadius, dailyRate);
     return TradesmanEventEntity.of(id, firstname.value(), lastname.value(), email.value(), password.value(),
-        paymentMethod,
-        professionalAbilites);
+        paymentMethod, location, professionalAbilites);
   }
 
   public TradesmanEventEntity buildTradesmanEventEntityWithoutPassword() {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilites professionalAbilites = TradesmanProfessionalAbilites.of(profession, location,
+    TradesmanProfessionalAbilites professionalAbilites = TradesmanProfessionalAbilites.of(profession,
         skills, activityRadius, dailyRate);
     return TradesmanEventEntity.withoutPassword(id, firstname.value(), lastname.value(), email.value(), paymentMethod,
-        professionalAbilites);
+        location, professionalAbilites);
   }
 
   public void clear() {
