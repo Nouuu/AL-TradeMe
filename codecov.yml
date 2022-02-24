@@ -5,6 +5,41 @@ coverage:
   precision: 2
   round: down
   range: "5...100"
+  status:
+    project:
+      default:
+        # basic
+        target: 5%
+        threshold: 90%
+        base: auto
+        flags:
+          - unit
+        paths:
+          - "src"
+        # advanced settings
+        branches:
+          - main
+          - dev
+        if_ci_failed: success #success, failure, error, ignore
+        informational: true
+        only_pulls: false
+    patch:
+      default:
+        # basic
+        target: 5%
+        threshold: 90%
+        base: auto
+        flags:
+          - unit
+        paths:
+          - "src"
+        # advanced settings
+        branches:
+          - main
+          - dev
+        if_ci_failed: success #success, failure, error, ignore
+        informational: true
+        only_pulls: false
 
 parsers:
   gcov:
