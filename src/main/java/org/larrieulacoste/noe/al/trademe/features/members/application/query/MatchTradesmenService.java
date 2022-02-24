@@ -34,7 +34,7 @@ public class MatchTradesmenService implements QueryHandler<MatchTradesmen, List<
     @Override
     public List<Tradesman> handle(MatchTradesmen command) {
         Profession requiredProfession = Profession.of(NotEmptyString.of(command.profession(), stringValidators));
-        Location projectLocation = Location.of(Coordinate.of(command.longitude(), command.latitude()), NotEmptyString.of("", stringValidators));
+        Location projectLocation = Location.of(Coordinate.of(command.longitude(), command.latitude()), NotEmptyString.of("location", stringValidators));
         Period projectPeriod = Period.of(command.startDate(), command.endDate(), dateValidators);
         EntityId projectId = EntityId.of(command.projectId());
         List<Tradesman> matchedTradesmen = tradesmen.findAll()
@@ -46,10 +46,11 @@ public class MatchTradesmenService implements QueryHandler<MatchTradesmen, List<
                 .filter(tradesman -> tradesman.professionalAbilities()
                         .profession()
                         .equals(requiredProfession))
-                .filter(tradesman -> tradesman.professionalAbilities()
-                        .activityRadius()
-                        .activityRadius() >= tradesman.address()
-                        .distance(projectLocation))
+                .filter(tradesman -> command.requiredSkills()
+                        .stream()
+                        .anyMatch(skill -> tradesman.professionalAbilities()
+                                .skills()
+                                .contains(skill)))
                 .filter(tradesman -> tradesman.professionalAbilities()
                         .unavailability()
                         .stream()
@@ -61,7 +62,7 @@ public class MatchTradesmenService implements QueryHandler<MatchTradesmen, List<
                         && tradesman.professionalAbilities()
                         .dailyRate()
                         .amount()
-                        .value() > (command.dailyRate() * 0.9)  )
+                        .value() > (command.dailyRate() * 0.9))
                 .toList();
 
         eventBus.publish(

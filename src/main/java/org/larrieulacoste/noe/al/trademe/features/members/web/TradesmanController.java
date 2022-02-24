@@ -34,6 +34,23 @@ public final class TradesmanController {
     }
 
     @GET
+    @Path("match")
+    @Operation(summary = "Match tradesmen", description = "Retrieve tradesmen matching abilities criterion")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public TradesmenResponse matchTradesman(MatchTradesmanRequest criterion) {
+        List<Tradesman> tradesmen = queryBus.send(new MatchTradesmen(criterion.projectId(),
+                criterion.requiredSkills(),
+                criterion.profession(),
+                criterion.startDate(),
+                criterion.endDate(),
+                criterion.dailyRate(),
+                criterion.latitude(),
+                criterion.longitude()));
+
+        return getTradesmenResponse(tradesmen);
+    }
+
+    @GET
     @Path("{userId}")
     @Operation(summary = "Retrieve tradesman by ID", description = "Retrieve tradesman giving tradesman's ID")
     public TradesmanResponse getById(@PathParam("userId") String userId) {
@@ -45,22 +62,6 @@ public final class TradesmanController {
     @Operation(summary = "Retrieve tradesmen", description = "Retrieve all tradesmen")
     public TradesmenResponse getAll() {
         List<Tradesman> tradesmen = queryBus.send(new RetrieveTradesmen());
-
-        return getTradesmenResponse(tradesmen);
-    }
-
-    @GET
-    @Path("match")
-    @Operation(summary = "Match tradesmen", description = "Retrieve tradesmen matching abilities criterion")
-    public TradesmenResponse matchTradesman(MatchTradesmanRequest criterion) {
-        List<Tradesman> tradesmen = queryBus.send(new MatchTradesmen(criterion.projectId(),
-                criterion.requiredSkills(),
-                criterion.profession(),
-                criterion.startDate(),
-                criterion.endDate(),
-                criterion.dailyRate(),
-                criterion.latitude(),
-                criterion.longitude()));
 
         return getTradesmenResponse(tradesmen);
     }
