@@ -1,7 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.infrastructure;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvoiceNotFoundException;
-import org.larrieulacoste.noe.al.trademe.domain.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
@@ -36,7 +35,7 @@ public final class InMemoryInvoices implements Invoices {
 
         final Invoice invoice = data.get(Objects.requireNonNull(entityId));
         if (invoice == null) {
-            throw new UserNotFoundException("No invoice for " + entityId.value());
+            throw new InvoiceNotFoundException("No invoice for " + entityId.value());
         }
         return invoice;
     }
