@@ -17,8 +17,8 @@ public final class NewTradesmenRegistrationListener implements EventSubscriber<T
     @Override
     public void accept(TradesmanNewRegistration event) {
         TradesmanEventEntity tradesman = event.tradesman();
-        var abilities = tradesman.professionalAblilites();
-        var addressCoordinate = abilities.address().coordinate();
+        var abilities = tradesman.professionalAbilities();
+        var addressCoordinate = tradesman.address().coordinate();
 
         commandBus.send(new CreateTradesman(
                 tradesman.firstname(),
@@ -32,6 +32,6 @@ public final class NewTradesmenRegistrationListener implements EventSubscriber<T
                 addressCoordinate.latitude(),
                 abilities.activityRadius().activityRadius(),
                 abilities.dailyRate().amount().value(),
-                abilities.address().locationName().value()));
+                tradesman.address().locationName().value()));
     }
 }
