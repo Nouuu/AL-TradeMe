@@ -11,7 +11,6 @@ public class ContractorBuilder {
     this.stringValidator = stringValidations;
   }
 
-  private EntityId id;
   private NotEmptyString lastname;
   private NotEmptyString firstname;
   private EmailAddress email;
@@ -85,13 +84,10 @@ public class ContractorBuilder {
   }
 
   public Contractor build(EntityId id) {
-    this.id = id;
     return Contractor.of(id, lastname, firstname, email, password, subscriptionStatus, paymentMethod);
   }
 
-
   public void clear() {
-    id = null;
     lastname = null;
     firstname = null;
     email = null;
