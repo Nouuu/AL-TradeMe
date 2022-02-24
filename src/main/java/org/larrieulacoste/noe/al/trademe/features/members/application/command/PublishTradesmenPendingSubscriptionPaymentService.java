@@ -1,8 +1,8 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanUpdated;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmenSubscriptionPendingPayment;
+import org.larrieulacoste.noe.al.trademe.domain.model.MemberPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionStatus;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
@@ -23,7 +23,7 @@ public class PublishTradesmenPendingSubscriptionPaymentService
     private final TradesmanBuilder tradesmanBuilder;
 
     PublishTradesmenPendingSubscriptionPaymentService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus,
-            TradesmanBuilder tradesmanBuilder) {
+                                                      TradesmanBuilder tradesmanBuilder) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.eventBus = eventBus;
         this.tradesmanBuilder = Objects.requireNonNull(tradesmanBuilder);
@@ -38,7 +38,7 @@ public class PublishTradesmenPendingSubscriptionPaymentService
         eventBus.publish(
                 TradesmenSubscriptionPendingPayment.withTradesmen(
                         tradesmenPendingPayment.stream()
-                                .map(tradesman -> TradesmanEventEntity.withEntityIdOnly(tradesman.entityId()))
+                                .map(tradesman -> MemberPayment.of(tradesman.entityId(), tradesman.paymentMethod()))
                                 .toList()));
         return null;
     }
@@ -51,7 +51,15 @@ public class PublishTradesmenPendingSubscriptionPaymentService
         Tradesman updatedTradesman = tradesmanBuilder.build(tradesman.entityId());
 
         tradesmen.save(updatedTradesman);
-        eventBus.publish(TradesmanUpdated.withTradesman(tradesmanBuilder.buildTradesmanEventEntity()));
+        eventBus.publish(TradesmanUpdated.of(
+                updatedTradesman.entityId(),
+                updatedTradesman.firstname().value(),
+                updatedTradesman.lastname().value(),
+                updatedTradesman.email().value(),
+                updatedTradesman.paymentMethod(),
+                updatedTradesman.address(),
+                updatedTradesman.professionalAbilites()
+        ));
     }
 
 }

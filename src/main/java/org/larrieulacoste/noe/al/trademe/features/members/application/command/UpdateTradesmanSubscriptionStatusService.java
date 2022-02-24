@@ -19,7 +19,7 @@ public class UpdateTradesmanSubscriptionStatusService
     private final TradesmanBuilder tradesmanBuilder;
 
     UpdateTradesmanSubscriptionStatusService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus,
-            TradesmanBuilder tradesmanBuilder) {
+                                             TradesmanBuilder tradesmanBuilder) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.eventBus = eventBus;
         this.tradesmanBuilder = Objects.requireNonNull(tradesmanBuilder);
@@ -34,7 +34,15 @@ public class UpdateTradesmanSubscriptionStatusService
                 .build(tradesman.entityId());
 
         tradesmen.save(updatedTradesman);
-        eventBus.publish(TradesmanUpdated.withTradesman(tradesmanBuilder.buildTradesmanEventEntity()));
+        eventBus.publish(TradesmanUpdated.of(
+                updatedTradesman.entityId(),
+                updatedTradesman.firstname().value(),
+                updatedTradesman.lastname().value(),
+                updatedTradesman.email().value(),
+                updatedTradesman.paymentMethod(),
+                updatedTradesman.address(),
+                updatedTradesman.professionalAbilites()
+        ));
         return null;
     }
 }

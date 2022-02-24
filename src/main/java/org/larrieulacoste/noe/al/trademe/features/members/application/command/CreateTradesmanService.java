@@ -17,7 +17,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
     private final TradesmanBuilder tradesmanBuilder;
 
     CreateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService,
-            EventBus<ApplicationEvent> eventBus, TradesmanBuilder tradesmanBuilder) {
+                           EventBus<ApplicationEvent> eventBus, TradesmanBuilder tradesmanBuilder) {
         this.tradesmen = tradesmen;
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
@@ -41,8 +41,15 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
         Tradesman tradesman = tradesmanBuilder.build(userId);
         tradesmen.save(tradesman);
 
-        eventBus.publish(
-                TradesmanRegistered.withTradesman(tradesmanBuilder.buildTradesmanEventEntityWithoutPassword()));
+        eventBus.publish(TradesmanRegistered.of(
+                userId,
+                tradesman.firstname().value(),
+                tradesman.lastname().value(),
+                tradesman.email().value(),
+                tradesman.paymentMethod(),
+                tradesman.address(),
+                tradesman.professionalAbilites()
+        ));
 
         return userId;
     }
