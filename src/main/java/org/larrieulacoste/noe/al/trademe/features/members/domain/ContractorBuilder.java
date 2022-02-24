@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
@@ -90,14 +89,6 @@ public class ContractorBuilder {
     return Contractor.of(id, lastname, firstname, email, password, subscriptionStatus, paymentMethod);
   }
 
-  public ContractorEventEntity buildEventEntity() {
-    return ContractorEventEntity.of(id, firstname.value(), lastname.value(), email.value(), password.value(),
-        paymentMethod);
-  }
-
-  public ContractorEventEntity buildEventEntityWithoutPassword() {
-    return ContractorEventEntity.withoutPassword(id, firstname.value(), lastname.value(), email.value(), paymentMethod);
-  }
 
   public void clear() {
     id = null;

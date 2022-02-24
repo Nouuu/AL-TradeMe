@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
+import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -9,17 +10,17 @@ import java.util.Objects;
 public record TradesmanSubscriptionPaymentFailure(
         EventId eventId,
         ZonedDateTime occurredDate,
-        TradesmanEventEntity tradesman
+        EntityId tradesmanId
 ) implements ApplicationEvent {
 
     public TradesmanSubscriptionPaymentFailure {
         Objects.requireNonNull(eventId);
         Objects.requireNonNull(occurredDate);
-        Objects.requireNonNull(tradesman);
+        Objects.requireNonNull(tradesmanId);
     }
 
-    public static TradesmanSubscriptionPaymentFailure withTradesman(TradesmanEventEntity tradesman) {
-        return new TradesmanSubscriptionPaymentFailure(EventId.create(), ZonedDateTime.now(), tradesman);
+    public static TradesmanSubscriptionPaymentFailure of(EntityId tradesmanId) {
+        return new TradesmanSubscriptionPaymentFailure(EventId.create(), ZonedDateTime.now(), tradesmanId);
     }
 
 }
