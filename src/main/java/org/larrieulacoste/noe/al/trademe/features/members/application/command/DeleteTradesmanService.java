@@ -1,7 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanDeleted;
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
@@ -26,9 +25,7 @@ public class DeleteTradesmanService implements CommandHandler<DeleteTradesman, V
     public Void handle(DeleteTradesman command) {
         Tradesman tradesman = tradesmen.byId(EntityId.of(command.tradesmanId()));
         tradesmen.remove(tradesman);
-        eventBus.publish(TradesmanDeleted.withTradesman(
-                TradesmanEventEntity.withEntityIdOnly(tradesman.entityId())
-        ));
+        eventBus.publish(TradesmanDeleted.of(tradesman.entityId()));
         return null;
     }
 }

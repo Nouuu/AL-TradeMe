@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
+import org.larrieulacoste.noe.al.trademe.domain.model.MemberPayment;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -10,20 +11,20 @@ import java.util.Objects;
 public record ContractorsSubscriptionPendingPayment(
         EventId eventId,
         ZonedDateTime occurredDate,
-        List<ContractorEventEntity> contractors
+        List<MemberPayment> contractorsPayments
 ) implements ApplicationEvent {
     public ContractorsSubscriptionPendingPayment {
         Objects.requireNonNull(eventId);
         Objects.requireNonNull(occurredDate);
-        Objects.requireNonNull(contractors);
+        Objects.requireNonNull(contractorsPayments);
     }
 
-    public static ContractorsSubscriptionPendingPayment withContractors(List<ContractorEventEntity> contractors) {
-        return new ContractorsSubscriptionPendingPayment(EventId.create(), ZonedDateTime.now(), contractors);
+    public static ContractorsSubscriptionPendingPayment withContractors(List<MemberPayment> contractorsPayments) {
+        return new ContractorsSubscriptionPendingPayment(EventId.create(), ZonedDateTime.now(), contractorsPayments);
     }
 
     @Override
-    public List<ContractorEventEntity> contractors() {
-        return List.copyOf(contractors);
+    public List<MemberPayment> contractorsPayments() {
+        return List.copyOf(contractorsPayments);
     }
 }
