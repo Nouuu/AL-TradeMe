@@ -3,7 +3,7 @@ package org.larrieulacoste.noe.al.trademe.application.event;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Location;
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
-import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilites;
+import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilities;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -19,7 +19,7 @@ public record TradesmanUpdated(
         String email,
         PaymentMethod paymentMethod,
         Location address,
-        TradesmanProfessionalAbilites professionalAblilites
+        TradesmanProfessionalAbilities professionalAblilites
 ) implements ApplicationEvent {
 
     public TradesmanUpdated {
@@ -42,7 +42,7 @@ public record TradesmanUpdated(
             String email,
             PaymentMethod paymentMethod,
             Location address,
-            TradesmanProfessionalAbilites professionalAblilites
+            TradesmanProfessionalAbilities professionalAblilites
     ) {
         return new TradesmanUpdated(
                 EventId.create(),

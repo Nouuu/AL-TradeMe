@@ -2,7 +2,7 @@ package org.larrieulacoste.noe.al.trademe.application.event;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.Location;
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
-import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilites;
+import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilities;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -18,7 +18,7 @@ public record TradesmanNewRegistration(
         String password,
         PaymentMethod paymentMethod,
         Location address,
-        TradesmanProfessionalAbilites professionalAbilities
+        TradesmanProfessionalAbilities professionalAbilities
 ) implements ApplicationEvent {
 
     public TradesmanNewRegistration {
@@ -40,7 +40,7 @@ public record TradesmanNewRegistration(
             String password,
             PaymentMethod paymentMethod,
             Location address,
-            TradesmanProfessionalAbilites professionalAbilities
+            TradesmanProfessionalAbilities professionalAbilities
     ) {
         return new TradesmanNewRegistration(
                 EventId.create(),

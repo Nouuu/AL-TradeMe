@@ -46,8 +46,8 @@ public class PublishTradesmenPendingSubscriptionPaymentService
     public void updateSubscriptionToPending(Tradesman tradesman) {
         tradesmanBuilder.clear();
         tradesmanBuilder
-                .withTrademan(tradesman)
-                .withSubscribtionStatus(SubscriptionStatus.PENDING_PAYMENT);
+                .withTradesman(tradesman)
+                .withSubscriptionStatus(SubscriptionStatus.PENDING_PAYMENT);
         Tradesman updatedTradesman = tradesmanBuilder.build(tradesman.entityId());
 
         tradesmen.save(updatedTradesman);
@@ -58,7 +58,7 @@ public class PublishTradesmenPendingSubscriptionPaymentService
                 updatedTradesman.email().value(),
                 updatedTradesman.paymentMethod(),
                 updatedTradesman.address(),
-                updatedTradesman.professionalAbilites()
+                updatedTradesman.professionalAbilities()
         ));
     }
 

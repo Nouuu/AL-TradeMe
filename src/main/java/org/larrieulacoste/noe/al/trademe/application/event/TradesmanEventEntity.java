@@ -3,7 +3,7 @@ package org.larrieulacoste.noe.al.trademe.application.event;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Location;
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
-import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilites;
+import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilities;
 
 public record TradesmanEventEntity(
         EntityId entityId,
@@ -13,20 +13,20 @@ public record TradesmanEventEntity(
         String password,
         PaymentMethod paymentMethod,
         Location address,
-        TradesmanProfessionalAbilites professionalAblilites) {
+        TradesmanProfessionalAbilities professionalAbilities) {
 
     public static TradesmanEventEntity of(EntityId entityId, String firstname, String lastname, String email,
             String password, PaymentMethod paymentMethod, Location address,
-            TradesmanProfessionalAbilites professionalAblilites) {
+            TradesmanProfessionalAbilities professionalAbilities) {
         return new TradesmanEventEntity(entityId, firstname, lastname, email, password, paymentMethod, address,
-                professionalAblilites);
+                professionalAbilities);
     }
 
     public static TradesmanEventEntity withoutPassword(EntityId entityId, String firstname, String lastname,
             String email, PaymentMethod paymentMethod, Location address,
-            TradesmanProfessionalAbilites professionalAblilites) {
+            TradesmanProfessionalAbilities professionalAblilities) {
         return new TradesmanEventEntity(entityId, firstname, lastname, email, null, paymentMethod, address,
-                professionalAblilites);
+                professionalAblilities);
     }
 
     public static TradesmanEventEntity withEntityIdOnly(EntityId entityId) {

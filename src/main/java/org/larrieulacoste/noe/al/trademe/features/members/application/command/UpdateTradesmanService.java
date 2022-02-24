@@ -35,7 +35,7 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
         memberValidationService.validateUpdateTradesman(updateTradesman);
 
         tradesmanBuilder.clear();
-        tradesmanBuilder.withTrademan(inMemoryTradesman);
+        tradesmanBuilder.withTradesman(inMemoryTradesman);
         if (updateTradesman.lastname() != null) {
             tradesmanBuilder.withLastname(updateTradesman.lastname());
         }
@@ -60,7 +60,7 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
                         updatedTradesman.email().value(),
                         updatedTradesman.paymentMethod(),
                         updatedTradesman.address(),
-                        updatedTradesman.professionalAbilites()
+                        updatedTradesman.professionalAbilities()
                 ));
         return updatedTradesman;
     }

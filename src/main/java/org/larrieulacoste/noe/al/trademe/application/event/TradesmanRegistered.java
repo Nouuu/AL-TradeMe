@@ -3,7 +3,7 @@ package org.larrieulacoste.noe.al.trademe.application.event;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Location;
 import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
-import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilites;
+import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilities;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -19,7 +19,7 @@ public record TradesmanRegistered(
         String email,
         PaymentMethod paymentMethod,
         Location address,
-        TradesmanProfessionalAbilites professionalAblilites
+        TradesmanProfessionalAbilities professionalAbilities
 ) implements ApplicationEvent {
 
     public TradesmanRegistered {
@@ -31,7 +31,7 @@ public record TradesmanRegistered(
         Objects.requireNonNull(email);
         Objects.requireNonNull(paymentMethod);
         Objects.requireNonNull(address);
-        Objects.requireNonNull(professionalAblilites);
+        Objects.requireNonNull(professionalAbilities);
     }
 
     public static TradesmanRegistered of(
@@ -41,7 +41,7 @@ public record TradesmanRegistered(
             String email,
             PaymentMethod paymentMethod,
             Location address,
-            TradesmanProfessionalAbilites professionalAblilites
+            TradesmanProfessionalAbilities professionalAbilities
     ) {
         return new TradesmanRegistered(
                 EventId.create(),
@@ -52,7 +52,7 @@ public record TradesmanRegistered(
                 email,
                 paymentMethod,
                 address,
-                professionalAblilites
+                professionalAbilities
         );
     }
 }

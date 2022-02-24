@@ -35,7 +35,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
                 .withFirstname(createTradesman.firstname())
                 .withEmail(createTradesman.email())
                 .withPassword(createTradesman.password())
-                .withSubscribtionStatus(SubscriptionStatus.PENDING_PAYMENT)
+                .withSubscriptionStatus(SubscriptionStatus.PENDING_PAYMENT)
                 .withPaymentMethod(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource())
                 .withLocationName(createTradesman.locationName());
         Tradesman tradesman = tradesmanBuilder.build(userId);
@@ -48,7 +48,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
                 tradesman.email().value(),
                 tradesman.paymentMethod(),
                 tradesman.address(),
-                tradesman.professionalAbilites()
+                tradesman.professionalAbilities()
         ));
 
         return userId;
