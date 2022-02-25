@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class InMemoryProjects implements Projects {
-    private final AtomicInteger counter = new AtomicInteger(0);
+    private final AtomicInteger counter = new AtomicInteger(0); // TODO
     private final Map<EntityId, Project> data = new ConcurrentHashMap<>();
     private final Logger logger;
 

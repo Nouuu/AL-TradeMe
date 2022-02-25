@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidProjectException;
+import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.CreateProject;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;

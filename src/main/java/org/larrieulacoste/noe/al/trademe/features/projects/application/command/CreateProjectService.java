@@ -28,7 +28,7 @@ public class CreateProjectService implements CommandHandler<CreateProject, Entit
 
     @Override
     public EntityId handle(CreateProject createProject) {
-        projectValidationService.validateCreateProject(createProject)
+        projectValidationService.validateCreateProject(createProject);
 
         final EntityId projectId = projects.nextId();
         projectBuilder.clear();
