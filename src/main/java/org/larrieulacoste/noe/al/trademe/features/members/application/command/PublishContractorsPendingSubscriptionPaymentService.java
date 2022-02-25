@@ -1,8 +1,8 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorUpdated;
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorsSubscriptionPendingPayment;
+import org.larrieulacoste.noe.al.trademe.domain.model.MemberPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.ContractorBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
@@ -23,7 +23,7 @@ public class PublishContractorsPendingSubscriptionPaymentService
     private final ContractorBuilder contractorBuilder;
 
     PublishContractorsPendingSubscriptionPaymentService(Contractors contractors, EventBus<ApplicationEvent> eventBus,
-            ContractorBuilder contractorBuilder) {
+                                                        ContractorBuilder contractorBuilder) {
         this.contractors = Objects.requireNonNull(contractors);
         this.eventBus = eventBus;
         this.contractorBuilder = Objects.requireNonNull(contractorBuilder);
@@ -38,7 +38,7 @@ public class PublishContractorsPendingSubscriptionPaymentService
         eventBus.publish(
                 ContractorsSubscriptionPendingPayment.withContractors(
                         contractorsPendingPayment.stream()
-                                .map(contractor -> ContractorEventEntity.withEntityIdOnly(contractor.entityId()))
+                                .map(contractor -> MemberPayment.of(contractor.entityId(), contractor.paymentMethod()))
                                 .toList()));
         return null;
     }
@@ -48,6 +48,12 @@ public class PublishContractorsPendingSubscriptionPaymentService
         contractorBuilder.withContractor(contractor).withSubscriptionStatus(SubscriptionStatus.PENDING_PAYMENT);
         Contractor updatedContractor = contractorBuilder.build(contractor.entityId());
         contractors.save(updatedContractor);
-        eventBus.publish(ContractorUpdated.withContractor(contractorBuilder.buildEventEntity()));
+        eventBus.publish(ContractorUpdated.of(
+                contractor.entityId(),
+                contractor.firstname().value(),
+                contractor.lastname().value(),
+                contractor.email().value(),
+                contractor.paymentMethod()
+        ));
     }
 }

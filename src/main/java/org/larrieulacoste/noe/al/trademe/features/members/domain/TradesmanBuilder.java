@@ -1,20 +1,10 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
+import org.larrieulacoste.noe.al.trademe.domain.model.*;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanEventEntity;
-import org.larrieulacoste.noe.al.trademe.domain.model.ActivityRadius;
-import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
-import org.larrieulacoste.noe.al.trademe.domain.model.Coordinate;
-import org.larrieulacoste.noe.al.trademe.domain.model.DailyRate;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.Location;
-import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
-import org.larrieulacoste.noe.al.trademe.domain.model.Profession;
-import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilities;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
-import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
 
 public final class TradesmanBuilder {
   private final StringValidators stringValidators;
@@ -32,7 +22,6 @@ public final class TradesmanBuilder {
   private DailyRate dailyRate;
   private List<Skill> skills = new ArrayList<>();
   private NotEmptyString locationName;
-  private EntityId id;
 
   public TradesmanBuilder(StringValidators stringValidators) {
     this.stringValidators = stringValidators;
@@ -169,28 +158,11 @@ public final class TradesmanBuilder {
   }
 
   public Tradesman build(EntityId entityId) {
-    this.id = entityId;
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
     TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession,
         skills, activityRadius, dailyRate);
     return Tradesman.of(entityId, lastname, firstname, email, password, location, subscriptionStatus, paymentMethod,
         professionalAbilities);
-  }
-
-  public TradesmanEventEntity buildTradesmanEventEntity() {
-    Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession,
-        skills, activityRadius, dailyRate);
-    return TradesmanEventEntity.of(id, firstname.value(), lastname.value(), email.value(), password.value(),
-        paymentMethod, location, professionalAbilities);
-  }
-
-  public TradesmanEventEntity buildTradesmanEventEntityWithoutPassword() {
-    Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
-    TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession,
-        skills, activityRadius, dailyRate);
-    return TradesmanEventEntity.withoutPassword(id, firstname.value(), lastname.value(), email.value(), paymentMethod,
-        location, professionalAbilities);
   }
 
   public void clear() {

@@ -1,8 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.InvoiceEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanInvoiceDeleted;
-import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -28,7 +26,8 @@ public class DeleteTradesmanInvoicesService implements CommandHandler<DeleteTrad
         for (Invoice invoiceToDelete : invoicesToDelete) {
             invoices.remove(invoiceToDelete);
             eventBus.publish(TradesmanInvoiceDeleted.of(
-                    InvoiceEventEntity.of(invoiceToDelete.invoiceId(), MemberType.TRADESMAN, command.tradesmanId(), null, null, null)
+                    invoiceToDelete.invoiceId(),
+                    command.tradesmanId()
             ));
         }
         return null;

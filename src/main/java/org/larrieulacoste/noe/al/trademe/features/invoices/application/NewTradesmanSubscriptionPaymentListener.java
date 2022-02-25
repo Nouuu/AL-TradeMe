@@ -16,6 +16,11 @@ public final class NewTradesmanSubscriptionPaymentListener implements EventSubsc
 
     @Override
     public void accept(TradesmanNewSubscriptionPayment event) {
-        commandBus.send(new CreateInvoice(MemberType.TRADESMAN, event.tradesman().entityId(), event.paymentMethod().paymentMethodType(), event.amount()));
+        commandBus.send(new CreateInvoice(
+                MemberType.TRADESMAN,
+                event.tradesmanId(),
+                event.paymentMethod().paymentMethodType(),
+                event.amount()
+        ));
     }
 }

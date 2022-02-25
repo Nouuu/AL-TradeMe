@@ -19,7 +19,7 @@ public class UpdateContractorSubscriptionStatusService
     private final ContractorBuilder contractorBuilder;
 
     UpdateContractorSubscriptionStatusService(Contractors contractors, EventBus<ApplicationEvent> eventBus,
-            ContractorBuilder contractorBuilder) {
+                                              ContractorBuilder contractorBuilder) {
         this.contractors = Objects.requireNonNull(contractors);
         this.eventBus = eventBus;
         this.contractorBuilder = Objects.requireNonNull(contractorBuilder);
@@ -34,7 +34,13 @@ public class UpdateContractorSubscriptionStatusService
         Contractor updatedContractor = contractorBuilder.build(contractor.entityId());
 
         contractors.save(updatedContractor);
-        eventBus.publish(ContractorUpdated.withContractor(contractorBuilder.buildEventEntity()));
+        eventBus.publish(ContractorUpdated.of(
+                contractor.entityId(),
+                contractor.firstname().value(),
+                contractor.lastname().value(),
+                contractor.email().value(),
+                contractor.paymentMethod()
+        ));
         return null;
     }
 }

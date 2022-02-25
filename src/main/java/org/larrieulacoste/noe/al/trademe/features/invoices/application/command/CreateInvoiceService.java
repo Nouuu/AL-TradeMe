@@ -1,7 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorInvoiceCreated;
-import org.larrieulacoste.noe.al.trademe.application.event.InvoiceEventEntity;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanInvoiceCreated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
@@ -39,23 +38,23 @@ public class CreateInvoiceService implements CommandHandler<CreateInvoice, Entit
         invoices.save(invoice);
 
         if (command.memberType() == MemberType.TRADESMAN) {
-            eventBus.publish(TradesmanInvoiceCreated.of(InvoiceEventEntity.of(
+            eventBus.publish(TradesmanInvoiceCreated.of(
                     invoiceId,
                     MemberType.TRADESMAN,
                     command.memberId(),
                     invoice.occurredDate(),
                     command.paymentMethodType(),
                     command.amount()
-            )));
+            ));
         } else if (command.memberType() == MemberType.CONTRACTOR) {
-            eventBus.publish(ContractorInvoiceCreated.of(InvoiceEventEntity.of(
+            eventBus.publish(ContractorInvoiceCreated.of(
                     invoiceId,
                     MemberType.CONTRACTOR,
                     command.memberId(),
                     invoice.occurredDate(),
                     command.paymentMethodType(),
                     command.amount()
-            )));
+            ));
         }
 
         return invoiceId;

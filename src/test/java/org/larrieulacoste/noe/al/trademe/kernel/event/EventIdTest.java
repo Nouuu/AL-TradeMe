@@ -24,8 +24,6 @@ class EventIdTest {
         EventId eventId = EventId.create();
         EventId otherEventId = EventId.create();
         Assertions.assertThat(eventId.equals(otherEventId)).isFalse();
-        Assertions.assertThat(eventId.equals(eventId)).isTrue();
-        Assertions.assertThat(eventId.equals(null)).isFalse();
     }
 
     @Test
