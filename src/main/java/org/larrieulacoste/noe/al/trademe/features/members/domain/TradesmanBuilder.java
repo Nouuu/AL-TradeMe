@@ -22,7 +22,6 @@ public final class TradesmanBuilder {
   private DailyRate dailyRate;
   private List<Skill> skills = new ArrayList<>();
   private NotEmptyString locationName;
-  private EntityId id;
 
   public TradesmanBuilder(StringValidators stringValidators) {
     this.stringValidators = stringValidators;
@@ -159,7 +158,6 @@ public final class TradesmanBuilder {
   }
 
   public Tradesman build(EntityId entityId) {
-    this.id = entityId;
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
     TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession,
         skills, activityRadius, dailyRate);
