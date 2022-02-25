@@ -45,7 +45,8 @@ public final class TradesmanController {
                 projectCriterion.endDate(),
                 projectCriterion.dailyRate(),
                 projectCriterion.latitude(),
-                projectCriterion.longitude()));
+                projectCriterion.longitude(),
+                projectCriterion.locationName()));
 
         return getTradesmenResponse(tradesmen);
     }

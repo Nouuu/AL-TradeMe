@@ -11,5 +11,6 @@ public record MatchTradesmanRequest(String projectId,
     ZonedDateTime endDate,
     double dailyRate,
     double latitude,
-    double longitude) {
+    double longitude,
+    String locationName) {
 }

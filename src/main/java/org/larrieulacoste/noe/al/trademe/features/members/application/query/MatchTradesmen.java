@@ -13,5 +13,6 @@ public record MatchTradesmen(String projectId,
      ZonedDateTime endDate,
      double dailyRate,
      double latitude,
-     double longitude) implements Query {
+     double longitude,
+     String locationName) implements Query {
 }

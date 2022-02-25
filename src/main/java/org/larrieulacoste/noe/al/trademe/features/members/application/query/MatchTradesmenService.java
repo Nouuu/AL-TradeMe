@@ -40,7 +40,7 @@ public class MatchTradesmenService implements QueryHandler<MatchTradesmen, List<
                 .map(profession -> Profession.of(NotEmptyString.of(profession, stringValidators)))
                 .toList();
         List<Skill> requiredSkills = command.requiredSkills();
-        Location projectLocation = Location.of(Coordinate.of(command.longitude(), command.latitude()), NotEmptyString.of("location", stringValidators));
+        Location projectLocation = Location.of(Coordinate.of(command.longitude(), command.latitude()), NotEmptyString.of(command.locationName(), stringValidators));
         Period projectPeriod = Period.of(command.startDate(), command.endDate(), dateValidators);
         EntityId projectId = EntityId.of(command.projectId());
         Stream<Tradesman> tradesmanStream = tradesmen.findAll().stream();
@@ -88,10 +88,10 @@ public class MatchTradesmenService implements QueryHandler<MatchTradesmen, List<
         return tradesmanStream.filter(tradesman -> tradesman.professionalAbilities()
                 .dailyRate()
                 .amount()
-                .value() < (dailyRate * 1.1)
+                .value() <= (dailyRate * 1.1)
                 && tradesman.professionalAbilities()
                 .dailyRate()
                 .amount()
-                .value() > (dailyRate * 0.9));
+                .value() >= (dailyRate * 0.9));
     }
 }
