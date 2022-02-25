@@ -33,19 +33,19 @@ public final class TradesmanController {
         this.commandBus = commandBus;
     }
 
-    @GET
+    @POST
     @Path("match")
     @Operation(summary = "Match tradesmen", description = "Retrieve tradesmen matching abilities criterion")
     @Consumes(MediaType.APPLICATION_JSON)
-    public TradesmenResponse matchTradesman(MatchTradesmanRequest criterion) {
-        List<Tradesman> tradesmen = queryBus.send(new MatchTradesmen(criterion.projectId(),
-                criterion.requiredSkills(),
-                criterion.profession(),
-                criterion.startDate(),
-                criterion.endDate(),
-                criterion.dailyRate(),
-                criterion.latitude(),
-                criterion.longitude()));
+    public TradesmenResponse matchTradesman(MatchTradesmanRequest projectCriterion) {
+        List<Tradesman> tradesmen = queryBus.send(new MatchTradesmen(projectCriterion.projectId(),
+                projectCriterion.requiredSkills(),
+                projectCriterion.requiredProfessions(),
+                projectCriterion.startDate(),
+                projectCriterion.endDate(),
+                projectCriterion.dailyRate(),
+                projectCriterion.latitude(),
+                projectCriterion.longitude()));
 
         return getTradesmenResponse(tradesmen);
     }

@@ -6,7 +6,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
 
 public record MatchTradesmanRequest(String projectId,
     List<Skill> requiredSkills,
-    String profession,
+    List<String> requiredProfessions,
     ZonedDateTime startDate,
     ZonedDateTime endDate,
     double dailyRate,

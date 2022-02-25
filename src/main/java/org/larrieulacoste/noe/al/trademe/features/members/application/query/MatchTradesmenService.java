@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.query;
 
 import java.util.List;
+import java.util.stream.Stream;
 import javax.enterprise.context.ApplicationScoped;
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmenMatched;
 import org.larrieulacoste.noe.al.trademe.domain.model.Coordinate;
@@ -8,6 +9,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Location;
 import org.larrieulacoste.noe.al.trademe.domain.model.Period;
 import org.larrieulacoste.noe.al.trademe.domain.model.Profession;
+import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
@@ -33,42 +35,63 @@ public class MatchTradesmenService implements QueryHandler<MatchTradesmen, List<
 
     @Override
     public List<Tradesman> handle(MatchTradesmen command) {
-        Profession requiredProfession = Profession.of(NotEmptyString.of(command.profession(), stringValidators));
+        List<Profession> requiredProfessions = command.requiredProfessions()
+                .stream()
+                .map(profession -> Profession.of(NotEmptyString.of(profession, stringValidators)))
+                .toList();
+        List<Skill> requiredSkills = command.requiredSkills();
         Location projectLocation = Location.of(Coordinate.of(command.longitude(), command.latitude()), NotEmptyString.of("location", stringValidators));
         Period projectPeriod = Period.of(command.startDate(), command.endDate(), dateValidators);
         EntityId projectId = EntityId.of(command.projectId());
-        List<Tradesman> matchedTradesmen = tradesmen.findAll()
-                .stream()
-                .filter(tradesman -> tradesman.professionalAbilities()
-                        .activityRadius()
-                        .activityRadius() >= tradesman.address()
-                        .distance(projectLocation))
-                .filter(tradesman -> tradesman.professionalAbilities()
-                        .profession()
-                        .equals(requiredProfession))
-                .filter(tradesman -> command.requiredSkills()
-                        .stream()
-                        .anyMatch(skill -> tradesman.professionalAbilities()
-                                .skills()
-                                .contains(skill)))
-                .filter(tradesman -> tradesman.professionalAbilities()
-                        .unavailability()
-                        .stream()
-                        .allMatch(period -> projectPeriod.startDate().isAfter(period.endDate()) || projectPeriod.endDate().isBefore(period.startDate())))
-                .filter(tradesman -> tradesman.professionalAbilities()
-                        .dailyRate()
-                        .amount()
-                        .value() < (command.dailyRate() * 1.1)
-                        && tradesman.professionalAbilities()
-                        .dailyRate()
-                        .amount()
-                        .value() > (command.dailyRate() * 0.9))
-                .toList();
+        Stream<Tradesman> tradesmanStream = tradesmen.findAll().stream();
+        tradesmanStream = filterLocation(tradesmanStream, projectLocation);
+        tradesmanStream = filterAvailability(tradesmanStream, projectPeriod);
+        tradesmanStream = filterProfession(tradesmanStream, requiredProfessions);
+        tradesmanStream = filterDailyRate(tradesmanStream, command.dailyRate());
+        tradesmanStream = filterSkills(tradesmanStream, requiredSkills);
 
-        eventBus.publish(
-                TradesmenMatched.of(projectId, matchedTradesmen.stream()
-                        .map(Tradesman::entityId)
-                        .toList()));
+        List<Tradesman> matchedTradesmen = tradesmanStream.toList();
+
+        eventBus.publish(TradesmenMatched.of(projectId, matchedTradesmen.stream()
+                .map(Tradesman::entityId)
+                .toList()));
         return matchedTradesmen;
+    }
+
+    private Stream<Tradesman> filterLocation(Stream<Tradesman> tradesmanStream, Location projectLocation) {
+        return tradesmanStream.filter(tradesman -> tradesman.professionalAbilities()
+                .activityRadius()
+                .activityRadius() >= tradesman.address()
+                .distance(projectLocation));
+    }
+
+    private Stream<Tradesman> filterProfession(Stream<Tradesman> tradesmanStream, List<Profession> requiredProfession) {
+        return tradesmanStream.filter(tradesman -> requiredProfession.contains(tradesman.professionalAbilities().profession()));
+    }
+
+    private Stream<Tradesman> filterSkills(Stream<Tradesman> tradesmanStream, List<Skill> requiredSkills) {
+        return tradesmanStream.filter(tradesman -> requiredSkills.stream()
+                .anyMatch(skill -> tradesman.professionalAbilities()
+                        .skills()
+                        .contains(skill)));
+    }
+
+    private Stream<Tradesman> filterAvailability(Stream<Tradesman> tradesmanStream, Period projectPeriod) {
+        return tradesmanStream.filter(tradesman -> tradesman.professionalAbilities()
+                .unavailability()
+                .stream()
+                .allMatch(period -> projectPeriod.startDate().isAfter(period.endDate())
+                        || projectPeriod.endDate().isBefore(period.startDate())));
+    }
+
+    private Stream<Tradesman> filterDailyRate(Stream<Tradesman> tradesmanStream, double dailyRate) {
+        return tradesmanStream.filter(tradesman -> tradesman.professionalAbilities()
+                .dailyRate()
+                .amount()
+                .value() < (dailyRate * 1.1)
+                && tradesman.professionalAbilities()
+                .dailyRate()
+                .amount()
+                .value() > (dailyRate * 0.9));
     }
 }

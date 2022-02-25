@@ -8,7 +8,7 @@ import java.util.List;
 
 public record MatchTradesmen(String projectId,
      List<Skill> requiredSkills,
-     String profession,
+     List<String> requiredProfessions,
      ZonedDateTime startDate,
      ZonedDateTime endDate,
      double dailyRate,
