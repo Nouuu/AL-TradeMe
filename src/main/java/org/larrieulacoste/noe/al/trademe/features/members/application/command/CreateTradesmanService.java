@@ -17,7 +17,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
     private final TradesmanBuilder tradesmanBuilder;
 
     CreateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService,
-                           EventBus<ApplicationEvent> eventBus, TradesmanBuilder tradesmanBuilder) {
+            EventBus<ApplicationEvent> eventBus, TradesmanBuilder tradesmanBuilder) {
         this.tradesmen = tradesmen;
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
@@ -37,7 +37,12 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
                 .withPassword(createTradesman.password())
                 .withSubscriptionStatus(SubscriptionStatus.PENDING_PAYMENT)
                 .withPaymentMethod(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource())
-                .withLocationName(createTradesman.locationName());
+                .withLocationName(createTradesman.locationName())
+                .withDailyRate(createTradesman.dailyRate())
+                .withLatitude(createTradesman.latitiude())
+                .withLongitude(createTradesman.longitude())
+                .withActivityRadius(createTradesman.activityRadius())
+                .withProfession(createTradesman.profession());
         Tradesman tradesman = tradesmanBuilder.build(userId);
         tradesmen.save(tradesman);
 
@@ -48,8 +53,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
                 tradesman.email().value(),
                 tradesman.paymentMethod(),
                 tradesman.address(),
-                tradesman.professionalAbilities()
-        ));
+                tradesman.professionalAbilities()));
 
         return userId;
     }
