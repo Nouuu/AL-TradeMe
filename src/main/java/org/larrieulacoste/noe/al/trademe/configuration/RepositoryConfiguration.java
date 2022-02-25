@@ -6,6 +6,8 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryContractors;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryTradesmen;
+import org.larrieulacoste.noe.al.trademe.features.projects.domain.Projects;
+import org.larrieulacoste.noe.al.trademe.features.projects.infrastructure.InMemoryProjects;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
 
@@ -29,6 +31,10 @@ final class RepositoryConfiguration {
     @LoggerQualifier(Invoices.class)
     Logger invoicesLogger;
 
+    @Inject
+    @LoggerQualifier(Projects.class)
+    Logger projectsLogger;
+
     @Produces
     @Singleton
     Tradesmen tradesmen() {
@@ -45,5 +51,11 @@ final class RepositoryConfiguration {
     @Singleton
     Invoices invoices() {
         return new InMemoryInvoices(invoicesLogger);
+    }
+
+    @Produces
+    @Singleton
+    Projects projects() {
+        return new InMemoryProjects(projectsLogger);
     }
 }
