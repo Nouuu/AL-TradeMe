@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ProjectCreated;
+import org.larrieulacoste.noe.al.trademe.application.event.ProjectUpdated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.ProjectBuilder;
@@ -53,7 +54,7 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Proje
         projects.save(updatedProject);
 
         eventBus.publish(
-                ProjectCreated.of(
+                ProjectUpdated.of(
                         updatedProject.projectId(),
                         updatedProject.taskName().value(),
                         updatedProject.contractorId(),
