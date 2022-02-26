@@ -82,6 +82,11 @@ public final class TradesmanBuilder {
     return this;
   }
 
+  public TradesmanBuilder withProfession(String professionName) {
+    this.profession = Profession.of(NotEmptyString.of(professionName, stringValidators));
+    return this;
+  }
+
   public TradesmanBuilder withProfession(Profession profession) {
     this.profession = profession;
     return this;
