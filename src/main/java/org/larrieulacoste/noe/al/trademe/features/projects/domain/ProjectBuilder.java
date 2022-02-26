@@ -14,7 +14,6 @@ public class ProjectBuilder {
     private final StringValidators stringValidator;
     private final DateValidators dateValidators;
 
-    private EntityId projectId;
     private NotEmptyString taskName;
     private List<Skill> requiredSkills;
     private List<Profession> professions;
@@ -38,16 +37,14 @@ public class ProjectBuilder {
         this.requiredSkills = Objects.requireNonNull(requiredSkills).stream()
                 .map(requiredSkill -> Skill.of(
                         NotEmptyString.of(requiredSkill.skillName(), stringValidator),
-                        requiredSkill.requiredLevel()
-                ))
+                        requiredSkill.requiredLevel()))
                 .toList();
         return this;
     }
 
     public ProjectBuilder withProfessions(List<String> professions) {
         this.professions = professions.stream().map(profession -> Profession.of(
-                        NotEmptyString.of(profession, stringValidator)
-                ))
+                NotEmptyString.of(profession, stringValidator)))
                 .toList();
         return this;
     }
@@ -66,23 +63,20 @@ public class ProjectBuilder {
         this.period = Period.of(
                 startDate,
                 endDate,
-                dateValidators
-        );
+                dateValidators);
         return this;
     }
 
     public ProjectBuilder withDailyRate(double dailyRate) {
         this.dailyRate = DailyRate.of(
-                Amount.of(dailyRate)
-        );
+                Amount.of(dailyRate));
         return this;
     }
 
     public ProjectBuilder withLocation(String locationName, Double latitude, Double longitude) {
         this.location = Location.of(
                 Coordinate.of(longitude, latitude),
-                NotEmptyString.of(locationName, stringValidator)
-        );
+                NotEmptyString.of(locationName, stringValidator));
         return this;
     }
 
@@ -96,8 +90,7 @@ public class ProjectBuilder {
                 contractorId,
                 tradesmenIds,
                 dailyRate,
-                location
-        );
+                location);
     }
 
     public void clear() {
@@ -112,7 +105,6 @@ public class ProjectBuilder {
     }
 
     public ProjectBuilder withProject(Project project) {
-        projectId = project.projectId();
         taskName = project.taskName();
         requiredSkills = project.requiredSkills();
         professions = project.professions();
