@@ -5,7 +5,7 @@ import java.util.List;
 import org.larrieulacoste.noe.al.trademe.domain.model.PeriodRequest;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 
-public record TradesmanAbilitiesRequest(String tradesmanId,
+record TradesmanAbilitiesRequest(String tradesmanId,
         String profession,
         List<SkillRequest> skills,
         Double activityRadius,
