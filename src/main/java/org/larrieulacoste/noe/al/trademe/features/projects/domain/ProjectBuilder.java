@@ -51,6 +51,11 @@ public class ProjectBuilder {
                 .toList();
         return this;
     }
+    
+    public ProjectBuilder withProfessions(List<Profession> professions) {
+        this.professions = professions;
+        return this;
+    }
 
     public ProjectBuilder withContractorId(String contractorId) {
         this.contractorId = EntityId.of(contractorId);

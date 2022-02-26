@@ -2,6 +2,7 @@ package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidProjectException;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.command.AddProjectProfession;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.CreateProject;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.UpdateProject;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
@@ -50,6 +51,19 @@ public class ProjectValidationService {
         }
     }
 
+    public void validateAddProjectProfession(AddProjectProfession profession) {
+        logger.log("Triggered validation with project profession : " + profession);
+        List<String> errors = getAddProjectProfessionInvalidFields(profession);
+        if (!errors.isEmpty()) {
+            throw new InvalidProjectException(
+                    "Error with project profession :" + ProjectValidationService.STRING_DELIMITER + String.join(
+                            ProjectValidationService.STRING_DELIMITER,
+                            errors
+                    )
+            );
+        }
+    }
+
     public void validateUpdateProject(UpdateProject project) {
         logger.log("Triggered validation with project : " + project);
         List<String> errors = getUpdateProjectInvalidFields(project);
@@ -61,6 +75,12 @@ public class ProjectValidationService {
                     )
             );
         }
+    }
+
+    private List<String> getAddProjectProfessionInvalidFields(AddProjectProfession profession) {
+        List<String> errors = new ArrayList<>();
+        validateProfession(profession.profession(), errors);
+        return errors;
     }
 
     private List<String> getUpdateProjectInvalidFields(UpdateProject project) {
@@ -136,7 +156,11 @@ public class ProjectValidationService {
 
     private void validateProfessions(List<String> professions, List<String> errors) {
         for (String profession : professions) {
-            required(profession, ProjectValidationService.PROFESSION, errors);
+            validateProfession(profession, errors);
         }
+    }
+
+    private void validateProfession(String profession, List<String> errors) {
+        required(profession, ProjectValidationService.PROFESSION, errors);
     }
 }
