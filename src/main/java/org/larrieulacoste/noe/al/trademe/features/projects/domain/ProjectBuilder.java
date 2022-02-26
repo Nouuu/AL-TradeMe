@@ -34,7 +34,7 @@ public class ProjectBuilder {
         return this;
     }
 
-    public ProjectBuilder withRequiredSkills(List<SkillRequest> requiredSkills) {
+    public ProjectBuilder withRequiredSkillsString(List<SkillRequest> requiredSkills) {
         this.requiredSkills = Objects.requireNonNull(requiredSkills).stream()
                 .map(requiredSkill -> Skill.of(
                         NotEmptyString.of(requiredSkill.skillName(), stringValidator),
@@ -44,11 +44,21 @@ public class ProjectBuilder {
         return this;
     }
 
-    public ProjectBuilder withProfessions(List<String> professions) {
+    public ProjectBuilder withRequiredSkills(List<Skill> requiredSkills) {
+        this.requiredSkills = List.copyOf(requiredSkills);
+        return this;
+    }
+
+    public ProjectBuilder withProfessionsString(List<String> professions) {
         this.professions = professions.stream().map(profession -> Profession.of(
                         NotEmptyString.of(profession, stringValidator)
                 ))
                 .toList();
+        return this;
+    }
+
+    public ProjectBuilder withProfessions(List<Profession> professions) {
+        this.professions = List.copyOf(professions);
         return this;
     }
 

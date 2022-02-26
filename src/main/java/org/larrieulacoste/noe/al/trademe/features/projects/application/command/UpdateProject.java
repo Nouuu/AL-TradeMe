@@ -7,8 +7,8 @@ import java.time.ZonedDateTime;
 public record UpdateProject(
         String projectId,
         String taskName,
-        ZonedDateTime startDate,
-        ZonedDateTime endDate,
+        ZonedDateTime startDate, // TODO problem, in modifiable
+        ZonedDateTime endDate, // TODO problem, in modifiable
         Double dailyRate,
         String locationName,
         Double longitude, // Y

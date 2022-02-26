@@ -35,8 +35,8 @@ public class CreateProjectService implements CommandHandler<CreateProject, Entit
         projectBuilder.clear();
         projectBuilder.
                 withTaskName(createProject.taskName())
-                .withRequiredSkills(createProject.skills())
-                .withProfessions(createProject.professions())
+                .withRequiredSkillsString(createProject.skills())
+                .withProfessionsString(createProject.professions())
                 .withContractorId(createProject.contractorId())
                 .withPeriod(createProject.startDate(), createProject.endDate())
                 .withDailyRate(createProject.dailyRate())
