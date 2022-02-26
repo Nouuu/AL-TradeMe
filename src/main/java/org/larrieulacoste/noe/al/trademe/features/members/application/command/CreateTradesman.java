@@ -11,7 +11,7 @@ public record CreateTradesman(
     String paymentMethodRessource,
     String profession,
     double longitude,
-    double latitiude,
+    double latitude,
     double activityRadius,
     double dailyRate,
     String locationName

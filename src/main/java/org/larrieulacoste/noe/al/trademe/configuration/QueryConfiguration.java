@@ -24,6 +24,8 @@ final class QueryConfiguration {
     RetrieveTradesmanByIdService retrieveTradesmanByIdService;
     @Inject
     RetrieveTradesmenService retrieveTradesmenService;
+    @Inject
+    MatchTradesmenService matchTradesmenService;
 
     @Inject
     RetrieveAllInvoicesService retrieveAllInvoicesService;
@@ -56,6 +58,7 @@ final class QueryConfiguration {
         queryMap.put(RetrieveContractors.class, retrieveContractorsService);
         queryMap.put(RetrieveTradesmanById.class, retrieveTradesmanByIdService);
         queryMap.put(RetrieveTradesmen.class, retrieveTradesmenService);
+        queryMap.put(MatchTradesmen.class, matchTradesmenService);
 
         // Payments
 

@@ -39,7 +39,7 @@ public class CreateTradesmanService implements CommandHandler<CreateTradesman, E
                 .withPaymentMethod(createTradesman.paymentMethodType(), createTradesman.paymentMethodRessource())
                 .withLocationName(createTradesman.locationName())
                 .withDailyRate(createTradesman.dailyRate())
-                .withLatitude(createTradesman.latitiude())
+                .withLatitude(createTradesman.latitude())
                 .withLongitude(createTradesman.longitude())
                 .withActivityRadius(createTradesman.activityRadius())
                 .withProfession(createTradesman.profession());

@@ -1,19 +1,26 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
+import java.util.List;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.DeleteTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.application.query.MatchTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanById;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 @Path("tradesman")
 @Produces(MediaType.APPLICATION_JSON)
@@ -24,6 +31,24 @@ public final class TradesmanController {
     TradesmanController(QueryBus queryBus, CommandBus commandBus) {
         this.queryBus = queryBus;
         this.commandBus = commandBus;
+    }
+
+    @POST
+    @Path("match")
+    @Operation(summary = "Match tradesmen", description = "Retrieve tradesmen matching abilities criterion")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public TradesmenResponse matchTradesman(MatchTradesmanRequest projectCriterion) {
+        List<Tradesman> tradesmen = queryBus.send(new MatchTradesmen(projectCriterion.projectId(),
+                projectCriterion.requiredSkills(),
+                projectCriterion.requiredProfessions(),
+                projectCriterion.startDate(),
+                projectCriterion.endDate(),
+                projectCriterion.dailyRate(),
+                projectCriterion.latitude(),
+                projectCriterion.longitude(),
+                projectCriterion.locationName()));
+
+        return getTradesmenResponse(tradesmen);
     }
 
     @GET
