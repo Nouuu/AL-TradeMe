@@ -6,6 +6,7 @@ import org.larrieulacoste.noe.al.trademe.features.payment.application.command.Co
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPaymentService;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPaymentService;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.command.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -50,6 +51,20 @@ final class CommandConfiguration {
     DeleteTradesmanInvoicesService deleteTradesmanInvoicesService;
     @Inject
     DeleteContractorInvoicesService deleteContractorInvoicesService;
+    @Inject
+    AddProjectProfessionService addProjectProfessionService;
+    @Inject
+    AddProjectRequiredSkillService addProjectRequiredSkillService;
+    @Inject
+    CloseProjectService closeProjectService;
+    @Inject
+    CreateProjectService createProjectService;
+    @Inject
+    RemoveProjectProfessionService removeProjectProfessionService;
+    @Inject
+    RemoveProjectRequiredSkillService removeProjectRequiredSkillService;
+    @Inject
+    UpdateProjectService updateProjectService;
 
     @Produces
     @Singleton
@@ -76,6 +91,15 @@ final class CommandConfiguration {
         // Payments
         commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
         commandMap.put(TradesmanSubscriptionPayment.class, tradesmanSubscriptionPaymentService);
+
+        // Projects
+        commandMap.put(AddProjectProfession.class, addProjectProfessionService);
+        commandMap.put(AddProjectRequiredSkill.class, addProjectRequiredSkillService);
+        commandMap.put(CloseProject.class, closeProjectService);
+        commandMap.put(CreateProject.class, createProjectService);
+        commandMap.put(RemoveProjectProfession.class, removeProjectProfessionService);
+        commandMap.put(RemoveProjectRequiredSkill.class, removeProjectRequiredSkillService);
+        commandMap.put(UpdateProject.class, updateProjectService);
 
         return new DefaultCommandBus(commandMap);
     }

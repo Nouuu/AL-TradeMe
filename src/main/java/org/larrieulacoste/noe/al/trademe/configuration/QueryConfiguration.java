@@ -2,6 +2,7 @@ package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.query.*;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.*;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.query.*;
 import org.larrieulacoste.noe.al.trademe.kernel.query.DefaultQueryBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.Query;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
@@ -40,6 +41,15 @@ final class QueryConfiguration {
     @Inject
     RetrieveInvoiceByIdService retrieveInvoiceByIdService;
 
+    @Inject
+    RetrieveContractorProjectsService retrieveContractorProjectsService;
+    @Inject
+    RetrieveProjectByIdService retrieveProjectByIdService;
+    @Inject
+    RetrieveProjectsService retrieveProjectsService;
+    @Inject
+    RetrieveTradesmanProjectsService retrieveTradesmanProjectsService;
+
     @Produces
     @Singleton
     QueryBus queryBus() {
@@ -61,6 +71,12 @@ final class QueryConfiguration {
         queryMap.put(MatchTradesmen.class, matchTradesmenService);
 
         // Payments
+
+        // Projects
+        queryMap.put(RetrieveContractorProjects.class, retrieveContractorProjectsService);
+        queryMap.put(RetrieveProjectById.class, retrieveProjectByIdService);
+        queryMap.put(RetrieveProjects.class, retrieveProjectsService);
+        queryMap.put(RetrieveTradesmanProjects.class, retrieveTradesmanProjectsService);
 
         return new DefaultQueryBus(queryMap);
     }

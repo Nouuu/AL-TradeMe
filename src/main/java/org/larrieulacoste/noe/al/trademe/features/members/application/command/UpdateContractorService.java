@@ -16,15 +16,15 @@ import java.util.Objects;
 
 @ApplicationScoped
 public class UpdateContractorService implements CommandHandler<UpdateContractor, Contractor> {
-    private final Contractors contractor;
+    private final Contractors contractors;
     private final MemberValidationService memberValidationService;
     private final EventBus<ApplicationEvent> eventBus;
     private final ContractorBuilder contractorBuilder;
 
-    UpdateContractorService(Contractors contractor, MemberValidationService memberValidationService,
+    UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService,
                             EventBus<ApplicationEvent> eventBus, StringValidators stringValidators,
                             ContractorBuilder contractorBuilder) {
-        this.contractor = Objects.requireNonNull(contractor);
+        this.contractors = Objects.requireNonNull(contractors);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
         this.contractorBuilder = contractorBuilder;
@@ -32,7 +32,7 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
 
     @Override
     public Contractor handle(UpdateContractor updateContractor) {
-        Contractor inMemoryContractor = contractor.byId(EntityId.of(updateContractor.contractorId()));
+        Contractor inMemoryContractor = contractors.byId(EntityId.of(updateContractor.contractorId()));
 
         memberValidationService.validateUpdateContractor(updateContractor);
 
@@ -52,7 +52,7 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
         }
 
         Contractor updatedContractor = contractorBuilder.build(inMemoryContractor.entityId());
-        contractor.save(updatedContractor);
+        contractors.save(updatedContractor);
 
         eventBus.publish(
                 ContractorUpdated.of(
