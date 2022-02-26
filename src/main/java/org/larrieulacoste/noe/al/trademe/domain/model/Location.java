@@ -8,6 +8,7 @@ public record Location(
         Coordinate coordinate,
         NotEmptyString locationName
 ) {
+    private static final double EARTH_RADIUS = 6371;
     public Location {
         Objects.requireNonNull(coordinate);
         Objects.requireNonNull(locationName);
@@ -18,6 +19,7 @@ public record Location(
     }
 
     public double distance(Location location) {
+        // Source: https://www.geeksforgeeks.org/program-distance-two-points-earth/
         double lon1 = Math.toRadians(coordinate().longitude());
         double lon2 = Math.toRadians(location.coordinate().longitude());
         double lat1 = Math.toRadians(coordinate().latitude());
@@ -28,7 +30,6 @@ public record Location(
                 + Math.cos(lat1) * Math.cos(lat2)
                 * Math.pow(Math.sin(dlon / 2), 2);
         double c = 2 * Math.asin(Math.sqrt(a));
-        double r = 6371;
-        return Math.abs(c * r);
+        return Math.abs(c * EARTH_RADIUS);
     }
 }
