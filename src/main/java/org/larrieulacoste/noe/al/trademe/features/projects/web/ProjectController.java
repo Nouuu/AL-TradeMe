@@ -40,10 +40,16 @@ public final class ProjectController {
         return new ProjectResponse(
                 project.projectId().value(),
                 project.taskName().value(),
-                project.requiredSkills().stream().map(skill -> skill.skillName().value()).toList(),
-                project.professions().stream().map(profession -> profession.professionName().value()).toList(),
+                project.requiredSkills().stream()
+                        .map(skill -> skill.skillName().value())
+                        .toList(),
+                project.professions().stream()
+                        .map(profession -> profession.professionName().value())
+                        .toList(),
                 project.contractorId().value(),
-                project.tradesmenIds().stream().map(EntityId::value).toList(),
+                project.tradesmenIds().stream()
+                        .map(EntityId::value)
+                        .toList(),
                 project.period().startDate(),
                 project.period().endDate(),
                 project.dailyRate().amount().value(),
