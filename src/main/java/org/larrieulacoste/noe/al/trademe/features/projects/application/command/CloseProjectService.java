@@ -29,16 +29,18 @@ public class CloseProjectService implements CommandHandler<CloseProject, Void> {
 
         Project inMemoryProject = projects.byId(EntityId.of(closeProject.projectId()));
 
+
         projectBuilder.clear();
         projectBuilder.withProject(inMemoryProject);
         projectBuilder.withPeriod(
-                inMemoryProject.period().startDate(),
-                ZonedDateTime.now()
+                inMemoryProject.period().startDate(), // TODO Problem
+                ZonedDateTime.now() // Problem
         );
 
-        // TODO release tradesmen
         Project project = projectBuilder.build(inMemoryProject.projectId());
         projects.save(project);
+
+        // TODO release tradesmen with old period
 
         eventBus.publish(
                 ProjectClosed.of(
