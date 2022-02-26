@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ProjectProfessionAdded;
+import org.larrieulacoste.noe.al.trademe.application.event.ProjectProfessionRemoved;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Profession;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
@@ -18,15 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class AddProjectProfessionService implements CommandHandler<AddProjectProfession, List<String>> {
+public class RemoveProjectProfessionService implements CommandHandler<RemoveProjectProfession, List<String>> {
     private final Projects projects;
     private final ProjectValidationService projectValidationService;
     private final StringValidators stringValidators;
     private final EventBus<ApplicationEvent> eventBus;
     private final ProjectBuilder projectBuilder;
 
-    public AddProjectProfessionService(Projects projects, ProjectValidationService projectValidationService,
-                                       StringValidators stringValidators, EventBus<ApplicationEvent> eventBus, ProjectBuilder projectBuilder) {
+    public RemoveProjectProfessionService(Projects projects, ProjectValidationService projectValidationService,
+                                          StringValidators stringValidators, EventBus<ApplicationEvent> eventBus, ProjectBuilder projectBuilder) {
         this.projects = projects;
         this.projectValidationService = projectValidationService;
         this.stringValidators = stringValidators;
@@ -35,16 +35,17 @@ public class AddProjectProfessionService implements CommandHandler<AddProjectPro
     }
 
     @Override
-    public List<String> handle(AddProjectProfession profession) {
+    public List<String> handle(RemoveProjectProfession profession) {
         Project inMemoryProject = projects.byId(EntityId.of(profession.projectId()));
 
-        projectValidationService.validateAddProjectProfession(profession);
+        projectValidationService.validateRemoveProjectProfession(profession);
 
-        Profession newProfession = Profession.of(NotEmptyString.of(profession.profession(), stringValidators));
+        Profession removeProfession = Profession.of(NotEmptyString.of(profession.profession(), stringValidators));
         List<Profession> projectProfessions = new ArrayList<>(inMemoryProject.professions());
-        if (!projectProfessions.contains(newProfession)) {
-            projectProfessions.add(newProfession);
-        }
+
+        projectProfessions.stream()
+                .filter(currentProfession -> currentProfession.equals(removeProfession))
+                .findFirst().ifPresent(projectProfessions::remove);
 
         projectBuilder.clear();
         projectBuilder.withProject(inMemoryProject);
@@ -54,9 +55,9 @@ public class AddProjectProfessionService implements CommandHandler<AddProjectPro
         projects.save(project);
 
         eventBus.publish(
-                ProjectProfessionAdded.of(
+                ProjectProfessionRemoved.of(
                         project.projectId(),
-                        newProfession.professionName().value()
+                        removeProfession.professionName().value()
                 )
         );
 

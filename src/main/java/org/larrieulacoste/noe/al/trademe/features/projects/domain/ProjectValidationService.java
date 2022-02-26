@@ -2,9 +2,7 @@ package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidProjectException;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
-import org.larrieulacoste.noe.al.trademe.features.projects.application.command.AddProjectProfession;
-import org.larrieulacoste.noe.al.trademe.features.projects.application.command.CreateProject;
-import org.larrieulacoste.noe.al.trademe.features.projects.application.command.UpdateProject;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.command.*;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
@@ -51,9 +49,22 @@ public class ProjectValidationService {
         }
     }
 
-    public void validateAddOrRemoveProjectProfession(AddProjectProfession profession) {
+    public void validateAddProjectProfession(AddProjectProfession profession) {
         logger.log("Triggered validation with project profession : " + profession);
-        List<String> errors = getAddOrRemoveProjectProfessionInvalidFields(profession);
+        List<String> errors = getAddProjectProfessionInvalidFields(profession);
+        if (!errors.isEmpty()) {
+            throw new InvalidProjectException(
+                    "Error with project profession :" + ProjectValidationService.STRING_DELIMITER + String.join(
+                            ProjectValidationService.STRING_DELIMITER,
+                            errors
+                    )
+            );
+        }
+    }
+
+    public void validateRemoveProjectProfession(RemoveProjectProfession profession) {
+        logger.log("Triggered validation with project profession : " + profession);
+        List<String> errors = getRemoveProjectProfessionInvalidFields(profession);
         if (!errors.isEmpty()) {
             throw new InvalidProjectException(
                     "Error with project profession :" + ProjectValidationService.STRING_DELIMITER + String.join(
@@ -97,7 +108,13 @@ public class ProjectValidationService {
         }
     }
 
-    private List<String> getAddOrRemoveProjectProfessionInvalidFields(AddProjectProfession profession) {
+    private List<String> getAddProjectProfessionInvalidFields(AddProjectProfession profession) {
+        List<String> errors = new ArrayList<>();
+        validateProfession(profession.profession(), errors);
+        return errors;
+    }
+
+    private List<String> getRemoveProjectProfessionInvalidFields(RemoveProjectProfession profession) {
         List<String> errors = new ArrayList<>();
         validateProfession(profession.profession(), errors);
         return errors;

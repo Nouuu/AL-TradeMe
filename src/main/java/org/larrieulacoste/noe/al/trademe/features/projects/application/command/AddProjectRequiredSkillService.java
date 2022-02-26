@@ -46,9 +46,11 @@ public class AddProjectRequiredSkillService implements CommandHandler<AddProject
                 requiredSkill.requiredSkill().requiredLevel()
         );
         List<Skill> projectRequiredSkills = new ArrayList<>(inMemoryProject.requiredSkills());
-        if (!projectRequiredSkills.contains(newSkill)) {
-            projectRequiredSkills.add(newSkill);
-        }
+
+        projectRequiredSkills.stream()
+                .filter(skill -> skill.skillName().equals(newSkill.skillName()))
+                .findFirst().ifPresent(projectRequiredSkills::remove);
+        projectRequiredSkills.add(newSkill);
 
         projectBuilder.clear();
         projectBuilder.withProject(inMemoryProject);
