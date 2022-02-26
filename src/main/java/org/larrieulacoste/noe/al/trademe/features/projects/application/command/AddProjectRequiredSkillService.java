@@ -2,7 +2,8 @@ package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ProjectProfessionAdded;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.Profession;
+import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
+import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.ProjectBuilder;
@@ -18,15 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class AddProjectProfessionService implements CommandHandler<AddProjectProfession, List<String>> {
+public class AddProjectRequiredSkillService implements CommandHandler<AddProjectRequiredSkill, List<SkillRequest>> {
     private final Projects projects;
     private final ProjectValidationService projectValidationService;
     private final StringValidators stringValidators;
     private final EventBus<ApplicationEvent> eventBus;
     private final ProjectBuilder projectBuilder;
 
-    public AddProjectProfessionService(Projects projects, ProjectValidationService projectValidationService,
-                                       StringValidators stringValidators, EventBus<ApplicationEvent> eventBus, ProjectBuilder projectBuilder) {
+    public AddProjectRequiredSkillService(Projects projects, ProjectValidationService projectValidationService,
+                                          StringValidators stringValidators, EventBus<ApplicationEvent> eventBus, ProjectBuilder projectBuilder) {
         this.projects = projects;
         this.projectValidationService = projectValidationService;
         this.stringValidators = stringValidators;
@@ -35,31 +36,36 @@ public class AddProjectProfessionService implements CommandHandler<AddProjectPro
     }
 
     @Override
-    public List<String> handle(AddProjectProfession profession) {
-        Project inMemoryProject = projects.byId(EntityId.of(profession.projectId()));
+    public List<SkillRequest> handle(AddProjectRequiredSkill requiredSkill) {
+        Project inMemoryProject = projects.byId(EntityId.of(requiredSkill.projectId()));
 
-        projectValidationService.validateAddOrRemoveProjectProfession(profession);
+        projectValidationService.validateAddOrRemoveProjectRequiredSkill(requiredSkill.requiredSkill());
 
-        Profession newProfession = Profession.of(NotEmptyString.of(profession.profession(), stringValidators));
-        List<Profession> projectProfessions = new ArrayList<>(inMemoryProject.professions());
-        if (!projectProfessions.contains(newProfession)) {
-            projectProfessions.add(newProfession);
+        Skill newSkill = Skill.of(
+                NotEmptyString.of(requiredSkill.requiredSkill().skillName(), stringValidators),
+                requiredSkill.requiredSkill().requiredLevel()
+        );
+        List<Skill> projectRequiredSkills = new ArrayList<>(inMemoryProject.requiredSkills());
+        if (!projectRequiredSkills.contains(newSkill)) {
+            projectRequiredSkills.add(newSkill);
         }
 
         projectBuilder.clear();
         projectBuilder.withProject(inMemoryProject);
-        projectBuilder.withProfessions(projectProfessions);
+        projectBuilder.withRequiredSkills(projectRequiredSkills);
 
         Project project = projectBuilder.build(inMemoryProject.projectId());
         projects.save(project);
 
-        eventBus.publish(
-                ProjectProfessionAdded.of(
-                        project.projectId(),
-                        newProfession.professionName().value()
-                )
-        );
+//        eventBus.publish(
+//                ProjectProfessionAdded.of(
+//                        project.projectId(),
+//                        newSkill.professionName().value()
+//                )
+//        );
 
-        return projectProfessions.stream().map(currentProfession -> currentProfession.professionName().value()).toList();
+        return projectRequiredSkills.stream().map(currentRequiredSkill ->
+                        new SkillRequest(currentRequiredSkill.skillName().value(), currentRequiredSkill.requiredLevel()))
+                .toList();
     }
 }

@@ -51,9 +51,9 @@ public class ProjectValidationService {
         }
     }
 
-    public void validateAddProjectProfession(AddProjectProfession profession) {
+    public void validateAddOrRemoveProjectProfession(AddProjectProfession profession) {
         logger.log("Triggered validation with project profession : " + profession);
-        List<String> errors = getAddProjectProfessionInvalidFields(profession);
+        List<String> errors = getAddOrRemoveProjectProfessionInvalidFields(profession);
         if (!errors.isEmpty()) {
             throw new InvalidProjectException(
                     "Error with project profession :" + ProjectValidationService.STRING_DELIMITER + String.join(
@@ -62,6 +62,26 @@ public class ProjectValidationService {
                     )
             );
         }
+    }
+
+    public void validateAddOrRemoveProjectRequiredSkill(SkillRequest requiredSkill) {
+        logger.log("Triggered validation with project required skill : " + requiredSkill);
+        List<String> errors = getAddOrRemoveProjectRequiredSkillInvalidFields(requiredSkill);
+        if (!errors.isEmpty()) {
+            throw new InvalidProjectException(
+                    "Error with project required skill :" + ProjectValidationService.STRING_DELIMITER + String.join(
+                            ProjectValidationService.STRING_DELIMITER,
+                            errors
+                    )
+            );
+        }
+    }
+
+    private List<String> getAddOrRemoveProjectRequiredSkillInvalidFields(SkillRequest requiredSkill) {
+        List<String> errors = new ArrayList<>();
+        validateSkill(requiredSkill, errors);
+        return errors;
+
     }
 
     public void validateUpdateProject(UpdateProject project) {
@@ -77,7 +97,7 @@ public class ProjectValidationService {
         }
     }
 
-    private List<String> getAddProjectProfessionInvalidFields(AddProjectProfession profession) {
+    private List<String> getAddOrRemoveProjectProfessionInvalidFields(AddProjectProfession profession) {
         List<String> errors = new ArrayList<>();
         validateProfession(profession.profession(), errors);
         return errors;
@@ -149,9 +169,13 @@ public class ProjectValidationService {
 
     private void validateSkills(List<SkillRequest> skills, List<String> errors) {
         for (SkillRequest skill : skills) {
-            required(skill.skillName(), ProjectValidationService.SKILL_NAME, errors);
-            positive(skill.requiredLevel(), ProjectValidationService.SKILL_LEVEL, errors);
+            validateSkill(skill, errors);
         }
+    }
+
+    private void validateSkill(SkillRequest skill, List<String> errors) {
+        required(skill.skillName(), ProjectValidationService.SKILL_NAME, errors);
+        positive(skill.requiredLevel(), ProjectValidationService.SKILL_LEVEL, errors);
     }
 
     private void validateProfessions(List<String> professions, List<String> errors) {
