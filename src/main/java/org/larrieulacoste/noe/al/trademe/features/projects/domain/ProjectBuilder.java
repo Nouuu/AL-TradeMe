@@ -78,7 +78,7 @@ public class ProjectBuilder {
         return this;
     }
 
-    public ProjectBuilder withLocation(String locationName, double latitude, double longitude) {
+    public ProjectBuilder withLocation(String locationName, Double latitude, Double longitude) {
         this.location = Location.of(
                 Coordinate.of(longitude, latitude),
                 NotEmptyString.of(locationName, stringValidator)
@@ -109,5 +109,18 @@ public class ProjectBuilder {
         tradesmenIds = new ArrayList<>();
         dailyRate = null;
         location = null;
+    }
+
+    public ProjectBuilder withProject(Project project) {
+        projectId = project.projectId();
+        taskName = project.taskName();
+        requiredSkills = project.requiredSkills();
+        professions = project.professions();
+        period = project.period();
+        contractorId = project.contractorId();
+        tradesmenIds = project.tradesmenIds();
+        dailyRate = project.dailyRate();
+        location = project.location();
+        return this;
     }
 }

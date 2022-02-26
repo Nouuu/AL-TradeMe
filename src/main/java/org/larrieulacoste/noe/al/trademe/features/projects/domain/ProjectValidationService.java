@@ -3,6 +3,7 @@ package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidProjectException;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.CreateProject;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.command.UpdateProject;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
@@ -20,9 +21,12 @@ public class ProjectValidationService {
     private static final String SKILL_LEVEL = "skillRequiredLevel";
     private static final String PROFESSION = "profession";
     private static final String CONTRACTOR_ID = "contractorId";
+    private static final String PROJECT_ID = "projectId";
     private static final String PERIOD = "period";
     private static final String DAILY_RATE = "dailyRate";
     private static final String LOCATION_NAME = "locationName";
+    private static final String LONGITUDE = "longitude";
+    private static final String LATITUDE = "latitude";
     private final Logger logger;
     private final StringValidators stringValidators;
     private final DateValidators dateValidators;
@@ -46,6 +50,39 @@ public class ProjectValidationService {
         }
     }
 
+    public void validateUpdateProject(UpdateProject project) {
+        logger.log("Triggered validation with project : " + project);
+        List<String> errors = getUpdateProjectInvalidFields(project);
+        if (!errors.isEmpty()) {
+            throw new InvalidProjectException(
+                    "Error with project :" + ProjectValidationService.STRING_DELIMITER + String.join(
+                            ProjectValidationService.STRING_DELIMITER,
+                            errors
+                    )
+            );
+        }
+    }
+
+    private List<String> getUpdateProjectInvalidFields(UpdateProject project) {
+        List<String> errors = new ArrayList<>();
+        required(project.projectId(), ProjectValidationService.PROJECT_ID, errors);
+        if (project.taskName() != null) {
+            required(project.taskName(), ProjectValidationService.TASK_NAME, errors);
+        }
+        if (project.startDate() != null || project.endDate() != null) {
+            validatePeriod(project.startDate(), project.endDate(), errors);
+        }
+        if (project.dailyRate() != null) {
+            positive(project.dailyRate(), ProjectValidationService.DAILY_RATE, errors);
+        }
+        if (project.locationName() != null || project.latitude() != null || project.longitude() != null) {
+            required(project.locationName(), ProjectValidationService.LOCATION_NAME, errors);
+            required(project.longitude(), ProjectValidationService.LONGITUDE, errors);
+            required(project.latitude(), ProjectValidationService.LATITUDE, errors);
+        }
+        return errors;
+    }
+
     private List<String> getCreateProjectInvalidFields(CreateProject project) {
         List<String> errors = new ArrayList<>();
         required(project.taskName(), ProjectValidationService.TASK_NAME, errors);
@@ -55,11 +92,19 @@ public class ProjectValidationService {
         validatePeriod(project.startDate(), project.endDate(), errors);
         positive(project.dailyRate(), ProjectValidationService.DAILY_RATE, errors);
         required(project.locationName(), ProjectValidationService.LOCATION_NAME, errors);
+        required(project.longitude(), ProjectValidationService.LONGITUDE, errors);
+        required(project.latitude(), ProjectValidationService.LATITUDE, errors);
         return errors;
     }
 
     private void required(String field, String fieldName, List<String> errors) {
         if (!stringValidators.isNotEmptyOrOnlyWhitespaces(field)) {
+            errors.add(fieldName);
+        }
+    }
+
+    private void required(Double field, String fieldName, List<String> errors) {
+        if (field == null) {
             errors.add(fieldName);
         }
     }
@@ -70,13 +115,14 @@ public class ProjectValidationService {
         }
     }
 
-    private void positive(int field, String fieldName, List<String> errors) {
-        if (field <= 0) {
+    private void positive(Integer field, String fieldName, List<String> errors) {
+        if (field == null || field <= 0) {
             errors.add(fieldName);
         }
     }
-    private void positive(double field, String fieldName, List<String> errors) {
-        if (field <= 0) {
+
+    private void positive(Double field, String fieldName, List<String> errors) {
+        if (field == null || field <= 0) {
             errors.add(fieldName);
         }
     }

@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
+import org.larrieulacoste.noe.al.trademe.application.event.ProjectCreated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.ProjectBuilder;
@@ -44,7 +45,17 @@ public class CreateProjectService implements CommandHandler<CreateProject, Entit
         Project project = projectBuilder.build(projectId);
         projects.save(project);
 
-        // TODO publish event
+        eventBus.publish(
+                ProjectCreated.of(
+                        projectId,
+                        project.taskName().value(),
+                        project.contractorId(),
+                        project.period().startDate(),
+                        project.period().endDate(),
+                        project.dailyRate().amount().value(),
+                        project.location().locationName().value()
+                )
+        );
 
         return projectId;
     }
