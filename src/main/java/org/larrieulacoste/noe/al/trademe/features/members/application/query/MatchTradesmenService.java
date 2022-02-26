@@ -39,7 +39,11 @@ public class MatchTradesmenService implements QueryHandler<MatchTradesmen, List<
                 .stream()
                 .map(profession -> Profession.of(NotEmptyString.of(profession, stringValidators)))
                 .toList();
-        List<Skill> requiredSkills = command.requiredSkills();
+        List<Skill> requiredSkills = command.requiredSkills()
+                .stream()
+                .map(skillRequest -> Skill.of(NotEmptyString.of(skillRequest.skillName(), stringValidators),
+                        skillRequest.requiredLevel()))
+                .toList();
         Location projectLocation = Location.of(Coordinate.of(command.longitude(), command.latitude()), NotEmptyString.of(command.locationName(), stringValidators));
         Period projectPeriod = Period.of(command.startDate(), command.endDate(), dateValidators);
         EntityId projectId = EntityId.of(command.projectId());
