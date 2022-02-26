@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
+import javax.enterprise.context.ApplicationScoped;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Period;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
@@ -8,6 +9,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
 
+@ApplicationScoped
 public class TradesmanAssignProjectService
         implements CommandHandler<TradesmanAssignProject, Void> {
     private final Tradesmen tradesmen;
