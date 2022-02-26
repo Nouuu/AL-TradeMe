@@ -88,6 +88,6 @@ public class MatchTradesmenService implements QueryHandler<MatchTradesmen, List<
         return tradesmanStream.filter(tradesman -> tradesman.professionalAbilities()
                 .dailyRate()
                 .amount()
-                .value() <= (dailyRate * 1.1));
+                .value() <= dailyRate);
     }
 }
