@@ -6,7 +6,6 @@ import org.larrieulacoste.noe.al.trademe.features.projects.domain.Projects;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryHandler;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.util.List;
 
 @ApplicationScoped
 public class RetrieveProjectByIdService implements QueryHandler<RetrieveProjectById, Project> {

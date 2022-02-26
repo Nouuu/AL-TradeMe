@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ProjectCreated;
 import org.larrieulacoste.noe.al.trademe.application.event.ProjectUpdated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
@@ -14,7 +13,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class UpdateProjectService implements CommandHandler<UpdateProject, Project> {
+public class UpdateProjectService implements CommandHandler<UpdateProject, Void> {
     private final Projects projects;
     private final ProjectValidationService projectValidationService;
     private final EventBus<ApplicationEvent> eventBus;
@@ -29,7 +28,7 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Proje
     }
 
     @Override
-    public Project handle(UpdateProject updateProject) {
+    public Void handle(UpdateProject updateProject) {
         Project inMemoryProject = projects.byId(EntityId.of(updateProject.projectId()));
 
         projectValidationService.validateUpdateProject(updateProject);
@@ -65,6 +64,6 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Proje
                 )
         );
 
-        return updatedProject;
+        return null;
     }
 }
