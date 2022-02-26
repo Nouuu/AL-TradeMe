@@ -17,6 +17,8 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import java.lang.annotation.Inherited;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +44,8 @@ final class CommandConfiguration {
     CreateInvoiceService createInvoiceService;
     @Inject
     UpdateContractorSubscriptionStatusService updateContractorSubscriptionStatusService;
+    @Inject
+    UpdateTradesmanAbilitiesService updateTradesmanAbilitiesService;
     @Inject
     UpdateTradesmanSubscriptionStatusService updateTradesmanSubscriptionStatusService;
     @Inject
@@ -74,9 +78,12 @@ final class CommandConfiguration {
         commandMap.put(UpdateTradesman.class, updateTradesmanService);
         commandMap.put(DeleteTradesman.class, deleteTradesmanService);
         commandMap.put(DeleteContractor.class, deleteContractorService);
-        commandMap.put(PublishContractorsPendingSubscriptionPayment.class, publishContractorsPendingSubscriptionPaymentService);
-        commandMap.put(PublishTradesmenPendingSubscriptionPayment.class, publishTradesmenPendingSubscriptionPaymentService);
+        commandMap.put(PublishContractorsPendingSubscriptionPayment.class,
+                publishContractorsPendingSubscriptionPaymentService);
+        commandMap.put(PublishTradesmenPendingSubscriptionPayment.class,
+                publishTradesmenPendingSubscriptionPaymentService);
         commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);
+        commandMap.put(UpdateTradesmanAbilities.class, updateTradesmanAbilitiesService);
         commandMap.put(UpdateTradesmanSubscriptionStatus.class, updateTradesmanSubscriptionStatusService);
         commandMap.put(ReleaseTradesman.class, releaseTradesmanService);
 

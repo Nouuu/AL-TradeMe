@@ -1,13 +1,16 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
 import org.larrieulacoste.noe.al.trademe.domain.model.*;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class TradesmanBuilder {
   private final StringValidators stringValidators;
+  private final DateValidators dateValidators;
 
   private NotEmptyString lastname;
   private NotEmptyString firstname;
@@ -24,8 +27,9 @@ public final class TradesmanBuilder {
   private List<Period> unavailability = new ArrayList<>();
   private NotEmptyString locationName;
 
-  public TradesmanBuilder(StringValidators stringValidators) {
+  public TradesmanBuilder(StringValidators stringValidators, DateValidators dateValidators) {
     this.stringValidators = stringValidators;
+    this.dateValidators = dateValidators;
   }
 
   public TradesmanBuilder withLastname(String lastname) {
@@ -128,6 +132,14 @@ public final class TradesmanBuilder {
     return this;
   }
 
+  public TradesmanBuilder withSkillsRequest(List<SkillRequest> skills) {
+    List<Skill> newSkills = Objects.requireNonNull(skills).stream().map(skill -> Skill.of(
+        NotEmptyString.of(skill.skillName(), stringValidators),
+        skill.requiredLevel())).toList();
+    this.skills = newSkills;
+    return this;
+  }
+
   public TradesmanBuilder addSkill(Skill skill) {
     this.skills.add(skill);
     return this;
@@ -171,6 +183,13 @@ public final class TradesmanBuilder {
         .withPaymentMethod(tradesman.paymentMethod())
         .withLocation(tradesman.address())
         .withTradesmanProfessionalAbilities(tradesman.professionalAbilities());
+  }
+
+  public TradesmanBuilder withUnavailabilityPeriods(List<PeriodRequest> periodsRequest) {
+    this.unavailability = periodsRequest.stream()
+        .map(req -> Period.of(req.startDate(), req.endDate(), dateValidators))
+        .toList();
+    return this;
   }
 
   public Tradesman build(EntityId entityId) {
