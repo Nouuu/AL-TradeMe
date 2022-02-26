@@ -29,6 +29,6 @@ public record Location(
                 * Math.pow(Math.sin(dlon / 2), 2);
         double c = 2 * Math.asin(Math.sqrt(a));
         double r = 6371;
-        return (c * r);
+        return Math.abs(c * r);
     }
 }
