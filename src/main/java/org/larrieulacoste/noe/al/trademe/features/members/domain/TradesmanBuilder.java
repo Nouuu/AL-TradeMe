@@ -21,6 +21,7 @@ public final class TradesmanBuilder {
   private ActivityRadius activityRadius;
   private DailyRate dailyRate;
   private List<Skill> skills = new ArrayList<>();
+  private List<Period> unavailability = new ArrayList<>();
   private NotEmptyString locationName;
 
   public TradesmanBuilder(StringValidators stringValidators) {
@@ -132,6 +133,16 @@ public final class TradesmanBuilder {
     return this;
   }
 
+  public TradesmanBuilder withUnavailability(List<Period> unavailability) {
+    this.unavailability.addAll(unavailability);
+    return this;
+  }
+
+  public TradesmanBuilder addUnavailability(Period unavailability) {
+    this.unavailability.add(unavailability);
+    return this;
+  }
+
   public TradesmanBuilder withLocationName(String locationName) {
     this.locationName = NotEmptyString.of(locationName, stringValidators);
     return this;
@@ -165,7 +176,7 @@ public final class TradesmanBuilder {
   public Tradesman build(EntityId entityId) {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
     TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession,
-        skills, activityRadius, dailyRate);
+        skills, activityRadius, dailyRate, unavailability);
     return Tradesman.of(entityId, lastname, firstname, email, password, location, subscriptionStatus, paymentMethod,
         professionalAbilities);
   }
@@ -184,6 +195,7 @@ public final class TradesmanBuilder {
     dailyRate = DailyRate.of(Amount.of(0));
     skills = new ArrayList<>();
     locationName = null;
+    unavailability = new ArrayList<>();
   }
 
 }
