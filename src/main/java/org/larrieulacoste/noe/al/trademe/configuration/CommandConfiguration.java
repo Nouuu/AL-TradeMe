@@ -17,7 +17,6 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import java.lang.annotation.Inherited;
 import java.util.HashMap;
 import java.util.Map;
 
