@@ -8,6 +8,6 @@ import java.util.List;
 public interface Projects extends Repository<Project> {
     List<Project> getTradesmanProjects(EntityId tradesmanId);
 
-    List<Project> getContractorProjects(EntityId tradesmanId);
+    List<Project> getContractorProjects(EntityId contractorId);
 
 }
