@@ -136,6 +136,14 @@ public final class ProjectController {
         return EntityId.of(projectId);
     }
 
+    @PUT
+    @Path("{projectId}/terminate/{tradesmanId}")
+    @Operation(summary = "Close a project", description = "Close a project in TradeMe")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ProjectResponse closeProject(@PathParam("projectId") String projectId, @PathParam("tradesmanId") String tradesmanId) {
+        return getProjectResponse(commandBus.send(new TerminateTradesman(projectId, tradesmanId)));
+    }
+
     @DELETE
     @Path("{projectId}/profession")
     @Operation(summary = "Delete a project profession", description = "Delete a profession from a project")
