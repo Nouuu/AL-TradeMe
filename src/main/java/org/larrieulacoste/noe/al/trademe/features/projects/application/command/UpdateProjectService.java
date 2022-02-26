@@ -1,6 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ProjectCreated;
 import org.larrieulacoste.noe.al.trademe.application.event.ProjectUpdated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
@@ -21,7 +20,7 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Proje
     private final ProjectBuilder projectBuilder;
 
     public UpdateProjectService(Projects projects, ProjectValidationService projectValidationService,
-                                EventBus<ApplicationEvent> eventBus, ProjectBuilder projectBuilder) {
+            EventBus<ApplicationEvent> eventBus, ProjectBuilder projectBuilder) {
         this.projects = projects;
         this.projectValidationService = projectValidationService;
         this.eventBus = eventBus;
@@ -46,8 +45,10 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Proje
         if (updateProject.dailyRate() != null) {
             projectBuilder.withDailyRate(updateProject.dailyRate());
         }
-        if (updateProject.locationName() != null || updateProject.latitude() != null || updateProject.longitude() != null) {
-            projectBuilder.withLocation(updateProject.locationName(), updateProject.latitude(), updateProject.longitude());
+        if (updateProject.locationName() != null || updateProject.latitude() != null
+                || updateProject.longitude() != null) {
+            projectBuilder.withLocation(updateProject.locationName(), updateProject.latitude(),
+                    updateProject.longitude());
         }
 
         Project updatedProject = projectBuilder.build(inMemoryProject.projectId());
@@ -61,9 +62,7 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Proje
                         updatedProject.period().startDate(),
                         updatedProject.period().endDate(),
                         updatedProject.dailyRate().amount().value(),
-                        updatedProject.location().locationName().value()
-                )
-        );
+                        updatedProject.location().locationName().value()));
 
         return updatedProject;
     }
