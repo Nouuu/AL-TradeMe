@@ -48,4 +48,19 @@ public record Project(
                 dailyRate,
                 location);
     }
+
+    @Override
+    public List<Skill> requiredSkills() {
+        return List.copyOf(requiredSkills);
+    }
+
+    @Override
+    public List<Profession> professions() {
+        return List.copyOf(professions);
+    }
+
+    @Override
+    public List<EntityId> tradesmenIds() {
+        return List.copyOf(tradesmenIds);
+    }
 }
