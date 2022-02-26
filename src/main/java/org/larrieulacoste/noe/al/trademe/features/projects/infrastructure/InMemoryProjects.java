@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class InMemoryProjects implements Projects {
-    private final AtomicInteger counter = new AtomicInteger(0); // TODO
+    private final AtomicInteger counter = new AtomicInteger(0);
     private final Map<EntityId, Project> data = new ConcurrentHashMap<>();
     private final Logger logger;
 
@@ -69,5 +69,10 @@ public final class InMemoryProjects implements Projects {
     @Override
     public void remove(Project item) {
         data.remove(item.projectId());
+    }
+
+    @Override
+    public EntityId nextId() {
+        return EntityId.of(String.valueOf(counter.incrementAndGet()));
     }
 }
