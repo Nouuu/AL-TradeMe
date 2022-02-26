@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ProjectProfessionAdded;
+import org.larrieulacoste.noe.al.trademe.application.event.ProjectRequiredSkillAdded;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
@@ -57,12 +57,13 @@ public class AddProjectRequiredSkillService implements CommandHandler<AddProject
         Project project = projectBuilder.build(inMemoryProject.projectId());
         projects.save(project);
 
-//        eventBus.publish(
-//                ProjectProfessionAdded.of(
-//                        project.projectId(),
-//                        newSkill.professionName().value()
-//                )
-//        );
+        eventBus.publish(
+                ProjectRequiredSkillAdded.of(
+                        project.projectId(),
+                        newSkill.skillName().value(),
+                        newSkill.requiredLevel()
+                )
+        );
 
         return projectRequiredSkills.stream().map(currentRequiredSkill ->
                         new SkillRequest(currentRequiredSkill.skillName().value(), currentRequiredSkill.requiredLevel()))
