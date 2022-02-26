@@ -1,20 +1,20 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.web;
 
+import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 
-record ProjectResponse(
-        String projectId,
+record ProjectRequest(
         String taskName,
-        List<String> requiredSkills,
+        List<SkillRequest> skills,
         List<String> professions,
         String contractorId,
-        List<String> tradesmenIds,
         ZonedDateTime startDate,
         ZonedDateTime endDate,
-        double dailyRate,
-        double longitude,
-        double latitude,
-        String locationNam
+        Double dailyRate,
+        String locationName,
+        Double longitude, // Y
+        Double latitude // X
 ) {
 }

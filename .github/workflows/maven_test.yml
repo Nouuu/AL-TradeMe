@@ -42,16 +42,6 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: target/site/jacoco/jacoco.xml
 
-      - name: Report jacoco results to DeepSource
-        run: |
-          # Install deepsource CLI
-          curl https://deepsource.io/cli | sh
-
-          # From the root directory, run the report coverage command
-          ./bin/deepsource report --analyzer test-coverage --key java --value-file target/site/jacoco/jacoco.xml
-        env:
-          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
-
       - name: Sonarqube build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any

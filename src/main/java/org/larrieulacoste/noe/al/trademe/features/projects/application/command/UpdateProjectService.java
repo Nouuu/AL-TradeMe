@@ -13,7 +13,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class UpdateProjectService implements CommandHandler<UpdateProject, Project> {
+public class UpdateProjectService implements CommandHandler<UpdateProject, Void> {
     private final Projects projects;
     private final ProjectValidationService projectValidationService;
     private final EventBus<ApplicationEvent> eventBus;
@@ -28,7 +28,7 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Proje
     }
 
     @Override
-    public Project handle(UpdateProject updateProject) {
+    public Void handle(UpdateProject updateProject) {
         Project inMemoryProject = projects.byId(EntityId.of(updateProject.projectId()));
 
         projectValidationService.validateUpdateProject(updateProject);
@@ -64,6 +64,6 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Proje
                         updatedProject.dailyRate().amount().value(),
                         updatedProject.location().locationName().value()));
 
-        return updatedProject;
+        return null;
     }
 }

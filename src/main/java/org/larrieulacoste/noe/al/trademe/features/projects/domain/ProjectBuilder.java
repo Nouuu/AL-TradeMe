@@ -45,7 +45,7 @@ public class ProjectBuilder {
     }
 
     public ProjectBuilder withRequiredSkills(List<Skill> requiredSkills) {
-        this.requiredSkills = requiredSkills;
+        this.requiredSkills = List.copyOf(requiredSkills);
         return this;
     }
 
@@ -58,7 +58,7 @@ public class ProjectBuilder {
     }
 
     public ProjectBuilder withProfessions(List<Profession> professions) {
-        this.professions = professions;
+        this.professions = List.copyOf(professions);
         return this;
     }
 
