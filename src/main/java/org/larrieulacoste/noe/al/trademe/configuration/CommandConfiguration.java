@@ -6,6 +6,8 @@ import org.larrieulacoste.noe.al.trademe.features.payment.application.command.Co
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPaymentService;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPaymentService;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.command.TerminateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.command.TerminateTradesmanService;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -50,6 +52,10 @@ final class CommandConfiguration {
     DeleteTradesmanInvoicesService deleteTradesmanInvoicesService;
     @Inject
     DeleteContractorInvoicesService deleteContractorInvoicesService;
+    @Inject
+    TerminateTradesmanService terminateTradesmanService;
+    @Inject
+    ReleaseTradesmanService releaseTradesmanService;
 
     @Produces
     @Singleton
@@ -72,10 +78,14 @@ final class CommandConfiguration {
         commandMap.put(PublishTradesmenPendingSubscriptionPayment.class, publishTradesmenPendingSubscriptionPaymentService);
         commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);
         commandMap.put(UpdateTradesmanSubscriptionStatus.class, updateTradesmanSubscriptionStatusService);
+        commandMap.put(ReleaseTradesman.class, releaseTradesmanService);
 
         // Payments
         commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
         commandMap.put(TradesmanSubscriptionPayment.class, tradesmanSubscriptionPaymentService);
+
+        // Projects
+        commandMap.put(TerminateTradesman.class, terminateTradesmanService);
 
         return new DefaultCommandBus(commandMap);
     }

@@ -134,7 +134,7 @@ public final class TradesmanBuilder {
   }
 
   public TradesmanBuilder withUnavailability(List<Period> unavailability) {
-    this.unavailability.addAll(unavailability);
+    this.unavailability = unavailability;
     return this;
   }
 
