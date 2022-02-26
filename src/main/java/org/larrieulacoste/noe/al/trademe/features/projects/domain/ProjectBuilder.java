@@ -72,6 +72,11 @@ public class ProjectBuilder {
         return this;
     }
 
+    public ProjectBuilder addTradesmanId(EntityId tradesmanId) {
+        this.tradesmenIds.add(tradesmanId);
+        return this;
+    }
+
     public ProjectBuilder withPeriod(ZonedDateTime startDate, ZonedDateTime endDate) {
         this.period = Period.of(
                 startDate,
