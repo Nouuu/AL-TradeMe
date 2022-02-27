@@ -64,13 +64,14 @@ final class GlobalConfiguration {
 
     @Produces
     TradesmanBuilder tradesmanBuilder() {
-        return new TradesmanBuilder(stringValidators());
+        return new TradesmanBuilder(stringValidators(), dateValidators());
     }
 
     @Produces
     ContractorBuilder contractorBuilder() {
         return new ContractorBuilder(stringValidators());
     }
+
     @Produces
     ProjectBuilder projectBuilder() {
         return new ProjectBuilder(stringValidators(), dateValidators());

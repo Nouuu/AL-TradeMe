@@ -12,9 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.model.Period;
+import org.larrieulacoste.noe.al.trademe.domain.model.PeriodResponse;
+import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
+import org.larrieulacoste.noe.al.trademe.domain.model.SkillResponse;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.DeleteTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesmanAbilities;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.MatchTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanById;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmen;
@@ -70,8 +75,8 @@ public final class TradesmanController {
     @POST
     @Operation(summary = "Create tradesman", description = "Register a new tradesman to TradeMe")
     @Consumes(MediaType.APPLICATION_JSON)
-    public TradesmanResponse register(TradesmanRequest tradesman) {
-        EntityId userId = commandBus.send(new CreateTradesman(
+    public EntityId register(TradesmanRequest tradesman) {
+        return commandBus.send(new CreateTradesman(
                 tradesman.firstname(),
                 tradesman.lastname(),
                 tradesman.email(),
@@ -84,8 +89,6 @@ public final class TradesmanController {
                 tradesman.activityRadius(),
                 tradesman.dailyRate(),
                 tradesman.locationName()));
-
-        return new TradesmanResponse(userId.value(), null, null, null);
     }
 
     @PUT
@@ -103,14 +106,31 @@ public final class TradesmanController {
         return getTradesmanResponse(updatedTradesman);
     }
 
+    @PUT
+    @Path("abilities/{tradesmanId}")
+    @Operation(summary = "Update tradesman abilities", description = "Update tradesman abilities in TradeMe")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public TradesmanResponse updateAbilities(@PathParam("tradesmanId") String tradesmanId,
+            TradesmanAbilitiesRequest abilities) {
+        Tradesman updatedTradesman = commandBus.send(new UpdateTradesmanAbilities(
+                tradesmanId,
+                abilities.profession(),
+                abilities.skills(),
+                abilities.activityRadius(),
+                abilities.dailyRate(),
+                abilities.unavailabilityPeriods()));
+
+        return getTradesmanResponse(updatedTradesman);
+    }
+
     @DELETE
     @Path("{tradesmanId}")
     @Operation(summary = "Delete tradesman", description = "Delete tradesman from TradeMe")
     @Consumes(MediaType.APPLICATION_JSON)
-    public TradesmanResponse delete(@PathParam("tradesmanId") String tradesmanId) {
+    public EntityId delete(@PathParam("tradesmanId") String tradesmanId) {
         commandBus.send(new DeleteTradesman(tradesmanId));
 
-        return new TradesmanResponse(tradesmanId, null, null, null);
+        return EntityId.of(tradesmanId);
     }
 
     private TradesmenResponse getTradesmenResponse(List<Tradesman> tradesmen) {
@@ -124,6 +144,23 @@ public final class TradesmanController {
                 tradesman.entityId().value(),
                 tradesman.firstname().value(),
                 tradesman.lastname().value(),
-                tradesman.email().value());
+                tradesman.email().value(),
+                tradesman.professionalAbilities().profession().professionName().value(),
+                tradesman.professionalAbilities().dailyRate().amount().value(),
+                getSkillResponses(tradesman.professionalAbilities().skills()),
+                getPeriodResponses(tradesman.professionalAbilities().unavailability()));
+    }
+
+    private List<PeriodResponse> getPeriodResponses(List<Period> periods) {
+        return periods.stream()
+                .map(period -> new PeriodResponse(period.startDate(), period.endDate())).toList();
+    }
+
+    private List<SkillResponse> getSkillResponses(List<Skill> skills) {
+        return skills.stream()
+                .map(skill -> new SkillResponse(
+                        skill.skillName().value(),
+                        skill.requiredLevel()))
+                .toList();
     }
 }

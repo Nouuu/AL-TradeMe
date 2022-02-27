@@ -1,7 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application.command;
 
 import org.larrieulacoste.noe.al.trademe.application.event.ContractorInvoiceDeleted;
-import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -28,8 +27,7 @@ public class DeleteContractorInvoicesService implements CommandHandler<DeleteCon
             invoices.remove(invoiceToDelete);
             eventBus.publish(ContractorInvoiceDeleted.of(
                     invoiceToDelete.invoiceId(),
-                    command.contractorId()
-            ));
+                    command.contractorId()));
         }
         return null;
     }

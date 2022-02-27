@@ -20,7 +20,7 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Void>
     private final ProjectBuilder projectBuilder;
 
     public UpdateProjectService(Projects projects, ProjectValidationService projectValidationService,
-                                EventBus<ApplicationEvent> eventBus, ProjectBuilder projectBuilder) {
+            EventBus<ApplicationEvent> eventBus, ProjectBuilder projectBuilder) {
         this.projects = projects;
         this.projectValidationService = projectValidationService;
         this.eventBus = eventBus;
@@ -45,8 +45,10 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Void>
         if (updateProject.dailyRate() != null) {
             projectBuilder.withDailyRate(updateProject.dailyRate());
         }
-        if (updateProject.locationName() != null || updateProject.latitude() != null || updateProject.longitude() != null) {
-            projectBuilder.withLocation(updateProject.locationName(), updateProject.latitude(), updateProject.longitude());
+        if (updateProject.locationName() != null || updateProject.latitude() != null
+                || updateProject.longitude() != null) {
+            projectBuilder.withLocation(updateProject.locationName(), updateProject.latitude(),
+                    updateProject.longitude());
         }
 
         Project updatedProject = projectBuilder.build(inMemoryProject.projectId());
@@ -60,9 +62,7 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Void>
                         updatedProject.period().startDate(),
                         updatedProject.period().endDate(),
                         updatedProject.dailyRate().amount().value(),
-                        updatedProject.location().locationName().value()
-                )
-        );
+                        updatedProject.location().locationName().value()));
 
         return null;
     }
