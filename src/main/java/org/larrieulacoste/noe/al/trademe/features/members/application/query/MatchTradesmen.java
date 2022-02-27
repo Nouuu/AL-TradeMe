@@ -1,13 +1,13 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.query;
 
 import java.time.ZonedDateTime;
-import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
+import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.kernel.query.Query;
 
 import java.util.List;
 
 public record MatchTradesmen(String projectId,
-     List<Skill> requiredSkills,
+     List<SkillRequest> requiredSkills,
      List<String> requiredProfessions,
      ZonedDateTime startDate,
      ZonedDateTime endDate,

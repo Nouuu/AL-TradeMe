@@ -55,6 +55,10 @@ final class CommandConfiguration {
     @Inject
     DeleteContractorInvoicesService deleteContractorInvoicesService;
     @Inject
+    TradesmanAssignProjectService tradesmanAssignProjectService;
+    @Inject
+    AssignTradesmanService assignTradesmanService;
+    @Inject
     AddProjectProfessionService addProjectProfessionService;
     @Inject
     AddProjectRequiredSkillService addProjectRequiredSkillService;
@@ -93,12 +97,14 @@ final class CommandConfiguration {
         commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);
         commandMap.put(UpdateTradesmanAbilities.class, updateTradesmanAbilitiesService);
         commandMap.put(UpdateTradesmanSubscriptionStatus.class, updateTradesmanSubscriptionStatusService);
+        commandMap.put(TradesmanAssignProject.class, tradesmanAssignProjectService);
 
         // Payments
         commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
         commandMap.put(TradesmanSubscriptionPayment.class, tradesmanSubscriptionPaymentService);
 
         // Projects
+        commandMap.put(AssignTradesman.class, assignTradesmanService);
         commandMap.put(AddProjectProfession.class, addProjectProfessionService);
         commandMap.put(AddProjectRequiredSkill.class, addProjectRequiredSkillService);
         commandMap.put(CloseProject.class, closeProjectService);
