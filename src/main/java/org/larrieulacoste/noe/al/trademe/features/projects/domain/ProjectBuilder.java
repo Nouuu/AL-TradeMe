@@ -70,7 +70,7 @@ public class ProjectBuilder {
     }
 
     public ProjectBuilder withTradesmenEntityIds(List<EntityId> tradesmenIds) {
-        this.tradesmenIds = tradesmenIds;
+        this.tradesmenIds = List.copyOf(tradesmenIds);
         return this;
     }
 
