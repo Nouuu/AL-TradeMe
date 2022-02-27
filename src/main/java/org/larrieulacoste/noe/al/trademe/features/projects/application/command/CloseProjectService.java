@@ -1,6 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
+import java.time.ZonedDateTime;
+import javax.enterprise.context.ApplicationScoped;
 import org.larrieulacoste.noe.al.trademe.application.event.ProjectClosed;
+import org.larrieulacoste.noe.al.trademe.application.event.TradesmanTerminated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.ProjectBuilder;
@@ -8,9 +11,6 @@ import org.larrieulacoste.noe.al.trademe.features.projects.domain.Projects;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
-
-import javax.enterprise.context.ApplicationScoped;
-import java.time.ZonedDateTime;
 
 @ApplicationScoped
 public class CloseProjectService implements CommandHandler<CloseProject, Void> {
@@ -32,15 +32,22 @@ public class CloseProjectService implements CommandHandler<CloseProject, Void> {
 
         projectBuilder.clear();
         projectBuilder.withProject(inMemoryProject);
-        projectBuilder.withPeriod(
-                inMemoryProject.period().startDate(), // TODO Problem
-                ZonedDateTime.now() // Problem
-        );
-
+        ZonedDateTime now = ZonedDateTime.now();
+        if (inMemoryProject.period().startDate().isBefore(now) && inMemoryProject.period().endDate().isAfter(now)) {
+            projectBuilder.withPeriod(
+                    inMemoryProject.period().startDate(),
+                    now
+            );
+        }
         Project project = projectBuilder.build(inMemoryProject.projectId());
         projects.save(project);
 
-        // TODO release tradesmen with old period
+        inMemoryProject.tradesmenIds().forEach(tradesmanId -> eventBus.publish(TradesmanTerminated.of(
+                inMemoryProject.projectId(),
+                tradesmanId,
+                inMemoryProject.period().startDate(),
+                inMemoryProject.period().endDate()))
+        );
 
         eventBus.publish(
                 ProjectClosed.of(

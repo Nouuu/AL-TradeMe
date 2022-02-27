@@ -1,14 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.web;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.features.projects.application.command.AssignTradesman;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
@@ -97,8 +88,6 @@ public final class ProjectController {
         commandBus.send(new UpdateProject(
                 projectId,
                 project.taskName(),
-                project.startDate(),
-                project.endDate(),
                 project.dailyRate(),
                 project.locationName(),
                 project.longitude(),
@@ -143,6 +132,14 @@ public final class ProjectController {
     public EntityId closeProject(@PathParam("projectId") String projectId) {
         commandBus.send(new CloseProject(projectId));
         return EntityId.of(projectId);
+    }
+
+    @PUT
+    @Path("{projectId}/terminate/{tradesmanId}")
+    @Operation(summary = "Close a project", description = "Close a project in TradeMe")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ProjectResponse closeProject(@PathParam("projectId") String projectId, @PathParam("tradesmanId") String tradesmanId) {
+        return getProjectResponse(commandBus.send(new TerminateTradesman(projectId, tradesmanId)));
     }
 
     @DELETE
