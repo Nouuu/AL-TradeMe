@@ -129,9 +129,6 @@ public class ProjectValidationService {
         if (project.taskName() != null) {
             required(project.taskName(), ProjectValidationService.TASK_NAME, errors);
         }
-        if (project.startDate() != null || project.endDate() != null) {
-            validatePeriod(project.startDate(), project.endDate(), errors);
-        }
         if (project.dailyRate() != null) {
             positive(project.dailyRate(), ProjectValidationService.DAILY_RATE, errors);
         }

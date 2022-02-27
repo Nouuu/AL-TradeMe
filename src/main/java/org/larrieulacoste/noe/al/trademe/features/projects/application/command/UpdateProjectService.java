@@ -39,9 +39,6 @@ public class UpdateProjectService implements CommandHandler<UpdateProject, Void>
         if (updateProject.taskName() != null) {
             projectBuilder.withTaskName(updateProject.taskName());
         }
-        if (updateProject.startDate() != null || updateProject.endDate() != null) {
-            projectBuilder.withPeriod(updateProject.startDate(), updateProject.endDate());
-        }
         if (updateProject.dailyRate() != null) {
             projectBuilder.withDailyRate(updateProject.dailyRate());
         }

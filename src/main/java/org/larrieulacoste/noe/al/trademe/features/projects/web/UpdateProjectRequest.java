@@ -4,8 +4,6 @@ import java.time.ZonedDateTime;
 
 record UpdateProjectRequest(
         String taskName,
-        ZonedDateTime startDate,
-        ZonedDateTime endDate,
         Double dailyRate,
         String locationName,
         Double longitude, // Y
