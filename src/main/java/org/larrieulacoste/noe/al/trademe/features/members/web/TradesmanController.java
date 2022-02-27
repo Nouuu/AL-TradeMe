@@ -101,7 +101,10 @@ public final class TradesmanController {
                 tradesman.firstname(),
                 tradesman.lastname(),
                 tradesman.email(),
-                tradesman.password()));
+                tradesman.password(),
+                tradesman.locationName(),
+                tradesman.longitude(),
+                tradesman.latitude()));
 
         return getTradesmanResponse(updatedTradesman);
     }

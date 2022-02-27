@@ -16,6 +16,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.domain.model.Profession;
 import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilities;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.EmailAddress;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Password;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionStatus;
@@ -27,6 +28,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.DefaultEventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.DefaultLoggerFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.SimpleDateValidators;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.SimplePaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.SimpleStringValidators;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
@@ -41,7 +43,8 @@ public class UpdateTradesmanAbilitiesServiceTest {
   void setUp() {
     updateTradesmanAbilitiesService = new UpdateTradesmanAbilitiesService(tradesmanRepository,
         new DefaultEventBus<>(new HashMap<>(), logger),
-        new TradesmanBuilder(stringValidators, new SimpleDateValidators()));
+        new TradesmanBuilder(stringValidators, new SimpleDateValidators()),
+        new MemberValidationService(logger, stringValidators, new SimplePaymentInformationsValidator()));
   }
 
   @Test
