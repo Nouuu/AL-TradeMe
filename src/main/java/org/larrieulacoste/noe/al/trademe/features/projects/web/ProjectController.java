@@ -9,8 +9,6 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.AssignTradesman;
-import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.*;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveContractorProjects;
@@ -22,7 +20,6 @@ import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("project")
