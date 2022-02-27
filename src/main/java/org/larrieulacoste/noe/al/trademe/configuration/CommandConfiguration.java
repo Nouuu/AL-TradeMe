@@ -7,6 +7,8 @@ import org.larrieulacoste.noe.al.trademe.features.payment.application.command.Co
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPaymentService;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.*;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.command.TerminateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.command.TerminateTradesmanService;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -72,6 +74,10 @@ final class CommandConfiguration {
     RemoveProjectRequiredSkillService removeProjectRequiredSkillService;
     @Inject
     UpdateProjectService updateProjectService;
+    @Inject
+    TerminateTradesmanService terminateTradesmanService;
+    @Inject
+    ReleaseTradesmanService releaseTradesmanService;
 
     @Produces
     @Singleton
@@ -90,14 +96,13 @@ final class CommandConfiguration {
         commandMap.put(UpdateTradesman.class, updateTradesmanService);
         commandMap.put(DeleteTradesman.class, deleteTradesmanService);
         commandMap.put(DeleteContractor.class, deleteContractorService);
-        commandMap.put(PublishContractorsPendingSubscriptionPayment.class,
-                publishContractorsPendingSubscriptionPaymentService);
-        commandMap.put(PublishTradesmenPendingSubscriptionPayment.class,
-                publishTradesmenPendingSubscriptionPaymentService);
+        commandMap.put(PublishContractorsPendingSubscriptionPayment.class, publishContractorsPendingSubscriptionPaymentService);
+        commandMap.put(PublishTradesmenPendingSubscriptionPayment.class, publishTradesmenPendingSubscriptionPaymentService);
         commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);
         commandMap.put(UpdateTradesmanAbilities.class, updateTradesmanAbilitiesService);
         commandMap.put(UpdateTradesmanSubscriptionStatus.class, updateTradesmanSubscriptionStatusService);
         commandMap.put(TradesmanAssignProject.class, tradesmanAssignProjectService);
+        commandMap.put(ReleaseTradesman.class, releaseTradesmanService);
 
         // Payments
         commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
@@ -112,6 +117,7 @@ final class CommandConfiguration {
         commandMap.put(RemoveProjectProfession.class, removeProjectProfessionService);
         commandMap.put(RemoveProjectRequiredSkill.class, removeProjectRequiredSkillService);
         commandMap.put(UpdateProject.class, updateProjectService);
+        commandMap.put(TerminateTradesman.class, terminateTradesmanService);
 
         return new DefaultCommandBus(commandMap);
     }

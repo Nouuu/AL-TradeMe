@@ -61,9 +61,9 @@ final class EventConfiguration {
         eventBus.register(ContractorDeleted.class, new ContractorDeletedListener(commandBus));
         eventBus.register(TradesmanDeleted.class, new TradesmanDeletedListener(commandBus));
 
-        // Projects feature
+        // Project feature
+        eventBus.register(TradesmanTerminated.class, new TradesmanTerminatedListener(commandBus));
         eventBus.register(TradesmanAssigned.class, new TradesmanAssignedListener(commandBus));
-
         return eventBus;
     }
 }

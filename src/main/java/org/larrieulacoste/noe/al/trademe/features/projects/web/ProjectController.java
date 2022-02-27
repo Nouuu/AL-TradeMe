@@ -1,11 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.web;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.AssignTradesman;
@@ -20,6 +14,8 @@ import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+
 import java.util.List;
 
 @Path("project")
@@ -82,8 +78,7 @@ public final class ProjectController {
                 project.dailyRate(),
                 project.locationName(),
                 project.longitude(),
-                project.latitude()
-        ));
+                project.latitude()));
     }
 
     @PUT
@@ -94,13 +89,10 @@ public final class ProjectController {
         commandBus.send(new UpdateProject(
                 projectId,
                 project.taskName(),
-                project.startDate(),
-                project.endDate(),
                 project.dailyRate(),
                 project.locationName(),
                 project.longitude(),
-                project.latitude()
-        ));
+                project.latitude()));
 
         return EntityId.of(projectId);
     }
@@ -109,12 +101,12 @@ public final class ProjectController {
     @Path("{projectId}/profession")
     @Operation(summary = "Add project profession", description = "Add a new profession to a project")
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<ProjectProfessionResponse> addProjectProfession(@PathParam("projectId") String projectId, ProjectProfessionRequest projectProfession) {
+    public List<ProjectProfessionResponse> addProjectProfession(@PathParam("projectId") String projectId,
+            ProjectProfessionRequest projectProfession) {
         List<String> updatedProfessions = commandBus
                 .send(new AddProjectProfession(
                         projectId,
-                        projectProfession.professionName()
-                ));
+                        projectProfession.professionName()));
 
         return getProjectProfessionResponses(projectId, updatedProfessions);
     }
@@ -123,12 +115,12 @@ public final class ProjectController {
     @Path("{projectId}/skill")
     @Operation(summary = "Add project required skill", description = "Add or update a required skill to a project")
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<ProjectSkillResponse> addProjectRequiredSkill(@PathParam("projectId") String projectId, ProjectSkillRequest projectSkill) {
+    public List<ProjectSkillResponse> addProjectRequiredSkill(@PathParam("projectId") String projectId,
+            ProjectSkillRequest projectSkill) {
         List<SkillRequest> updatedRequiredSkill = commandBus
                 .send(new AddProjectRequiredSkill(
                         projectId,
-                        new SkillRequest(projectSkill.skillName(), projectSkill.skillRequiredLevel())
-                ));
+                        new SkillRequest(projectSkill.skillName(), projectSkill.skillRequiredLevel())));
 
         return getProjectSkillResponses(projectId, updatedRequiredSkill);
     }
@@ -142,16 +134,25 @@ public final class ProjectController {
         return EntityId.of(projectId);
     }
 
+    @PUT
+    @Path("{projectId}/terminate/{tradesmanId}")
+    @Operation(summary = "Close a project", description = "Close a project in TradeMe")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ProjectResponse closeProject(@PathParam("projectId") String projectId,
+            @PathParam("tradesmanId") String tradesmanId) {
+        return getProjectResponse(commandBus.send(new TerminateTradesman(projectId, tradesmanId)));
+    }
+
     @DELETE
     @Path("{projectId}/profession")
     @Operation(summary = "Delete a project profession", description = "Delete a profession from a project")
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<ProjectProfessionResponse> deleteProjectProfession(@PathParam("projectId") String projectId, ProjectProfessionRequest projectProfession) {
+    public List<ProjectProfessionResponse> deleteProjectProfession(@PathParam("projectId") String projectId,
+            ProjectProfessionRequest projectProfession) {
         List<String> updatedProfessions = commandBus
                 .send(new RemoveProjectProfession(
                         projectId,
-                        projectProfession.professionName()
-                ));
+                        projectProfession.professionName()));
 
         return getProjectProfessionResponses(projectId, updatedProfessions);
     }
@@ -160,24 +161,25 @@ public final class ProjectController {
     @Path("{projectId}/skill")
     @Operation(summary = "Delete a project required skill", description = "Delete a required skill from a project")
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<ProjectSkillResponse> deleteProjectSkill(@PathParam("projectId") String projectId, ProjectSkillRequest projectSkillRequest) {
+    public List<ProjectSkillResponse> deleteProjectSkill(@PathParam("projectId") String projectId,
+            ProjectSkillRequest projectSkillRequest) {
         List<SkillRequest> updatedSkills = commandBus
                 .send(new RemoveProjectRequiredSkill(
                         projectId,
-                        projectSkillRequest.skillName()
-                ));
+                        projectSkillRequest.skillName()));
 
         return getProjectSkillResponses(projectId, updatedSkills);
     }
 
-    private List<ProjectSkillResponse> getProjectSkillResponses(String projectId, List<SkillRequest> updatedRequiredSkill) {
+    private List<ProjectSkillResponse> getProjectSkillResponses(String projectId,
+            List<SkillRequest> updatedRequiredSkill) {
         return updatedRequiredSkill.stream()
                 .map(skill -> new ProjectSkillResponse(projectId, skill.skillName(), skill.requiredLevel()))
                 .toList();
     }
 
-
-    private List<ProjectProfessionResponse> getProjectProfessionResponses(String projectId, List<String> updatedProfessions) {
+    private List<ProjectProfessionResponse> getProjectProfessionResponses(String projectId,
+            List<String> updatedProfessions) {
         return updatedProfessions.stream()
                 .map(professionName -> new ProjectProfessionResponse(projectId, professionName))
                 .toList();
@@ -187,7 +189,8 @@ public final class ProjectController {
     @Path("{projectId}/assign/{tradesmanId}")
     @Operation(summary = "Update tradesman", description = "Update tradesman in TradeMe")
     @Consumes(MediaType.APPLICATION_JSON)
-    public ProjectResponse update(@PathParam("projectId") String projectId, @PathParam("tradesmanId") String tradesmanId) {
+    public ProjectResponse update(@PathParam("projectId") String projectId,
+            @PathParam("tradesmanId") String tradesmanId) {
         Project updatedTradesman = commandBus.send(new AssignTradesman(
                 projectId,
                 tradesmanId));
@@ -208,7 +211,6 @@ public final class ProjectController {
                 project.dailyRate().amount().value(),
                 project.location().coordinate().longitude(),
                 project.location().coordinate().latitude(),
-                project.location().locationName().value()
-        );
+                project.location().locationName().value());
     }
 }
