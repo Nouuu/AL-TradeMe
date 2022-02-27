@@ -75,8 +75,8 @@ public final class TradesmanController {
     @POST
     @Operation(summary = "Create tradesman", description = "Register a new tradesman to TradeMe")
     @Consumes(MediaType.APPLICATION_JSON)
-    public TradesmanResponse register(TradesmanRequest tradesman) {
-        EntityId userId = commandBus.send(new CreateTradesman(
+    public EntityId register(TradesmanRequest tradesman) {
+        return commandBus.send(new CreateTradesman(
                 tradesman.firstname(),
                 tradesman.lastname(),
                 tradesman.email(),
@@ -89,8 +89,6 @@ public final class TradesmanController {
                 tradesman.activityRadius(),
                 tradesman.dailyRate(),
                 tradesman.locationName()));
-
-        return new TradesmanResponse(userId.value(), null, null, null, null, null, null, null);
     }
 
     @PUT
@@ -129,10 +127,10 @@ public final class TradesmanController {
     @Path("{tradesmanId}")
     @Operation(summary = "Delete tradesman", description = "Delete tradesman from TradeMe")
     @Consumes(MediaType.APPLICATION_JSON)
-    public TradesmanResponse delete(@PathParam("tradesmanId") String tradesmanId) {
+    public EntityId delete(@PathParam("tradesmanId") String tradesmanId) {
         commandBus.send(new DeleteTradesman(tradesmanId));
 
-        return new TradesmanResponse(tradesmanId, null, null, null, null, null, null, null);
+        return EntityId.of(tradesmanId);
     }
 
     private TradesmenResponse getTradesmenResponse(List<Tradesman> tradesmen) {

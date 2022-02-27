@@ -1,5 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanUpdated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
@@ -9,6 +11,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 
+@ApplicationScoped
 public class UpdateTradesmanAbilitiesService implements CommandHandler<UpdateTradesmanAbilities, Tradesman> {
   private final Tradesmen tradesmen;
   private final EventBus<ApplicationEvent> eventBus;
