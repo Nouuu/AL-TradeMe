@@ -12,9 +12,9 @@ record TradesmanRequest(
         @Schema(anyOf = PaymentMethodType.class) String paymentMethodType,
         String paymentMethodRessource,
         String profession,
-        double longitude,
-        double latitude,
-        double activityRadius,
-        double dailyRate,
+        Double longitude,
+        Double latitude,
+        Double activityRadius,
+        Double dailyRate,
         String locationName) {
 }
