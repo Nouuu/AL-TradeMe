@@ -147,6 +147,9 @@ public final class TradesmanController {
                 tradesman.email().value(),
                 tradesman.professionalAbilities().profession().professionName().value(),
                 tradesman.professionalAbilities().dailyRate().amount().value(),
+                tradesman.address().coordinate().longitude(),
+                tradesman.address().coordinate().latitude(),
+                tradesman.address().locationName().value(),
                 getSkillResponses(tradesman.professionalAbilities().skills()),
                 getPeriodResponses(tradesman.professionalAbilities().unavailability()));
     }

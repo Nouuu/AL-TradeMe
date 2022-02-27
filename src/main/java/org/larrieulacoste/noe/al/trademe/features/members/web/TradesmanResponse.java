@@ -12,6 +12,9 @@ record TradesmanResponse(
     String email,
     String profession,
     Double dailyRate,
+    Double longitude,
+    Double latitude,
+    String locationName,
     List<SkillResponse> skillResponse,
     List<PeriodResponse> unavailability) {
 
