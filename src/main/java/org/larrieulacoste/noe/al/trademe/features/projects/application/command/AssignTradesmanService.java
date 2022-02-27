@@ -35,7 +35,7 @@ public class AssignTradesmanService implements CommandHandler<AssignTradesman, P
         Project newProject = projectBuilder.build(oldProject.projectId());
         projects.save(newProject);
 
-        eventBus.publish(TradesmanAssigned.of(projectId, tradesmanId, oldProject.period()));
+        eventBus.publish(TradesmanAssigned.of(projectId, tradesmanId, oldProject.period().startDate(), oldProject.period().endDate()));
         return newProject;
     }
 }

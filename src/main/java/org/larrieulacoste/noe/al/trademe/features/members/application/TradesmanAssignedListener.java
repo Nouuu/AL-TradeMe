@@ -17,7 +17,7 @@ public class TradesmanAssignedListener implements EventSubscriber<TradesmanAssig
         commandBus.send(new TradesmanAssignProject(
                 event.projectId().value(),
                 event.tradesmanId().value(),
-                event.period().startDate(),
-                event.period().endDate()));
+                event.startDate(),
+                event.endDate()));
     }
 }

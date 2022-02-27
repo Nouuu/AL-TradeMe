@@ -3,7 +3,6 @@ package org.larrieulacoste.noe.al.trademe.application.event;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.Period;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
@@ -12,7 +11,8 @@ public record TradesmanAssigned(
         ZonedDateTime occurredDate,
         EntityId projectId,
         EntityId tradesmanId,
-        Period period
+        ZonedDateTime startDate,
+        ZonedDateTime endDate
 ) implements ApplicationEvent {
 
     public TradesmanAssigned {
@@ -20,20 +20,23 @@ public record TradesmanAssigned(
         Objects.requireNonNull(occurredDate);
         Objects.requireNonNull(projectId);
         Objects.requireNonNull(tradesmanId);
-        Objects.requireNonNull(period);
+        Objects.requireNonNull(startDate);
+        Objects.requireNonNull(endDate);
     }
 
     public static TradesmanAssigned of(
             EntityId projectId,
             EntityId tradesmanId,
-            Period period
+            ZonedDateTime startDate,
+            ZonedDateTime endDate
     ) {
         return new TradesmanAssigned(
                 EventId.create(),
                 ZonedDateTime.now(),
                 projectId,
                 tradesmanId,
-                period
+                startDate,
+                endDate
         );
     }
 }
