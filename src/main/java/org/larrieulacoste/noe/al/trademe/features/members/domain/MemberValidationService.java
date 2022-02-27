@@ -162,7 +162,6 @@ public class MemberValidationService {
         required(command.tradesmanId(), "tradesmanId", errors);
         if (command.activityRadius() != null) {
             positive(command.activityRadius(), "activityRadius", errors);
-
         }
         if (command.dailyRate() != null) {
             positive(command.dailyRate(), "dailyRate", errors);

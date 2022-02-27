@@ -67,11 +67,11 @@ public class UpdateTradesmanAbilitiesServiceTest {
         PaymentMethod.of("BANK_ACCOUNT", "payment info"),
         TradesmanProfessionalAbilities.of(
             Profession.of(NotEmptyString.of("Profession", stringValidators)),
-            new ArrayList<>(), ActivityRadius.of(0.0), DailyRate.of(Amount.of(420)), new ArrayList<>()));
+            new ArrayList<>(), ActivityRadius.of(1.0), DailyRate.of(Amount.of(420)), new ArrayList<>()));
 
     tradesmanRepository.save(tradesman1);
     Tradesman updatedTradesman = updateTradesmanAbilitiesService
-        .handle(new UpdateTradesmanAbilities("id1", "Charpentier", new ArrayList<>(), 0.0, 0.0, new ArrayList<>()));
+        .handle(new UpdateTradesmanAbilities("id1", "Charpentier", new ArrayList<>(), 1.0, 1.0, new ArrayList<>()));
     Assertions.assertThat(updatedTradesman.professionalAbilities().profession())
         .isEqualTo(Profession.of(NotEmptyString.of("Charpentier", stringValidators)));
   }
