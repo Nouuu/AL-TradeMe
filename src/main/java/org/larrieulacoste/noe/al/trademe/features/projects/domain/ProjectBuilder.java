@@ -69,6 +69,11 @@ public class ProjectBuilder {
         return this;
     }
 
+    public ProjectBuilder withTradesmenEntityIds(List<EntityId> tradesmenIds) {
+        this.tradesmenIds = tradesmenIds;
+        return this;
+    }
+
     public ProjectBuilder addTradesmanId(EntityId tradesmanId) {
         if(!this.tradesmenIds.contains(tradesmanId)) {
             this.tradesmenIds.add(tradesmanId);
