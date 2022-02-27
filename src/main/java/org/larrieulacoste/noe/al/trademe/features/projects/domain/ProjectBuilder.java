@@ -70,7 +70,9 @@ public class ProjectBuilder {
     }
 
     public ProjectBuilder addTradesmanId(EntityId tradesmanId) {
-        this.tradesmenIds.add(tradesmanId);
+        if(!this.tradesmenIds.contains(tradesmanId)) {
+            this.tradesmenIds.add(tradesmanId);
+        }
         return this;
     }
 

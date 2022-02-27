@@ -29,10 +29,10 @@ public class AssignTradesmanService implements CommandHandler<AssignTradesman, P
         Project oldProject = projects.byId(projectId);
 
         projectBuilder.clear();
-        projectBuilder.withProject(oldProject);
-        projectBuilder.addTradesmanId(tradesmanId);
+        Project newProject = projectBuilder.withProject(oldProject)
+                .addTradesmanId(tradesmanId)
+                .build(oldProject.projectId());
 
-        Project newProject = projectBuilder.build(oldProject.projectId());
         projects.save(newProject);
 
         eventBus.publish(TradesmanAssigned.of(projectId, tradesmanId, oldProject.period().startDate(), oldProject.period().endDate()));
