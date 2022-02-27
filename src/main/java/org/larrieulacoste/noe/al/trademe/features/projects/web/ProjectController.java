@@ -1,5 +1,14 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.web;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.command.AssignTradesman;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
@@ -183,6 +192,18 @@ public final class ProjectController {
         return updatedProfessions.stream()
                 .map(professionName -> new ProjectProfessionResponse(projectId, professionName))
                 .toList();
+    }
+
+    @PUT
+    @Path("{projectId}/assign/{tradesmanId}")
+    @Operation(summary = "Update tradesman", description = "Update tradesman in TradeMe")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ProjectResponse update(@PathParam("projectId") String projectId, @PathParam("tradesmanId") String tradesmanId) {
+        Project updatedTradesman = commandBus.send(new AssignTradesman(
+                projectId,
+                tradesmanId));
+
+        return getProjectResponse(updatedTradesman);
     }
 
     private ProjectResponse getProjectResponse(Project project) {

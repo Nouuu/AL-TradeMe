@@ -128,7 +128,7 @@ public final class TradesmanBuilder {
   }
 
   public TradesmanBuilder withSkills(List<Skill> skills) {
-    this.skills.addAll(skills);
+    this.skills = List.copyOf(skills);
     return this;
   }
 
@@ -146,7 +146,7 @@ public final class TradesmanBuilder {
   }
 
   public TradesmanBuilder withUnavailability(List<Period> unavailability) {
-    this.unavailability = unavailability;
+    this.unavailability = List.copyOf(unavailability);
     return this;
   }
 

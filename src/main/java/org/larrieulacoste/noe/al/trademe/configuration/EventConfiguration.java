@@ -63,7 +63,7 @@ final class EventConfiguration {
 
         // Project feature
         eventBus.register(TradesmanTerminated.class, new TradesmanTerminatedListener(commandBus));
-
+        eventBus.register(TradesmanAssigned.class, new TradesmanAssignedListener(commandBus));
         return eventBus;
     }
 }
