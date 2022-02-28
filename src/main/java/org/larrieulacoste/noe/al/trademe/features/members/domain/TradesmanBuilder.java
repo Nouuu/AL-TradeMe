@@ -24,7 +24,7 @@ public final class TradesmanBuilder {
   private ActivityRadius activityRadius;
   private DailyRate dailyRate;
   private List<Skill> skills = new ArrayList<>();
-  private List<Period> unavailability = new ArrayList<>();
+  private List<Period> unavailabilities = new ArrayList<>();
   private NotEmptyString locationName;
 
   public TradesmanBuilder(StringValidators stringValidators, DateValidators dateValidators) {
@@ -128,15 +128,14 @@ public final class TradesmanBuilder {
   }
 
   public TradesmanBuilder withSkills(List<Skill> skills) {
-    this.skills = List.copyOf(skills);
+    this.skills = new ArrayList<>(List.copyOf(skills));
     return this;
   }
 
   public TradesmanBuilder withSkillsRequest(List<SkillRequest> skills) {
-    List<Skill> newSkills = Objects.requireNonNull(skills).stream().map(skill -> Skill.of(
+    this.skills = Objects.requireNonNull(skills).stream().map(skill -> Skill.of(
         NotEmptyString.of(skill.skillName(), stringValidators),
         skill.requiredLevel())).toList();
-    this.skills = newSkills;
     return this;
   }
 
@@ -146,12 +145,12 @@ public final class TradesmanBuilder {
   }
 
   public TradesmanBuilder withUnavailability(List<Period> unavailability) {
-    this.unavailability = List.copyOf(unavailability);
+    this.unavailabilities = new ArrayList<>(List.copyOf(unavailability));
     return this;
   }
 
   public TradesmanBuilder addUnavailability(Period unavailability) {
-    this.unavailability.add(unavailability);
+    this.unavailabilities.add(unavailability);
     return this;
   }
 
@@ -186,7 +185,7 @@ public final class TradesmanBuilder {
   }
 
   public TradesmanBuilder withUnavailabilityPeriods(List<PeriodRequest> periodsRequest) {
-    this.unavailability = periodsRequest.stream()
+    this.unavailabilities = periodsRequest.stream()
         .map(req -> Period.of(req.startDate(), req.endDate(), dateValidators))
         .toList();
     return this;
@@ -195,7 +194,7 @@ public final class TradesmanBuilder {
   public Tradesman build(EntityId entityId) {
     Location location = Location.of(Coordinate.of(longitude, latitude), locationName);
     TradesmanProfessionalAbilities professionalAbilities = TradesmanProfessionalAbilities.of(profession,
-        skills, activityRadius, dailyRate, unavailability);
+        skills, activityRadius, dailyRate, unavailabilities);
     return Tradesman.of(entityId, lastname, firstname, email, password, location, subscriptionStatus, paymentMethod,
         professionalAbilities);
   }
@@ -214,7 +213,7 @@ public final class TradesmanBuilder {
     dailyRate = DailyRate.of(Amount.of(0));
     skills = new ArrayList<>();
     locationName = null;
-    unavailability = new ArrayList<>();
+    unavailabilities = new ArrayList<>();
   }
 
 }
