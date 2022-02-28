@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.infrastructure;
 
+import java.util.ArrayList;
 import org.larrieulacoste.noe.al.trademe.domain.exception.NotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.exception.ProjectNotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
@@ -24,18 +25,16 @@ public final class InMemoryProjects implements Projects {
 
     @Override
     public List<Project> getTradesmanProjects(EntityId tradesmanId) {
-        return List.copyOf(
-                data.values().stream()
+        return data.values().stream()
                         .filter(project -> project.tradesmenIds()
                                 .stream()
                                 .anyMatch(entityId -> entityId.equals(tradesmanId)))
-                        .toList()
-        );
+                        .toList();
     }
 
     @Override
     public List<Project> getContractorProjects(EntityId contractorId) {
-        return List.copyOf(
+        return new ArrayList<>(
                 data.values().stream()
                         .filter(project -> project.contractorId().equals(contractorId))
                         .toList()
@@ -63,7 +62,7 @@ public final class InMemoryProjects implements Projects {
 
     @Override
     public List<Project> findAll() {
-        return List.copyOf(data.values());
+        return new ArrayList<>(data.values());
     }
 
     @Override
