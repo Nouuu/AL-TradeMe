@@ -101,7 +101,10 @@ public final class TradesmanController {
                 tradesman.firstname(),
                 tradesman.lastname(),
                 tradesman.email(),
-                tradesman.password()));
+                tradesman.password(),
+                tradesman.locationName(),
+                tradesman.longitude(),
+                tradesman.latitude()));
 
         return getTradesmanResponse(updatedTradesman);
     }
@@ -147,6 +150,9 @@ public final class TradesmanController {
                 tradesman.email().value(),
                 tradesman.professionalAbilities().profession().professionName().value(),
                 tradesman.professionalAbilities().dailyRate().amount().value(),
+                tradesman.address().coordinate().longitude(),
+                tradesman.address().coordinate().latitude(),
+                tradesman.address().locationName().value(),
                 getSkillResponses(tradesman.professionalAbilities().skills()),
                 getPeriodResponses(tradesman.professionalAbilities().unavailability()));
     }

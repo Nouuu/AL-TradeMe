@@ -16,6 +16,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
 import org.larrieulacoste.noe.al.trademe.domain.model.Profession;
 import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilities;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.EmailAddress;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Password;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionStatus;
@@ -27,6 +28,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.DefaultEventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.DefaultLoggerFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.SimpleDateValidators;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.SimplePaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.SimpleStringValidators;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
@@ -41,7 +43,8 @@ public class UpdateTradesmanAbilitiesServiceTest {
   void setUp() {
     updateTradesmanAbilitiesService = new UpdateTradesmanAbilitiesService(tradesmanRepository,
         new DefaultEventBus<>(new HashMap<>(), logger),
-        new TradesmanBuilder(stringValidators, new SimpleDateValidators()));
+        new TradesmanBuilder(stringValidators, new SimpleDateValidators()),
+        new MemberValidationService(logger, stringValidators, new SimplePaymentInformationsValidator()));
   }
 
   @Test
@@ -64,11 +67,11 @@ public class UpdateTradesmanAbilitiesServiceTest {
         PaymentMethod.of("BANK_ACCOUNT", "payment info"),
         TradesmanProfessionalAbilities.of(
             Profession.of(NotEmptyString.of("Profession", stringValidators)),
-            new ArrayList<>(), ActivityRadius.of(0.0), DailyRate.of(Amount.of(420)), new ArrayList<>()));
+            new ArrayList<>(), ActivityRadius.of(1.0), DailyRate.of(Amount.of(420)), new ArrayList<>()));
 
     tradesmanRepository.save(tradesman1);
     Tradesman updatedTradesman = updateTradesmanAbilitiesService
-        .handle(new UpdateTradesmanAbilities("id1", "Charpentier", new ArrayList<>(), 0.0, 0.0, new ArrayList<>()));
+        .handle(new UpdateTradesmanAbilities("id1", "Charpentier", new ArrayList<>(), 1.0, 1.0, new ArrayList<>()));
     Assertions.assertThat(updatedTradesman.professionalAbilities().profession())
         .isEqualTo(Profession.of(NotEmptyString.of("Charpentier", stringValidators)));
   }

@@ -4,6 +4,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.larrieulacoste.noe.al.trademe.application.event.TradesmanUpdated;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
@@ -16,16 +17,20 @@ public class UpdateTradesmanAbilitiesService implements CommandHandler<UpdateTra
   private final Tradesmen tradesmen;
   private final EventBus<ApplicationEvent> eventBus;
   private final TradesmanBuilder tradesmanBuilder;
+  private final MemberValidationService memberValidationService;
 
   public UpdateTradesmanAbilitiesService(Tradesmen tradesmen, EventBus<ApplicationEvent> eventBus,
-      TradesmanBuilder tradesmanBuilder) {
+      TradesmanBuilder tradesmanBuilder, MemberValidationService memberValidationService) {
     this.tradesmen = tradesmen;
     this.eventBus = eventBus;
     this.tradesmanBuilder = tradesmanBuilder;
+    this.memberValidationService = memberValidationService;
   }
 
   @Override
   public Tradesman handle(UpdateTradesmanAbilities updateAbilitiescommand) {
+    memberValidationService.validateUpdateAbilities(updateAbilitiescommand);
+
     Tradesman inMemoryTradesman = tradesmen.byId(EntityId.of(updateAbilitiescommand.tradesmanId()));
     tradesmanBuilder.clear();
     tradesmanBuilder.withTradesman(inMemoryTradesman);
