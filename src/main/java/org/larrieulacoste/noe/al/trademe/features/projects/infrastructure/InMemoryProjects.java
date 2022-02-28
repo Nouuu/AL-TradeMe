@@ -52,7 +52,7 @@ public final class InMemoryProjects implements Projects {
 
     @Override
     public Project byId(EntityId projectId) throws NotFoundException {
-        logger.log("Retrieving invoice by ID from memory repository : " + projectId);
+        logger.log("Retrieving project by ID from memory repository : " + projectId);
 
         final Project project = data.get(Objects.requireNonNull(projectId));
         if (project == null) {
