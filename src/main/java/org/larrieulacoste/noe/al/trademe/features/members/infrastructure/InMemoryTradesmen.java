@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.infrastructure;
 
+import java.util.ArrayList;
 import org.larrieulacoste.noe.al.trademe.domain.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
@@ -41,7 +42,7 @@ public final class InMemoryTradesmen implements Tradesmen {
 
     @Override
     public List<Tradesman> findAll() {
-        return List.copyOf(data.values());
+        return new ArrayList<>(data.values());
     }
 
     @Override

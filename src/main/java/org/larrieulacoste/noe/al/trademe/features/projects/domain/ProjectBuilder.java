@@ -43,7 +43,7 @@ public class ProjectBuilder {
     }
 
     public ProjectBuilder withRequiredSkills(List<Skill> requiredSkills) {
-        this.requiredSkills = List.copyOf(requiredSkills);
+        this.requiredSkills = new ArrayList<>(requiredSkills);
         return this;
     }
 
@@ -55,7 +55,7 @@ public class ProjectBuilder {
     }
 
     public ProjectBuilder withProfessions(List<Profession> professions) {
-        this.professions = List.copyOf(professions);
+        this.professions = new ArrayList<>(professions);
         return this;
     }
 
@@ -70,7 +70,7 @@ public class ProjectBuilder {
     }
 
     public ProjectBuilder withTradesmenEntityIds(List<EntityId> tradesmenIds) {
-        this.tradesmenIds = List.copyOf(tradesmenIds);
+        this.tradesmenIds = new ArrayList<>(tradesmenIds);
         return this;
     }
 

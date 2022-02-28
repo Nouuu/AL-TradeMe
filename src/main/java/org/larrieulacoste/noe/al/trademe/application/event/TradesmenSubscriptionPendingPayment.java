@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.application.event;
 
+import java.util.ArrayList;
 import org.larrieulacoste.noe.al.trademe.domain.model.MemberPayment;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
@@ -26,6 +27,6 @@ public record TradesmenSubscriptionPendingPayment(
 
     @Override
     public List<MemberPayment> tradesmen() {
-        return List.copyOf(tradesmen);
+        return new ArrayList<>(tradesmen);
     }
 }

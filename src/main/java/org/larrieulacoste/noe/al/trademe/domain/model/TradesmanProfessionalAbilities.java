@@ -1,5 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.domain.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,11 +28,11 @@ public record TradesmanProfessionalAbilities(
 
     @Override
     public List<Skill> skills() {
-        return List.copyOf(skills);
+        return new ArrayList<>(skills);
     }
 
     @Override
     public List<Period> unavailability() {
-        return List.copyOf(unavailability);
+        return new ArrayList<>(unavailability);
     }
 }
