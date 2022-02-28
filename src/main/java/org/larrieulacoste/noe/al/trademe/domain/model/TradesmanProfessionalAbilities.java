@@ -24,4 +24,14 @@ public record TradesmanProfessionalAbilities(
       List<Period> unavailability) {
     return new TradesmanProfessionalAbilities(profession, skills, activityRadius, dailyRate, unavailability);
   }
+
+    @Override
+    public List<Skill> skills() {
+        return List.copyOf(skills);
+    }
+
+    @Override
+    public List<Period> unavailability() {
+        return List.copyOf(unavailability);
+    }
 }
