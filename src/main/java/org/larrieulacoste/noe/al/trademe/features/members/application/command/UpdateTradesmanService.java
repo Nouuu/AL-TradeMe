@@ -21,7 +21,7 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
     private final TradesmanBuilder tradesmanBuilder;
 
     UpdateTradesmanService(Tradesmen tradesmen, MemberValidationService memberValidationService,
-                           EventBus<ApplicationEvent> eventBus, TradesmanBuilder tradesmanBuilder) {
+            EventBus<ApplicationEvent> eventBus, TradesmanBuilder tradesmanBuilder) {
         this.tradesmen = Objects.requireNonNull(tradesmen);
         this.memberValidationService = memberValidationService;
         this.eventBus = eventBus;
@@ -49,6 +49,14 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
             tradesmanBuilder.withPassword(updateTradesman.password());
         }
 
+        if (updateTradesman.locationName() != null && updateTradesman.longitude() != null
+                && updateTradesman.latitude() != null) {
+            tradesmanBuilder
+                    .withLocationName(updateTradesman.locationName())
+                    .withLongitude(updateTradesman.longitude())
+                    .withLatitude(updateTradesman.latitude());
+        }
+
         Tradesman updatedTradesman = tradesmanBuilder.build(inMemoryTradesman.entityId());
         tradesmen.save(updatedTradesman);
 
@@ -60,8 +68,7 @@ public class UpdateTradesmanService implements CommandHandler<UpdateTradesman, T
                         updatedTradesman.email().value(),
                         updatedTradesman.paymentMethod(),
                         updatedTradesman.address(),
-                        updatedTradesman.professionalAbilities()
-                ));
+                        updatedTradesman.professionalAbilities()));
         return updatedTradesman;
     }
 }

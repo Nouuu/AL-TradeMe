@@ -7,6 +7,8 @@ public record UpdateTradesman(
         String firstname,
         String lastname,
         String email,
-        String password
-) implements Command {
+        String password,
+        String locationName,
+        Double longitude,
+        Double latitude) implements Command {
 }

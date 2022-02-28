@@ -5,6 +5,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Cr
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateContractor;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesmanAbilities;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.PaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
@@ -22,10 +23,41 @@ public class MemberValidationService {
     private final StringValidators stringValidators;
     private final PaymentInformationsValidator paymentInformationsValidator;
 
-    MemberValidationService(Logger logger, StringValidators stringValidators, PaymentInformationsValidator paymentInformationsValidator) {
+    public MemberValidationService(Logger logger, StringValidators stringValidators,
+            PaymentInformationsValidator paymentInformationsValidator) {
         this.logger = logger;
         this.stringValidators = stringValidators;
         this.paymentInformationsValidator = paymentInformationsValidator;
+    }
+
+    private void required(String field, String fieldName, List<String> errors) {
+        if (!stringValidators.isNotEmptyOrOnlyWhitespaces(field)) {
+            errors.add(fieldName);
+        }
+    }
+
+    private void password(String field, List<String> errors) {
+        if (!stringValidators.isValidPassword(field)) {
+            errors.add("password");
+        }
+    }
+
+    private void email(String field, List<String> errors) {
+        if (!stringValidators.isEmail(field)) {
+            errors.add("email");
+        }
+    }
+
+    private void positive(Double field, String fieldName, List<String> errors) {
+        if (field == null || field <= 0) {
+            errors.add(fieldName);
+        }
+    }
+
+    private void paymentMethod(String paymentMethodType, String paymentMethodRessource, List<String> errors) {
+        if (!paymentInformationsValidator.isValidPaymentMethod(paymentMethodType, paymentMethodRessource)) {
+            errors.add("payment method");
+        }
     }
 
     public void validateCreateContractor(CreateContractor contractor) {
@@ -33,8 +65,7 @@ public class MemberValidationService {
         List<String> errors = getCreateContractorInvalidFields(contractor);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with contractor :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
-            );
+                    "Errors with contractor :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors));
         }
     }
 
@@ -43,8 +74,7 @@ public class MemberValidationService {
         List<String> errors = getCreateTradesmanInvalidFields(tradesman);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with tradesman :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
-            );
+                    "Errors with tradesman :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors));
         }
     }
 
@@ -73,8 +103,7 @@ public class MemberValidationService {
         List<String> errors = getUpdateContractorInvalidFields(contractor);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with contractor :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
-            );
+                    "Errors with contractor :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors));
         }
     }
 
@@ -83,8 +112,7 @@ public class MemberValidationService {
         List<String> errors = getUpdateTradesmanInvalidFields(tradesman);
         if (!errors.isEmpty()) {
             throw new InvalidUserException(
-                    "Errors with tradesman :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors)
-            );
+                    "Errors with tradesman :\n - " + String.join(MemberValidationService.STRING_DELIMITER, errors));
         }
     }
 
@@ -102,6 +130,11 @@ public class MemberValidationService {
         }
         if (tradesman.email() != null) {
             email(tradesman.email(), errors);
+        }
+        if (tradesman.locationName() != null || tradesman.longitude() != null || tradesman.latitude() != null) {
+            required(tradesman.locationName(), "locationName", errors);
+            positive(tradesman.longitude(), "longitude", errors);
+            positive(tradesman.latitude(), "latitude", errors);
         }
         return errors;
     }
@@ -124,28 +157,22 @@ public class MemberValidationService {
         return errors;
     }
 
-
-    private void required(String field, String fieldName, List<String> errors) {
-        if (!stringValidators.isNotEmptyOrOnlyWhitespaces(field)) {
-            errors.add(fieldName);
+    public void validateUpdateAbilities(UpdateTradesmanAbilities command) {
+        List<String> errors = new ArrayList<>();
+        required(command.tradesmanId(), "tradesmanId", errors);
+        if (command.activityRadius() != null) {
+            positive(command.activityRadius(), "activityRadius", errors);
         }
-    }
-
-    private void password(String field, List<String> errors) {
-        if (!stringValidators.isValidPassword(field)) {
-            errors.add("password");
+        if (command.dailyRate() != null) {
+            positive(command.dailyRate(), "dailyRate", errors);
         }
-    }
-
-    private void email(String field, List<String> errors) {
-        if (!stringValidators.isEmail(field)) {
-            errors.add("email");
+        if (command.profession() != null) {
+            required(command.profession(), "profession", errors);
         }
-    }
-
-    private void paymentMethod(String paymentMethodType, String paymentMethodRessource, List<String> errors) {
-        if (!paymentInformationsValidator.isValidPaymentMethod(paymentMethodType, paymentMethodRessource)) {
-            errors.add("payment method");
+        if (!errors.isEmpty()) {
+            throw new InvalidUserException(
+                    "Errors with tradesman abilities :\n - "
+                            + String.join(MemberValidationService.STRING_DELIMITER, errors));
         }
     }
 }
