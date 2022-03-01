@@ -83,9 +83,4 @@ final class GlobalConfiguration {
     ProjectBuilder projectBuilder() {
         return new ProjectBuilder(stringValidators(), dateValidators());
     }
-
-    @Produces
-    SerializationEngine<List<Contractor>> serializer() {
-        return new JSONSerializationEngine<>(gson);
-    }
 }

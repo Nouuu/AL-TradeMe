@@ -38,9 +38,6 @@ final class RepositoryConfiguration {
     @LoggerQualifier(Projects.class)
     Logger projectsLogger;
 
-    @Inject
-    SerializationEngine<List<Contractor>> contractorsSerializer;
-
     @Produces
     @Singleton
     Tradesmen tradesmen() {
@@ -50,7 +47,7 @@ final class RepositoryConfiguration {
     @Produces
     @Singleton
     Contractors contractors() {
-        return new InMemoryContractors(contractorsSerializer, contractorsLogger);
+        return new InMemoryContractors(contractorsLogger);
     }
 
     @Produces
