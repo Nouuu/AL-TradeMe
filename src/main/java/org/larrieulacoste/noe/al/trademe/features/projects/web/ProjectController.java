@@ -7,6 +7,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.*;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveContractorProjects;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveProjectById;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveProjectSkills;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveProjects;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveTradesmanProjects;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
@@ -69,7 +70,7 @@ public final class ProjectController {
     @Operation(summary = "Get project skills", description = "Retrieve all skills from a project")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectSkillResponse> getProjectSkills(@PathParam("projectId") String projectId) {
-        List<SkillRequest> requiredSkills = queryBus.send(new RetrieveProjectById(projectId));
+        List<SkillRequest> requiredSkills = queryBus.send(new RetrieveProjectSkills(projectId));
 
         return getProjectSkillResponses(projectId, requiredSkills);
     }

@@ -15,6 +15,7 @@ import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Period;
 import org.larrieulacoste.noe.al.trademe.domain.model.PeriodResponse;
 import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
+import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillResponse;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.DeleteTradesman;
@@ -22,6 +23,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.command.Up
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesmanAbilities;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.MatchTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanById;
+import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanSkills;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
@@ -72,6 +74,15 @@ public final class TradesmanController {
         return getTradesmenResponse(tradesmen);
     }
 
+    @GET
+    @Path("{tradesmanId}/skills")
+    @Operation(summary = "Get tradesman skills", description = "Retrieve all skills from a tradesman")
+    public List<TradesmanSkillResponse> getTradesmanSkills(@PathParam("tradesmanId") String tradesmanId) {
+        List<SkillRequest> tradesmanSkills = queryBus.send(new RetrieveTradesmanSkills(tradesmanId));
+
+        return getTradesmanSkillResponses(tradesmanId, tradesmanSkills);
+    }
+
     @POST
     @Operation(summary = "Create tradesman", description = "Register a new tradesman to TradeMe")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -114,7 +125,7 @@ public final class TradesmanController {
     @Operation(summary = "Update tradesman abilities", description = "Update tradesman abilities in TradeMe")
     @Consumes(MediaType.APPLICATION_JSON)
     public TradesmanResponse updateAbilities(@PathParam("tradesmanId") String tradesmanId,
-            TradesmanAbilitiesRequest abilities) {
+                                             TradesmanAbilitiesRequest abilities) {
         Tradesman updatedTradesman = commandBus.send(new UpdateTradesmanAbilities(
                 tradesmanId,
                 abilities.profession(),
@@ -134,6 +145,12 @@ public final class TradesmanController {
         commandBus.send(new DeleteTradesman(tradesmanId));
 
         return EntityId.of(tradesmanId);
+    }
+
+    private List<TradesmanSkillResponse> getTradesmanSkillResponses(String tradesmanId, List<SkillRequest> updatedRequiredSkill) {
+        return updatedRequiredSkill.stream()
+                .map(skill -> new TradesmanSkillResponse(tradesmanId, skill.skillName(), skill.requiredLevel()))
+                .toList();
     }
 
     private TradesmenResponse getTradesmenResponse(List<Tradesman> tradesmen) {
