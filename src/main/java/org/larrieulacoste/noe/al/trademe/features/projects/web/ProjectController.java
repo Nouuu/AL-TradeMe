@@ -64,6 +64,16 @@ public final class ProjectController {
         return getProjectResponse(project);
     }
 
+    @GET
+    @Path("{projectId}/skills")
+    @Operation(summary = "Get project skills", description = "Retrieve all skills from a project")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<ProjectSkillResponse> getProjectSkills(@PathParam("projectId") String projectId) {
+        List<SkillRequest> requiredSkills = queryBus.send(new RetrieveProjectById(projectId));
+
+        return getProjectSkillResponses(projectId, requiredSkills);
+    }
+
     @POST
     @Operation(summary = "Create project", description = "Add a new project to TradeMe")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -143,6 +153,19 @@ public final class ProjectController {
         return getProjectResponse(commandBus.send(new TerminateTradesman(projectId, tradesmanId)));
     }
 
+    @PUT
+    @Path("{projectId}/assign/{tradesmanId}")
+    @Operation(summary = "Assign tradesman", description = "Assign a tradesman to a project")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ProjectResponse update(@PathParam("projectId") String projectId,
+                                  @PathParam("tradesmanId") String tradesmanId) {
+        Project updatedTradesman = commandBus.send(new AssignTradesman(
+                projectId,
+                tradesmanId));
+
+        return getProjectResponse(updatedTradesman);
+    }
+
     @DELETE
     @Path("{projectId}/profession")
     @Operation(summary = "Delete a project profession", description = "Delete a profession from a project")
@@ -183,19 +206,6 @@ public final class ProjectController {
         return updatedProfessions.stream()
                 .map(professionName -> new ProjectProfessionResponse(projectId, professionName))
                 .toList();
-    }
-
-    @PUT
-    @Path("{projectId}/assign/{tradesmanId}")
-    @Operation(summary = "Update tradesman", description = "Update tradesman in TradeMe")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public ProjectResponse update(@PathParam("projectId") String projectId,
-            @PathParam("tradesmanId") String tradesmanId) {
-        Project updatedTradesman = commandBus.send(new AssignTradesman(
-                projectId,
-                tradesmanId));
-
-        return getProjectResponse(updatedTradesman);
     }
 
     private ProjectResponse getProjectResponse(Project project) {
