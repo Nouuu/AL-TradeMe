@@ -50,7 +50,7 @@ final class RepositoryConfiguration {
     @Produces
     @Singleton
     Contractors contractors() {
-        return new InMemoryContractors(contractorsSerializer, contractorsLogger);
+        return new InMemoryContractors(contractorsLogger);
     }
 
     @Produces
