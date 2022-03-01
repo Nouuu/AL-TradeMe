@@ -1,5 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.kernel.io;
 
+import org.larrieulacoste.noe.al.trademe.kernel.exception.FileException;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,7 +16,7 @@ public class FileWriter implements Writer {
 
 
     @Override
-    public void write(String data) throws IOException {
+    public void write(String data) {
         File file = new File(this.source);
         if (!file.exists()) {
             file.mkdirs();
@@ -22,6 +24,8 @@ public class FileWriter implements Writer {
 
         try (java.io.FileWriter fileWriter = new java.io.FileWriter(file, StandardCharsets.UTF_8, false)) {
             fileWriter.write(data);
+        } catch (IOException e) {
+            throw new FileException(e.getMessage());
         }
     }
 }

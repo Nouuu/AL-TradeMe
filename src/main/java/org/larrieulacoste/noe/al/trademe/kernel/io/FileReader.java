@@ -1,5 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.kernel.io;
 
+import org.larrieulacoste.noe.al.trademe.kernel.exception.FileException;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +16,7 @@ public class FileReader implements Reader {
     }
 
     @Override
-    public String read() throws IOException {
+    public String read() {
         File file = new File(this.source);
         if (!file.exists()) {
             return null;
@@ -28,6 +30,8 @@ public class FileReader implements Reader {
             }
             bufferedReader.close();
             return builder.toString();
+        } catch (IOException e) {
+            throw new FileException(e.getMessage());
         }
     }
 }
