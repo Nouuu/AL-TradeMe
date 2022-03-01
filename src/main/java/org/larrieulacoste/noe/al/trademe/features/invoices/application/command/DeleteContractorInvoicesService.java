@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorInvoiceDeleted;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorInvoiceDeleted;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;

@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanNewSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.domain.event.TradesmanNewSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesmanSubscriptionStatus;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionStatus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;

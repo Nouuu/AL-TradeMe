@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.kernel;
 
-import org.larrieulacoste.noe.al.trademe.domain.exception.NotFoundException;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.NotFoundException;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.larrieulacoste.noe.al.trademe.application.event.*;
+import org.larrieulacoste.noe.al.trademe.domain.event.*;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.ContractorDeletedListener;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.TradesmanDeletedListener;
 import org.larrieulacoste.noe.al.trademe.features.members.application.*;

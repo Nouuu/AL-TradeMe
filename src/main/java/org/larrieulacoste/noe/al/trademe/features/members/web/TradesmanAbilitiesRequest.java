@@ -2,8 +2,8 @@ package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 import java.util.List;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.PeriodRequest;
-import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PeriodRequest;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 
 record TradesmanAbilitiesRequest(String tradesmanId,
         String profession,

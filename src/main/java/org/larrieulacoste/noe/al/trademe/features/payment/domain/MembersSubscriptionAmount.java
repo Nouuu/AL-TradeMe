@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Amount;
 
 public record MembersSubscriptionAmount(
         Amount contractorSubscriptionAmount,

@@ -1,9 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.Location;
-import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethod;
-import org.larrieulacoste.noe.al.trademe.domain.model.TradesmanProfessionalAbilities;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Location;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PaymentMethod;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.TradesmanProfessionalAbilities;
 
 import java.util.Objects;
 

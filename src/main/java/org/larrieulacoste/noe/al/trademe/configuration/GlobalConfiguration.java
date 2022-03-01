@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.ContractorBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
 import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;

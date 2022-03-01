@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidEmailException;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.InvalidEmailException;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 import java.util.Objects;

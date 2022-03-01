@@ -1,8 +1,8 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorUpdated;
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorsSubscriptionPendingPayment;
-import org.larrieulacoste.noe.al.trademe.domain.model.MemberPayment;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorUpdated;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorsSubscriptionPendingPayment;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.MemberPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.ContractorBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;

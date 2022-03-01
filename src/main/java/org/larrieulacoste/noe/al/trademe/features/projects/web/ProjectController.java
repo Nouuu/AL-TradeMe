@@ -1,9 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.web;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.AssignTradesman;
-import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.*;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveContractorProjects;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveProjectById;

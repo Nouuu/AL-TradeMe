@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorDeleted;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorDeleted;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.DeleteContractorInvoices;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
