@@ -30,6 +30,7 @@ public class TradesmanAssignProjectService
         Tradesman oldTradesman = tradesmen.byId(tradesmanId);
 
         tradesmanBuilder.clear();
+        tradesmanBuilder.withTradesman(oldTradesman);
         tradesmanBuilder.addUnavailability(period);
 
         Tradesman newTradesman = tradesmanBuilder.build(oldTradesman.entityId());
