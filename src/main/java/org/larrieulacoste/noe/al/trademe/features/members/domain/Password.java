@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidPasswordException;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.InvalidPasswordException;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
 import java.util.Objects;

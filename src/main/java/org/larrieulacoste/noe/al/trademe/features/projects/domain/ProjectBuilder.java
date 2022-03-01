@@ -1,9 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.*;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -43,19 +43,19 @@ public class ProjectBuilder {
     }
 
     public ProjectBuilder withRequiredSkills(List<Skill> requiredSkills) {
-        this.requiredSkills = List.copyOf(requiredSkills);
+        this.requiredSkills = new ArrayList<>(requiredSkills);
         return this;
     }
 
     public ProjectBuilder withProfessionsString(List<String> professions) {
         this.professions = professions.stream().map(profession -> Profession.of(
-                NotEmptyString.of(profession, stringValidator)))
+                        NotEmptyString.of(profession, stringValidator)))
                 .toList();
         return this;
     }
 
     public ProjectBuilder withProfessions(List<Profession> professions) {
-        this.professions = List.copyOf(professions);
+        this.professions = new ArrayList<>(professions);
         return this;
     }
 
@@ -70,7 +70,7 @@ public class ProjectBuilder {
     }
 
     public ProjectBuilder withTradesmenEntityIds(List<EntityId> tradesmenIds) {
-        this.tradesmenIds = List.copyOf(tradesmenIds);
+        this.tradesmenIds = new ArrayList<>(tradesmenIds);
         return this;
     }
 
@@ -128,11 +128,11 @@ public class ProjectBuilder {
 
     public ProjectBuilder withProject(Project project) {
         taskName = project.taskName();
-        requiredSkills = project.requiredSkills();
-        professions = project.professions();
+        requiredSkills = new ArrayList<>(project.requiredSkills());
+        professions = new ArrayList<>(project.professions());
         period = project.period();
         contractorId = project.contractorId();
-        tradesmenIds = project.tradesmenIds();
+        tradesmenIds = new ArrayList<>(project.tradesmenIds());
         dailyRate = project.dailyRate();
         location = project.location();
         return this;

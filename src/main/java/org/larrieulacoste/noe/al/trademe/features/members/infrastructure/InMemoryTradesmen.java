@@ -1,7 +1,8 @@
 package org.larrieulacoste.noe.al.trademe.features.members.infrastructure;
 
-import org.larrieulacoste.noe.al.trademe.domain.exception.UserNotFoundException;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import java.util.ArrayList;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.UserNotFoundException;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
@@ -41,7 +42,7 @@ public final class InMemoryTradesmen implements Tradesmen {
 
     @Override
     public List<Tradesman> findAll() {
-        return List.copyOf(data.values());
+        return new ArrayList<>(data.values());
     }
 
     @Override

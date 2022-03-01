@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethodType;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PaymentMethodType;
 
 record TradesmanRequest(
         String userId,

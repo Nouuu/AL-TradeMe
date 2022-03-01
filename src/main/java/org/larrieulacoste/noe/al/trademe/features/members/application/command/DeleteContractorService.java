@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorDeleted;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorDeleted;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;

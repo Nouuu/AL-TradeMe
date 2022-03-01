@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorRegistered;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorRegistered;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;

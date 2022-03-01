@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.web;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 
 import java.time.ZonedDateTime;
 import java.util.List;
