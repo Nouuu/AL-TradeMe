@@ -2,6 +2,7 @@ package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
 import org.larrieulacoste.noe.al.trademe.features.invoices.infrastructure.InMemoryInvoices;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryContractors;
@@ -10,11 +11,13 @@ import org.larrieulacoste.noe.al.trademe.features.projects.domain.Projects;
 import org.larrieulacoste.noe.al.trademe.features.projects.infrastructure.InMemoryProjects;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
+import org.larrieulacoste.noe.al.trademe.kernel.serializer.SerializationEngine;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.List;
 
 @Dependent
 final class RepositoryConfiguration {
@@ -35,6 +38,9 @@ final class RepositoryConfiguration {
     @LoggerQualifier(Projects.class)
     Logger projectsLogger;
 
+    @Inject
+    SerializationEngine<List<Contractor>> contractorsSerializer;
+
     @Produces
     @Singleton
     Tradesmen tradesmen() {
@@ -44,7 +50,7 @@ final class RepositoryConfiguration {
     @Produces
     @Singleton
     Contractors contractors() {
-        return new InMemoryContractors(contractorsLogger);
+        return new InMemoryContractors(contractorsSerializer, contractorsLogger);
     }
 
     @Produces
