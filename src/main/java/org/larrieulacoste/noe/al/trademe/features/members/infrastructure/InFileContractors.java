@@ -9,6 +9,7 @@ import org.larrieulacoste.noe.al.trademe.kernel.serializer.DeserializationEngine
 import org.larrieulacoste.noe.al.trademe.kernel.serializer.SerializationEngine;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -24,7 +25,7 @@ public final class InFileContractors implements Contractors {
                              SerializationEngine<List<Contractor>> contractorsSerializer,
                              DeserializationEngine<List<Contractor>> contractorsDeserializer,
                              Reader reader,
-                             Writer writer) {
+                             Writer writer) throws IOException {
         this.inMemoryContractors = inMemoryContractors;
         this.contractorsSerializer = contractorsSerializer;
         this.contractorsDeserializer = contractorsDeserializer;
@@ -34,7 +35,7 @@ public final class InFileContractors implements Contractors {
     }
 
     @Override
-    public void save(Contractor contractor) {
+    public void save(Contractor contractor) throws IOException {
         inMemoryContractors.save(contractor);
         this.write();
     }
@@ -50,7 +51,7 @@ public final class InFileContractors implements Contractors {
     }
 
     @Override
-    public void remove(Contractor item) {
+    public void remove(Contractor item) throws IOException {
         inMemoryContractors.remove(item);
         this.write();
     }
@@ -61,12 +62,12 @@ public final class InFileContractors implements Contractors {
     }
 
 
-    private void write() {
+    private void write() throws IOException {
         var data = contractorsSerializer.apply(inMemoryContractors.findAll());
         writer.write(data);
     }
 
-    private void read() {
+    private void read() throws IOException {
         var data = contractorsDeserializer.apply(reader.read());
         for (Contractor contractor : data) {
             inMemoryContractors.save(contractor);
