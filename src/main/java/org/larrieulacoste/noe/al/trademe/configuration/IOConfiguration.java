@@ -30,12 +30,14 @@ final class IOConfiguration {
     }
 
     @Produces
+    @FileQualifier("")
     Reader reader(InjectionPoint injectionPoint) {
         String path = "repositories/" + injectionPoint.getAnnotated().getAnnotation(FileQualifier.class).value();
         return new FileReader(path);
     }
 
     @Produces
+    @FileQualifier("")
     Writer writer(InjectionPoint injectionPoint) {
         String path = "repositories/" + injectionPoint.getAnnotated().getAnnotation(FileQualifier.class).value();
         return new FileWriter(path);

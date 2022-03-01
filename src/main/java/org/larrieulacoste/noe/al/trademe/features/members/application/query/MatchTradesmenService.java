@@ -71,9 +71,11 @@ public class MatchTradesmenService implements QueryHandler<MatchTradesmen, List<
 
     private Stream<Tradesman> filterSkills(Stream<Tradesman> tradesmanStream, List<Skill> requiredSkills) {
         return tradesmanStream.filter(tradesman -> requiredSkills.stream()
-                .anyMatch(skill -> tradesman.professionalAbilities()
-                        .skills()
-                        .contains(skill)));
+                .anyMatch(requiredSkill -> tradesman.professionalAbilities()
+                        .skills().stream()
+                        .anyMatch(tradesmanSkill -> tradesmanSkill.skillName().equals(requiredSkill.skillName()) &&
+                                tradesmanSkill.requiredLevel() >= requiredSkill.requiredLevel()
+                        )));
     }
 
     private Stream<Tradesman> filterAvailability(Stream<Tradesman> tradesmanStream, Period projectPeriod) {
