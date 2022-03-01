@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.domain;
 
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.kernel.Repository;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
 import java.util.List;
 

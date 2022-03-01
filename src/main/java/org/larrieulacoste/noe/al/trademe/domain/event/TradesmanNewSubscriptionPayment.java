@@ -1,10 +1,10 @@
 package org.larrieulacoste.noe.al.trademe.domain.event;
 
+import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
+import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Amount;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PaymentMethod;
-import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
-import org.larrieulacoste.noe.al.trademe.kernel.event.EventId;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;

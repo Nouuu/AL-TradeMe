@@ -2,10 +2,10 @@ package org.larrieulacoste.noe.al.trademe.features.invoices.web;
 
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.query.*;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

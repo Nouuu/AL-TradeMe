@@ -9,7 +9,6 @@ import org.larrieulacoste.noe.al.trademe.kernel.serializer.DeserializationEngine
 import org.larrieulacoste.noe.al.trademe.kernel.serializer.SerializationEngine;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -25,7 +24,7 @@ public final class InFileContractors implements Contractors {
                              SerializationEngine<List<Contractor>> contractorsSerializer,
                              DeserializationEngine<List<Contractor>> contractorsDeserializer,
                              Reader reader,
-                             Writer writer) throws IOException {
+                             Writer writer) {
         this.inMemoryContractors = inMemoryContractors;
         this.contractorsSerializer = contractorsSerializer;
         this.contractorsDeserializer = contractorsDeserializer;
@@ -35,7 +34,7 @@ public final class InFileContractors implements Contractors {
     }
 
     @Override
-    public void save(Contractor contractor) throws IOException {
+    public void save(Contractor contractor) {
         inMemoryContractors.save(contractor);
         this.write();
     }
@@ -51,7 +50,7 @@ public final class InFileContractors implements Contractors {
     }
 
     @Override
-    public void remove(Contractor item) throws IOException {
+    public void remove(Contractor item)  {
         inMemoryContractors.remove(item);
         this.write();
     }
@@ -62,12 +61,12 @@ public final class InFileContractors implements Contractors {
     }
 
 
-    private void write() throws IOException {
+    private void write()  {
         var data = contractorsSerializer.apply(inMemoryContractors.findAll());
         writer.write(data);
     }
 
-    private void read() throws IOException {
+    private void read() {
         var data = contractorsDeserializer.apply(reader.read());
         for (Contractor contractor : data) {
             inMemoryContractors.save(contractor);

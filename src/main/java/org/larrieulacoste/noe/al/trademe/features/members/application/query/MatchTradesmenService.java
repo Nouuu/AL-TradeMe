@@ -1,15 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.query;
 
-import java.util.List;
-import java.util.stream.Stream;
-import javax.enterprise.context.ApplicationScoped;
 import org.larrieulacoste.noe.al.trademe.domain.event.TradesmenMatched;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Coordinate;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Location;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Period;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Profession;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Skill;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
@@ -18,6 +9,11 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.*;
+
+import javax.enterprise.context.ApplicationScoped;
+import java.util.List;
+import java.util.stream.Stream;
 
 @ApplicationScoped
 public class MatchTradesmenService implements QueryHandler<MatchTradesmen, List<Tradesman>> {
