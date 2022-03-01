@@ -14,7 +14,7 @@ public interface Repository<T> {
 
     List<T> findAll();
 
-    void remove(T item)
+    void remove(T item);
 
     default EntityId nextId() {
         return EntityId.fromUUID(UUID.randomUUID());
