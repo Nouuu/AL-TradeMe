@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.kernel.Repository;
 
 import java.util.List;

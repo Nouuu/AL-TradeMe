@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorNewRegistration;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorNewRegistration;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;

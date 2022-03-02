@@ -1,9 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.infrastructure;
 
 import java.util.ArrayList;
-import org.larrieulacoste.noe.al.trademe.domain.exception.InvoiceNotFoundException;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.InvoiceNotFoundException;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;

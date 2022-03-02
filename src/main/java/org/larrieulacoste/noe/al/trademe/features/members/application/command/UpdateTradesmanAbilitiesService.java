@@ -2,8 +2,8 @@ package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanUpdated;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.event.TradesmanUpdated;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.MemberValidationService;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;

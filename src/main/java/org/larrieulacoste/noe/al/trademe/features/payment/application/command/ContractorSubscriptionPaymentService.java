@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorNewSubscriptionPayment;
-import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorNewSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Amount;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;

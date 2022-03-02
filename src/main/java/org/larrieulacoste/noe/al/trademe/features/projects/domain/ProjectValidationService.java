@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidProjectException;
-import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.InvalidProjectException;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.AddProjectProfession;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.CreateProject;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.RemoveProjectProfession;

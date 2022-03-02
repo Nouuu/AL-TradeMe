@@ -2,9 +2,9 @@ package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
 import java.time.ZonedDateTime;
 import javax.enterprise.context.ApplicationScoped;
-import org.larrieulacoste.noe.al.trademe.application.event.ProjectClosed;
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanTerminated;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.event.ProjectClosed;
+import org.larrieulacoste.noe.al.trademe.domain.event.TradesmanTerminated;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.ProjectBuilder;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Projects;

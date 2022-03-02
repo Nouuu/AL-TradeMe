@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanNewSubscriptionPayment;
-import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
+import org.larrieulacoste.noe.al.trademe.domain.event.TradesmanNewSubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.CreateInvoice;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;

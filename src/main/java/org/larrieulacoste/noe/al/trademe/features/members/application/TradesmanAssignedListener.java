@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanAssigned;
+import org.larrieulacoste.noe.al.trademe.domain.event.TradesmanAssigned;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.TradesmanAssignProject;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;

@@ -1,9 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.*;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;

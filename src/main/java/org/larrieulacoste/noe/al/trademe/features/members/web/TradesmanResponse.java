@@ -2,8 +2,8 @@ package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 import java.util.List;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.PeriodResponse;
-import org.larrieulacoste.noe.al.trademe.domain.model.SkillResponse;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PeriodResponse;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillResponse;
 
 record TradesmanResponse(
     String userId,

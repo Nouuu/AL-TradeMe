@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.application.query;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Projects;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryHandler;

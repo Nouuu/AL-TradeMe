@@ -1,12 +1,12 @@
 package org.larrieulacoste.noe.al.trademe.features.members.infrastructure;
 
-import java.util.ArrayList;
-import org.larrieulacoste.noe.al.trademe.domain.exception.UserNotFoundException;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
