@@ -10,7 +10,7 @@ public class JSONSerializationEngine implements SerializationEngine {
     private final ObjectMapper mapper;
 
     public JSONSerializationEngine(ObjectMapper mapper) {
-        this.mapper = mapper;
+        this.mapper = Objects.requireNonNull(mapper);
     }
 
     @Override
