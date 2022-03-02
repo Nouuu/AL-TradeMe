@@ -1,8 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.GsonBuilder;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.kernel.io.*;
 import org.larrieulacoste.noe.al.trademe.kernel.serializer.DeserializationEngine;
 import org.larrieulacoste.noe.al.trademe.kernel.serializer.JSONDeserializationEngine;
@@ -12,7 +10,6 @@ import org.larrieulacoste.noe.al.trademe.kernel.serializer.SerializationEngine;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import java.util.List;
 
 @Dependent
 final class IOConfiguration {

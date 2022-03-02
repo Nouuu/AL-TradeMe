@@ -15,19 +15,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 public final class InFileContractors implements Contractors {
     private final InMemoryContractors inMemoryContractors;
     private final AtomicInteger counter = new AtomicInteger(0);
-    private final SerializationEngine contractorsSerializer;
-    private final DeserializationEngine contractorsDeserializer;
+    private final SerializationEngine serializer;
+    private final DeserializationEngine deserializer;
     private final Reader reader;
     private final Writer writer;
 
     public InFileContractors(InMemoryContractors inMemoryContractors,
-                             SerializationEngine contractorsSerializer,
-                             DeserializationEngine contractorsDeserializer,
+                             SerializationEngine serializer,
+                             DeserializationEngine deserializer,
                              Reader reader,
                              Writer writer) {
         this.inMemoryContractors = inMemoryContractors;
-        this.contractorsSerializer = contractorsSerializer;
-        this.contractorsDeserializer = contractorsDeserializer;
+        this.serializer = serializer;
+        this.deserializer = deserializer;
         this.reader = reader;
         this.writer = writer;
         this.read();
@@ -62,12 +62,12 @@ public final class InFileContractors implements Contractors {
 
 
     private void write() {
-        var data = contractorsSerializer.apply(inMemoryContractors.findAll());
+        var data = serializer.apply(inMemoryContractors.findAll());
         writer.write(data);
     }
 
     private void read() {
-        var data = contractorsDeserializer.apply(reader.read(), Contractor[].class);
+        var data = deserializer.apply(reader.read(), Contractor[].class);
         if (data != null) {
             for (Contractor contractor : data) {
                 inMemoryContractors.save(contractor);

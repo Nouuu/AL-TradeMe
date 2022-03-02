@@ -56,6 +56,30 @@ final class RepositoryConfiguration {
     @FileQualifier("contractors")
     Writer contractorsWriter;
 
+    @Inject
+    @FileQualifier("tradesmen")
+    Reader tradesmenReader;
+
+    @Inject
+    @FileQualifier("tradesmen")
+    Writer tradesmenWriter;
+
+    @Inject
+    @FileQualifier("invoices")
+    Reader invoicesReader;
+
+    @Inject
+    @FileQualifier("invoices")
+    Writer invoicesWriter;
+
+    @Inject
+    @FileQualifier("projects")
+    Reader projectsReader;
+
+    @Inject
+    @FileQualifier("projects")
+    Writer projectsWriter;
+
     @Produces
     @Singleton
     Tradesmen tradesmen() {
