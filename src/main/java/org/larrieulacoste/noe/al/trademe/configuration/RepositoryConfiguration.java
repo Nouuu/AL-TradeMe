@@ -2,13 +2,16 @@ package org.larrieulacoste.noe.al.trademe.configuration;
 
 import io.quarkus.arc.properties.IfBuildProperty;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
+import org.larrieulacoste.noe.al.trademe.features.invoices.infrastructure.InFileInvoices;
 import org.larrieulacoste.noe.al.trademe.features.invoices.infrastructure.InMemoryInvoices;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InFileContractors;
+import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InFileTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryContractors;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Projects;
+import org.larrieulacoste.noe.al.trademe.features.projects.infrastructure.InFileProjects;
 import org.larrieulacoste.noe.al.trademe.features.projects.infrastructure.InMemoryProjects;
 import org.larrieulacoste.noe.al.trademe.kernel.io.FileQualifier;
 import org.larrieulacoste.noe.al.trademe.kernel.io.Reader;
@@ -81,8 +84,22 @@ final class RepositoryConfiguration {
     Writer projectsWriter;
 
     @Produces
+    @IfBuildProperty(name = "repository.in-memory", stringValue = "false")
     @Singleton
-    Tradesmen tradesmen() {
+    Tradesmen jsonTradesmen() {
+        var inMemory = new InMemoryTradesmen(tradesmenLogger);
+        return new InFileTradesmen(
+                inMemory,
+                serializerEngine,
+                deserializerEngine,
+                tradesmenReader,
+                tradesmenWriter);
+    }
+
+    @Produces
+    @IfBuildProperty(name = "repository.in-memory", stringValue = "true")
+    @Singleton
+    Tradesmen inMemoryTradesmen() {
         return new InMemoryTradesmen(tradesmenLogger);
     }
 
@@ -98,7 +115,6 @@ final class RepositoryConfiguration {
                 contractorsReader,
                 contractorsWriter);
     }
-
     @Produces
     @IfBuildProperty(name = "repository.in-memory", stringValue = "true")
     @Singleton
@@ -107,14 +123,42 @@ final class RepositoryConfiguration {
     }
 
     @Produces
+    @IfBuildProperty(name = "repository.in-memory", stringValue = "false")
     @Singleton
-    Invoices invoices() {
+    Invoices jsonInvoices() {
+        var inMemory = new InMemoryInvoices(invoicesLogger);
+        return new InFileInvoices(
+                inMemory,
+                serializerEngine,
+                deserializerEngine,
+                invoicesReader,
+                invoicesWriter);
+    }
+
+    @Produces
+    @IfBuildProperty(name = "repository.in-memory", stringValue = "true")
+    @Singleton
+    Invoices inMemoryInvoices() {
         return new InMemoryInvoices(invoicesLogger);
     }
 
     @Produces
+    @IfBuildProperty(name = "repository.in-memory", stringValue = "false")
     @Singleton
-    Projects projects() {
+    Projects jsonProjects() {
+        var inMemory = new InMemoryProjects(projectsLogger);
+        return new InFileProjects(
+                inMemory,
+                serializerEngine,
+                deserializerEngine,
+                projectsReader,
+                projectsWriter);
+    }
+
+    @Produces
+    @IfBuildProperty(name = "repository.in-memory", stringValue = "true")
+    @Singleton
+    Projects inMemoryProjects() {
         return new InMemoryProjects(projectsLogger);
     }
 }
