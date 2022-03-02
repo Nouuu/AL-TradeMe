@@ -1,12 +1,13 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.infrastructure;
 
-import org.larrieulacoste.noe.al.trademe.domain.exception.InvoiceNotFoundException;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoice;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.InvoiceNotFoundException;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.MemberType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -42,7 +43,7 @@ public final class InMemoryInvoices implements Invoices {
 
     @Override
     public List<Invoice> findAll() {
-        return List.copyOf(data.values());
+        return new ArrayList<>(data.values());
     }
 
     @Override
@@ -57,7 +58,7 @@ public final class InMemoryInvoices implements Invoices {
 
     @Override
     public List<Invoice> getTradesmenInvoices() {
-        return List.copyOf(
+        return new ArrayList<>(
                 data.values().stream()
                         .filter(invoice -> invoice.memberType().equals(MemberType.TRADESMAN))
                         .toList()
@@ -66,7 +67,7 @@ public final class InMemoryInvoices implements Invoices {
 
     @Override
     public List<Invoice> getContractorsInvoices() {
-        return List.copyOf(
+        return new ArrayList<>(
                 data.values().stream()
                         .filter(invoice -> invoice.memberType().equals(MemberType.CONTRACTOR))
                         .toList()
@@ -75,7 +76,7 @@ public final class InMemoryInvoices implements Invoices {
 
     @Override
     public List<Invoice> getTradesmanInvoices(EntityId tradesmanId) {
-        return List.copyOf(
+        return new ArrayList<>(
                 data.values().stream()
                         .filter(invoice -> invoice.memberType().equals(MemberType.TRADESMAN)
                                 && invoice.memberId().equals(tradesmanId))
@@ -85,7 +86,7 @@ public final class InMemoryInvoices implements Invoices {
 
     @Override
     public List<Invoice> getContractorInvoices(EntityId contractorId) {
-        return List.copyOf(
+        return new ArrayList<>(
                 data.values().stream()
                         .filter(invoice -> invoice.memberType().equals(MemberType.CONTRACTOR)
                                 && invoice.memberId().equals(contractorId))

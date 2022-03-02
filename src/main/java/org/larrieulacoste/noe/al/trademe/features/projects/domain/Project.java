@@ -1,8 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.*;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -51,16 +52,16 @@ public record Project(
 
     @Override
     public List<Skill> requiredSkills() {
-        return List.copyOf(requiredSkills);
+        return new ArrayList<>(requiredSkills);
     }
 
     @Override
     public List<Profession> professions() {
-        return List.copyOf(professions);
+        return new ArrayList<>(professions);
     }
 
     @Override
     public List<EntityId> tradesmenIds() {
-        return List.copyOf(tradesmenIds);
+        return new ArrayList<>(tradesmenIds);
     }
 }

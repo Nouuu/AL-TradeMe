@@ -12,6 +12,9 @@ import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Skill;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;

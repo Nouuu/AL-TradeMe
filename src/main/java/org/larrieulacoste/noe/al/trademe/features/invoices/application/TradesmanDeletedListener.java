@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanDeleted;
+import org.larrieulacoste.noe.al.trademe.domain.event.TradesmanDeleted;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.DeleteTradesmanInvoices;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;

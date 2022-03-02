@@ -1,9 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ProjectRequiredSkillRemoved;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
-import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
+import org.larrieulacoste.noe.al.trademe.domain.event.ProjectRequiredSkillRemoved;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.ProjectBuilder;
@@ -13,6 +10,9 @@ import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Skill;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class RemoveProjectRequiredSkillService implements CommandHandler<RemoveP
     public List<Skill> handle(RemoveProjectRequiredSkill requiredSkill) {
         Project inMemoryProject = projects.byId(EntityId.of(requiredSkill.projectId()));
 
-        projectValidationService.validateAddOrRemoveProjectRequiredSkill(new SkillRequest(requiredSkill.skillName(), 0));
+        projectValidationService.validateAddOrRemoveProjectRequiredSkill(new SkillRequest(requiredSkill.skillName(), 1));
 
         Skill removeSkill = Skill.of(
                 NotEmptyString.of(requiredSkill.skillName(), stringValidators),

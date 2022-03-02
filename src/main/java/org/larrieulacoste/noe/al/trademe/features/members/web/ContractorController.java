@@ -1,7 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.DeleteContractor;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateContractor;
@@ -10,6 +9,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.query.Retr
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

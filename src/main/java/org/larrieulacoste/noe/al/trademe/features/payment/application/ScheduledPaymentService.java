@@ -1,7 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application;
 
 import io.quarkus.scheduler.Scheduled;
-import org.larrieulacoste.noe.al.trademe.application.event.MonthlySubscriptionPayment;
+import org.larrieulacoste.noe.al.trademe.domain.event.MonthlySubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;

@@ -1,8 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmanUpdated;
-import org.larrieulacoste.noe.al.trademe.application.event.TradesmenSubscriptionPendingPayment;
-import org.larrieulacoste.noe.al.trademe.domain.model.MemberPayment;
+import org.larrieulacoste.noe.al.trademe.domain.event.TradesmanUpdated;
+import org.larrieulacoste.noe.al.trademe.domain.event.TradesmenSubscriptionPendingPayment;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionStatus;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
@@ -10,6 +9,7 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.MemberPayment;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;

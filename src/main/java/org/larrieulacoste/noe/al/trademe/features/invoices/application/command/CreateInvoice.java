@@ -1,10 +1,10 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application.command;
 
-import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.MemberType;
-import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethodType;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Amount;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.MemberType;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PaymentMethodType;
 
 import java.util.Objects;
 

@@ -1,13 +1,14 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import javax.enterprise.context.ApplicationScoped;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.Period;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Period;
+
+import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class TradesmanAssignProjectService
@@ -30,6 +31,7 @@ public class TradesmanAssignProjectService
         Tradesman oldTradesman = tradesmen.byId(tradesmanId);
 
         tradesmanBuilder.clear();
+        tradesmanBuilder.withTradesman(oldTradesman);
         tradesmanBuilder.addUnavailability(period);
 
         Tradesman newTradesman = tradesmanBuilder.build(oldTradesman.entityId());

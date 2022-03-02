@@ -1,8 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
+
 import java.time.ZonedDateTime;
 import java.util.List;
-import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 
 public record MatchTradesmanRequest(String projectId,
     List<SkillRequest> requiredSkills,

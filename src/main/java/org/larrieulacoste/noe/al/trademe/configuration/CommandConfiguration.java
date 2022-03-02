@@ -7,8 +7,6 @@ import org.larrieulacoste.noe.al.trademe.features.payment.application.command.Co
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPaymentService;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.*;
-import org.larrieulacoste.noe.al.trademe.features.projects.application.command.TerminateTradesman;
-import org.larrieulacoste.noe.al.trademe.features.projects.application.command.TerminateTradesmanService;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
@@ -18,7 +16,6 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import java.util.HashMap;
 import java.util.Map;
 
