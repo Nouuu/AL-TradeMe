@@ -1,6 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.larrieulacoste.noe.al.trademe.kernel.io.*;
 import org.larrieulacoste.noe.al.trademe.kernel.serializer.DeserializationEngine;
 import org.larrieulacoste.noe.al.trademe.kernel.serializer.JSONDeserializationEngine;
@@ -14,7 +15,8 @@ import javax.enterprise.inject.spi.InjectionPoint;
 @Dependent
 final class IOConfiguration {
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
 
     @Produces
     SerializationEngine serializer() {
