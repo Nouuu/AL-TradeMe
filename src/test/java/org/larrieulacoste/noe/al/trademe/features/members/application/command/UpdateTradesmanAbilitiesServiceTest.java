@@ -1,28 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.ActivityRadius;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Amount;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Coordinate;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.DailyRate;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Location;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PaymentMethod;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Profession;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.TradesmanProfessionalAbilities;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.EmailAddress;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.MemberValidationService;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Password;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.SubscriptionStatus;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryTradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.event.DefaultEventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.DefaultLoggerFactory;
@@ -31,6 +12,10 @@ import org.larrieulacoste.noe.al.trademe.kernel.validators.SimpleDateValidators;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.SimplePaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.SimpleStringValidators;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UpdateTradesmanAbilitiesServiceTest {
 
