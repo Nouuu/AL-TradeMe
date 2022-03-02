@@ -15,14 +15,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public final class InFileContractors implements Contractors {
     private final InMemoryContractors inMemoryContractors;
     private final AtomicInteger counter = new AtomicInteger(0);
-    private final SerializationEngine<List<Contractor>> contractorsSerializer;
-    private final DeserializationEngine<List<Contractor>> contractorsDeserializer;
+    private final SerializationEngine contractorsSerializer;
+    private final DeserializationEngine contractorsDeserializer;
     private final Reader reader;
     private final Writer writer;
 
     public InFileContractors(InMemoryContractors inMemoryContractors,
-                             SerializationEngine<List<Contractor>> contractorsSerializer,
-                             DeserializationEngine<List<Contractor>> contractorsDeserializer,
+                             SerializationEngine contractorsSerializer,
+                             DeserializationEngine contractorsDeserializer,
                              Reader reader,
                              Writer writer) {
         this.inMemoryContractors = inMemoryContractors;
@@ -50,7 +50,7 @@ public final class InFileContractors implements Contractors {
     }
 
     @Override
-    public void remove(Contractor item)  {
+    public void remove(Contractor item) {
         inMemoryContractors.remove(item);
         this.write();
     }
@@ -61,16 +61,18 @@ public final class InFileContractors implements Contractors {
     }
 
 
-    private void write()  {
+    private void write() {
         var data = contractorsSerializer.apply(inMemoryContractors.findAll());
         writer.write(data);
     }
 
     private void read() {
-        var data = contractorsDeserializer.apply(reader.read());
-        for (Contractor contractor : data) {
-            inMemoryContractors.save(contractor);
-            this.counter.set(Integer.parseInt(contractor.entityId().value()));
+        var data = contractorsDeserializer.apply(reader.read(), Contractor[].class);
+        if (data != null) {
+            for (Contractor contractor : data) {
+                inMemoryContractors.save(contractor);
+                this.counter.set(Integer.parseInt(contractor.entityId().value()));
+            }
         }
     }
 }

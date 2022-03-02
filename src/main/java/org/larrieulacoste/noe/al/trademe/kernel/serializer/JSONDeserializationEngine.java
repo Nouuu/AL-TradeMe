@@ -1,21 +1,22 @@
 package org.larrieulacoste.noe.al.trademe.kernel.serializer;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.DeserializeException;
 
-import java.lang.reflect.Type;
+public class JSONDeserializationEngine implements DeserializationEngine {
+    private final ObjectMapper mapper;
 
-public class JSONDeserializationEngine<T> implements DeserializationEngine<T> {
-    private final Gson gson;
-
-    public JSONDeserializationEngine(Gson gson) {
-        this.gson = gson;
+    public JSONDeserializationEngine(ObjectMapper mapper) {
+        this.mapper = mapper;
     }
 
     @Override
-    public T apply(String strObject) {
-        Type collectionType = new TypeToken<T>() {
-        }.getType();
-        return gson.fromJson(strObject, collectionType);
+    public <T> T apply(String strObject, Class<T> objectClass) {
+        try {
+            return mapper.readValue(strObject,objectClass);
+        } catch (JsonProcessingException e) {
+            throw new DeserializeException(e.getMessage());
+        }
     }
 }

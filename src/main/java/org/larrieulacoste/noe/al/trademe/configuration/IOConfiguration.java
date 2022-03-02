@@ -1,6 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.GsonBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.kernel.io.*;
@@ -17,16 +17,16 @@ import java.util.List;
 @Dependent
 final class IOConfiguration {
 
-    private final Gson gson = new GsonBuilder().serializeNulls().create();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Produces
-    SerializationEngine<List<Contractor>> serializer() {
-        return new JSONSerializationEngine<>(gson);
+    SerializationEngine serializer() {
+        return new JSONSerializationEngine(mapper);
     }
 
     @Produces
-    DeserializationEngine<List<Contractor>> deserializer() {
-        return new JSONDeserializationEngine<>(gson);
+    DeserializationEngine deserializer() {
+        return new JSONDeserializationEngine(mapper);
     }
 
     @Produces

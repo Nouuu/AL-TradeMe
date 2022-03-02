@@ -1,8 +1,8 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
+import io.quarkus.arc.properties.IfBuildProperty;
 import org.larrieulacoste.noe.al.trademe.features.invoices.domain.Invoices;
 import org.larrieulacoste.noe.al.trademe.features.invoices.infrastructure.InMemoryInvoices;
-import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InFileContractors;
@@ -22,7 +22,6 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.List;
 
 @Dependent
 final class RepositoryConfiguration {
@@ -44,10 +43,10 @@ final class RepositoryConfiguration {
     Logger projectsLogger;
 
     @Inject
-    SerializationEngine<List<Contractor>> contractorsSerializer;
+    SerializationEngine serializerEngine;
 
     @Inject
-    DeserializationEngine<List<Contractor>> contractorsDeserializer;
+    DeserializationEngine deserializerEngine;
 
     @Inject
     @FileQualifier("contractors")
@@ -64,15 +63,23 @@ final class RepositoryConfiguration {
     }
 
     @Produces
+    @IfBuildProperty(name = "repository.in-memory", stringValue = "false")
     @Singleton
-    Contractors contractors() {
+    Contractors jsonContractors() {
         var inMemory = new InMemoryContractors(contractorsLogger);
         return new InFileContractors(
                 inMemory,
-                contractorsSerializer,
-                contractorsDeserializer,
+                serializerEngine,
+                deserializerEngine,
                 contractorsReader,
                 contractorsWriter);
+    }
+
+    @Produces
+    @IfBuildProperty(name = "repository.in-memory", stringValue = "true")
+    @Singleton
+    Contractors inMemoryContractors() {
+        return new InMemoryContractors(contractorsLogger);
     }
 
     @Produces

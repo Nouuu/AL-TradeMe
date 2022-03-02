@@ -1,20 +1,26 @@
 package org.larrieulacoste.noe.al.trademe.kernel.serializer;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.SerializeException;
 
 import java.util.Objects;
 
-public class JSONSerializationEngine<T> implements SerializationEngine<T> {
-    private final Gson gson;
+public class JSONSerializationEngine implements SerializationEngine {
+    private final ObjectMapper mapper;
 
-    public JSONSerializationEngine(Gson gson) {
-        this.gson = gson;
+    public JSONSerializationEngine(ObjectMapper mapper) {
+        this.mapper = mapper;
     }
 
     @Override
-    public String apply(T object) {
-        return gson.toJson(
-                Objects.requireNonNull(object)
-        );
+    public <T> String apply(T object) {
+        try {
+            return mapper.writeValueAsString(
+                    Objects.requireNonNull(object)
+            );
+        } catch (JsonProcessingException e) {
+            throw new SerializeException(e.getMessage());
+        }
     }
 }

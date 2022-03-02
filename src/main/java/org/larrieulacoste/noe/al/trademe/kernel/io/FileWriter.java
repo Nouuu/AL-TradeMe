@@ -19,7 +19,8 @@ public class FileWriter implements Writer {
     public void write(String data) {
         File file = new File(this.source);
         if (!file.exists()) {
-            file.mkdirs();
+            var directoryPath = new File(file.getParent());
+            directoryPath.mkdirs();
         }
 
         try (java.io.FileWriter fileWriter = new java.io.FileWriter(file, StandardCharsets.UTF_8, false)) {
