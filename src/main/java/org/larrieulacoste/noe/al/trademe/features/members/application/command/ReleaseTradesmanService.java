@@ -1,14 +1,15 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import java.time.ZonedDateTime;
-import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Period;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.DateValidators;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Period;
+
+import javax.enterprise.context.ApplicationScoped;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 @ApplicationScoped
 public class ReleaseTradesmanService implements CommandHandler<ReleaseTradesman, Tradesman> {

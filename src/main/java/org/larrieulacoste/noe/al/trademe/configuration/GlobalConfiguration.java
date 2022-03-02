@@ -18,7 +18,6 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Singleton;
-import java.util.List;
 
 @Dependent
 final class GlobalConfiguration {

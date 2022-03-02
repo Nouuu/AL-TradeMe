@@ -1,9 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.domain;
 
-import java.util.ArrayList;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

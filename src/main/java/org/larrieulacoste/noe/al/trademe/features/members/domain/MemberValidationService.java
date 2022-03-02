@@ -1,11 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.*;
 import org.larrieulacoste.noe.al.trademe.kernel.exception.InvalidUserException;
-import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateContractor;
-import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateContractor;
-import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesmanAbilities;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.PaymentInformationsValidator;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;

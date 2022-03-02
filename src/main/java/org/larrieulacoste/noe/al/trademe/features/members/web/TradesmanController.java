@@ -1,21 +1,6 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
-import java.util.List;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Period;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PeriodResponse;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Skill;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillResponse;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.DeleteTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
@@ -26,6 +11,11 @@ import org.larrieulacoste.noe.al.trademe.features.members.application.query.Retr
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.*;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("tradesman")
 @Produces(MediaType.APPLICATION_JSON)
