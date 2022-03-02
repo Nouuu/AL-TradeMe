@@ -1,12 +1,13 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.query;
 
-import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryHandler;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Skill;
+
+import javax.enterprise.context.ApplicationScoped;
+import java.util.List;
 
 @ApplicationScoped
 public class RetrieveTradesmanSkillsService implements QueryHandler<RetrieveTradesmanSkills, List<Skill>> {

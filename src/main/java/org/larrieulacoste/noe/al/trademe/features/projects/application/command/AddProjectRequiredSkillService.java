@@ -1,8 +1,7 @@
 package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ProjectRequiredSkillAdded;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
-import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
+
+import org.larrieulacoste.noe.al.trademe.domain.event.ProjectRequiredSkillAdded;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.ProjectBuilder;
@@ -14,7 +13,6 @@ import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Skill;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
