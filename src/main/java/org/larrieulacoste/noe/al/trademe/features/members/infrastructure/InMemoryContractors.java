@@ -4,7 +4,6 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.kernel.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
-import org.larrieulacoste.noe.al.trademe.kernel.serializer.SerializationEngine;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
 import java.util.ArrayList;
