@@ -2,6 +2,7 @@ package org.larrieulacoste.noe.al.trademe.features.projects.web;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.AssignTradesman;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.*;
@@ -70,7 +71,7 @@ public final class ProjectController {
     @Operation(summary = "Get project skills", description = "Retrieve all skills from a project")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectSkillResponse> getProjectSkills(@PathParam("projectId") String projectId) {
-        List<SkillRequest> requiredSkills = queryBus.send(new RetrieveProjectSkills(projectId));
+        List<Skill> requiredSkills = queryBus.send(new RetrieveProjectSkills(projectId));
 
         return getProjectSkillResponses(projectId, requiredSkills);
     }
@@ -128,7 +129,7 @@ public final class ProjectController {
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectSkillResponse> addProjectRequiredSkill(@PathParam("projectId") String projectId,
             ProjectSkillRequest projectSkill) {
-        List<SkillRequest> updatedRequiredSkill = commandBus
+        List<Skill> updatedRequiredSkill = commandBus
                 .send(new AddProjectRequiredSkill(
                         projectId,
                         new SkillRequest(projectSkill.skillName(), projectSkill.skillRequiredLevel())));
@@ -187,7 +188,7 @@ public final class ProjectController {
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectSkillResponse> deleteProjectSkill(@PathParam("projectId") String projectId,
             ProjectSkillRequest projectSkillRequest) {
-        List<SkillRequest> updatedSkills = commandBus
+        List<Skill> updatedSkills = commandBus
                 .send(new RemoveProjectRequiredSkill(
                         projectId,
                         projectSkillRequest.skillName()));
@@ -196,9 +197,9 @@ public final class ProjectController {
     }
 
     private List<ProjectSkillResponse> getProjectSkillResponses(String projectId,
-            List<SkillRequest> updatedRequiredSkill) {
+            List<Skill> updatedRequiredSkill) {
         return updatedRequiredSkill.stream()
-                .map(skill -> new ProjectSkillResponse(projectId, skill.skillName(), skill.requiredLevel()))
+                .map(skill -> new ProjectSkillResponse(projectId, skill.skillName().value(), skill.requiredLevel()))
                 .toList();
     }
 

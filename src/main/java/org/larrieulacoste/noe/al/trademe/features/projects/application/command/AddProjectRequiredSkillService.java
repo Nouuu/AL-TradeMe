@@ -3,7 +3,6 @@ package org.larrieulacoste.noe.al.trademe.features.projects.application.command;
 import org.larrieulacoste.noe.al.trademe.application.event.ProjectRequiredSkillAdded;
 import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
-import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.NotEmptyString;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.ProjectBuilder;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class AddProjectRequiredSkillService implements CommandHandler<AddProjectRequiredSkill, List<SkillRequest>> {
+public class AddProjectRequiredSkillService implements CommandHandler<AddProjectRequiredSkill, List<Skill>> {
     private final Projects projects;
     private final ProjectValidationService projectValidationService;
     private final StringValidators stringValidators;
@@ -36,7 +35,7 @@ public class AddProjectRequiredSkillService implements CommandHandler<AddProject
     }
 
     @Override
-    public List<SkillRequest> handle(AddProjectRequiredSkill requiredSkill) {
+    public List<Skill> handle(AddProjectRequiredSkill requiredSkill) {
         Project inMemoryProject = projects.byId(EntityId.of(requiredSkill.projectId()));
 
         projectValidationService.validateAddOrRemoveProjectRequiredSkill(requiredSkill.requiredSkill());
@@ -67,8 +66,6 @@ public class AddProjectRequiredSkillService implements CommandHandler<AddProject
                 )
         );
 
-        return projectRequiredSkills.stream().map(currentRequiredSkill ->
-                        new SkillRequest(currentRequiredSkill.skillName().value(), currentRequiredSkill.requiredLevel()))
-                .toList();
+        return projectRequiredSkills;
     }
 }

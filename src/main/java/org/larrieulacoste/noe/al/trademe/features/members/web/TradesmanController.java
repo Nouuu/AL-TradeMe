@@ -15,7 +15,6 @@ import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.domain.model.Period;
 import org.larrieulacoste.noe.al.trademe.domain.model.PeriodResponse;
 import org.larrieulacoste.noe.al.trademe.domain.model.Skill;
-import org.larrieulacoste.noe.al.trademe.domain.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.domain.model.SkillResponse;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.DeleteTradesman;
@@ -78,7 +77,7 @@ public final class TradesmanController {
     @Path("{tradesmanId}/skills")
     @Operation(summary = "Get tradesman skills", description = "Retrieve all skills from a tradesman")
     public List<TradesmanSkillResponse> getTradesmanSkills(@PathParam("tradesmanId") String tradesmanId) {
-        List<SkillRequest> tradesmanSkills = queryBus.send(new RetrieveTradesmanSkills(tradesmanId));
+        List<Skill> tradesmanSkills = queryBus.send(new RetrieveTradesmanSkills(tradesmanId));
 
         return getTradesmanSkillResponses(tradesmanId, tradesmanSkills);
     }
@@ -147,9 +146,9 @@ public final class TradesmanController {
         return EntityId.of(tradesmanId);
     }
 
-    private List<TradesmanSkillResponse> getTradesmanSkillResponses(String tradesmanId, List<SkillRequest> updatedRequiredSkill) {
-        return updatedRequiredSkill.stream()
-                .map(skill -> new TradesmanSkillResponse(tradesmanId, skill.skillName(), skill.requiredLevel()))
+    private List<TradesmanSkillResponse> getTradesmanSkillResponses(String tradesmanId, List<Skill> skills) {
+        return skills.stream()
+                .map(skill -> new TradesmanSkillResponse(tradesmanId, skill.skillName().value(), skill.requiredLevel()))
                 .toList();
     }
 

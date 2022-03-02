@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class RemoveProjectRequiredSkillService implements CommandHandler<RemoveProjectRequiredSkill, List<SkillRequest>> {
+public class RemoveProjectRequiredSkillService implements CommandHandler<RemoveProjectRequiredSkill, List<Skill>> {
     private final Projects projects;
     private final ProjectValidationService projectValidationService;
     private final StringValidators stringValidators;
@@ -36,7 +36,7 @@ public class RemoveProjectRequiredSkillService implements CommandHandler<RemoveP
     }
 
     @Override
-    public List<SkillRequest> handle(RemoveProjectRequiredSkill requiredSkill) {
+    public List<Skill> handle(RemoveProjectRequiredSkill requiredSkill) {
         Project inMemoryProject = projects.byId(EntityId.of(requiredSkill.projectId()));
 
         projectValidationService.validateAddOrRemoveProjectRequiredSkill(new SkillRequest(requiredSkill.skillName(), 0));
@@ -66,8 +66,6 @@ public class RemoveProjectRequiredSkillService implements CommandHandler<RemoveP
                 )
         );
 
-        return projectRequiredSkills.stream().map(currentRequiredSkill ->
-                        new SkillRequest(currentRequiredSkill.skillName().value(), currentRequiredSkill.requiredLevel()))
-                .toList();
+        return projectRequiredSkills;
     }
 }
