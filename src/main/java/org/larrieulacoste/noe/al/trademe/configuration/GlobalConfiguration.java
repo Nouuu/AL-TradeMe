@@ -1,7 +1,5 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.ContractorBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
@@ -18,14 +16,12 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Singleton;
-import java.util.List;
 
 @Dependent
 final class GlobalConfiguration {
 
     private final LoggerFactory loggerFactory = new JBossLoggerFactory();
-    private final Gson gson = new GsonBuilder().serializeNulls().create();
-
+    
     @ConfigProperty(name = "contractor.payment.monthly.amount")
     double contractorMonthlySubscriptionAmount;
     @ConfigProperty(name = "tradesman.payment.monthly.amount")

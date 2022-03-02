@@ -1,9 +1,9 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.query;
 
-import java.time.ZonedDateTime;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 import org.larrieulacoste.noe.al.trademe.kernel.query.Query;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public record MatchTradesmen(String projectId,

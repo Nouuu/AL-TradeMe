@@ -1,10 +1,10 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application;
 
 import org.larrieulacoste.noe.al.trademe.domain.event.ContractorsSubscriptionPendingPayment;
-import org.larrieulacoste.noe.al.trademe.shared_kernel.model.MemberPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.MemberPayment;
 
 public final class ContractorsSubscriptionPendingPaymentListener implements EventSubscriber<ContractorsSubscriptionPendingPayment> {
 
