@@ -2,14 +2,12 @@ package org.larrieulacoste.noe.al.trademe.features.projects.web;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.larrieulacoste.noe.al.trademe.features.projects.application.command.*;
-import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveContractorProjects;
-import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveProjectById;
-import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveProjects;
-import org.larrieulacoste.noe.al.trademe.features.projects.application.query.RetrieveTradesmanProjects;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.query.*;
 import org.larrieulacoste.noe.al.trademe.features.projects.domain.Project;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Skill;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 
 import javax.ws.rs.*;
@@ -62,6 +60,16 @@ public final class ProjectController {
         return getProjectResponse(project);
     }
 
+    @GET
+    @Path("{projectId}/skills")
+    @Operation(summary = "Get project skills", description = "Retrieve all skills from a project")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<ProjectSkillResponse> getProjectSkills(@PathParam("projectId") String projectId) {
+        List<Skill> requiredSkills = queryBus.send(new RetrieveProjectSkills(projectId));
+
+        return getProjectSkillResponses(projectId, requiredSkills);
+    }
+
     @POST
     @Operation(summary = "Create project", description = "Add a new project to TradeMe")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -100,7 +108,7 @@ public final class ProjectController {
     @Operation(summary = "Add project profession", description = "Add a new profession to a project")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectProfessionResponse> addProjectProfession(@PathParam("projectId") String projectId,
-            ProjectProfessionRequest projectProfession) {
+                                                                ProjectProfessionRequest projectProfession) {
         List<String> updatedProfessions = commandBus
                 .send(new AddProjectProfession(
                         projectId,
@@ -114,8 +122,8 @@ public final class ProjectController {
     @Operation(summary = "Add project required skill", description = "Add or update a required skill to a project")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectSkillResponse> addProjectRequiredSkill(@PathParam("projectId") String projectId,
-            ProjectSkillRequest projectSkill) {
-        List<SkillRequest> updatedRequiredSkill = commandBus
+                                                              ProjectSkillRequest projectSkill) {
+        List<Skill> updatedRequiredSkill = commandBus
                 .send(new AddProjectRequiredSkill(
                         projectId,
                         new SkillRequest(projectSkill.skillName(), projectSkill.skillRequiredLevel())));
@@ -137,8 +145,21 @@ public final class ProjectController {
     @Operation(summary = "Close a project", description = "Close a project in TradeMe")
     @Consumes(MediaType.APPLICATION_JSON)
     public ProjectResponse closeProject(@PathParam("projectId") String projectId,
-            @PathParam("tradesmanId") String tradesmanId) {
+                                        @PathParam("tradesmanId") String tradesmanId) {
         return getProjectResponse(commandBus.send(new TerminateTradesman(projectId, tradesmanId)));
+    }
+
+    @PUT
+    @Path("{projectId}/assign/{tradesmanId}")
+    @Operation(summary = "Assign tradesman", description = "Assign a tradesman to a project")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ProjectResponse update(@PathParam("projectId") String projectId,
+                                  @PathParam("tradesmanId") String tradesmanId) {
+        Project updatedTradesman = commandBus.send(new AssignTradesman(
+                projectId,
+                tradesmanId));
+
+        return getProjectResponse(updatedTradesman);
     }
 
     @DELETE
@@ -146,7 +167,7 @@ public final class ProjectController {
     @Operation(summary = "Delete a project profession", description = "Delete a profession from a project")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectProfessionResponse> deleteProjectProfession(@PathParam("projectId") String projectId,
-            ProjectProfessionRequest projectProfession) {
+                                                                   ProjectProfessionRequest projectProfession) {
         List<String> updatedProfessions = commandBus
                 .send(new RemoveProjectProfession(
                         projectId,
@@ -160,8 +181,8 @@ public final class ProjectController {
     @Operation(summary = "Delete a project required skill", description = "Delete a required skill from a project")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectSkillResponse> deleteProjectSkill(@PathParam("projectId") String projectId,
-            ProjectSkillRequest projectSkillRequest) {
-        List<SkillRequest> updatedSkills = commandBus
+                                                         ProjectSkillRequest projectSkillRequest) {
+        List<Skill> updatedSkills = commandBus
                 .send(new RemoveProjectRequiredSkill(
                         projectId,
                         projectSkillRequest.skillName()));
@@ -170,30 +191,17 @@ public final class ProjectController {
     }
 
     private List<ProjectSkillResponse> getProjectSkillResponses(String projectId,
-            List<SkillRequest> updatedRequiredSkill) {
+                                                                List<Skill> updatedRequiredSkill) {
         return updatedRequiredSkill.stream()
-                .map(skill -> new ProjectSkillResponse(projectId, skill.skillName(), skill.requiredLevel()))
+                .map(skill -> new ProjectSkillResponse(projectId, skill.skillName().value(), skill.requiredLevel()))
                 .toList();
     }
 
     private List<ProjectProfessionResponse> getProjectProfessionResponses(String projectId,
-            List<String> updatedProfessions) {
+                                                                          List<String> updatedProfessions) {
         return updatedProfessions.stream()
                 .map(professionName -> new ProjectProfessionResponse(projectId, professionName))
                 .toList();
-    }
-
-    @PUT
-    @Path("{projectId}/assign/{tradesmanId}")
-    @Operation(summary = "Update tradesman", description = "Update tradesman in TradeMe")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public ProjectResponse update(@PathParam("projectId") String projectId,
-            @PathParam("tradesmanId") String tradesmanId) {
-        Project updatedTradesman = commandBus.send(new AssignTradesman(
-                projectId,
-                tradesmanId));
-
-        return getProjectResponse(updatedTradesman);
     }
 
     private ProjectResponse getProjectResponse(Project project) {
