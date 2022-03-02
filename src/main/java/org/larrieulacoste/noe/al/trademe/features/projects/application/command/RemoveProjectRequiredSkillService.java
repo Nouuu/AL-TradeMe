@@ -39,7 +39,7 @@ public class RemoveProjectRequiredSkillService implements CommandHandler<RemoveP
     public List<SkillRequest> handle(RemoveProjectRequiredSkill requiredSkill) {
         Project inMemoryProject = projects.byId(EntityId.of(requiredSkill.projectId()));
 
-        projectValidationService.validateAddOrRemoveProjectRequiredSkill(new SkillRequest(requiredSkill.skillName(), 0));
+        projectValidationService.validateAddOrRemoveProjectRequiredSkill(new SkillRequest(requiredSkill.skillName(), 1));
 
         Skill removeSkill = Skill.of(
                 NotEmptyString.of(requiredSkill.skillName(), stringValidators),
