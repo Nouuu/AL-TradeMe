@@ -27,6 +27,8 @@ final class QueryConfiguration {
     RetrieveTradesmenService retrieveTradesmenService;
     @Inject
     MatchTradesmenService matchTradesmenService;
+    @Inject
+    RetrieveTradesmanSkillsService retrieveTradesmanSkillsService;
 
     @Inject
     RetrieveAllInvoicesService retrieveAllInvoicesService;
@@ -49,6 +51,8 @@ final class QueryConfiguration {
     RetrieveProjectsService retrieveProjectsService;
     @Inject
     RetrieveTradesmanProjectsService retrieveTradesmanProjectsService;
+    @Inject
+    RetrieveProjectSkillsService retrieveProjectSkillsService;
 
     @Produces
     @Singleton
@@ -69,6 +73,7 @@ final class QueryConfiguration {
         queryMap.put(RetrieveTradesmanById.class, retrieveTradesmanByIdService);
         queryMap.put(RetrieveTradesmen.class, retrieveTradesmenService);
         queryMap.put(MatchTradesmen.class, matchTradesmenService);
+        queryMap.put(RetrieveTradesmanSkills.class, retrieveTradesmanSkillsService);
 
         // Payments
 
@@ -77,6 +82,7 @@ final class QueryConfiguration {
         queryMap.put(RetrieveProjectById.class, retrieveProjectByIdService);
         queryMap.put(RetrieveProjects.class, retrieveProjectsService);
         queryMap.put(RetrieveTradesmanProjects.class, retrieveTradesmanProjectsService);
+        queryMap.put(RetrieveProjectSkills.class, retrieveProjectSkillsService);
 
         return new DefaultQueryBus(queryMap);
     }
