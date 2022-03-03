@@ -15,6 +15,6 @@ record ProjectResponse(
         double dailyRate,
         double longitude,
         double latitude,
-        String locationNam
+        String locationName
 ) {
 }
