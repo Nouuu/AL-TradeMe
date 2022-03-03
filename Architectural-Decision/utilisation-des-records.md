@@ -5,7 +5,7 @@
 
 Technical Story: [card associé](https://github.com/Nouuu/AL-TradeMe/issues/40)
 
-## Il y a une nouvelle sythaxe dans java
+## Il y a une nouvelle syntaxe dans java
 
 ```java
 
@@ -73,13 +73,13 @@ public record ContractorDeleted(
 
 ```
 
-Il existe une nouvelle sythaxe plus courte pour définir des data class.
+Il existe une nouvelle syntaxe plus courte pour définir des data class.
 
 ## Considered Options
 
 - Rester sur des class final avec static factory method
 - Passer les objets de transfert en record
-- Passer les objets de transfert et les values objets et les entities en record
+- Passer les objets de transfert et les value objects et les entities en record
 
 ## Decision Outcome
 
@@ -89,13 +89,13 @@ Option 3
 
 - Shorter
 - immutable
-- gestion automatique de equal, hashcode et toString
-- Plus de généraion via l'IDE
+- gestion automatique de "equals", hashcode et toString
+- Plus de génération via l'IDE
 
 ### Negative Consequences
 
-- Le constructeur par defaut ne peut pas avoir un scope plus petit que le record lui même
+- Le constructeur par défaut ne peut pas avoir un scope plus petit que le record lui-même
 
 ## Guideline
 
-On a décidé en interne dans l'équipe dans nos conventions de code de faire usage des constructeurs static plutot que du constructeur par defaut.
+On a décidé en interne dans l'équipe dans nos conventions de code de faire usage des constructeurs static plutôt que du constructeur par défaut.

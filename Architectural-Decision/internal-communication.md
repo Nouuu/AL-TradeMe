@@ -7,13 +7,13 @@ Technical Story: {description | ticket/issue URL} <!-- optional -->
 
 ## UseCases couplage
 
-On vent que nos usecases communique sans qu'il tissent un lien trop important
+On veut que nos use cases communique sans qu'ils tissent un lien trop important
 
 ## Considered Options
 
-- couplerer les dépendances
+- coupler les dépendances
 - Envoyer des appels HTTP en interne
-- Passer des evenements dans un bus pour prévenir les autres usecases
+- Passer des événements dans un bus pour prévenir les autres use cases
 
 ## Decision Outcome
 
@@ -21,15 +21,15 @@ Chosen option: "option 3", because elle réduit le couplage et semble plus facil
 
 ### Positive Consequences
 
-- Elle n'influ pas sur notre gestions des données
-- Couplage innexistant entre les usecases
-- Les usecase sont indépendants et modulaire
+- Elle n'influe pas sur nos gestions des données
+- Couplage inexistant entre les use cases
+- Les use cases sont indépendants et modulaire
 
 ### Negative Consequences
 
 - Performance (parfois on reconstruit une grappe objet)
-- Beaucoup de résponsabilité sur le bus d'evenement
-- Le package contenant les evenements est assez conséquent
+- Beaucoup de responsabilité sur le bus d'événement
+- Le package contenant les événements est assez conséquent
 
 ## Pros and Cons of the Options
 
@@ -45,5 +45,5 @@ Utilisation d'appel HTTP.
 
 - Good, aucun couplage
 - Good, scalable
-- Bad, nécéssite une redéfinition des données
-- Bad, nécéssite un maillage plus complexe
+- Bad, nécessite une redéfinition des données
+- Bad, nécessite un maillage plus complexe
