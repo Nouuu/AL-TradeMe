@@ -7,7 +7,7 @@ Technical Story: rename the service by command / query handler
 
 ## Naming of service
 
-À l'origine a la sortie du CC2 les services était nommé service. Par la suite on a remis en question ce terme pour essayer de coller le plus possible au CQS.
+À l'origine à la sortie du CC2 les services était nommé service. Par la suite on a remis en question ce terme pour essayer de coller le plus possible au CQS.
 
 On trouve aussi que le mot service est trop largement utilisé. (micro-service, service-spring ...)
 

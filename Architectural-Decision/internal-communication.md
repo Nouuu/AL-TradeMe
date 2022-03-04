@@ -3,21 +3,19 @@
 - Status: accepted
 - Date: 2022-03-02
 
-Technical Story: {description | ticket/issue URL} <!-- optional -->
-
 ## UseCases couplage
 
 On veut que nos use cases communique sans qu'ils tissent un lien trop important
 
 ## Considered Options
 
-- coupler les dépendances
+- Coupler les dépendances
 - Envoyer des appels HTTP en interne
 - Passer des événements dans un bus pour prévenir les autres use cases
 
 ## Decision Outcome
 
-Chosen option: "option 3", because elle réduit le couplage et semble plus facilement transposable en microservice.
+Chosen option: "option 3", Parce qu'elle réduit le couplage et semble plus facilement transposable en microservice.
 
 ### Positive Consequences
 
@@ -33,13 +31,13 @@ Chosen option: "option 3", because elle réduit le couplage et semble plus facil
 
 ## Pros and Cons of the Options
 
-### option 1
+### Option 1
 
 On couple et on admet une forte dépendance des objets entre eux.
 
 Au vu de l'envergure du projet cette solution semble mauvaise.
 
-### option 2
+### Option 2
 
 Utilisation d'appel HTTP.
 

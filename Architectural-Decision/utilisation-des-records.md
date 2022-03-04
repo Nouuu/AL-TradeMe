@@ -89,7 +89,7 @@ Option 3
 
 - Shorter
 - immutable
-- gestion automatique de "equals", hashcode et toString
+- Gestion automatique de "equals", hashcode et toString
 - Plus de génération via l'IDE
 
 ### Negative Consequences
@@ -99,3 +99,4 @@ Option 3
 ## Guideline
 
 On a décidé en interne dans l'équipe dans nos conventions de code de faire usage des constructeurs static plutôt que du constructeur par défaut.
+

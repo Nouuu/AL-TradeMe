@@ -7,7 +7,7 @@ Technical Story: [Ticket](https://github.com/Nouuu/AL-TradeMe/issues/44)
 
 ## Context and Problem Statement
 
-Afin d'effectuer un filtrage sur une liste des informations devait être récupéré depuis un autre use case
+Afin d'effectuer un filtrage sur une liste des informations qui devaient être récupéré depuis un autre use case
 
 ## Considered Options
 
