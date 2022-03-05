@@ -427,10 +427,10 @@ Afin d'assurer le bon fonctionnement et grâce au découpage de nos composants, 
 
 ![image-20220305134206216](assets/README/image-20220305134206216.png)
 
-| Branche DEV                                                  | Branch MAIN                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Branche DEV                                                                                                                              | Branch MAIN                                                                                                                               |
+|------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | [![codecov](https://codecov.io/gh/Nouuu/AL-TradeMe/branch/dev/graph/badge.svg?token=07VGBLNOBQ)](https://codecov.io/gh/Nouuu/AL-TradeMe) | [![codecov](https://codecov.io/gh/Nouuu/AL-TradeMe/branch/main/graph/badge.svg?token=07VGBLNOBQ)](https://codecov.io/gh/Nouuu/AL-TradeMe) |
-| ![grid coverage](https://codecov.io/gh/Nouuu/AL-TradeMe/branch/dev/graphs/tree.svg?token=07VGBLNOBQ) | ![grid coverage](https://codecov.io/gh/Nouuu/AL-TradeMe/branch/main/graphs/tree.svg?token=07VGBLNOBQ) |
+| ![grid coverage](https://codecov.io/gh/Nouuu/AL-TradeMe/branch/dev/graphs/tree.svg?token=07VGBLNOBQ)                                     | ![grid coverage](https://codecov.io/gh/Nouuu/AL-TradeMe/branch/main/graphs/tree.svg?token=07VGBLNOBQ)                                     |
 
 # Swagger
 
