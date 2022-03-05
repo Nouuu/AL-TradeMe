@@ -270,13 +270,13 @@ Ce package contient les différentes interfaces et leurs implémentations de fon
 
 Ce package nous permet d'avoir les interfaces **Reader** et **Writer** qui vont nous permettre d'interagir avec différents contenus, tel que des fichiers par exemple.
 
-Il y a actuellement deux implémentations pour chacune de ces interfaces. Les deux permettent accéder à des fichier.
+Il y a actuellement deux implémentations pour chacune de ces interfaces. Les deux permettent accéder à des fichiers.
 
 #### Marshaller
 
 Le package marshaller met à disposition une interface de **Sérialisation** et de **Désérialisation** de nos objets vers une chaine de caractères.
 
-Actuellement il existe une implémentation de chaque pour le format **JSON**.
+Actuellement, il existe une implémentation de chaque pour le format **JSON**.
 
 #### Exception handler
 
@@ -401,7 +401,7 @@ Injecte les différents bus de requêtes selon la feature, la configuration aura
 Injecte les différents bus d'événements selon le type d'événement (actuellement uniquement ceux du type **ApplicationEvent**), la configuration aura fait au préalable le maillage nécessaire entre les événements et les observateurs.
 
 | <img src="assets/README/image-20220305153731926.png" alt="image-20220305153731926" style="zoom:67%;" /> | <img src="assets/README/EventConfiguration.png" alt="EventConfiguration" style="zoom: 67%;" /> |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+|---------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 
 ### RepositoryConfiguration
 
@@ -411,13 +411,13 @@ Injecte les différents repositories au sein des services qui en ont besoin :
 
 ### IOConfiguration
 
-Injecte l'implémentation choisi pour nos Reader et Writer :
+Injecte l'implémentation choisie pour nos Reader et Writer :
 
 ![image-20220305154003138](assets/README/image-20220305154003138.png)
 
 ### MarshallerConfiguration
 
-Injecte l'implémentation choisi pour notre Sérialiser et Désérialiser : 
+Injecte l'implémentation choisie pour notre Sérialiser et Désérialiser : 
 
 ![image-20220305154035698](assets/README/image-20220305154035698.png)
 
