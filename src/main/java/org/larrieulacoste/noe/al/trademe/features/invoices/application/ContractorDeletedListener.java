@@ -1,20 +1,20 @@
 package org.larrieulacoste.noe.al.trademe.features.invoices.application;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorDeleted;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorDeleted;
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.DeleteContractorInvoices;
-import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventSubscriber;
 
 public final class ContractorDeletedListener implements EventSubscriber<ContractorDeleted> {
 
-    private final InvoicesCommandBus commandBus;
+    private final CommandBus commandBus;
 
-    public ContractorDeletedListener(InvoicesCommandBus commandBus) {
+    public ContractorDeletedListener(CommandBus commandBus) {
         this.commandBus = commandBus;
     }
 
     @Override
     public void accept(ContractorDeleted event) {
-        commandBus.send(new DeleteContractorInvoices(event.contractor.entityId));
+        commandBus.send(new DeleteContractorInvoices(event.contractorId()));
     }
 }

@@ -1,14 +1,11 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.query.*;
-import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.DefaultInvoicesQueryBus;
-import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesQueryBus;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.*;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.DefaultMembersQueryBus;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersQueryBus;
-import org.larrieulacoste.noe.al.trademe.features.payment.kernel.DefaultPaymentQueryBus;
-import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentQueryBus;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.query.*;
+import org.larrieulacoste.noe.al.trademe.kernel.query.DefaultQueryBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.Query;
+import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
 import org.larrieulacoste.noe.al.trademe.kernel.query.QueryHandler;
 
 import javax.enterprise.context.Dependent;
@@ -28,6 +25,10 @@ final class QueryConfiguration {
     RetrieveTradesmanByIdService retrieveTradesmanByIdService;
     @Inject
     RetrieveTradesmenService retrieveTradesmenService;
+    @Inject
+    MatchTradesmenService matchTradesmenService;
+    @Inject
+    RetrieveTradesmanSkillsService retrieveTradesmanSkillsService;
 
     @Inject
     RetrieveAllInvoicesService retrieveAllInvoicesService;
@@ -42,11 +43,23 @@ final class QueryConfiguration {
     @Inject
     RetrieveInvoiceByIdService retrieveInvoiceByIdService;
 
+    @Inject
+    RetrieveContractorProjectsService retrieveContractorProjectsService;
+    @Inject
+    RetrieveProjectByIdService retrieveProjectByIdService;
+    @Inject
+    RetrieveProjectsService retrieveProjectsService;
+    @Inject
+    RetrieveTradesmanProjectsService retrieveTradesmanProjectsService;
+    @Inject
+    RetrieveProjectSkillsService retrieveProjectSkillsService;
+
     @Produces
     @Singleton
-    InvoicesQueryBus invoicesQueryBus() {
+    QueryBus queryBus() {
         Map<Class<? extends Query>, QueryHandler<? extends Query, ?>> queryMap = new HashMap<>();
 
+        // Invoices
         queryMap.put(RetrieveAllInvoices.class, retrieveAllInvoicesService);
         queryMap.put(RetrieveContractorsInvoices.class, retrieveContractorsInvoicesService);
         queryMap.put(RetrieveContractorInvoices.class, retrieveContractorInvoicesService);
@@ -54,28 +67,23 @@ final class QueryConfiguration {
         queryMap.put(RetrieveTradesmanInvoices.class, retrieveTradesmanInvoicesService);
         queryMap.put(RetrieveInvoiceById.class, retrieveInvoiceByIdService);
 
-        return new DefaultInvoicesQueryBus(queryMap);
-    }
-
-    @Produces
-    @Singleton
-    MembersQueryBus membersQueryBus() {
-        Map<Class<? extends Query>, QueryHandler<? extends Query, ?>> queryMap = new HashMap<>();
-
+        // Members
         queryMap.put(RetrieveContractorById.class, retrieveContractorByIdService);
         queryMap.put(RetrieveContractors.class, retrieveContractorsService);
         queryMap.put(RetrieveTradesmanById.class, retrieveTradesmanByIdService);
         queryMap.put(RetrieveTradesmen.class, retrieveTradesmenService);
+        queryMap.put(MatchTradesmen.class, matchTradesmenService);
+        queryMap.put(RetrieveTradesmanSkills.class, retrieveTradesmanSkillsService);
 
-        return new DefaultMembersQueryBus(queryMap);
+        // Payments
+
+        // Projects
+        queryMap.put(RetrieveContractorProjects.class, retrieveContractorProjectsService);
+        queryMap.put(RetrieveProjectById.class, retrieveProjectByIdService);
+        queryMap.put(RetrieveProjects.class, retrieveProjectsService);
+        queryMap.put(RetrieveTradesmanProjects.class, retrieveTradesmanProjectsService);
+        queryMap.put(RetrieveProjectSkills.class, retrieveProjectSkillsService);
+
+        return new DefaultQueryBus(queryMap);
     }
-
-    @Produces
-    @Singleton
-    PaymentQueryBus queryBus() {
-        Map<Class<? extends Query>, QueryHandler<? extends Query, ?>> queryMap = new HashMap<>();
-
-        return new DefaultPaymentQueryBus(queryMap);
-    }
-
 }

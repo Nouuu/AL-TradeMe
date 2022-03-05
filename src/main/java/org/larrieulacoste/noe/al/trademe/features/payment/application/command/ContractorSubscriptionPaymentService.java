@@ -1,14 +1,13 @@
 package org.larrieulacoste.noe.al.trademe.features.payment.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorNewSubscriptionPayment;
-import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorNewSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.api.PaymentAPI;
 import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Amount;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Objects;
@@ -24,16 +23,19 @@ public class ContractorSubscriptionPaymentService implements CommandHandler<Cont
         this.logger = logger;
         this.paymentAPI = Objects.requireNonNull(paymentAPI);
         this.eventBus = eventBus;
-        this.subscriptionAmount = membersSubscriptionAmount.contractorSubscriptionAmount;
+        this.subscriptionAmount = membersSubscriptionAmount.contractorSubscriptionAmount();
     }
 
 
     @Override
     public Void handle(ContractorSubscriptionPayment contractorSubscriptionPayment) {
-        logger.log(String.format("Process contractor payment subscription of : %s with %sf", contractorSubscriptionPayment.contractorId, contractorSubscriptionPayment.paymentMethod));
-        paymentAPI.pay(contractorSubscriptionPayment.paymentMethod, subscriptionAmount.value);
-        eventBus.publish(ContractorNewSubscriptionPayment.of(ContractorEventEntity.withEntityIdOnly(contractorSubscriptionPayment.contractorId),
-                contractorSubscriptionPayment.paymentMethod, subscriptionAmount));
+        logger.log(String.format("Process contractor payment subscription of : %s with %sf", contractorSubscriptionPayment.contractorId(), contractorSubscriptionPayment.paymentMethod()));
+        paymentAPI.pay(contractorSubscriptionPayment.paymentMethod(), subscriptionAmount.value());
+        eventBus.publish(ContractorNewSubscriptionPayment.of(
+                contractorSubscriptionPayment.contractorId(),
+                contractorSubscriptionPayment.paymentMethod(),
+                subscriptionAmount
+        ));
         return null;
     }
 }

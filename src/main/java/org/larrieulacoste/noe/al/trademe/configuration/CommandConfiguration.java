@@ -1,19 +1,16 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.larrieulacoste.noe.al.trademe.features.invoices.application.command.*;
-import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.DefaultInvoicesCommandBus;
-import org.larrieulacoste.noe.al.trademe.features.invoices.kernel.InvoicesCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.*;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.DefaultMembersCommandBus;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.ContractorSubscriptionPaymentService;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPayment;
 import org.larrieulacoste.noe.al.trademe.features.payment.application.command.TradesmanSubscriptionPaymentService;
-import org.larrieulacoste.noe.al.trademe.features.payment.kernel.DefaultPaymentCommandBus;
-import org.larrieulacoste.noe.al.trademe.features.payment.kernel.PaymentCommandBus;
+import org.larrieulacoste.noe.al.trademe.features.projects.application.command.*;
 import org.larrieulacoste.noe.al.trademe.kernel.command.Command;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
+import org.larrieulacoste.noe.al.trademe.kernel.command.DefaultCommandBus;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
@@ -45,6 +42,8 @@ final class CommandConfiguration {
     @Inject
     UpdateContractorSubscriptionStatusService updateContractorSubscriptionStatusService;
     @Inject
+    UpdateTradesmanAbilitiesService updateTradesmanAbilitiesService;
+    @Inject
     UpdateTradesmanSubscriptionStatusService updateTradesmanSubscriptionStatusService;
     @Inject
     DeleteTradesmanService deleteTradesmanService;
@@ -54,25 +53,40 @@ final class CommandConfiguration {
     DeleteTradesmanInvoicesService deleteTradesmanInvoicesService;
     @Inject
     DeleteContractorInvoicesService deleteContractorInvoicesService;
-
+    @Inject
+    TradesmanAssignProjectService tradesmanAssignProjectService;
+    @Inject
+    AssignTradesmanService assignTradesmanService;
+    @Inject
+    AddProjectProfessionService addProjectProfessionService;
+    @Inject
+    AddProjectRequiredSkillService addProjectRequiredSkillService;
+    @Inject
+    CloseProjectService closeProjectService;
+    @Inject
+    CreateProjectService createProjectService;
+    @Inject
+    RemoveProjectProfessionService removeProjectProfessionService;
+    @Inject
+    RemoveProjectRequiredSkillService removeProjectRequiredSkillService;
+    @Inject
+    UpdateProjectService updateProjectService;
+    @Inject
+    TerminateTradesmanService terminateTradesmanService;
+    @Inject
+    ReleaseTradesmanService releaseTradesmanService;
 
     @Produces
     @Singleton
-    InvoicesCommandBus invoicesCommandBus() {
+    CommandBus commandBus() {
         Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
 
+        // Invoices
         commandMap.put(CreateInvoice.class, createInvoiceService);
         commandMap.put(DeleteTradesmanInvoices.class, deleteTradesmanInvoicesService);
         commandMap.put(DeleteContractorInvoices.class, deleteContractorInvoicesService);
 
-        return new DefaultInvoicesCommandBus(commandMap);
-    }
-
-    @Produces
-    @Singleton
-    MembersCommandBus membersCommandBus() {
-        Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
-
+        // Members
         commandMap.put(CreateContractor.class, createContractorService);
         commandMap.put(CreateTradesman.class, createTradesmanService);
         commandMap.put(UpdateContractor.class, updateContractorService);
@@ -82,20 +96,26 @@ final class CommandConfiguration {
         commandMap.put(PublishContractorsPendingSubscriptionPayment.class, publishContractorsPendingSubscriptionPaymentService);
         commandMap.put(PublishTradesmenPendingSubscriptionPayment.class, publishTradesmenPendingSubscriptionPaymentService);
         commandMap.put(UpdateContractorSubscriptionStatus.class, updateContractorSubscriptionStatusService);
+        commandMap.put(UpdateTradesmanAbilities.class, updateTradesmanAbilitiesService);
         commandMap.put(UpdateTradesmanSubscriptionStatus.class, updateTradesmanSubscriptionStatusService);
+        commandMap.put(TradesmanAssignProject.class, tradesmanAssignProjectService);
+        commandMap.put(ReleaseTradesman.class, releaseTradesmanService);
 
-        return new DefaultMembersCommandBus(commandMap);
-    }
-
-    @Produces
-    @Singleton
-    PaymentCommandBus paymentCommandBus() {
-        Map<Class<? extends Command>, CommandHandler<? extends Command, ?>> commandMap = new HashMap<>();
-
+        // Payments
         commandMap.put(ContractorSubscriptionPayment.class, contractorSubscriptionPaymentService);
         commandMap.put(TradesmanSubscriptionPayment.class, tradesmanSubscriptionPaymentService);
 
-        return new DefaultPaymentCommandBus(commandMap);
-    }
+        // Projects
+        commandMap.put(AssignTradesman.class, assignTradesmanService);
+        commandMap.put(AddProjectProfession.class, addProjectProfessionService);
+        commandMap.put(AddProjectRequiredSkill.class, addProjectRequiredSkillService);
+        commandMap.put(CloseProject.class, closeProjectService);
+        commandMap.put(CreateProject.class, createProjectService);
+        commandMap.put(RemoveProjectProfession.class, removeProjectProfessionService);
+        commandMap.put(RemoveProjectRequiredSkill.class, removeProjectRequiredSkillService);
+        commandMap.put(UpdateProject.class, updateProjectService);
+        commandMap.put(TerminateTradesman.class, terminateTradesmanService);
 
+        return new DefaultCommandBus(commandMap);
+    }
 }

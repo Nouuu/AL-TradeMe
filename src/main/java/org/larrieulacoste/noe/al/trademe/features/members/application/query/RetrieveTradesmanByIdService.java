@@ -16,6 +16,6 @@ public class RetrieveTradesmanByIdService implements QueryHandler<RetrieveTrades
 
     @Override
     public Tradesman handle(RetrieveTradesmanById query) {
-        return tradesmen.byId(query.tradesmanId);
+        return tradesmen.byId(query.tradesmanId());
     }
 }

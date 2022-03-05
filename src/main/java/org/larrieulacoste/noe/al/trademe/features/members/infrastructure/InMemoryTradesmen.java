@@ -1,11 +1,12 @@
 package org.larrieulacoste.noe.al.trademe.features.members.infrastructure;
 
-import org.larrieulacoste.noe.al.trademe.domain.exception.UserNotFoundException;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesmen;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public final class InMemoryTradesmen implements Tradesmen {
     public void save(Tradesman tradesman) {
         logger.log("Saving tradesman in memory repository : " + tradesman);
 
-        data.put(Objects.requireNonNull(tradesman).entityId, tradesman);
+        data.put(Objects.requireNonNull(tradesman).entityId(), tradesman);
     }
 
     @Override
@@ -34,19 +35,19 @@ public final class InMemoryTradesmen implements Tradesmen {
 
         final Tradesman tradesman = data.get(Objects.requireNonNull(entityId));
         if (tradesman == null) {
-            throw new UserNotFoundException("No tradesman for " + entityId.value);
+            throw new UserNotFoundException("No tradesman for " + entityId.value());
         }
         return tradesman;
     }
 
     @Override
     public List<Tradesman> findAll() {
-        return List.copyOf(data.values());
+        return new ArrayList<>(data.values());
     }
 
     @Override
     public void remove(Tradesman item) {
-        data.remove(item.entityId);
+        data.remove(item.entityId());
     }
 
     @Override

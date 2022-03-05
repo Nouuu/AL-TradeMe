@@ -1,41 +1,24 @@
 package org.larrieulacoste.noe.al.trademe.features.members.domain;
 
-import org.larrieulacoste.noe.al.trademe.domain.exception.InvalidEmailException;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.ValidatorsFactory;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.InvalidEmailException;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 
-public final class EmailAddress {
-    public final String value;
+import java.util.Objects;
 
-    private EmailAddress(String value) {
-        if (!ValidatorsFactory.getStringValidatorsInstance().isEmail(value)) {
+public record EmailAddress(String value) {
+
+    public EmailAddress {
+        Objects.requireNonNull(value);
+    }
+
+    private EmailAddress(String value, StringValidators stringValidators) {
+        this(value);
+        if (!stringValidators.isEmail(value)) {
             throw new InvalidEmailException("Invalid email : " + value);
         }
-        this.value = value;
     }
 
-    public static EmailAddress of(String emailAddress) {
-        return new EmailAddress(emailAddress);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EmailAddress)) return false;
-
-        EmailAddress that = (EmailAddress) o;
-
-        return value.equals(that.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "EmailAddress{" +
-                "value='" + value + '\'' +
-                '}';
+    public static EmailAddress of(String emailAddress, StringValidators stringValidators) {
+        return new EmailAddress(emailAddress, stringValidators);
     }
 }

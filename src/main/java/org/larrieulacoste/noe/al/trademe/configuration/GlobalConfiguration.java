@@ -1,12 +1,16 @@
 package org.larrieulacoste.noe.al.trademe.configuration;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.larrieulacoste.noe.al.trademe.domain.model.Amount;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.ContractorBuilder;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.TradesmanBuilder;
 import org.larrieulacoste.noe.al.trademe.features.payment.domain.MembersSubscriptionAmount;
+import org.larrieulacoste.noe.al.trademe.features.projects.domain.ProjectBuilder;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.JBossLoggerFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
+import org.larrieulacoste.noe.al.trademe.kernel.validators.*;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.Amount;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
@@ -17,7 +21,7 @@ import javax.inject.Singleton;
 final class GlobalConfiguration {
 
     private final LoggerFactory loggerFactory = new JBossLoggerFactory();
-
+    
     @ConfigProperty(name = "contractor.payment.monthly.amount")
     double contractorMonthlySubscriptionAmount;
     @ConfigProperty(name = "tradesman.payment.monthly.amount")
@@ -28,8 +32,7 @@ final class GlobalConfiguration {
     MembersSubscriptionAmount membersSubscriptionAmount() {
         return MembersSubscriptionAmount.of(
                 Amount.of(contractorMonthlySubscriptionAmount),
-                Amount.of(tradesmanMonthlySubscriptionAmount)
-        );
+                Amount.of(tradesmanMonthlySubscriptionAmount));
     }
 
     @Produces
@@ -42,5 +45,35 @@ final class GlobalConfiguration {
     @Produces
     Logger loggerWithoutQualifier(InjectionPoint injectionPoint) {
         return loggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
+    }
+
+    @Produces
+    DateValidators dateValidators() {
+        return new SimpleDateValidators();
+    }
+
+    @Produces
+    StringValidators stringValidators() {
+        return new SimpleStringValidators();
+    }
+
+    @Produces
+    PaymentInformationsValidator paymentInformationsValidator() {
+        return new SimplePaymentInformationsValidator();
+    }
+
+    @Produces
+    TradesmanBuilder tradesmanBuilder() {
+        return new TradesmanBuilder(stringValidators(), dateValidators());
+    }
+
+    @Produces
+    ContractorBuilder contractorBuilder() {
+        return new ContractorBuilder(stringValidators());
+    }
+
+    @Produces
+    ProjectBuilder projectBuilder() {
+        return new ProjectBuilder(stringValidators(), dateValidators());
     }
 }

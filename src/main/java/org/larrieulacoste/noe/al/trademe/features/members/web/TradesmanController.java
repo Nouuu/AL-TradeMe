@@ -1,36 +1,55 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
-
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.larrieulacoste.noe.al.trademe.domain.model.EntityId;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.CreateTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.DeleteTradesman;
 import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesman;
+import org.larrieulacoste.noe.al.trademe.features.members.application.command.UpdateTradesmanAbilities;
+import org.larrieulacoste.noe.al.trademe.features.members.application.query.MatchTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanById;
+import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmanSkills;
 import org.larrieulacoste.noe.al.trademe.features.members.application.query.RetrieveTradesmen;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Tradesman;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersCommandBus;
-import org.larrieulacoste.noe.al.trademe.features.members.kernel.MembersQueryBus;
+import org.larrieulacoste.noe.al.trademe.kernel.command.CommandBus;
+import org.larrieulacoste.noe.al.trademe.kernel.query.QueryBus;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("tradesman")
+@Produces(MediaType.APPLICATION_JSON)
 public final class TradesmanController {
-    private final MembersQueryBus queryBus;
-    private final MembersCommandBus commandBus;
+    private final QueryBus queryBus;
+    private final CommandBus commandBus;
 
-    TradesmanController(MembersQueryBus queryBus, MembersCommandBus commandBus) {
+    TradesmanController(QueryBus queryBus, CommandBus commandBus) {
         this.queryBus = queryBus;
         this.commandBus = commandBus;
+    }
+
+    @POST
+    @Path("match")
+    @Operation(summary = "Match tradesmen", description = "Retrieve tradesmen matching abilities criterion")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public TradesmenResponse matchTradesman(MatchTradesmanRequest projectCriterion) {
+        List<Tradesman> tradesmen = queryBus.send(new MatchTradesmen(projectCriterion.projectId(),
+                projectCriterion.requiredSkills(),
+                projectCriterion.requiredProfessions(),
+                projectCriterion.startDate(),
+                projectCriterion.endDate(),
+                projectCriterion.dailyRate(),
+                projectCriterion.latitude(),
+                projectCriterion.longitude(),
+                projectCriterion.locationName()));
+
+        return getTradesmenResponse(tradesmen);
     }
 
     @GET
     @Path("{userId}")
     @Operation(summary = "Retrieve tradesman by ID", description = "Retrieve tradesman giving tradesman's ID")
-    @Produces(MediaType.APPLICATION_JSON)
     public TradesmanResponse getById(@PathParam("userId") String userId) {
         Tradesman tradesman = queryBus.send(new RetrieveTradesmanById(EntityId.of(userId)));
         return getTradesmanResponse(tradesman);
@@ -38,42 +57,71 @@ public final class TradesmanController {
 
     @GET
     @Operation(summary = "Retrieve tradesmen", description = "Retrieve all tradesmen")
-    @Produces(MediaType.APPLICATION_JSON)
     public TradesmenResponse getAll() {
         List<Tradesman> tradesmen = queryBus.send(new RetrieveTradesmen());
 
         return getTradesmenResponse(tradesmen);
     }
 
+    @GET
+    @Path("{tradesmanId}/skills")
+    @Operation(summary = "Get tradesman skills", description = "Retrieve all skills from a tradesman")
+    public List<TradesmanSkillResponse> getTradesmanSkills(@PathParam("tradesmanId") String tradesmanId) {
+        List<Skill> tradesmanSkills = queryBus.send(new RetrieveTradesmanSkills(tradesmanId));
+
+        return getTradesmanSkillResponses(tradesmanId, tradesmanSkills);
+    }
+
     @POST
     @Operation(summary = "Create tradesman", description = "Register a new tradesman to TradeMe")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public TradesmanResponse register(TradesmanRequest tradesman) {
-        EntityId userId = commandBus.send(new CreateTradesman(
-                tradesman.firstname,
-                tradesman.lastname,
-                tradesman.email,
-                tradesman.password,
-                tradesman.paymentMethodType,
-                tradesman.paymentMethodRessource));
-
-        return new TradesmanResponse(userId.value, null, null, null);
+    public EntityId register(TradesmanRequest tradesman) {
+        return commandBus.send(new CreateTradesman(
+                tradesman.firstname(),
+                tradesman.lastname(),
+                tradesman.email(),
+                tradesman.password(),
+                tradesman.paymentMethodType(),
+                tradesman.paymentMethodRessource(),
+                tradesman.profession(),
+                tradesman.longitude(),
+                tradesman.latitude(),
+                tradesman.activityRadius(),
+                tradesman.dailyRate(),
+                tradesman.locationName()));
     }
 
     @PUT
     @Path("{tradesmanId}")
     @Operation(summary = "Update tradesman", description = "Update tradesman in TradeMe")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public TradesmanResponse update(@PathParam("tradesmanId") String tradesmanId, TradesmanRequest tradesman) {
         Tradesman updatedTradesman = commandBus.send(new UpdateTradesman(
                 tradesmanId,
-                tradesman.firstname,
-                tradesman.lastname,
-                tradesman.email,
-                tradesman.password
-        ));
+                tradesman.firstname(),
+                tradesman.lastname(),
+                tradesman.email(),
+                tradesman.password(),
+                tradesman.locationName(),
+                tradesman.longitude(),
+                tradesman.latitude()));
+
+        return getTradesmanResponse(updatedTradesman);
+    }
+
+    @PUT
+    @Path("abilities/{tradesmanId}")
+    @Operation(summary = "Update tradesman abilities", description = "Update tradesman abilities in TradeMe")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public TradesmanResponse updateAbilities(@PathParam("tradesmanId") String tradesmanId,
+                                             TradesmanAbilitiesRequest abilities) {
+        Tradesman updatedTradesman = commandBus.send(new UpdateTradesmanAbilities(
+                tradesmanId,
+                abilities.profession(),
+                null,
+                abilities.activityRadius(),
+                abilities.dailyRate(),
+                null));
 
         return getTradesmanResponse(updatedTradesman);
     }
@@ -81,26 +129,50 @@ public final class TradesmanController {
     @DELETE
     @Path("{tradesmanId}")
     @Operation(summary = "Delete tradesman", description = "Delete tradesman from TradeMe")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public TradesmanResponse delete(@PathParam("tradesmanId") String tradesmanId) {
+    public EntityId delete(@PathParam("tradesmanId") String tradesmanId) {
         commandBus.send(new DeleteTradesman(tradesmanId));
 
-        return new TradesmanResponse(tradesmanId, null, null, null);
+        return EntityId.of(tradesmanId);
+    }
+
+    private List<TradesmanSkillResponse> getTradesmanSkillResponses(String tradesmanId, List<Skill> skills) {
+        return skills.stream()
+                .map(skill -> new TradesmanSkillResponse(tradesmanId, skill.skillName().value(), skill.requiredLevel()))
+                .toList();
     }
 
     private TradesmenResponse getTradesmenResponse(List<Tradesman> tradesmen) {
         return new TradesmenResponse(
-                tradesmen.stream().map(this::getTradesmanResponse).collect(Collectors.toList()),
+                tradesmen.stream().map(this::getTradesmanResponse).toList(),
                 tradesmen.size());
     }
 
     private TradesmanResponse getTradesmanResponse(Tradesman tradesman) {
         return new TradesmanResponse(
-                tradesman.entityId.value,
-                tradesman.firstname.value,
-                tradesman.lastname.value,
-                tradesman.email.value
-        );
+                tradesman.entityId().value(),
+                tradesman.firstname().value(),
+                tradesman.lastname().value(),
+                tradesman.email().value(),
+                tradesman.professionalAbilities().profession().professionName().value(),
+                tradesman.professionalAbilities().dailyRate().amount().value(),
+                tradesman.address().coordinate().longitude(),
+                tradesman.address().coordinate().latitude(),
+                tradesman.address().locationName().value(),
+                getSkillResponses(tradesman.professionalAbilities().skills()),
+                getPeriodResponses(tradesman.professionalAbilities().unavailability()));
+    }
+
+    private List<PeriodResponse> getPeriodResponses(List<Period> periods) {
+        return periods.stream()
+                .map(period -> new PeriodResponse(period.startDate(), period.endDate())).toList();
+    }
+
+    private List<SkillResponse> getSkillResponses(List<Skill> skills) {
+        return skills.stream()
+                .map(skill -> new SkillResponse(
+                        skill.skillName().value(),
+                        skill.requiredLevel()))
+                .toList();
     }
 }

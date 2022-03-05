@@ -1,25 +1,21 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
-final class TradesmanResponse {
-    public final String userId;
-    public final String firstname;
-    public final String lastname;
-    public final String email;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PeriodResponse;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillResponse;
 
-    TradesmanResponse(String userId, String firstname, String lastname, String email) {
-        this.userId = userId;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-    }
+import java.util.List;
 
-    @Override
-    public String toString() {
-        return "Tradesman{" +
-                "userId='" + userId + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+record TradesmanResponse(
+    String userId,
+    String firstname,
+    String lastname,
+    String email,
+    String profession,
+    Double dailyRate,
+    Double longitude,
+    Double latitude,
+    String locationName,
+    List<SkillResponse> skillResponse,
+    List<PeriodResponse> unavailability) {
+
 }

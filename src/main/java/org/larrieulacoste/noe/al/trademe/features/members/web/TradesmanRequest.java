@@ -1,25 +1,20 @@
 package org.larrieulacoste.noe.al.trademe.features.members.web;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import org.larrieulacoste.noe.al.trademe.domain.model.PaymentMethodType;
+import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PaymentMethodType;
 
-final class TradesmanRequest {
-    public final String userId;
-    public final String firstname;
-    public final String lastname;
-    public final String email;
-    public final String password;
-    @Schema(anyOf = PaymentMethodType.class)
-    public final String paymentMethodType;
-    public final String paymentMethodRessource;
-
-    TradesmanRequest(String userId, String firstname, String lastname, String email, String password, String paymentMethodType, String paymentMethodRessource) {
-        this.userId = userId;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.paymentMethodType = paymentMethodType;
-        this.paymentMethodRessource = paymentMethodRessource;
-    }
+record TradesmanRequest(
+        String userId,
+        @Schema(defaultValue = "firstname") String firstname,
+        @Schema(defaultValue = "lastname") String lastname,
+        @Schema(defaultValue = "mail@mail.com") String email,
+        @Schema(defaultValue = "passworD@123") String password,
+        @Schema(anyOf = PaymentMethodType.class) String paymentMethodType,
+        String paymentMethodRessource,
+        @Schema(defaultValue = "Plumber") String profession,
+        @Schema(defaultValue = "2") Double longitude,
+        @Schema(defaultValue = "48") Double latitude,
+        @Schema(defaultValue = "10") Double activityRadius,
+        @Schema(defaultValue = "50") Double dailyRate,
+        @Schema(defaultValue = "Paris") String locationName) {
 }

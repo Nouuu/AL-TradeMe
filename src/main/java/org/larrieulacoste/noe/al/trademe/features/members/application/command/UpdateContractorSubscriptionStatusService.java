@@ -1,8 +1,8 @@
 package org.larrieulacoste.noe.al.trademe.features.members.application.command;
 
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorEventEntity;
-import org.larrieulacoste.noe.al.trademe.application.event.ContractorUpdated;
+import org.larrieulacoste.noe.al.trademe.domain.event.ContractorUpdated;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractor;
+import org.larrieulacoste.noe.al.trademe.features.members.domain.ContractorBuilder;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
@@ -12,38 +12,35 @@ import javax.enterprise.context.ApplicationScoped;
 import java.util.Objects;
 
 @ApplicationScoped
-public class UpdateContractorSubscriptionStatusService implements CommandHandler<UpdateContractorSubscriptionStatus, Void> {
+public class UpdateContractorSubscriptionStatusService
+        implements CommandHandler<UpdateContractorSubscriptionStatus, Void> {
     private final Contractors contractors;
     private final EventBus<ApplicationEvent> eventBus;
+    private final ContractorBuilder contractorBuilder;
 
-    UpdateContractorSubscriptionStatusService(Contractors contractors, EventBus<ApplicationEvent> eventBus) {
+    UpdateContractorSubscriptionStatusService(Contractors contractors, EventBus<ApplicationEvent> eventBus,
+                                              ContractorBuilder contractorBuilder) {
         this.contractors = Objects.requireNonNull(contractors);
         this.eventBus = eventBus;
+        this.contractorBuilder = Objects.requireNonNull(contractorBuilder);
     }
 
     @Override
     public Void handle(UpdateContractorSubscriptionStatus command) {
-        Contractor contractor = contractors.byId(command.contractorId);
+        Contractor contractor = contractors.byId(command.contractorId());
+        contractorBuilder.clear();
+        contractorBuilder.withContractor(contractor).withSubscriptionStatus(command.subscriptionStatus());
 
-        Contractor updatedContractor = Contractor.of(
-                contractor.entityId,
-                contractor.lastname,
-                contractor.firstname,
-                contractor.email,
-                contractor.password,
-                command.subscriptionStatus,
-                contractor.paymentMethod
-        );
+        Contractor updatedContractor = contractorBuilder.build(contractor.entityId());
 
         contractors.save(updatedContractor);
-        eventBus.publish(ContractorUpdated.withContractor(ContractorEventEntity.of(
-                contractor.entityId,
-                contractor.lastname.value,
-                contractor.firstname.value,
-                contractor.email.value,
-                contractor.password.value,
-                contractor.paymentMethod
-        )));
+        eventBus.publish(ContractorUpdated.of(
+                contractor.entityId(),
+                contractor.firstname().value(),
+                contractor.lastname().value(),
+                contractor.email().value(),
+                contractor.paymentMethod()
+        ));
         return null;
     }
 }
