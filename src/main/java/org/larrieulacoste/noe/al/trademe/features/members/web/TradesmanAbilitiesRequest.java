@@ -11,6 +11,5 @@ record TradesmanAbilitiesRequest(
         List<SkillRequest> skills,
         @Schema(defaultValue = "10") Double activityRadius,
         @Schema(defaultValue = "50") Double dailyRate,
-        List<PeriodRequest> unavailabilityPeriods
 ) {
 }
