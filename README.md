@@ -120,19 +120,19 @@
 
 ## Onion Architecture
 
-Pour mener a bien le projet l'on s'est inspiré de concepte qui vennent des architectures ditent **clean** et de garder ces 3 objectifs en tête.
+Pour mener a bien le projet l'on s'est inspiré de concept qui viennent des architectures dites **clean** et de garder ces 3 objectifs en tête.
 
-1. être indépendent du framework et des librairies externe.
-2. Testable: Il doit être facile d'ajouté des test dans la base de code.
-3. être indénpendant de la manière dont on fait persisté nos données.
+1. Être independent du framework et des librairies externe.
+2. Testable : Il doit être facile d'ajouté des tests dans la base de code.
+3. Être independent de la manière dont on fait persister nos données.
 
 ## Domain-Driven Design
 
-Lors de la conception du projet on a essayer d'utiliser une approche piloté par les usecase et le Domaine, en suivant ce que l'on connaissant du **DDD** (**Domain-Driven Design**) et fonctionnant avec des aggregats.
+Lors de la conception du projet on a essayé d'utiliser une approche pilotée par les usecase et le Domaine, en suivant ce que l'on connaissait du **DDD** (**Domain-Driven Design**) et fonctionnant avec des aggregates.
 
-En utilisant ubiquitous language, pour parger un language comment au seins de l'équipe, qui est le langauge du métier.
+En utilisant ubiquitous langage, pour partager un langage comment au sein de l'équipe, qui est le langage du métier.
 
-On a bien séparé nos features dans des **bounded context** qui partage ce qu'il ont en commun (les **events** et certain **model interne**) via le **shared kernel**.
+On a bien séparé nos features dans des **bounded context** qui partage ce qu'ils ont en commun (les **events** et certain **model interne**) via le **shared kernel**.
 
 ## Staged event-driven architecture
 
