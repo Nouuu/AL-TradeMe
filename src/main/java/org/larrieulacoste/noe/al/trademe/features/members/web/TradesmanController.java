@@ -118,7 +118,7 @@ public final class TradesmanController {
         Tradesman updatedTradesman = commandBus.send(new UpdateTradesmanAbilities(
                 tradesmanId,
                 abilities.profession(),
-                abilities.skills(),
+                null,
                 abilities.activityRadius(),
                 abilities.dailyRate(),
                 null));
