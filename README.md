@@ -10,6 +10,14 @@
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |            |                                                                                                                                                                                                                                      | [![Code smells](https://sonar.nospy.fr/api/project_badges/measure?branch=dev&project=Nouuu_AL-TradeMe&metric=code_smells&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=dev)             |                                                                                                                                                                                                                                                     | [![Bugs](https://sonar.nospy.fr/api/project_badges/measure?branch=dev&project=Nouuu_AL-TradeMe&metric=bugs&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=dev)                             | [![Vulnerabilities](https://sonar.nospy.fr/api/project_badges/measure?branch=dev&project=Nouuu_AL-TradeMe&metric=vulnerabilities&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=dev) |
 |            |                                                                                                                                                                                                                                      | [![Technical Debt](https://sonar.nospy.fr/api/project_badges/measure?branch=dev&project=Nouuu_AL-TradeMe&metric=sqale_index&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=dev)          |                                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                    |
+# Plan
+
+[TOC]
+
+# Fonctionnalités
+
+TODO
+
 # Architecture choisie
 
 ## Hexagonal Architecture
@@ -88,11 +96,11 @@ Pour le moment, une seule API est présente, celle du **paiement** qui peut pote
 
 ### Configuration
 
-Ce package est celui qui permet le maillage entre toute nos interfaces et leurs implémentation, c'es lui qui va gérer le contexte et l'injection de dépendances.
+Ce package est celui qui permet le maillage entre toutes nos interfaces et leurs implémentations, c'est lui qui va gérer le contexte et l'injection de dépendances.
 
 ### Domain
 
-Ce package contient tout les modèles du domaines métier de notre application. C'est également celui qui contient les différentes interfaces qui peuvent être injectés dans nos services applicatifs (ex: Les interfaces des repositories).
+Ce package contient tout les modèles du domaine métier de notre application. C'est également celui qui contient les différentes interfaces qui peuvent être injectés dans nos services applicatifs (ex: Les interfaces des repositories).
 
 #### Event
 
@@ -146,6 +154,14 @@ Actuellement l'implémentation stoque les entités en mémoire et se vide quand 
 
 Ce package contient les différentes interfaces et leurs implémentations de fonctions "utilitaires" qui pourront être exploité par nos services applicatifs et autre afin d'assurer un fonctionnement correct de notre application.
 
+#### IO
+
+TODO
+
+#### Serializer
+
+TODO
+
 #### Exception handler
 
 Ce package contient également des intercepteurs permettant d'intercepter les exceptions métiers lancés dans le programme afin d'en avoir un traitement centralisé pour logger l'erreur et faire un retour adapté pour l'utilisateur.
@@ -158,11 +174,12 @@ Apporte des fonctions utilitaire de validation de nos différentes entités du d
 
 Exemple : Lors de la vérification d'un champs, le programme jouera le diagramme de séquence suivant :
 
-![MemberValidationService_email.png](D:\Projets\AL-TradeMe\assets\5c7cc1b9735a6d60726007287ea148f0f0509299.png)
+![MemberValidationService_email.png](assets/5c7cc1b9735a6d60726007287ea148f0f0509299.png)
 
 #### Command
 
-Ce package contient la logique d'exécution d'une commande et le bus qui y est associé. Ce dernier possède sa propre implémentation dans chaque **features** et est injecté grâce au package configuration qui aura configuré le maillage correctement entre les commandes et les services associés.
+Ce package contient la logique d'exécution d'une commande et le bus qui y est associé. Ce dernier possède une implémentation global à chaque features et est injecté grâce au package configuration qui aura configuré le maillage
+correctement entre les commandes et les services associés.
 
 Le comportement suivant est observé :
 
@@ -174,9 +191,8 @@ Création d'un contractor :
 
 #### Query
 
-Ce package contient la logique d'exécution d'une requête et le bus qui y est associé. Ce dernier possède sa propre implémentation dans chaque **features** et est injecté grâce au package configuration qui aura configuré le maillage correctement entre les requêtes et les services associés.
-
-Le comportement suivant est observé :
+Ce package contient la logique d'exécution d'une requête et le bus qui y est associé. Ce dernier possède une implémentation global à chaque features et est injecté grâce au package configuration qui aura configuré le maillage
+correctement entre les requêteset les services associés. Le comportement suivant est observé :
 
 <img title="" src="./assets/226848c6adb9c7b64e310525ca2fe3cc8b8c5654.png" alt="DefaultQueryBus_send.png" width="386" data-align="inline">
 
@@ -199,6 +215,10 @@ Comportement du bus d'événement par défaut :
 En utilisant le **pattern strategy** ainsi que **factory**, ce package permet à une classe d'obtenir un logger qui lui est propre grâce au **LoggerFactory**. Les interfaces font parties du **domaine** et leurs implémentation de **l'infrastructure**. Actuellement l'implémentation présente réutilise le la classe **Logger** **de Java**.
 
 Une deuxième implémentation utilise le logger **JBoss** qui permet d'avoir des logs formattés autrement en console, en plus de les écrire dans un fichier de logs en temps réel afin de garder une trace du comportement de l'application et des éventuelles erreurs.
+
+### Shared kernel
+
+Ce package est présent sur le niveau le plus haut de l'application, avant les **features**. Ce dernier contient les entités qui sont partagées entre les différents usecases.
 
 ### Web
 
@@ -237,13 +257,13 @@ C'est lui qui va injecter les bean dites "globals" tel que le logger ou encore l
 
 ### APIConfiguration
 
-Comme son nom l'indique, inject les différents API nécéssaire au bon foncitonnement de l'application, actuellement il n'y a que l'API de paiement qui est injecté, mais d'autres peuvent être amené à être créés...
+Comme son nom l'indique, inject les différents API nécéssaire au bon fonctionnement de l'application, actuellement il n'y a que l'API de paiement qui est injecté, mais d'autres peuvent être amené à être créés...
 
 <img src="assets/README/APIConfiguration.png" alt="APIConfiguration" style="zoom:50%;" />
 
 ### CommandConfiguration
 
-Injete les différents bus de commandes selon la feature, la configuration aura fait au préalable le maillage nécéssaire entre les commandes et les services applicatifs.
+Injecte les différents bus de commandes selon la feature, la configuration aura fait au préalable le maillage nécessaire entre les commandes et les services applicatifs.
 
 <img src="assets/README/CommandConfiguration.png" alt="CommandConfiguration" style="zoom:50%;" />
 
@@ -266,11 +286,17 @@ Injecte les différents repositories au sein des services qui en ont besoin :
 
 <img src="assets/README/RepositoryConfiguration.png" alt="RepositoryConfiguration" style="zoom:50%;" />
 
+### IOConfiguration
+
+TODO
+
 # Tests unitaires
 
-Afin d'assurer le bon fonctionnement et grâce au découpage de nos composants, l'application est couverte par des tests unitaires ( qui se lancent d'ailleurs automatiquement à chaque push sur github grâce à des **actions de CI** )
+Afin d'assurer le bon fonctionnement et grâce au découpage de nos composants, l'application est couverte par des tests unitaires ( qui se lancent d'ailleurs automatiquement à chaque push sur github grâce à des **actions de CI** ). Nous utilisons CodeCov pour analyser les rapports de tests unitaires au moment de push ou de pull requests
 
 ![image-20220109160441842](assets/README/image-20220109160441842.png)
+
+![image-20220305134206216](assets/README/image-20220305134206216.png)
 
 | Branche DEV                                                  | Branch MAIN                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
