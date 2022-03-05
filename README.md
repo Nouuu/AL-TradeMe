@@ -242,7 +242,7 @@ Ces dernières ne peuvent utiliser les ressources uniquement de l'application pr
 
 Ces dernières reprennent chacune les différents packages (domain, infrastructure, kernel, ...) selon leurs besoins.
 
-Actuellement, il existe 3 features :
+Actuellement, il existe 4 features :
 
 - **Invoices** qui gère la génération et récupération des factures lors d'un paiement d'un utilisateur
 - **Member** qui gère les utilisateurs de TradeMe (CRUD)
