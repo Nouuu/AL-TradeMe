@@ -13,19 +13,18 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
 @Dependent
-final class IOConfiguration {
+final class MarshallerConfiguration {
+
+    private final ObjectMapper mapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
 
     @Produces
-    @FileQualifier("")
-    Reader reader(InjectionPoint injectionPoint) {
-        String path = "repositories/" + injectionPoint.getAnnotated().getAnnotation(FileQualifier.class).value();
-        return new FileReader(path);
+    SerializationEngine serializer() {
+        return new JSONSerializationEngine(mapper);
     }
 
     @Produces
-    @FileQualifier("")
-    Writer writer(InjectionPoint injectionPoint) {
-        String path = "repositories/" + injectionPoint.getAnnotated().getAnnotation(FileQualifier.class).value();
-        return new FileWriter(path);
+    DeserializationEngine deserializer() {
+        return new JSONDeserializationEngine(mapper);
     }
 }
