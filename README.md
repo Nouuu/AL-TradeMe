@@ -14,9 +14,56 @@
 
 [TOC]
 
-# Fonctionnalités
+# Fonctionnalités métiers
 
-TODO
+## Membres
+
+- Ajouter / Modifier / Supprimer un **Contractor**
+- Ajouter / Modifier / Supprimer un **Tradesman**
+- Faire une demande de paiement pour un **Contractor**
+- Faire une demande de paiement pour un **Tradesman**
+- Libérer un **Tradesman** d'un **Projet**
+- Assigner un **Tradesman** à un **Projet**
+- Mettre à jour les attributs professionnel d'un **Tradesman**
+- Mettre à jour le statut de paiement d'un **Tradesman**
+- Mettre à jour le statut de paiement d'un **Contractor**
+- Trouver un **Tradesman** qui match pour un **Projet**
+- Récupérer un **Tradesman**
+- Récupérer tout les **Tradesman**
+- Récupérer les compétences d'un **Tradesman**
+- Récupérer un **Contractor**
+- Récupérer tout les **Contractor**
+
+## Paiement
+
+- Payer un abonnement pour un **Contractor**
+- Payer un abonnement pour un **Tradesman**
+
+## Factures
+
+- Créer une **facture**
+- Supprimer les **factures** d'un **Contractor**
+- Supprimer les **factures** d'un **Tradesman** 
+- Récupérer toute les **factures**
+- Récupérer les **factures** des **Tradesman**
+- Récupérer les **factures** des **Contractor**
+- Récupérer les **factures** d'un **Tradesman**
+- Récupérer les **factures** d'un **Contractor**
+- Récupérer une **facture**
+
+## Projets
+
+- Ajouter / Modifier un **Projet**
+- Terminer un **Projet**
+- Ajouter / Retirer un métier au **Projet**
+- Ajouter / Modifier / Retirer une compétence requise à un **Projet**
+- Assigner un **Tradesman** à un **Projet**
+- Enlever un **Tradesman** du **Projet**
+- Récupérer les **Projets**
+- Récupérer un **Projet**
+- Récupérer les **Projets** d'un **Contractor**
+- Récupérer les **Projets** d'un **Tradesman**
+- Récupérer les compétences requises d'un **Projet**
 
 # Architecture choisie
 
@@ -144,11 +191,14 @@ Actuellement, il existe 3 features :
 
 #### Repositories
 
-Ce package permet d'avoir une **persistance des données** entités de l'application.
-
 Pour cela on utilise le **pattern repository et strategy** afin de **séparer son interface**, qui restera dans le **domaine**, de son implémentation dans **l'infrastructure**.
 
-Actuellement l'implémentation stoke les entités en mémoire et se vide quand l'application s'arrête.
+Actuellement, il existe deux implémentations de cette interface :
+
+- Une en mémoire : les entités en mémoire et se vide quand l'application s'arrête.
+- Une grâce à un fichier JSON, qui persiste à arrêt de l'application et se charge au démarrage.
+
+Il est possible de switcher entre l'un et l'autre grâce à la propriété `repository.in-memory=true|false` dans le fichier `application.properties`
 
 ### Kernel
 
