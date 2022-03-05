@@ -94,6 +94,12 @@ De cette manière, nous pouvons gérer grâce à un maillage entre événement e
 
 Un des nombreux avantages que cela représente et le découpage de notre application qui devient beaucoup plus simple, et qui se prête naturellement aux **micro services**.
 
+## Architectural Decision Record
+
+Voilà quelques décisions d'architecture que nous avons pris pendant le développement du projet :
+
+- 
+
 # Implémentation
 
 ## Dependency Inversion Principle
@@ -182,10 +188,9 @@ Ces dernières reprennent chacune les différents packages (domain, infrastructu
 Actuellement, il existe 3 features :
 
 - **Invoices** qui gère la génération et récupération des factures lors d'un paiement d'un utilisateur
-
 - **Member** qui gère les utilisateurs de TradeMe (CRUD)
-
 - **Payment** qui s'occupe d'effectuer les paiements lorsque cela est nécessaire.
+- **Projects** qui gère les projets de l'application
 
 ### Infrastructure
 
@@ -291,11 +296,18 @@ puissante, l'application est soutenue par le framework **Quarkus**.
 Ce dernier sert à :
 
 - Gérer les controller web ainsi que le sérialiseur / désérialiser JSON grâce à **Jackson**
+
 - Configurer les différentes **bean** pour l'injection de dépendances au sein des différents services (package configuration)
+
 - Gérer le **Scheduler** qui permet de lancer les paiements mensuels.
+
 - Intégrer le logger **JBoss** plus facilement.
+
 - Intégrer **Swagger** plus facilement grâce à des annotations sur les controller
+
 - Gérer certain paramètre de l'application à la volée sans devoir recompiler le code tout le temps grâce à un fichier de configuration **application.properties** (configuration swagger, gestion du prix des abonnements, du jour de paiement, du formatage et du stockage des logs).
+
+  <img src="assets/README/image-20220305155344800.png" alt="image-20220305155344800" style="zoom:67%;" />
 
 Le découpage de l'application en amont a permis une intégration très simple de Quarkus. L'application ne dépend pas de quarkus mais utilise simplement le framework comme une implémentation de la solution.
 
@@ -367,11 +379,15 @@ Afin d'assurer le bon fonctionnement et grâce au découpage de nos composants, 
 
 # Swagger
 
-Lorsque l'application est lancée avec le profil **dev** cette dernière rend accessible une page web swagger-ui afin de pouvoir tester directement nos interfaces REST et visualiser nos entités pour les requêtes, ainsi que ceux en réponse.
+Lorsque l'application est lancée avec le profil **dev** ou **test** cette dernière rend accessible une page web swagger-ui afin de pouvoir tester directement nos interfaces REST et visualiser nos entités pour les requêtes, ainsi que ceux en réponse.
 
-Le swagger est accessible à l'adresse suivante : http://localhost:8080/q/swagger-ui/#/
+Le Swagger est configurables grâce à quelques propriétés dans le fichier `application.properties` :
 
-![image-20220109155428489](assets/README/image-20220109155428489.png)
+<img src="assets/README/image-20220305155045674.png" alt="image-20220305155045674" style="zoom:80%;" />
+
+Le Swagger est accessible à l'adresse suivante lorsque l'application est lancée : http://localhost:8080/q/swagger-ui/#/
+
+![image-20220305154723783](assets/README/image-20220305154723783.png)
 
 # SonarQube
 
