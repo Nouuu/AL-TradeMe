@@ -121,7 +121,7 @@ public final class TradesmanController {
                 abilities.skills(),
                 abilities.activityRadius(),
                 abilities.dailyRate(),
-                abilities.unavailabilityPeriods()));
+                null));
 
         return getTradesmanResponse(updatedTradesman);
     }
