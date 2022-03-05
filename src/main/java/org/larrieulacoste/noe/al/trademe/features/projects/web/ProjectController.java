@@ -27,7 +27,7 @@ public final class ProjectController {
 
     @GET
     @Path("contractor/{contractorId}")
-    @Operation(summary = "Get contractors projects", description = "Retrieve all contractors assigned projects")
+    @Operation(summary = "Get contractor's projects", description = "Retrieve all contractor's assigned projects")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectResponse> getContractorProjects(@PathParam("contractorId") String contractorId) {
         List<Project> projects = queryBus.send(new RetrieveContractorProjects(contractorId));
@@ -36,7 +36,7 @@ public final class ProjectController {
 
     @GET
     @Path("tradesman/{tradesmanId}")
-    @Operation(summary = "Get tradesman projects", description = "Retrieve all tradesman assigned projects")
+    @Operation(summary = "Get tradesman's projects", description = "Retrieve all tradesman's assigned projects")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectResponse> getTradesmanProjects(@PathParam("tradesmanId") String tradesmanId) {
         List<Project> projects = queryBus.send(new RetrieveTradesmanProjects(tradesmanId));
@@ -62,7 +62,7 @@ public final class ProjectController {
 
     @GET
     @Path("{projectId}/skills")
-    @Operation(summary = "Get project skills", description = "Retrieve all skills from a project")
+    @Operation(summary = "Get project required skills", description = "Retrieve all required skills from a project")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<ProjectSkillResponse> getProjectSkills(@PathParam("projectId") String projectId) {
         List<Skill> requiredSkills = queryBus.send(new RetrieveProjectSkills(projectId));
