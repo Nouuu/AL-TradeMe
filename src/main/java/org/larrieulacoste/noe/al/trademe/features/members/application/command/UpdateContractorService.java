@@ -8,7 +8,6 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.MemberValidatio
 import org.larrieulacoste.noe.al.trademe.kernel.command.CommandHandler;
 import org.larrieulacoste.noe.al.trademe.kernel.event.ApplicationEvent;
 import org.larrieulacoste.noe.al.trademe.kernel.event.EventBus;
-import org.larrieulacoste.noe.al.trademe.kernel.validators.StringValidators;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -22,7 +21,7 @@ public class UpdateContractorService implements CommandHandler<UpdateContractor,
     private final ContractorBuilder contractorBuilder;
 
     UpdateContractorService(Contractors contractors, MemberValidationService memberValidationService,
-                            EventBus<ApplicationEvent> eventBus, StringValidators stringValidators,
+                            EventBus<ApplicationEvent> eventBus,
                             ContractorBuilder contractorBuilder) {
         this.contractors = Objects.requireNonNull(contractors);
         this.memberValidationService = memberValidationService;

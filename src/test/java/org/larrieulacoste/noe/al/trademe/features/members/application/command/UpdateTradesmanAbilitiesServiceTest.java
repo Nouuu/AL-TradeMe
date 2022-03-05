@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.larrieulacoste.noe.al.trademe.features.members.domain.*;
 import org.larrieulacoste.noe.al.trademe.features.members.infrastructure.InMemoryTradesmen;
 import org.larrieulacoste.noe.al.trademe.kernel.event.DefaultEventBus;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.InvalidUserException;
+import org.larrieulacoste.noe.al.trademe.kernel.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.DefaultLoggerFactory;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.validators.SimpleDateValidators;
@@ -17,7 +19,7 @@ import org.larrieulacoste.noe.al.trademe.shared_kernel.model.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UpdateTradesmanAbilitiesServiceTest {
+class UpdateTradesmanAbilitiesServiceTest {
 
   UpdateTradesmanAbilitiesService updateTradesmanAbilitiesService;
   StringValidators stringValidators = new SimpleStringValidators();
@@ -34,10 +36,11 @@ public class UpdateTradesmanAbilitiesServiceTest {
 
   @Test
   void callServiceOnUnknownTradesman() {
+    var command = new UpdateTradesmanAbilities("id1", "charpentier", new ArrayList<>(), 10.0, 1.0, new ArrayList<>());
     Assertions.assertThatThrownBy(() -> {
       updateTradesmanAbilitiesService
-          .handle(new UpdateTradesmanAbilities("id1", "charpentier", new ArrayList<>(), 0.0, 0.0, new ArrayList<>()));
-    });
+          .handle(command);
+    }).isInstanceOf(UserNotFoundException.class);
   }
 
   @Test
