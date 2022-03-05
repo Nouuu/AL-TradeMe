@@ -206,11 +206,15 @@ Ce package contient les différentes interfaces et leurs implémentations de fon
 
 #### IO
 
-TODO
+Ce package nous permet d'avoir les interfaces **Reader** et **Writer** qui vont nous permettre d'interagir avec différents contenus, tel que des fichiers par exemple.
 
-#### Serializer
+Il y a actuellement deux implémentations pour chacune de ces interfaces. Les deux permettent accéder à des fichier.
 
-TODO
+#### Marshaller
+
+Le package marshaller met à disposition une interface de **Sérialisation** et de **Désérialisation** de nos objets vers une chaine de caractères.
+
+Actuellement il existe une implémentation de chaque pour le format **JSON**.
 
 #### Exception handler
 
@@ -303,7 +307,7 @@ Dans le package configuration, les beans sont réparties dans différentes class
 
 C'est lui qui va injecter les bean dites "globales" tel que le logger ou encore la classe contenant les montants pour les abonnements.
 
-<img src="assets/README/GlobalConfiguration.png" alt="GlobalConfiguration" style="zoom:50%;" />
+![image-20220305153432641](assets/README/image-20220305153432641.png)
 
 ### APIConfiguration
 
@@ -315,30 +319,38 @@ Comme son nom l'indique, inject les différents API nécessaires au bon fonction
 
 Injecte les différents bus de commandes selon la feature, la configuration aura fait au préalable le maillage nécessaire entre les commandes et les services applicatifs.
 
-<img src="assets/README/CommandConfiguration.png" alt="CommandConfiguration" style="zoom:50%;" />
+![image-20220305153609910](assets/README/image-20220305153609910.png)
 
 ### QueryConfiguration
 
-Injete les différents bus de requêtes selon la feature, la configuration aura fait au préalable le maillage nécessaire entre les requêtes et les services applicatifs.
+Injecte les différents bus de requêtes selon la feature, la configuration aura fait au préalable le maillage nécessaire entre les requêtes et les services applicatifs.
 
-<img src="assets/README/QueryConfiguration.png" alt="QueryConfiguration" style="zoom:50%;" />
+![image-20220305153653788](assets/README/image-20220305153653788.png)
 
 ### EventConfiguration
 
 Injecte les différents bus d'événements selon le type d'événement (actuellement uniquement ceux du type **ApplicationEvent**), la configuration aura fait au préalable le maillage nécessaire entre les événements et les observateurs.
 
-| <img src="assets/README/image-20220109161750915.png" alt="image-20220109161750915" style="zoom:67%;" /> | <img src="assets/README/EventConfiguration.png" alt="EventConfiguration" style="zoom: 67%;" /> |
+| <img src="assets/README/image-20220305153731926.png" alt="image-20220305153731926" style="zoom:67%;" /> | <img src="assets/README/EventConfiguration.png" alt="EventConfiguration" style="zoom: 67%;" /> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 ### RepositoryConfiguration
 
 Injecte les différents repositories au sein des services qui en ont besoin :
 
-<img src="assets/README/RepositoryConfiguration.png" alt="RepositoryConfiguration" style="zoom:50%;" />
+![image-20220305153814991](assets/README/image-20220305153814991.png)
 
 ### IOConfiguration
 
-TODO
+Injecte l'implémentation choisi pour nos Reader et Writer :
+
+![image-20220305154003138](assets/README/image-20220305154003138.png)
+
+### MarshallerConfiguration
+
+Injecte l'implémentation choisi pour notre Sérialiser et Désérialiser : 
+
+![image-20220305154035698](assets/README/image-20220305154035698.png)
 
 # Tests unitaires
 
