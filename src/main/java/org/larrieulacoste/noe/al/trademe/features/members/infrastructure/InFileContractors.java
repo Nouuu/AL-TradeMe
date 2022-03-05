@@ -5,8 +5,8 @@ import org.larrieulacoste.noe.al.trademe.features.members.domain.Contractors;
 import org.larrieulacoste.noe.al.trademe.kernel.exception.UserNotFoundException;
 import org.larrieulacoste.noe.al.trademe.kernel.io.Reader;
 import org.larrieulacoste.noe.al.trademe.kernel.io.Writer;
-import org.larrieulacoste.noe.al.trademe.kernel.serializer.DeserializationEngine;
-import org.larrieulacoste.noe.al.trademe.kernel.serializer.SerializationEngine;
+import org.larrieulacoste.noe.al.trademe.kernel.marshaller.DeserializationEngine;
+import org.larrieulacoste.noe.al.trademe.kernel.marshaller.SerializationEngine;
 import org.larrieulacoste.noe.al.trademe.shared_kernel.model.EntityId;
 
 import java.util.List;
