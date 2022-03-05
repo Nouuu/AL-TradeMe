@@ -18,8 +18,8 @@ import org.larrieulacoste.noe.al.trademe.kernel.io.Reader;
 import org.larrieulacoste.noe.al.trademe.kernel.io.Writer;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.Logger;
 import org.larrieulacoste.noe.al.trademe.kernel.logger.LoggerQualifier;
-import org.larrieulacoste.noe.al.trademe.kernel.serializer.DeserializationEngine;
-import org.larrieulacoste.noe.al.trademe.kernel.serializer.SerializationEngine;
+import org.larrieulacoste.noe.al.trademe.kernel.marshaller.DeserializationEngine;
+import org.larrieulacoste.noe.al.trademe.kernel.marshaller.SerializationEngine;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
