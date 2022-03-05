@@ -20,7 +20,7 @@
   * [Factures](#factures)
   * [Projets](#projets)
 - [Architecture choisie](#architecture-choisie)
-  * [Hexagonal Architecture](#hexagonal-architecture)
+  * [Onion Architecture](#onion-architecture)
   * [Domain-Driven Design](#domain-driven-design)
   * [Staged event-driven architecture](#staged-event-driven-architecture)
   * [Architectural Decision Record](#architectural-decision-record)
