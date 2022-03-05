@@ -10,6 +10,14 @@
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |            |                                                                                                                                                                                                                                      | [![Code smells](https://sonar.nospy.fr/api/project_badges/measure?branch=dev&project=Nouuu_AL-TradeMe&metric=code_smells&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=dev)             |                                                                                                                                                                                                                                                     | [![Bugs](https://sonar.nospy.fr/api/project_badges/measure?branch=dev&project=Nouuu_AL-TradeMe&metric=bugs&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=dev)                             | [![Vulnerabilities](https://sonar.nospy.fr/api/project_badges/measure?branch=dev&project=Nouuu_AL-TradeMe&metric=vulnerabilities&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=dev) |
 |            |                                                                                                                                                                                                                                      | [![Technical Debt](https://sonar.nospy.fr/api/project_badges/measure?branch=dev&project=Nouuu_AL-TradeMe&metric=sqale_index&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=dev)          |                                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                    |
+# Plan
+
+[TOC]
+
+# Fonctionnalités
+
+TODO
+
 # Architecture choisie
 
 ## Hexagonal Architecture
@@ -177,12 +185,23 @@ Ce package permet d'avoir une **persistance des données** entités de l'applica
 Pour cela on utilise le **pattern repository et strategy** afin de **séparer son interface**, qui restera dans le **
 domaine**, de son implémentation dans **l'infrastructure**.
 
-Actuellement l'implémentation stoque les entités en mémoire et se vide quand l'application s'arrête.
+Actuellement,il existe deux implémentations de cette interface :
+
+- Une en mémoire : les entités en mémoire et se vide quand l'application s'arrête.
+- Une grâce à un fichier JSON, qui persiste à arrêt de l'application et se charge au démarrage.
 
 ### Kernel
 
 Ce package contient les différentes interfaces et leurs implémentations de fonctions "utilitaires" qui pourront être
 exploité par nos services applicatifs et autre afin d'assurer un fonctionnement correct de notre application.
+
+#### IO
+
+TODO
+
+#### Serializer
+
+TODO
 
 #### Validators
 
@@ -190,12 +209,11 @@ Apporte des fonctions utilitaire de validation de nos différentes entités du d
 
 Exemple : Lors de la vérification d'un champs, le programme jouera le diagramme de séquence suivant :
 
-![MemberValidationService_email.png](D:\Projets\AL-TradeMe\assets\5c7cc1b9735a6d60726007287ea148f0f0509299.png)
+![MemberValidationService_email.png](assets\5c7cc1b9735a6d60726007287ea148f0f0509299.png)
 
 #### Command
 
-Ce package contient la logique d'exécution d'une commande et le bus qui y est associé. Ce dernier possède sa propre
-implémentation dans chaque features et est injecté grâce au package configuration qui aura configuré le maillage
+Ce package contient la logique d'exécution d'une commande et le bus qui y est associé. Ce dernier possède une implémentation global à chaque features et est injecté grâce au package configuration qui aura configuré le maillage
 correctement entre les commandes et les services associés.
 
 Le comportement suivant est observé :
@@ -208,8 +226,8 @@ Création d'un contractor :
 
 #### Query
 
-Ce package contient la logique d'exécution d'une requête et le bus qui y est associé. Ce dernier possède sa propre
-implémentation dans chaque features et est injecté grâce au package configuration qui aura configuré le maillage
+Ce package contient la logique d'exécution d'une requête et le bus qui y est associé. Ce dernier possède une 
+implémentation global à chaque features et est injecté grâce au package configuration qui aura configuré le maillage
 correctement entre les requêteset les services associés.
 
 Le comportement suivant est observé :
@@ -234,12 +252,16 @@ Comportement du bus d'événement par défaut :
 #### Logger
 
 En utilisant le **pattern strategy** ainsi que **factory**, ce package permet à une classe d'obtenir un logger qui lui
-est propre grâce au **LoggerFactory**. Les interfaces font parties du **domaine** et leurs implémentation de **
-l'infrastructure**. Actuellement l'implémentation présente réutilise le la classe **Logger** **de Java**.
+est propre grâce au **LoggerFactory**. Les interfaces font parties du **domaine** et leurs implémentation de **l'infrastructure**. 
+Actuellement l'implémentation présente réutilise le la classe **Logger** de Java.
 
 Une deuxième implémentation utilise le logger **JBoss** qui permet d'avoir des logs formattés autrement en console, en
 plus de les écrire dans un fichier de logs en temps réel afin de garder une trace du comportement de l'aplication et des
 éventuelles erreurs.
+
+### Shared kernel
+
+Ce package est présent sur le niveau le plus haut de l'application, avant les **features**. Ce dernier contient les entités qui sont partagées entre les différents usecases.
 
 ### Web
 
