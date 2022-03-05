@@ -12,6 +12,8 @@
 |            |                                                                                                                                                                                                                                      | [![Technical Debt](https://sonar.nospy.fr/api/project_badges/measure?branch=dev&project=Nouuu_AL-TradeMe&metric=sqale_index&token=edc93fd166b059d5befe7e2fe22d2e0d10d9b853)](https://sonar.nospy.fr/dashboard?id=Nouuu_AL-TradeMe&branch=dev)          |                                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                    |
 # Plan
 
+<!-- toc -->
+
 [TOC]
 
 # Fonctionnalités métiers
@@ -98,7 +100,11 @@ Un des nombreux avantages que cela représente et le découpage de notre applica
 
 Voilà quelques décisions d'architecture que nous avons pris pendant le développement du projet :
 
-- 
+- [Communications externes](Architectural-Decision/external-communication.md)
+- [Communications internes](Architectural-Decision/internal-communication.md)
+- [Service VS Command/Query Handler](Architectural-Decision/service-vs-command-handler.md)
+- [Utilisation des records](Architectural-Decision/utilisation-des-records.md)
+- [Validation](Architectural-Decision/validation.md)
 
 # Implémentation
 
