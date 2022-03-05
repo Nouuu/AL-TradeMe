@@ -118,19 +118,21 @@
 
 # Architecture choisie
 
-## Hexagonal Architecture
+## Onion Architecture
 
-Pour mener à bien ce projet, je me suis inspiré de l'architecture hexagonale, qui permet un faible couplage entre plusieurs composants.
+Pour mener a bien le projet l'on s'est inspiré de concepte qui vennent des architectures ditent **clean** et de garder ces 3 objectifs en tête.
 
-Cela permet entre autre à l'application de pouvoir être **testé en isolation** de ses éventuels systèmes d'exécution de base de données ou d'autres services.
-
-Elle est également beaucoup plus maintenable et propice aux évolutions.
+1. être indépendent du framework et des librairies externe.
+2. Testable: Il doit être facile d'ajouté des test dans la base de code.
+3. être indénpendant de la manière dont on fait persisté nos données.
 
 ## Domain-Driven Design
 
-Cette application a été conçue en utilisant une approche **DDD** (**Domain-Driven Design**). Cela fait référence à une conception pilotée par le métier.
+Lors de la conception du projet on a essayer d'utiliser une approche piloté par les usecase et le Domaine, en suivant ce que l'on connaissant du **DDD** (**Domain-Driven Design**) et fonctionnant avec des aggregats.
 
-De cette manière, l'application est séparée en plusieurs packages, dont celui du domaine qui contient l'ensemble des modèles relatifs au métier et le package applicatif qui possède les services de ce même domaine.
+En utilisant ubiquitous language, pour parger un language comment au seins de l'équipe, qui est le langauge du métier.
+
+On a bien séparé nos features dans des **bounded context** qui partage ce qu'il ont en commun (les **events** et certain **model interne**) via le **shared kernel**.
 
 ## Staged event-driven architecture
 
