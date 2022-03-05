@@ -8,7 +8,7 @@ import org.larrieulacoste.noe.al.trademe.shared_kernel.model.SkillRequest;
 public record MatchTradesmanRequest(
         String projectId,
         List<SkillRequest> requiredSkills,
-        List<String> requiredProfessions,
+        @Schema(enumeration = {"Plumber", "Electrician"}) List<String> requiredProfessions,
         @Schema(defaultValue = "2023-03-01T00:00:00.000Z") ZonedDateTime startDate,
         @Schema(defaultValue = "2023-03-31T00:00:00.000Z") ZonedDateTime endDate,
         @Schema(defaultValue = "50") double dailyRate,
