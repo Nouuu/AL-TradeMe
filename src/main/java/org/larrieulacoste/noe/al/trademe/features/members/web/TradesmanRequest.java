@@ -5,16 +5,16 @@ import org.larrieulacoste.noe.al.trademe.shared_kernel.model.PaymentMethodType;
 
 record TradesmanRequest(
         String userId,
-        String firstname,
-        String lastname,
-        String email,
-        String password,
+        @Schema(defaultValue = "firstname") String firstname,
+        @Schema(defaultValue = "lastname") String lastname,
+        @Schema(defaultValue = "mail@mail.com") String email,
+        @Schema(defaultValue = "passworD@123") String password,
         @Schema(anyOf = PaymentMethodType.class) String paymentMethodType,
         String paymentMethodRessource,
-        String profession,
-        Double longitude,
-        Double latitude,
-        Double activityRadius,
-        Double dailyRate,
-        String locationName) {
+        @Schema(defaultValue = "Plumber") String profession,
+        @Schema(defaultValue = "2") Double longitude,
+        @Schema(defaultValue = "48") Double latitude,
+        @Schema(defaultValue = "10") Double activityRadius,
+        @Schema(defaultValue = "50") Double dailyRate,
+        @Schema(defaultValue = "Paris") String locationName) {
 }
